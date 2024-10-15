@@ -4,7 +4,7 @@ import CalenderBody from "../components/CalenderBody";
 const CalenderView = () => {
   return (
     <>
-    <div className="mx-2">
+    <div className="">
       <CalenderBar />
       <CalenderBody />
       </div>
