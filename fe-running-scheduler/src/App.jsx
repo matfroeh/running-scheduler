@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
 import CalenderView from "./pages/CalenderView";
+import CreateTrainingBlockModal from "./pages/CreateTrainingBlockModal";
 
 const router = createBrowserRouter([
   {
@@ -8,8 +9,14 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        index: true,
+        path: "/",
         element: <CalenderView />,
+        children: [
+          {
+            path: "/new-schedule",
+            element: <CreateTrainingBlockModal />,
+          },
+        ],
       },
     ],
   },

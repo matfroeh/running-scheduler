@@ -1,4 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 const CalendarBar = () => {
+  const navigate = useNavigate();
+
+  const openCreateTrainingBlockModal = () => {
+    navigate("/new-schedule");
+  };
+
   return (
     <div className="navbar">
       <span className="navbar-start">
@@ -9,7 +17,12 @@ const CalendarBar = () => {
       <div className="navbar-center">
         <span>Training July - October 2024</span>
         <div className="group relative w-max">
-          <button className="btn btn-sm btn-circle mx-4">+</button>
+          <button
+            className="btn btn-sm btn-circle mx-4"
+            onClick={openCreateTrainingBlockModal}
+          >
+            +
+          </button>
           <span
             className="pointer-events-none absolute -top-6 -left-6 text-sm w-max 
           opacity-0 transition-opacity duration-700 bg-base-100 group-hover:opacity-100"
