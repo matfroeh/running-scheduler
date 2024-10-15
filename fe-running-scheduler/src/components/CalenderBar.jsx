@@ -1,19 +1,26 @@
 const CalendarBar = () => {
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar">
       <span className="navbar-start">
-        <button className="btn">Back</button>
-        <button className="btn">Today</button>
-        <button className="btn">Next</button>
+        <button className="btn btn-sm">Back</button>
+        <button className="btn btn-sm">Current</button>
+        <button className="btn btn-sm">Next</button>
       </span>
-      <span className="navbar-center">Training July - October 2024</span>
+      <div className="navbar-center">
+        <span>Training July - October 2024</span>
+        <div className="group relative w-max">
+          <button className="btn btn-sm btn-circle mx-4">+</button>
+          <span
+            className="pointer-events-none absolute -top-6 -left-6 text-sm w-max 
+          opacity-0 transition-opacity duration-700 bg-base-100 group-hover:opacity-100"
+          >
+            New Training Block
+          </span>
+        </div>
+      </div>
       <span className="navbar-end">
-        <button className="btn">
-          Details
-        </button>
-        <button className="btn">
-          Notes
-        </button>
+        <button className="btn btn-sm">Details</button>
+        <button className="btn btn-sm">Notes</button>
       </span>
     </div>
   );

@@ -1,6 +1,6 @@
 const NavBar = () => {
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar">
       <div className="navbar-start">
         <a className="btn btn-ghost text-xl">Running Scheduler</a>
       </div>
