@@ -20,7 +20,7 @@ const CreateTrainingBlockModal = () => {
   });
   const [error, setError] = useState(null);
 
-  console.log(runningDays);
+  // console.log(runningDays);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,18 +42,17 @@ const CreateTrainingBlockModal = () => {
     }
 
     const newEntry = form;
-    try {
-      navigate("/");
-    } catch (error) {
-      e.preventDefault();
-      console.error("Error saving the entry:", error);
-      setError("Error saving the entry.");
-    }
+    // try {
+      
+    // } catch (error) {
+    //   e.preventDefault();
+    //   setError("Error creating the schedule.");
+    // }
   };
 
   return (
     <Form method="post" action="/">
-      <div className="fixed inset-0 bg-black bg-opacity-65 flex justify-center items-center z-50">
+      <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
         <div className="modal-window p-8 rounded-lg border shadow-lg">
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2 w-4/5">

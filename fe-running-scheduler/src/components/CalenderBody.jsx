@@ -65,14 +65,12 @@ const CalenderBody = () => {
       <div className="text-center">Summary</div>
       <div className="col-span-8 border border-base-300"></div>
       <div className="card card-compact image-full bg-base-100 w-32 hover:border-2 border-teal-400 cursor-pointer">
-        <figure className=""></figure>
         <div className="card-body">
           <div className="card-title text-sm">Easy Run</div>
           <p>10 km</p>
         </div>
       </div>
       <div className="card card-compact image-full bg-base-100 w-32 hover:border-2 border-teal-400 cursor-pointer">
-        <figure className=""></figure>
         <div className="card-body">
           <div className="card-title text-sm">Easy Run</div>
           <p>10 km</p>
