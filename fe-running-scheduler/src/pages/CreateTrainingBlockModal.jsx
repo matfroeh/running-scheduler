@@ -8,6 +8,8 @@ const CreateTrainingBlockModal = () => {
     weeks: "",
     date: "",
     distance: "",
+    longRun: "None",
+    workoutDay: "None",
   });
   const [runningDays, setRunningDays] = useState({
     monday: false,
@@ -20,18 +22,22 @@ const CreateTrainingBlockModal = () => {
   });
   const [error, setError] = useState(null);
 
-  // console.log(runningDays);
+  const selectedDays = Object.keys(runningDays).filter(
+    (day) => runningDays[day] === true
+  );
+
+  console.log(form.longRun, form.workoutDay);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // console.log(name, value);
+
     setForm({ ...form, [name]: value });
   };
 
   const handleToggle = (e) => {
     const { name, checked } = e.target;
     setRunningDays({ ...runningDays, [name]: checked });
-
-    
   };
 
   const handleSubmit = async (e) => {
@@ -40,14 +46,30 @@ const CreateTrainingBlockModal = () => {
       setError("Please fill in all fields.");
       return;
     }
-
-    const newEntry = form;
-    // try {
-      
-    // } catch (error) {
-    //   e.preventDefault();
-    //   setError("Error creating the schedule.");
-    // }
+    if (selectedDays.length === 0) {
+      e.preventDefault();
+      setError("Please select at least one running day.");
+      return;
+    }
+    if (form.distance < 1) {
+      e.preventDefault();
+      setError("Distance should be greater than 0.");
+      return;
+    }
+    if (form.weeks < 1) {
+      e.preventDefault();
+      setError("Weeks should be greater than 0.");
+      return;
+    }
+    if (
+      form.longRun === form.workoutDay &&
+      form.longRun !== "None" &&
+      form.workoutDay !== "None"
+    ) {
+      e.preventDefault();
+      setError("Long Run and Workout Day should be on different days.");
+      return;
+    }
   };
 
   return (
@@ -92,7 +114,6 @@ const CreateTrainingBlockModal = () => {
                   <li>
                     <div className="form-control">
                       <label className="label cursor-pointer">
-                        
                         <input
                           type="checkbox"
                           name="monday"
@@ -101,6 +122,90 @@ const CreateTrainingBlockModal = () => {
                           onChange={(e) => handleToggle(e)}
                         />
                         <span className="ml-2 label-text">Monday</span>
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="form-control">
+                      <label className="label cursor-pointer">
+                        <input
+                          type="checkbox"
+                          name="tuesday"
+                          className="checkbox"
+                          checked={runningDays.tuesday}
+                          onChange={(e) => handleToggle(e)}
+                        />
+                        <span className="ml-2 label-text">Tuesday</span>
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="form-control">
+                      <label className="label cursor-pointer">
+                        <input
+                          type="checkbox"
+                          name="wednesday"
+                          className="checkbox"
+                          checked={runningDays.wednesday}
+                          onChange={(e) => handleToggle(e)}
+                        />
+                        <span className="ml-2 label-text">Wednesday</span>
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="form-control">
+                      <label className="label cursor-pointer">
+                        <input
+                          type="checkbox"
+                          name="thursday"
+                          className="checkbox"
+                          checked={runningDays.thursday}
+                          onChange={(e) => handleToggle(e)}
+                        />
+                        <span className="ml-2 label-text">Thursday</span>
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="form-control">
+                      <label className="label cursor-pointer">
+                        <input
+                          type="checkbox"
+                          name="friday"
+                          className="checkbox"
+                          checked={runningDays.friday}
+                          onChange={(e) => handleToggle(e)}
+                        />
+                        <span className="ml-2 label-text">Friday</span>
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="form-control">
+                      <label className="label cursor-pointer">
+                        <input
+                          type="checkbox"
+                          name="saturday"
+                          className="checkbox"
+                          checked={runningDays.saturday}
+                          onChange={(e) => handleToggle(e)}
+                        />
+                        <span className="ml-2 label-text">Saturday</span>
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="form-control">
+                      <label className="label cursor-pointer">
+                        <input
+                          type="checkbox"
+                          name="sunday"
+                          className="checkbox"
+                          checked={runningDays.sunday}
+                          onChange={(e) => handleToggle(e)}
+                        />
+                        <span className="ml-2 label-text">Sunday</span>
                       </label>
                     </div>
                   </li>
@@ -119,7 +224,22 @@ const CreateTrainingBlockModal = () => {
                 />
               </label>
             </div>
-            <div className="spacer"></div>
+            <div className="flex items-center gap-4">
+              <label className="ml-4">Long Run:</label>
+              <select
+                className="ml-2"
+                name="longRun"
+                onChange={(e) => handleChange(e)}
+              >
+                <option value="none">None</option>
+                {selectedDays.map((day) => (
+                  <option key={day} value={day}>
+                    {day.charAt(0).toUpperCase() + day.slice(1)}
+                  </option>
+                ))}
+                ;
+              </select>
+            </div>
 
             <div>
               <label className="flex items-center gap-4">
@@ -133,9 +253,26 @@ const CreateTrainingBlockModal = () => {
                 />
               </label>
             </div>
+
+            <div className="flex items-center gap-4">
+              <label className="ml-4">Workout Day:</label>
+              <select
+                className="ml-2"
+                name="workoutDay"
+                onChange={(e) => handleChange(e)}
+              >
+                <option value="none">None</option>
+                {selectedDays.map((day) => (
+                  <option key={day} value={day}>
+                    {day.charAt(0).toUpperCase() + day.slice(1)}
+                  </option>
+                ))}
+                ;
+              </select>
+            </div>
           </div>
 
-          <div className="mt-10 flex flex-auto flex-row justify-end">
+          <div className="mt-10 flex flex-auto flex-row">
             <div className="w-full justify-stretch py-2">
               {error && <p className="text-red-500 text-sm">{error}</p>}
             </div>
