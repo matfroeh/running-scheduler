@@ -1,42 +1,44 @@
-const CalendarBody = ( {data} ) => {
-  const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+import WeekDaysBar from "./WeekDaysBar";
+import TrainingCard from "./TrainingCard";
 
-  const weekDaysBar = daysOfWeek.map((day) => {
-    return (
-      <div key={day} className="text-left">
-        {day}
-      </div>
-    );
-  });
+const CalendarBody = ({ data }) => {
+if (Object.keys(data).length === 0) {
+  data = "";
+}
+console.log(data);
 
-  
 
   return (
-    <div className="grid grid-cols-8 mx-4 gap-2">
-      {weekDaysBar}
-      <div className="text-center">Summary</div>
-      <div className="col-span-8 border border-base-300"></div>
-      <div className="card card-compact image-full bg-base-100 w-32 hover:border-2 border-teal-400 cursor-pointer">
-        <div className="card-body">
-          <div className="card-title text-sm">Easy Run</div>
-          <p>10 km</p>
-        </div>
+    <div className="grid grid-cols-8 mx-4 gap-x-4 gap-y-2">
+      {/* ToDo: what about displaying special days in the header? */}
+      <WeekDaysBar />
+      {/* Solution 1: map over weeks <TrainingWeek week={data.week*) /> 
+      and add a summary conditionally after day0=sunday */}
+      {data ? Object.entries(data.week1).map(([day, data]) => {
+        return <TrainingCard key={day} data={data} />
+      }) : null}
+    <div className="card card-compact border image-full bg-base-100 h-28 w-full hover:border-teal-400 cursor-pointer">
+      <div className="items-start justify-self-end text-white text-xs mt-1 mr-2"></div>
+      <div className="card-body">
+      <div className="card-title text-sm">Week 1</div>
+        <p>Total:</p>
+        <p>58 km</p>
       </div>
-      <div className="card card-compact image-full bg-base-100 w-32 hover:border-2 border-teal-400 cursor-pointer">
-        <div className="card-body">
-          <div className="card-title text-sm">Easy Run</div>
-          <p>10 km</p>
-        </div>
+    </div>
+            {data ? Object.entries(data.week1).map(([day, data]) => {
+        return <TrainingCard key={day} data={data} />
+      }) : null}
+        <div className="card card-compact border image-full bg-base-100 h-28 w-full hover:border-teal-400 cursor-pointer">
+      <div className="items-start justify-self-end text-white text-xs mt-1 mr-2"></div>
+      <div className="card-body">
+      <div className="card-title text-sm">Week 2</div>
+        <p>Total:</p>
+        <p>58 km</p>
       </div>
-      <div className="col-span-5"></div>
-      <div className="card card-compact image-full bg-base-100 w-32">
-        <div className="card-body">
-          <p>Distance:</p>
-          <p>10 km / 50 km</p>
-          <p>Avg. HR: 135</p>
-          <p>Weighted Effort: 5</p>
-        </div>
-      </div>
+    </div>
+
+      {/* Solution 2: all cards directly mapped herein  */}
+      {/* Keep in mind that we want to edit each card manually, but even a whole week maybe? */}
     </div>
   );
 };

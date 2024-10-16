@@ -1,9 +1,19 @@
 const TrainingCard = ({ data }) => {
+  const { date, type, distance } = data;
+  console.log(date, type, distance);
+  
+
+  const formattedDate = new Intl.DateTimeFormat("en-UK", {
+    month: "numeric",
+    day: "numeric",
+  }).format(new Date(date));
+
   return (
-    <div className="card card-compact image-full bg-base-100 w-32 hover:border-2 border-teal-400 cursor-pointer">
+    <div className="card card-compact border image-full bg-base-100 h-28 w-full hover:border-teal-400 cursor-pointer">
+      <div className="items-start justify-self-end text-white text-xs mt-1 mr-2">{formattedDate}</div>
       <div className="card-body">
-        <div className="card-title text-sm">Easy Run</div>
-        <p>10 km</p>
+        <div className="card-title text-sm mt-1">{type}</div>
+        {distance ? <p>{distance} km</p> : null}
       </div>
     </div>
   );
