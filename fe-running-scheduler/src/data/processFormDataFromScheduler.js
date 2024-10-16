@@ -22,20 +22,37 @@ export function processFormDataFromScheduler(data) {
     return date;
   };
 
-  // Calculate training block parameters
-  let runningDays = [];
-  runningDays = weekdays.reduce((acc, day) => {
-    if (data[day]) {
-      runningDays.push(day);
-    }
+  const getRunningDaysAsIndexList = () => {
+    let runningDays = [];
+    Object.keys(data).filter((day) => {
+      if (weekdays.includes(day)) {
+        runningDays.push(weekdays.indexOf(day));
+      }
+    });
     return runningDays;
-  });
+  };
+
+  const getRestDaysAsIndexList = (runningDays) => {
+    let restDays = [];
+    weekdays.forEach((day, index) => {
+      if (!runningDays.includes(index)) {
+        restDays.push(index);
+      }
+    });
+    return restDays;
+  };
+
+  // Calculate training block parameters
+  const runningDays = getRunningDaysAsIndexList();
+  const restDays = getRestDaysAsIndexList(runningDays);
   const startDate = new Date(setDateToFollowingMonday(new Date(date)));
   const workoutDayIndex = weekdays.indexOf(workoutDay);
   const longRunDayIndex = weekdays.indexOf(longRun);
   const longRunDistance = Math.floor((distance * 1) / 3); // a reasonable starting point
   const workoutDayDistance = 10; // fixed assumption
-  const easyRunDistance = (distance - longRunDistance - workoutDayDistance) / (runningDays.length - 2);
+  const easyRunDistance =
+    (distance - longRunDistance - workoutDayDistance) /
+    (runningDays.length - 2);
 
   const trainingBlockParameters = {
     title,
@@ -48,6 +65,7 @@ export function processFormDataFromScheduler(data) {
     easyRunDistance,
     weeks,
     runningDays,
+    restDays,
   };
 
   const getAllWeekDates = (firstDay, week) => {
@@ -62,7 +80,7 @@ export function processFormDataFromScheduler(data) {
 
   const createWeekTemplateDays = (weekDays) => {
     let template = {};
-    let days = ["day1", "day2", "day3", "day4", "day5", "day6", "day0"]; 
+    let days = ["day1", "day2", "day3", "day4", "day5", "day6", "day0"];
     let i = 0;
     for (const day in weekDays) {
       template[days[i]] = { date: weekDays[day] };
@@ -70,10 +88,17 @@ export function processFormDataFromScheduler(data) {
     }
     return template;
   };
-  
 
   const getTrainingBlockWeek = (trainingBlockParameters, week) => {
-    const { startDate, workoutDayIndex, workoutDayDistance, longRunDayIndex, longRunDistance, runningDays } = trainingBlockParameters;
+    const {
+      startDate,
+      workoutDayIndex,
+      workoutDayDistance,
+      easyRunDistance,
+      longRunDayIndex,
+      longRunDistance,
+      runningDays,
+    } = trainingBlockParameters;
     let trainingBlockWeek = {};
     const weekDates = getAllWeekDates(startDate, week);
 
@@ -85,21 +110,20 @@ export function processFormDataFromScheduler(data) {
     // set distances of workout day and long run day
     trainingBlockWeek[`day${workoutDayIndex}`].distance = workoutDayDistance;
     trainingBlockWeek[`day${longRunDayIndex}`].distance = longRunDistance;
-    // set rest of running days as easy run types
-    runningDays.forEach((day, index) => {
+    // set remaining days of running days as easy run types and set distance
+    runningDays.forEach((index) => {
       if (index !== workoutDayIndex && index !== longRunDayIndex) {
         trainingBlockWeek[`day${index}`].type = "Easy Run";
-        trainingBlockWeek[`day${index}`].distance = distance;
+        trainingBlockWeek[`day${index}`].distance = easyRunDistance;
       }
     });
+    // set RestDays as rest days type
+    restDays.forEach((index) => {
+      trainingBlockWeek[`day${index}`].type = "Rest Day";
+    });
+  };
 
-
-
-
-  }
-
-
-
-
-  return trainingBlockParameters;
+  const testTrainingBlock1 = getTrainingBlockWeek(trainingBlockParameters, 1);
+  console.log(testTrainingBlock1);
+  
 }
