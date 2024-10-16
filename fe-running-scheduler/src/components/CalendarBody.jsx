@@ -1,4 +1,4 @@
-const CalenderBody = () => {
+const CalendarBody = () => {
   const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   const weekDaysBar = daysOfWeek.map((day) => {
@@ -41,4 +41,4 @@ const CalenderBody = () => {
   );
 };
 
-export default CalenderBody;
+export default CalendarBody;

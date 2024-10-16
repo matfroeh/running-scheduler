@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
-import CalenderView from "./pages/CalenderView";
+import CalendarView from "./pages/CalendarView";
 import CreateTrainingBlockModal from "./pages/CreateTrainingBlockModal";
 import { action as getFormData } from "./actions/getFormData";
 
@@ -11,7 +11,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <CalenderView />,
+        element: <CalendarView />,
         action: getFormData,
         children: [
           {

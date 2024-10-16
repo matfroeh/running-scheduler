@@ -1,20 +1,20 @@
-import CalenderBar from "../components/CalenderBar";
-import CalenderBody from "../components/CalenderBody";
+import CalendarBar from "../components/CalendarBar";
+import CalendarBody from "../components/CalendarBody";
 import { Outlet, useActionData } from "react-router-dom";
 import { processFormDataFromScheduler } from "../data/processFormDataFromScheduler";
 
-const CalenderView = () => {
+const CalendarView = () => {
   const data = useActionData();
   console.log(data);
   processFormDataFromScheduler(data);
   
   return (
     <>
-      <CalenderBar />
-      <CalenderBody />
+      <CalendarBar />
+      <CalendarBody />
       <Outlet />
     </>
   );
 };
 
-export default CalenderView;
+export default CalendarView;

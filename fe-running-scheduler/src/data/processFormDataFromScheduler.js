@@ -1,3 +1,14 @@
+
+
+
+
+// TODO: handle exceptions e.g. no longrun, no workout day, etc.
+
+
+
+
+
+
 export function processFormDataFromScheduler(data) {
   const { title, distance, workoutDay, longRun, weeks, date } = data;
   const weekdays = [
@@ -78,6 +89,9 @@ export function processFormDataFromScheduler(data) {
     return weekDates;
   };
 
+  // we are ordering the weekdays with monday having index 0 because that is
+  // how the calendar will displaying the days of the week.
+  // Needs to e observed if this will lead to confusion.
   const createWeekTemplateDays = (weekDays) => {
     let template = {};
     let days = ["day1", "day2", "day3", "day4", "day5", "day6", "day0"];
@@ -94,10 +108,11 @@ export function processFormDataFromScheduler(data) {
       startDate,
       workoutDayIndex,
       workoutDayDistance,
-      easyRunDistance,
       longRunDayIndex,
       longRunDistance,
+      easyRunDistance,
       runningDays,
+      restDays,
     } = trainingBlockParameters;
     let trainingBlockWeek = {};
     const weekDates = getAllWeekDates(startDate, week);

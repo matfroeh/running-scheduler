@@ -6,7 +6,7 @@ const NavBar = () => {
       </div>
       <div className="navbar-center">
         <a className="btn btn-ghost text-l">Overview</a>
-        <a className="btn btn-ghost text-l">Calender</a>
+        <a className="btn btn-ghost text-l">Calendar</a>
       </div>
       <div className="navbar-end">
         <div className="dropdown dropdown-end">
