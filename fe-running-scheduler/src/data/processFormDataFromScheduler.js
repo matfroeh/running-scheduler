@@ -52,13 +52,13 @@ export function processFormDataFromScheduler(data) {
   const workoutDayIndex =
     workoutDay !== "None" ? weekdays.indexOf(workoutDay) : null;
   const longRunDayIndex = longRun !== "None" ? weekdays.indexOf(longRun) : null;
-  console.log(workoutDayIndex, longRunDayIndex);
+  // console.log(workoutDayIndex, longRunDayIndex);
 
-  const longRunDistance = Math.floor((distance * 1) / 3); // a reasonable starting point
+  const longRunDistance = Math.round(distance * (1/3)); // a reasonable starting point
   const workoutDayDistance = 10; // fixed assumption
 
   // TODO: handle exceptions e.g. no longrun, no workout day, etc.
-  const easyRunDistance = Math.round(
+  const easyRunDistance = Math.floor(
     (distance - longRunDistance - workoutDayDistance) / (runningDays.length - 2)
   );
 
@@ -145,10 +145,25 @@ export function processFormDataFromScheduler(data) {
     return trainingBlockWeek;
   };
 
-  const testTrainingBlock1 = getTrainingBlockWeek(trainingBlockParameters, 1);
+  // const testTrainingBlock1 = getTrainingBlockWeek(trainingBlockParameters, 1);
 
   // for (const key in testTrainingBlock1) {
   //   console.log(key, testTrainingBlock1[key]);
   // }
-  return testTrainingBlock1;
+
+  const createTrainingBlockJson = (trainingBlockParameters, weeks) => {
+    let trainingBlock = {};
+    trainingBlock.title = trainingBlockParameters.title;
+    for (let i = 1; i <= weeks; i++) {
+      trainingBlock[`week${i}`] = getTrainingBlockWeek(
+        trainingBlockParameters,
+        i
+      );
+    }
+    return trainingBlock;
+  };
+
+  const trainingBlockJson = createTrainingBlockJson(trainingBlockParameters, weeks);
+
+  return trainingBlockJson;
 }

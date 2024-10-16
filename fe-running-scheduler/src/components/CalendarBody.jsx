@@ -1,4 +1,4 @@
-const CalendarBody = () => {
+const CalendarBody = ( {data} ) => {
   const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   const weekDaysBar = daysOfWeek.map((day) => {
