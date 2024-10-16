@@ -26,8 +26,6 @@ const CreateTrainingBlockModal = () => {
     (day) => runningDays[day] === true
   );
 
-  console.log(form.longRun, form.workoutDay);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     // console.log(name, value);
