@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import CalendarBar from "../components/CalendarBar";
 import CalendarBody from "../components/CalendarBody";
 import { Outlet, useActionData } from "react-router-dom";
@@ -5,18 +6,28 @@ import { processFormDataFromScheduler } from "../data/processFormDataFromSchedul
 
 const CalendarView = () => {
   const data = useActionData();
-  // console.log(data);
+  console.log(data);
+  
+  const [trainingBlockData, setTrainingBlockData] = useState(
+    data ? processFormDataFromScheduler(data) : {}
+  );
 
-  let trainingBlockData = {};
+  useEffect(() => {
+    if (data) {
+      setTrainingBlockData(processFormDataFromScheduler(data));
+    }
+  }, [data]);
+  
+  // console.log(trainingBlockData);
+  
+  // if (data) {
+  //   for (const key in trainingBlockData) {
+  //     console.log(key, trainingBlockData[key]);
+  //   }
+  // }
+  
 
-  if (data) {
-    trainingBlockData = processFormDataFromScheduler(data);
-    // for (const key in trainingBlockData) {
-    //   console.log(key, trainingBlockData[key]);
-    // }
-  }
 
-  // ToDo: Fix Title
   // Note: We can associate the Scheduled Training Card with the corresponding Uploaded Training Card at the same day
   return (
     <>
@@ -28,3 +39,21 @@ const CalendarView = () => {
 };
 
 export default CalendarView;
+
+  // if (data) {
+  //   for (const key in data) {
+  //     console.log(key, data[key]);
+  //   }
+  //   const calculatedData = processFormDataFromScheduler(data);
+  //   for (const key in calculatedData) {
+  //     console.log(key, calculatedData[key]);
+  //   }
+  // }
+  // let trainingBlockData = {};
+
+  // if (data) {
+  //   trainingBlockData = processFormDataFromScheduler(data);
+  //   // for (const key in trainingBlockData) {
+  //   //   console.log(key, trainingBlockData[key]);
+  //   // }
+  // }

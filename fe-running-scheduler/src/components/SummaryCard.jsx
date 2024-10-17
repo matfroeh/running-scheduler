@@ -6,14 +6,15 @@ const SummaryCard = ({ week, weekNumber }) => {
     return acc;
   }, 0);
 
-  console.log(totalDistance);
+  const weekTitle = `Week ${weekNumber.match(/\d+$/)[0]}`;
+  
 
   return (
     <div className="card card-compact border row-span-2 image-full bg-base-100 h-full w-full hover:border-teal-400 cursor-pointer">
       <div className="items-start justify-self-end text-white text-xs mt-1 mr-2"></div>
       <div className="card-body">
-        <div className="card-title text-sm">{weekNumber}</div>
-        <p>Total: <span className="inline-block">{totalDistance} km</span> </p>
+        <div className="card-title text-sm">{weekTitle? weekTitle : ""}</div>
+        <p>Total: <span className="inline-block">{totalDistance? totalDistance : ""} km</span> </p>
       </div>
     </div>
   );

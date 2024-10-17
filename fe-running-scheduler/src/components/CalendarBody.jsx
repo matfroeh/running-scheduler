@@ -5,7 +5,7 @@ const CalendarBody = ({ data }) => {
   if (Object.keys(data).length === 0) {
     data = "";
   }
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className="grid grid-cols-8 mx-4 gap-x-4 gap-y-2">

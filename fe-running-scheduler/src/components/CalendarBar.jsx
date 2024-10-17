@@ -7,7 +7,7 @@ const CalendarBar = ({ title }) => {
     navigate("/new-schedule");
   };
 
-  title? title : title = "Training July - October 2024";
+  title? title : title = "Create Your First Training Schedule";
 
   return (
     <div className="navbar">
@@ -29,7 +29,7 @@ const CalendarBar = ({ title }) => {
             className="pointer-events-none absolute -top-6 -left-6 text-sm w-max 
           opacity-0 transition-opacity duration-700 bg-base-100 group-hover:opacity-100"
           >
-            New Training Block
+            New Training Schedule
           </span>
         </div>
       </div>
