@@ -58,7 +58,7 @@ export function processFormDataFromScheduler(data) {
   const workoutDayDistance = 10; // fixed assumption
 
   // TODO: handle exceptions e.g. no longrun, no workout day, etc.
-  const easyRunDistance = Math.floor(
+  const easyRunDistance = Math.round(
     (distance - longRunDistance - workoutDayDistance) / (runningDays.length - 2)
   );
 

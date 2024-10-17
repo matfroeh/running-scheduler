@@ -11,11 +11,12 @@ const CalendarView = () => {
 
   if (data) {
     trainingBlockData = processFormDataFromScheduler(data);
-    for (const key in trainingBlockData) {
-      console.log(key, trainingBlockData[key]);
-    }
+    // for (const key in trainingBlockData) {
+    //   console.log(key, trainingBlockData[key]);
+    // }
   }
 
+  // ToDo: Fix Title
   // Note: We can associate the Scheduled Training Card with the corresponding Uploaded Training Card at the same day
   return (
     <>

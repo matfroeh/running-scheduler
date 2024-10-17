@@ -1,11 +1,19 @@
-const SummaryCard = ( {data} ) => {
+const SummaryCard = ({ week, weekNumber }) => {
+  const totalDistance = Object.keys(week).reduce((acc, day) => {
+    if (week[day].distance) {
+      acc += week[day].distance;
+    }
+    return acc;
+  }, 0);
+
+  console.log(totalDistance);
+
   return (
-    <div className="card card-compact image-full bg-base-100 w-32">
+    <div className="card card-compact border row-span-2 image-full bg-base-100 h-full w-full hover:border-teal-400 cursor-pointer">
+      <div className="items-start justify-self-end text-white text-xs mt-1 mr-2"></div>
       <div className="card-body">
-        <p>Distance:</p>
-        <p>10 km / 50 km</p>
-        <p>Avg. HR: 135</p>
-        <p>Weighted Effort: 5</p>
+        <div className="card-title text-sm">{weekNumber}</div>
+        <p>Total: <span className="inline-block">{totalDistance} km</span> </p>
       </div>
     </div>
   );

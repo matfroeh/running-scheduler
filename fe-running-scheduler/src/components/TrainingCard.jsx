@@ -1,12 +1,16 @@
 const TrainingCard = ({ data }) => {
+  if (Object.keys(data).length === 0) {
+    data = "";
+  }
   const { date, type, distance } = data;
-  console.log(date, type, distance);
   
+  
+  // console.log("Training Card:", date, type, distance);
 
   const formattedDate = new Intl.DateTimeFormat("en-UK", {
     month: "numeric",
     day: "numeric",
-  }).format(new Date(date));
+  }).format(Date.parse(date));
 
   return (
     <div className="card card-compact border image-full bg-base-100 h-28 w-full hover:border-teal-400 cursor-pointer">
