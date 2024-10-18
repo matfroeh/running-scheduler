@@ -1,9 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { handleGpxUpload as processGpx } from "../data/handleGpxUpload";
+import {
+  handleGpxUpload,
+  handleGpxUpload as processGpx,
+} from "../data/handleGpxUpload";
 import { useRef } from "react";
-// import { useState } from "react";
+import { useState } from "react";
 
 const CalendarBar = ({ title }) => {
+  const [newRunningData, setNewRunningData] = useState(null);
   // const [thisTitle, setThisTitle] = useState(title? title : title = "Create Your First Training Schedule");
   title ? title : (title = "Create Your First Training Schedule");
   const navigate = useNavigate();
@@ -13,12 +17,50 @@ const CalendarBar = ({ title }) => {
     navigate("/new-schedule");
   };
 
-  const handleGpxUpload = () => {
+  const handleGpxInputClick = () => {
+    console.log("handleinput event called");
     gpxInputRef.current.click();
-    processGpx(gpxInputRef.current.files[0]);
+    // console.log(gpxInputRef.current.files[0]);
   };
 
-  // ToDo: this can be done in a different way using onInput event see bookmark
+  const handleGpxFileChange = (e) => {
+    try {
+      const file = e.target.files[0];
+      if (file) {
+        const newRunningData = processGpx(file);
+        setNewRunningData(newRunningData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  for (const key in newRunningData) {
+    console.log(key, newRunningData[key]);
+  }
+
+  // const handleFileChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     setFileUploaded(true);
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setFormData({
+  //         ...formData,
+  //         img_url: reader.result,
+  //       });
+  //     };
+  //     reader.readAsDataURL(file);
+  //   } else {
+  //     setFileUploaded(false);
+  //     setFormData({
+  //       ...formData,
+  //       img_url: "",
+  //     });
+  //   }
+  // };
+
+  // ToDo: this can be done in a different way using onInput event (see bookmarked article)
   // Spielerei
   // const handleTitleChange = (e) => {
   //   console.log(e.target.value);
@@ -36,11 +78,12 @@ const CalendarBar = ({ title }) => {
         <button className="btn btn-sm">Next</button>
       </span>
       <div className="px-4">
-        <div className="btn btn-sm ring-1" onClick={handleGpxUpload}>
+        <div className="btn btn-sm ring-1" onClick={handleGpxInputClick}>
           Upload .gpx
           <input
             ref={gpxInputRef}
             type="file"
+            onChange={handleGpxFileChange}
             style={{ display: "none" }}
             accept=".gpx"
           />
@@ -50,7 +93,9 @@ const CalendarBar = ({ title }) => {
         {/* <input className="w-52 text-center bg-inherit" contentEditable="false" value={thisTitle} onChange={(e) => handleTitleChange(e)} /> */}
 
         <div className="flex">
-          <span className="hover:ring-1 cursor-pointer rounded-md p-1">{title}</span>
+          <span className="hover:ring-1 cursor-pointer rounded-md p-1">
+            {title}
+          </span>
           <div className="group relative w-max">
             <button
               className="btn btn-sm btn-circle mx-4 hover:ring-1"

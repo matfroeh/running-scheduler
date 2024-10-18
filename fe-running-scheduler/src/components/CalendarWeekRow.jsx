@@ -7,7 +7,7 @@ const CalendarWeekRow = ({ week, weekNumber, runningDataWeek }) => {
     week = "";
   }
   // console.log("Calendar Week Row:", week);
-  console.log("Running Data Week:", runningDataWeek);
+  // console.log("Running Data Week:", runningDataWeek);
   
 
   return (
@@ -20,7 +20,7 @@ const CalendarWeekRow = ({ week, weekNumber, runningDataWeek }) => {
       <SummaryCard week={week} weekNumber={weekNumber} />
       {week
         ? Object.entries(runningDataWeek).map(([day, data]) => {
-          console.log("RunCard Creation:\n", "\nWeek:", week, "\nDay:", day, "\nData:", data);
+          // console.log("RunCard Creation:\n", "\nWeek:", week, "\nDay:", day, "\nData:", data);
           
             return <RunCard key={day} data={data} />;
           })
