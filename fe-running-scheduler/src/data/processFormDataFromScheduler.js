@@ -21,7 +21,7 @@ export function processFormDataFromScheduler(data) {
 
   const setDateToFollowingMonday = (date) => {
     const dayOfWeek = date.getDay();
-    date.setDate(date.getDate() + getDaysToMonday(dayOfWeek));
+    date.setDate(dayOfWeek + getDaysToMonday(dayOfWeek));
     return date;
   };
 

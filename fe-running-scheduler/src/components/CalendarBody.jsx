@@ -13,6 +13,7 @@ const CalendarBody = ({ data }) => {
       <WeekDaysBar />
       {data
         ? Object.entries(data).map(([week, data]) => {
+          // ToDo: we should redo this, e.g. having a separate week property with only the weeks inside. We can rearrange title to sth. like metaData
             if (week === "title") return;
             return <CalendarWeekRow key={week} weekNumber={week} week={data} />;
           })

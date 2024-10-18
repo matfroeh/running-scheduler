@@ -73,7 +73,7 @@ const CreateTrainingBlockModal = () => {
   return (
     <Form method="post" action="/">
       <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
-        <div className="modal-window p-8 rounded-lg border shadow-lg">
+        <div className="modal-window p-8 bg-base-100 rounded-lg border shadow-lg">
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2 w-4/5">
               <label className="flex items-center gap-4">
