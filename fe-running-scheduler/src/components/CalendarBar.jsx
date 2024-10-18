@@ -1,64 +1,56 @@
 import { useNavigate } from "react-router-dom";
-import {
-  handleGpxUpload,
-  handleGpxUpload as processGpx,
-} from "../data/handleGpxUpload";
+import { handleGpxUpload as processGpx } from "../data/handleGpxUpload";
 import { useRef } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { findDayObjectByDate } from "../data/processRunningDataHelper.js";
 
-const CalendarBar = ({ title }) => {
-  const [newRunningData, setNewRunningData] = useState(null);
-  // const [thisTitle, setThisTitle] = useState(title? title : title = "Create Your First Training Schedule");
-  title ? title : (title = "Create Your First Training Schedule");
+// ToDo: We really want to upload multiple files here but this can wait
+
+const CalendarBar = ({ title, runningData, setRunningData }) => {
+  // const [newRunningData, setNewRunningData] = useState(null);
+  const [fileContent, setFileContent] = useState(null);
   const navigate = useNavigate();
   const gpxInputRef = useRef(null);
+
+  title ? title : (title = "Create Your First Training Schedule");
+  // console.log(newRunningData);
+  // for (const key in newRunningData) {
+  //   console.log(key, newRunningData[key]);
+  // }
 
   const openCreateTrainingBlockModal = () => {
     navigate("/new-schedule");
   };
 
+  // This passes the click on the normal button to the hidden input field button
   const handleGpxInputClick = () => {
     console.log("handleinput event called");
     gpxInputRef.current.click();
-    // console.log(gpxInputRef.current.files[0]);
   };
 
-  const handleGpxFileChange = (e) => {
-    try {
-      const file = e.target.files[0];
-      if (file) {
-        const newRunningData = processGpx(file);
-        setNewRunningData(newRunningData);
+  // Finally, this function reads the file content and sets it to the state
+  const handleGpxFileChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      setFileContent(reader.result);
+    };
+    reader.readAsText(file);
+  };
+
+  // I don't see any other way to do this but with useEffect
+  useEffect(() => {
+    if (fileContent) {
+      // setNewRunningData(processGpx(fileContent));
+      const newRunningData = processGpx(fileContent);
+      const [week, day] = findDayObjectByDate(newRunningData.date, runningData);
+      if (week && day) {
+        const updatedRunningData = { ...runningData };
+        updatedRunningData[week][day] = newRunningData;
+        setRunningData(updatedRunningData);
       }
-    } catch (error) {
-      console.log(error);
     }
-  };
-
-  for (const key in newRunningData) {
-    console.log(key, newRunningData[key]);
-  }
-
-  // const handleFileChange = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     setFileUploaded(true);
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setFormData({
-  //         ...formData,
-  //         img_url: reader.result,
-  //       });
-  //     };
-  //     reader.readAsDataURL(file);
-  //   } else {
-  //     setFileUploaded(false);
-  //     setFormData({
-  //       ...formData,
-  //       img_url: "",
-  //     });
-  //   }
-  // };
+  }, [fileContent]);
 
   // ToDo: this can be done in a different way using onInput event (see bookmarked article)
   // Spielerei
@@ -68,14 +60,13 @@ const CalendarBar = ({ title }) => {
   //   setTrainingBlockData( (prev) => { return {...prev, title: e.target.value} });
   // };
 
-  // title? title : title = "Create Your First Training Schedule";
-
   return (
     <div className="navbar">
       <span className="navbar-start">
         <button className="btn btn-sm">Back</button>
         <button className="btn btn-sm">Current</button>
         <button className="btn btn-sm">Next</button>
+        {/* {newRunningData && <span>{newRunningData.name}</span>} */}
       </span>
       <div className="px-4">
         <div className="btn btn-sm ring-1" onClick={handleGpxInputClick}>
