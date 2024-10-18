@@ -101,7 +101,7 @@ const CreateTrainingBlockModal = () => {
               </label>
             </div>
             <div className="flex items-center gap-4">
-              <div className="dropdown dropdown-hover">
+              <div className="ml-2 dropdown dropdown-hover">
                 <div tabIndex={0} role="button" className="btn w-full">
                   Select Running Days
                 </div>
@@ -225,7 +225,7 @@ const CreateTrainingBlockModal = () => {
             <div className="flex items-center gap-4">
               <label className="ml-4">Long Run:</label>
               <select
-                className="ml-2"
+                className="ml-2 bg-base-200 rounded-md p-1"
                 name="longRun"
                 onChange={(e) => handleChange(e)}
               >
@@ -255,7 +255,7 @@ const CreateTrainingBlockModal = () => {
             <div className="flex items-center gap-4">
               <label className="ml-4">Workout Day:</label>
               <select
-                className="ml-2"
+                className="ml-2 bg-base-200 rounded-md p-1"
                 name="workoutDay"
                 onChange={(e) => handleChange(e)}
               >

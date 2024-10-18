@@ -153,7 +153,15 @@ export function processFormDataFromScheduler(data) {
 
   const createTrainingBlockJson = (trainingBlockParameters, weeks) => {
     let trainingBlock = {};
-    trainingBlock.title = trainingBlockParameters.title;
+
+    // set meta data
+    // ToDo: let us see what we can add here as well
+    trainingBlock.meta = {};    // supposedly JS needs to know that meta will be an object beforehand
+    trainingBlock.meta.title = trainingBlockParameters.title;
+    trainingBlock.meta.startDate = trainingBlockParameters.startDate;
+
+
+    // set the weeks
     for (let i = 1; i <= weeks; i++) {
       trainingBlock[`week${i}`] = getTrainingBlockWeek(
         trainingBlockParameters,

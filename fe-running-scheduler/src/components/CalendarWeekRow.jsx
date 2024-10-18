@@ -2,11 +2,12 @@ import TrainingCard from "./TrainingCard";
 import SummaryCard from "./SummaryCard";
 import RunCard from "./RunCard";
 
-const CalendarWeekRow = ({ week, weekNumber }) => {
+const CalendarWeekRow = ({ week, weekNumber, runningDataWeek }) => {
   if (Object.keys(week).length === 0) {
     week = "";
   }
   // console.log("Calendar Week Row:", week);
+  console.log("Running Data Week:", runningDataWeek);
   
 
   return (
@@ -18,7 +19,9 @@ const CalendarWeekRow = ({ week, weekNumber }) => {
         : null}
       <SummaryCard week={week} weekNumber={weekNumber} />
       {week
-        ? Object.entries(week).map(([day, data]) => {
+        ? Object.entries(runningDataWeek).map(([day, data]) => {
+          console.log("RunCard Creation:\n", "\nWeek:", week, "\nDay:", day, "\nData:", data);
+          
             return <RunCard key={day} data={data} />;
           })
         : null}

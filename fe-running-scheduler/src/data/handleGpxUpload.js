@@ -2,23 +2,15 @@ import GpxParser from "gpxparser";
 import haversine from "haversine-distance";
 
 export const handleGpxUpload = (file) => {
-  var distance = 0;
-  var speed = 0;
-  var tempo = 0;
-  var runName = "No name";
-  var duration = 0;
-
-  const getTempoAsMinutesSecondsString = (tempo) => {
-    const minutes = Math.floor(tempo);
-    const seconds = (tempo - minutes) * 60;
-    return `${minutes}:${seconds.toFixed(0).padStart(2, "0")} min/km`;
-  };
-
-  const getDurationAsHoursMinutesSecondsString = (duration) => {
-    const hours = Math.floor(duration / 60);
-    const minutes = Math.floor((duration - hours) * 60);
-    
-  };
+  var extractedData = {
+    runName: "",
+    date: "",
+    distance: 0,
+    duration: 0,
+    tempo: 0,
+    speedStr: 0,
+    hr: 0,
+  }
 
   // Function to handle file upload and processing
   if (file) {
@@ -29,7 +21,7 @@ export const handleGpxUpload = (file) => {
       // Parse GPX data
       const gpxParser = new GpxParser();
       gpxParser.parse(gpxData);
-      // console.log(gpxParser);
+      console.log(gpxParser);
       // console.log(gpxParser.metadata.time);
       // console.log(gpxParser.tracks[0].distance.total);
 
@@ -63,19 +55,19 @@ export const handleGpxUpload = (file) => {
         // console.log(totalTime);
 
         // set run data
-        runName = gpxParser.tracks[0].name;
+        extractedData.runName = gpxParser.tracks[0].name;
+        extractedData.date = gpxParser.metadata.time; // carries the date
+        extractedData.duration = totalTime / 60; // duration in minutes
+        extractedData.distance = totalDistance / 1000; // convert meters to kilometers
+        extractedData.speed = (totalDistance / totalTime) * 3.6; // convert m/s to km/h
+        extractedData.tempo = totalTime / 60 / extractedData.distance; // convert to min/km
         
-
-        distance = totalDistance / 1000; // convert meters to kilometers
-        speed = (totalDistance / totalTime) * 3.6; // convert m/s to km/h
-        tempo = getTempoAsMinutesSecondsString(totalTime / 60 / distance); // convert to min/km
-        
-        console.log("Tempo:", tempo);
-        console.log(`Total distance: ${distance} km`);
+        // console.log("Tempo:", extractedData.tempo);
+        // console.log(`Total distance: ${extractedData.distance} km`);
       }
     };
     reader.readAsText(file);
   }
 
-  return { runName, distance, tempo, speed };
+  return extractedData;
 };
