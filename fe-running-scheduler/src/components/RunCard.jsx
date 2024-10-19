@@ -1,7 +1,7 @@
 const RunCard = ({ data }) => {
   const { date, name, distance, duration, tempo, speed } = data;
 
-  console.log(parseFloat(distance).toFixed(2));
+  // console.log(parseFloat(distance).toFixed(2));
   
 
   const formattedDate = new Intl.DateTimeFormat("en-UK", {

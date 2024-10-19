@@ -2,6 +2,7 @@
 
 export function processFormDataFromScheduler(data) {
   const { title, distance, workoutDay, longRun, weeks, date } = data;
+  
   const weekdays = [
     "sunday",
     "monday",
@@ -21,7 +22,15 @@ export function processFormDataFromScheduler(data) {
 
   const setDateToFollowingMonday = (date) => {
     const dayOfWeek = date.getDay();
-    date.setDate(dayOfWeek + getDaysToMonday(dayOfWeek));
+    console.log("dayOfWeek", dayOfWeek);
+    console.log("getDaysToMonday", getDaysToMonday(dayOfWeek));
+    
+    date.setDate(date.getDate() + getDaysToMonday(dayOfWeek));
+    // date.setDate(dayOfWeek + getDaysToMonday(dayOfWeek));
+
+    console.log("setDateToFollowingMonday", date);
+    
+    
     return date;
   };
 
@@ -87,6 +96,7 @@ export function processFormDataFromScheduler(data) {
       date.setDate(date.getDate() + i + (week - 1) * 7);
       weekDates.push(date);
     }
+    
     return weekDates;
   };
 
@@ -172,6 +182,31 @@ export function processFormDataFromScheduler(data) {
   };
 
   const trainingBlockJson = createTrainingBlockJson(trainingBlockParameters, weeks);
+  const runDataTemplate = createRunDataTemplate(trainingBlockJson);
 
-  return trainingBlockJson;
+  return { trainingBlockJson, runDataTemplate };
 }
+
+export const createRunDataTemplate = (trainingBlockData) => {
+  let runDataTemplate = {
+    meta: {
+      //   blockId: trainingBlockData.blockId, // we will have this later when implementing the DB
+      startDate: trainingBlockData.meta.startDate,
+      title: trainingBlockData.meta.title,
+    },
+  };
+
+  for (const week in trainingBlockData) {
+    if (week !== "meta") {
+      runDataTemplate[week] = {};
+      for (const day in trainingBlockData[week]) {
+        runDataTemplate[week][day] = {};
+        runDataTemplate[week][day] = {
+            date: trainingBlockData[week][day].date,
+        }
+      }
+    }
+  }
+//   console.log("runDataTemplate", runDataTemplate);
+return runDataTemplate;  
+};

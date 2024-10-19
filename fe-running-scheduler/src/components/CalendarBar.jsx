@@ -84,7 +84,7 @@ const CalendarBar = ({ title, runningData, setRunningData }) => {
         {/* <input className="w-52 text-center bg-inherit" contentEditable="false" value={thisTitle} onChange={(e) => handleTitleChange(e)} /> */}
 
         <div className="flex">
-          <span className="hover:ring-1 cursor-pointer rounded-md p-1">
+          <span className="  rounded-md p-1">
             {title}
           </span>
           <div className="group relative w-max">

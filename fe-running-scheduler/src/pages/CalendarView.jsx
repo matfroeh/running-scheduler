@@ -3,7 +3,7 @@ import CalendarBar from "../components/CalendarBar";
 import CalendarBody from "../components/CalendarBody";
 import { Outlet, useActionData } from "react-router-dom";
 import { processFormDataFromScheduler } from "../data/processFormDataFromScheduler";
-import { createRunDataTemplate } from "../data/createRunDataTemplate";
+// import { createRunDataTemplate } from "../data/createRunDataTemplate";
 
 const CalendarView = () => {
   const data = useActionData();
@@ -31,19 +31,22 @@ const CalendarView = () => {
   // and only then will useEffect load the data FROM the DB
   useEffect(() => {
     if (data) {
-      setTrainingBlockData(processFormDataFromScheduler(data));
+      const { trainingBlockJson, runDataTemplate } = processFormDataFromScheduler(data);
+      setTrainingBlockData(trainingBlockJson);
+      setRunningData(runDataTemplate);
     }
   }, [data]);
 
   // ToDo: right now when using localstorage the data needs to be cleared manually when setting up a new scheudle
   // well we should give them an ID
-  useEffect(() => {
-    if (Object.keys(runningData).length === 0) {
-      if (trainingBlockData) {
-        setRunningData(createRunDataTemplate(trainingBlockData));
-      }
-    }
-  }, []); // ToDo: not sure if we need trainingBlockData as dependency here, basically the template should be created only once
+  // useEffect(() => {
+  //   if (Object.keys(runningData).length === 0) {
+  //     if (trainingBlockData) {
+  //       setRunningData(createRunDataTemplate(trainingBlockData));
+  //     }
+  //   }
+  // }, []);
+   // ToDo: not sure if we need trainingBlockData as dependency here, basically the template should be created only once
 
   return (
     <>
