@@ -2,7 +2,7 @@
 
 export function processFormDataFromScheduler(data) {
   const { title, distance, workoutDay, longRun, weeks, date } = data;
-  
+
   const weekdays = [
     "sunday",
     "monday",
@@ -22,15 +22,7 @@ export function processFormDataFromScheduler(data) {
 
   const setDateToFollowingMonday = (date) => {
     const dayOfWeek = date.getDay();
-    console.log("dayOfWeek", dayOfWeek);
-    console.log("getDaysToMonday", getDaysToMonday(dayOfWeek));
-    
     date.setDate(date.getDate() + getDaysToMonday(dayOfWeek));
-    // date.setDate(dayOfWeek + getDaysToMonday(dayOfWeek));
-
-    console.log("setDateToFollowingMonday", date);
-    
-    
     return date;
   };
 
@@ -63,7 +55,7 @@ export function processFormDataFromScheduler(data) {
   const longRunDayIndex = longRun !== "None" ? weekdays.indexOf(longRun) : null;
   // console.log(workoutDayIndex, longRunDayIndex);
 
-  const longRunDistance = Math.round(distance * (1/3)); // a reasonable starting point
+  const longRunDistance = Math.round(distance * (1 / 3)); // a reasonable starting point
   const workoutDayDistance = 10; // fixed assumption
 
   // TODO: handle exceptions e.g. no longrun, no workout day, etc.
@@ -96,21 +88,24 @@ export function processFormDataFromScheduler(data) {
       date.setDate(date.getDate() + i + (week - 1) * 7);
       weekDates.push(date);
     }
-    
+
     return weekDates;
   };
 
   // we are ordering the weekdays with monday having index 0 because that is
   // how the calendar will be displaying the days of the week.
   // Needs to be observed if this will lead to confusion.
-  const createWeekTemplateDays = (weekDays) => {
+  const createWeekTemplateDays = (weekDates) => {
     let template = {};
-    let days = ["day1", "day2", "day3", "day4", "day5", "day6", "day0"];
+    template.days = {};
+    const daysList = ["day1", "day2", "day3", "day4", "day5", "day6", "day0"];
     let i = 0;
-    for (const day in weekDays) {
-      template[days[i]] = { date: weekDays[day] };
+    for (const day in weekDates) {
+      template.days[daysList[i]] = { date: weekDates[day] };
       i++;
     }
+    // console.log(template);
+    
     return template;
   };
 
@@ -133,24 +128,28 @@ export function processFormDataFromScheduler(data) {
     // set workout day and long run day types
     // set distances of workout day and long run day
     if (workoutDayIndex !== -1) {
-      trainingBlockWeek[`day${workoutDayIndex}`].type = "Workout Day";
-      trainingBlockWeek[`day${workoutDayIndex}`].distance = workoutDayDistance;
+      trainingBlockWeek.days[`day${workoutDayIndex}`].type = "Workout Day";
+      trainingBlockWeek.days[`day${workoutDayIndex}`].distance =
+        workoutDayDistance;
     }
     if (longRunDayIndex !== -1) {
-      trainingBlockWeek[`day${longRunDayIndex}`].type = "Long Run";
-      trainingBlockWeek[`day${longRunDayIndex}`].distance = longRunDistance;
+      trainingBlockWeek.days[`day${longRunDayIndex}`].type = "Long Run";
+      trainingBlockWeek.days[`day${longRunDayIndex}`].distance =
+        longRunDistance;
     }
     // set remaining days of running days as easy run types and set distance
     runningDays.forEach((index) => {
       if (index !== workoutDayIndex && index !== longRunDayIndex) {
-        trainingBlockWeek[`day${index}`].type = "Easy Run";
-        trainingBlockWeek[`day${index}`].distance = easyRunDistance;
+        trainingBlockWeek.days[`day${index}`].type = "Easy Run";
+        trainingBlockWeek.days[`day${index}`].distance = easyRunDistance;
       }
     });
     // set RestDays as rest days type
     restDays.forEach((index) => {
-      trainingBlockWeek[`day${index}`].type = "Rest Day";
+      trainingBlockWeek.days[`day${index}`].type = "Rest Day";
     });
+
+    // console.log(trainingBlockWeek);
 
     return trainingBlockWeek;
   };
@@ -166,14 +165,14 @@ export function processFormDataFromScheduler(data) {
 
     // set meta data
     // ToDo: let us see what we can add here as well
-    trainingBlock.meta = {};    // supposedly JS needs to know that meta will be an object beforehand
+    trainingBlock.meta = {}; // supposedly JS needs to know that meta will be an object beforehand
     trainingBlock.meta.title = trainingBlockParameters.title;
     trainingBlock.meta.startDate = trainingBlockParameters.startDate;
 
-
     // set the weeks
+    trainingBlock.weeks = {};
     for (let i = 1; i <= weeks; i++) {
-      trainingBlock[`week${i}`] = getTrainingBlockWeek(
+      trainingBlock.weeks[`week${i}`] = getTrainingBlockWeek(
         trainingBlockParameters,
         i
       );
@@ -181,12 +180,16 @@ export function processFormDataFromScheduler(data) {
     return trainingBlock;
   };
 
-  const trainingBlockJson = createTrainingBlockJson(trainingBlockParameters, weeks);
+  const trainingBlockJson = createTrainingBlockJson(
+    trainingBlockParameters,
+    weeks
+  );
   const runDataTemplate = createRunDataTemplate(trainingBlockJson);
 
   return { trainingBlockJson, runDataTemplate };
 }
 
+// create RunDataTemplate based on the trainingBlockData
 export const createRunDataTemplate = (trainingBlockData) => {
   let runDataTemplate = {
     meta: {
@@ -196,17 +199,24 @@ export const createRunDataTemplate = (trainingBlockData) => {
     },
   };
 
-  for (const week in trainingBlockData) {
+  runDataTemplate["weeks"] = {};
+  for (const week in trainingBlockData.weeks) {
     if (week !== "meta") {
-      runDataTemplate[week] = {};
-      for (const day in trainingBlockData[week]) {
-        runDataTemplate[week][day] = {};
-        runDataTemplate[week][day] = {
-            date: trainingBlockData[week][day].date,
-        }
+      runDataTemplate.weeks[week] = {};
+      runDataTemplate.weeks[week]["days"] = {};
+      for (const day in trainingBlockData.weeks[week]["days"]) {
+        // console.log("createRunDataTemplate", trainingBlockData.weeks[week]["days"][day]);
+
+        
+        // runDataTemplate[week]["days"][day] = {};
+        runDataTemplate.weeks[week]["days"][day] = {
+          date: trainingBlockData.weeks[week]["days"][day].date,
+        };
+        // console.log("createRunDataTemplate", runDataTemplate[week]["days"][day]);
+        
       }
     }
   }
-//   console.log("runDataTemplate", runDataTemplate);
-return runDataTemplate;  
+    // console.log("runDataTemplate", runDataTemplate);
+  return runDataTemplate;
 };

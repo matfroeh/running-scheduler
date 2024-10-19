@@ -24,7 +24,7 @@ const CalendarBar = ({ title, runningData, setRunningData }) => {
 
   // This passes the click on the normal button to the hidden input field button
   const handleGpxInputClick = () => {
-    console.log("handleinput event called");
+    // console.log("handleinput event called");
     gpxInputRef.current.click();
   };
 
@@ -43,10 +43,16 @@ const CalendarBar = ({ title, runningData, setRunningData }) => {
     if (fileContent) {
       // setNewRunningData(processGpx(fileContent));
       const newRunningData = processGpx(fileContent);
+      // console.log(newRunningData);
+      // console.log(newRunningData.date);
+      
+      
       const [week, day] = findDayObjectByDate(newRunningData.date, runningData);
+      // console.log(week, day);
+      
       if (week && day) {
         const updatedRunningData = { ...runningData };
-        updatedRunningData[week][day] = newRunningData;
+        updatedRunningData.weeks[week].days[day] = newRunningData;
         setRunningData(updatedRunningData);
       }
     }
