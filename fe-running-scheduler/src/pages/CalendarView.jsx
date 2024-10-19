@@ -35,15 +35,23 @@ const CalendarView = () => {
     }
   }, [data]);
 
+  // ToDo: right now when using localstorage the data needs to be cleared manually when setting up a new scheudle
+  // well we should give them an ID
   useEffect(() => {
-    if (trainingBlockData) {
-      setRunningData(createRunDataTemplate(trainingBlockData));
+    if (Object.keys(runningData).length === 0) {
+      if (trainingBlockData) {
+        setRunningData(createRunDataTemplate(trainingBlockData));
+      }
     }
   }, []); // ToDo: not sure if we need trainingBlockData as dependency here, basically the template should be created only once
 
   return (
     <>
-      <CalendarBar title={trainingBlockData.meta?.title} />
+      <CalendarBar
+        title={trainingBlockData.meta?.title}
+        runningData={runningData}
+        setRunningData={setRunningData}
+      />
       <CalendarBody
         trainingData={trainingBlockData}
         runningData={runningData}

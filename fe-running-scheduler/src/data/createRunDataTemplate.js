@@ -6,6 +6,8 @@
 // 3. insert the extracted gpx data by simply accessing runData[week][date]
 // the run data will be a react state (separate from the training block data) and will update accordingly
 
+// ToDo: we can just add all this to the prcoessFormData file and won't have the problem stated in CalendarView.jsx
+
 export const createRunDataTemplate = (trainingBlockData) => {
   let runDataTemplate = {
     meta: {
