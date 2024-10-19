@@ -14,15 +14,20 @@ export const getSecondsAsHoursMinutesSecondsString = (duration) => {
 // params: date: string/Date, runningData: object:{week: object:{day: object}}
 // finds the day object in the runningData object by the date (coming from the gpx file)
 export const findDayObjectByDate = (date, runningData) => {
-  for (const week in runningData) {
+  for (const week in runningData.weeks) {
+    // console.log(runningData.weeks[week]);
+    
     if (week === "meta") continue;
-    for (const day in runningData[week]) {
-      if (runningData[week][day].date.slice(0, 10) === date.slice(0, 10)) { // Check only leading YYYY-MM-DD
+    for (const day in runningData.weeks[week].days) {
+      // console.log(runningData.weeks[week]["days"][day]);
+      
+      if (runningData.weeks[week].days[day].date.slice(0, 10) === date.slice(0, 10)) { // Check only leading YYYY-MM-DD
         return [week, day];
       }
     }
   }
-  return null;
+  return [null, null];
+
 };
 
 //

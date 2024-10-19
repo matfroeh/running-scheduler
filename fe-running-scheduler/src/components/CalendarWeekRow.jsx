@@ -12,13 +12,13 @@ const CalendarWeekRow = ({ week, weekNumber, runningDataWeek }) => {
   return (
     <>
       {week
-        ? Object.entries(week).map(([day, data]) => {
+        ? Object.entries(week.days).map(([day, data]) => {
             return <TrainingCard key={day} data={data} />;
           })
         : null}
       <SummaryCard week={week} weekNumber={weekNumber} />
       {runningDataWeek
-        ? Object.entries(runningDataWeek).map(([day, data]) => {
+        ? Object.entries(runningDataWeek.days).map(([day, data]) => {
           // console.log("RunCard Creation:\n", "\nWeek:", week, "\nDay:", day, "\nData:", data);
           
             return <RunCard key={day} data={data} />;

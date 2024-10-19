@@ -12,14 +12,14 @@ const CalendarBody = ({ trainingData, runningData }) => {
       {/* ToDo: what about displaying special days in the header? */}
       <WeekDaysBar />
       {trainingData
-        ? Object.entries(trainingData).map(([week, data]) => {
+        ? Object.entries(trainingData.weeks).map(([week, data]) => {
           // ToDo: (x) we should redo this, e.g. having a separate week property with only the weeks inside. We can rearrange title to sth. like metaData
           // ToDo: now everything is in meta, weeks are still in the main object
             if (week === "meta") return;
             // ToDo (x): this will be now quite delicate as we will use the trainingData also for creating the running cards
             // and we will pass as well the needed property (date I guess) from the runningData to the RunCard
             // ToDo: check if this might lead to issues
-            return <CalendarWeekRow key={week} weekNumber={week} week={data} runningDataWeek={runningData[week]} />;
+            return <CalendarWeekRow key={week} weekNumber={week} week={data} runningDataWeek={runningData.weeks[week]} />;
           })
         : null}
     </div>
