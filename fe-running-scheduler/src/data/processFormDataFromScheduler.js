@@ -46,10 +46,17 @@ export function processFormDataFromScheduler(data) {
     return restDays;
   };
 
+  const getEndDate = (startDate, weeks) => {
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() -1 + weeks * 7);
+    return endDate;
+  };
+
   // Calculate training block parameters
   const runningDays = getRunningDaysAsIndexList();
   const restDays = getRestDaysAsIndexList(runningDays);
   const startDate = new Date(setDateToFollowingMonday(new Date(date)));
+  const endDate = getEndDate(startDate, weeks);
   const workoutDayIndex =
     workoutDay !== "None" ? weekdays.indexOf(workoutDay) : null;
   const longRunDayIndex = longRun !== "None" ? weekdays.indexOf(longRun) : null;
@@ -66,6 +73,7 @@ export function processFormDataFromScheduler(data) {
   const trainingBlockParameters = {
     title,
     startDate,
+    endDate,
     distance,
     workoutDayIndex,
     workoutDayDistance,
@@ -168,6 +176,7 @@ export function processFormDataFromScheduler(data) {
     trainingBlock.meta = {}; // supposedly JS needs to know that meta will be an object beforehand
     trainingBlock.meta.title = trainingBlockParameters.title;
     trainingBlock.meta.startDate = trainingBlockParameters.startDate;
+    trainingBlock.meta.endDate = trainingBlockParameters.endDate;
     trainingBlock.meta.weeks = trainingBlockParameters.weeks;
 
 
@@ -205,7 +214,9 @@ export const createRunDataTemplate = (trainingBlockData) => {
     meta: {
       //   blockId: trainingBlockData.blockId, // we will have this later when implementing the DB
       startDate: trainingBlockData.meta.startDate,
+      endDate: trainingBlockData.meta.endDate,
       title: trainingBlockData.meta.title,
+      weeks: trainingBlockData.meta.weeks,
     },
   };
 
