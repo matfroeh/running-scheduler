@@ -168,6 +168,8 @@ export function processFormDataFromScheduler(data) {
     trainingBlock.meta = {}; // supposedly JS needs to know that meta will be an object beforehand
     trainingBlock.meta.title = trainingBlockParameters.title;
     trainingBlock.meta.startDate = trainingBlockParameters.startDate;
+    trainingBlock.meta.weeks = trainingBlockParameters.weeks;
+
 
     // set the weeks
     trainingBlock.weeks = {};
@@ -189,7 +191,15 @@ export function processFormDataFromScheduler(data) {
   return { trainingBlockJson, runDataTemplate };
 }
 
-// create RunDataTemplate based on the trainingBlockData
+
+// Creates the template for the later insertion of the running data (uploaded gpx files)
+// based on the TrainingBlockData
+// By that, the process simplifies as follows:
+// 1. from the gpx get the date
+// 2. find the week and day that corresponds to the date (ToDo: we will later add error handling if the date is outside of the training block)
+// 3. insert the extracted gpx data by simply accessing runData.weeks[week].days[day].date
+// the run data will be a react state (separate from the training block data) and will update accordingly
+
 export const createRunDataTemplate = (trainingBlockData) => {
   let runDataTemplate = {
     meta: {

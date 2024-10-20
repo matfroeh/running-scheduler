@@ -24,6 +24,8 @@ const CalendarWeekRow = ({ week, weekNumber, runningDataWeek }) => {
             return <RunCard key={day} data={data} />;
           })
         : null}
+      <div className="col-span-8 border-y-8 border-base-300"></div>
+
     </>
   );
 };

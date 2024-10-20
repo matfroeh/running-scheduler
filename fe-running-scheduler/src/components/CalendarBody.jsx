@@ -8,7 +8,7 @@ const CalendarBody = ({ trainingData, runningData }) => {
   // console.log(data);
 
   return (
-    <div className="grid grid-cols-8 mx-4 gap-x-4 gap-y-2">
+    <div className="grid grid-cols-8 mx-4 gap-x-4 gap-y-1">
       {/* ToDo: what about displaying special days in the header? */}
       <WeekDaysBar />
       {trainingData
@@ -21,7 +21,7 @@ const CalendarBody = ({ trainingData, runningData }) => {
             // ToDo: check if this might lead to issues
             return <CalendarWeekRow key={week} weekNumber={week} week={data} runningDataWeek={runningData.weeks[week]} />;
           })
-        : null}
+        : null}        
     </div>
   );
 };

@@ -6,14 +6,18 @@ const daySchema = new Schema({
     type: Date,
     required: true,
   },
-  typ: {
+  type: {
     type: String,
     required: true,
   },
   distance: {
     type: Number,
-    required: true,
   },
+  description: { // this will be used for the user describing e.g. the workout protocol for that day
+    type: String,
+    text: true,
+  },
+  
 });
 
 const weekSchema = new Schema({
@@ -21,7 +25,7 @@ const weekSchema = new Schema({
     type: Map,
     of: daySchema,
   },
-}, { _id: true } );
+}, { _id: true } ); // ToDo: set to false if it is not used later
 
 const scheduleSchema = new Schema(
   {
@@ -33,6 +37,9 @@ const scheduleSchema = new Schema(
       startDate: {
         type: Date,
         required: [true, "Start date is required"],
+      },
+      weeks: { // Number of total weeks
+        type: Number,
       },
     },
     weeks: {

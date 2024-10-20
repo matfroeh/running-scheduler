@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import errorHandler from "./middleware/errorHandler.js";
 import scheduleRouter from "./routes/scheduleRouter.js";
+import runsRouter from "./routes/runsRouter.js";
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
@@ -11,6 +12,7 @@ app.use(cors()); // caution!
 app.use(express.json());
 
 app.use('/schedule', scheduleRouter);
+app.use('/runs', runsRouter);
 
 app.use('*', (req, res) => {
   res.status(404).send("Not found");
