@@ -6,7 +6,13 @@ import { findDayObjectByDate } from "../data/processRunningDataHelper.js";
 
 // ToDo: We really want to upload multiple files here but this can wait
 
-const CalendarBar = ({ title, runningData, setRunningData }) => {
+const CalendarBar = ({
+  title,
+  runningData,
+  setRunningData,
+  newScheduleFormSubmitted,
+  saveNewSchedule,
+}) => {
   // const [newRunningData, setNewRunningData] = useState(null);
   const [fileContent, setFileContent] = useState(null);
   const navigate = useNavigate();
@@ -45,11 +51,10 @@ const CalendarBar = ({ title, runningData, setRunningData }) => {
       const newRunningData = processGpx(fileContent);
       // console.log(newRunningData);
       // console.log(newRunningData.date);
-      
-      
+
       const [week, day] = findDayObjectByDate(newRunningData.date, runningData);
       // console.log(week, day);
-      
+
       if (week && day) {
         const updatedRunningData = { ...runningData };
         updatedRunningData.weeks[week].days[day] = newRunningData;
@@ -67,53 +72,59 @@ const CalendarBar = ({ title, runningData, setRunningData }) => {
   // };
 
   return (
-    <div className="navbar">
-      <span className="navbar-start">
-        <button className="btn btn-sm">Back</button>
-        <button className="btn btn-sm">Current</button>
-        <button className="btn btn-sm">Next</button>
-        {/* {newRunningData && <span>{newRunningData.name}</span>} */}
-      </span>
-      <div className="px-4">
-        <div className="btn btn-sm ring-1" onClick={handleGpxInputClick}>
-          Upload .gpx
-          <input
-            ref={gpxInputRef}
-            type="file"
-            onChange={handleGpxFileChange}
-            style={{ display: "none" }}
-            accept=".gpx"
-          />
-        </div>
-      </div>
-      <div className="navbar-center w-1/2 justify-around ">
-        {/* <input className="w-52 text-center bg-inherit" contentEditable="false" value={thisTitle} onChange={(e) => handleTitleChange(e)} /> */}
-
-        <div className="flex">
-          <span className="  rounded-md p-1">
-            {title}
-          </span>
-          <div className="group relative w-max">
-            <button
-              className="btn btn-sm btn-circle mx-4 hover:ring-1"
-              onClick={openCreateTrainingBlockModal}
-            >
-              +
-            </button>
-            <span
-              className="pointer-events-none absolute left-6 -top-6 text-sm w-max 
-          opacity-0 transition-opacity duration-700 bg-base-100 group-hover:opacity-100"
-            >
-              New Training Schedule
-            </span>
+    <>
+      <div className="navbar">
+        <span className="navbar-start">
+          <button className="btn btn-sm">Back</button>
+          <button className="btn btn-sm">Current</button>
+          <button className="btn btn-sm">Next</button>
+          {/* {newRunningData && <span>{newRunningData.name}</span>} */}
+        </span>
+        <div className="px-4">
+          <div className="btn btn-sm ring-1" onClick={handleGpxInputClick}>
+            Upload .gpx
+            <input
+              ref={gpxInputRef}
+              type="file"
+              onChange={handleGpxFileChange}
+              style={{ display: "none" }}
+              accept=".gpx"
+            />
           </div>
         </div>
+        <div className="navbar-center w-1/2 justify-around ">
+          {/* <input className="w-52 text-center bg-inherit" contentEditable="false" value={thisTitle} onChange={(e) => handleTitleChange(e)} /> */}
+
+          <div className="flex">
+            <span className="rounded-md p-1">{title}</span>
+            <div className="group relative w-max">
+              <button
+                className="btn btn-sm btn-circle mx-4 hover:ring-1"
+                onClick={openCreateTrainingBlockModal}
+              >
+                +
+              </button>
+              <span
+                className="pointer-events-none absolute left-6 -top-6 text-sm w-max 
+          opacity-0 transition-opacity duration-700 bg-base-100 group-hover:opacity-100"
+              >
+                New Training Schedule
+              </span>
+            </div>
+          </div>
+        </div>
+        <span className="navbar-end">
+          <button className="btn btn-sm">Details</button>
+          <button className="btn btn-sm">Notes</button>
+        </span>
       </div>
-      <span className="navbar-end">
-        <button className="btn btn-sm">Details</button>
-        <button className="btn btn-sm">Notes</button>
-      </span>
-    </div>
+      {newScheduleFormSubmitted && (
+        <div className="mx-auto my-2 flex indicator">
+          <span className="indicator-item badge badge-accent"></span>
+          <button onClick={saveNewSchedule} className="ml-24 flex btn btn-sm">Save New Schedule</button>
+        </div>
+      )}
+    </>
   );
 };
 

@@ -11,7 +11,7 @@ const PORT = process.env.PORT ?? 3000;
 app.use(cors()); // caution!
 app.use(express.json());
 
-app.use('/schedule', scheduleRouter);
+app.use('/schedules', scheduleRouter);
 app.use('/runs', runsRouter);
 
 app.use('*', (req, res) => {

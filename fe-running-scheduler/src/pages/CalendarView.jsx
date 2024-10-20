@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import CalendarBar from "../components/CalendarBar";
 import CalendarBody from "../components/CalendarBody";
-import { Outlet, useActionData } from "react-router-dom";
+import { Outlet, useActionData, useLoaderData } from "react-router-dom";
 import { processFormDataFromScheduler } from "../data/processFormDataFromScheduler";
+import { createSchedule } from "../data/schedules";
+import { createRun } from "../data/runs";
 // import { createRunDataTemplate } from "../data/createRunDataTemplate";
 
 const CalendarView = () => {
   const data = useActionData();
-  // console.log(data);
+  const { loadedSchedules, loadedRuns } = useLoaderData();
+  console.log("loadedSchedules", loadedSchedules);
+  console.log("loadedRuns", loadedRuns);  
 
   const [trainingBlockData, setTrainingBlockData] = useState(
     localStorage.getItem("trainingBlockData")
@@ -20,6 +24,38 @@ const CalendarView = () => {
       : {}
   );
 
+  const [newScheduleFormSubmitted, setNewScheduleFormSubmitted] =
+    useState(false);
+
+  // console.log(data);
+
+  // const testDataFromAPI = async () => {
+  //   try {
+  //     const data = await getAllSchedules();
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // testDataFromAPI(); // working fine
+
+  if (newScheduleFormSubmitted && data) {
+    console.log("New Schedule Form Submitted");
+  }
+
+  const saveNewSchedule = async () => {
+    try {
+      const schedule = await createSchedule(trainingBlockData);
+      console.log(schedule);
+      const run = await createRun(runningData);
+      console.log(run);
+      setNewScheduleFormSubmitted(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // This works perfectly fine because as soon as the state changes this code line will run again
   // However we do not want this initially as the user should decide manually if he wants to keep
   // the created schedule or not
@@ -31,7 +67,8 @@ const CalendarView = () => {
   // and only then will useEffect load the data FROM the DB
   useEffect(() => {
     if (data) {
-      const { trainingBlockJson, runDataTemplate } = processFormDataFromScheduler(data);
+      const { trainingBlockJson, runDataTemplate } =
+        processFormDataFromScheduler(data);
       setTrainingBlockData(trainingBlockJson);
       setRunningData(runDataTemplate);
     }
@@ -46,7 +83,7 @@ const CalendarView = () => {
   //     }
   //   }
   // }, []);
-   // ToDo: not sure if we need trainingBlockData as dependency here, basically the template should be created only once
+  // ToDo: not sure if we need trainingBlockData as dependency here, basically the template should be created only once
 
   return (
     <>
@@ -54,12 +91,14 @@ const CalendarView = () => {
         title={trainingBlockData.meta?.title}
         runningData={runningData}
         setRunningData={setRunningData}
+        newScheduleFormSubmitted={newScheduleFormSubmitted}
+        saveNewSchedule={saveNewSchedule}
       />
       <CalendarBody
         trainingData={trainingBlockData}
         runningData={runningData}
       />
-      <Outlet />
+      <Outlet context={{ setNewScheduleFormSubmitted }} />
     </>
   );
 };
