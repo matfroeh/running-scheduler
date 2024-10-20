@@ -46,24 +46,24 @@ const getCurrentCalender = (calendar, today) => {
   return nearestStartDate;
 };
 
-const getPreviousAndNextCalenders = (calendar, currentCalendar) => {
+const getPreviousAndNextCalendars = (calendar, currentCalendar) => {
   // const current = getCurrentCalender(calendar, today);
   // const currentIndex = calendar.indexOf(currentCalendar);
-  const previousCalenders = [];
-  const nextCalenders = [];
+  const previousCalendars = [];
+  const nextCalendars = [];
   for (let i = 0; i < calendar.length; i++) {
     if (calendar[i] !== currentCalendar) {
       if (
         new Date(calendar[i].meta.startDate).getTime() <
         new Date(currentCalendar.meta.startDate).getTime()
       ) {
-        previousCalenders.push(calendar[i]);
+        previousCalendars.push(calendar[i]);
       } else {
-        nextCalenders.push(calendar[i]);
+        nextCalendars.push(calendar[i]);
       }
     }
   }
-  return { previousCalenders, nextCalenders };
+  return { previousCalendars: previousCalendars, nextCalendars: nextCalendars };
 };
 
 const orderCalenderByStartDate = (calendar) => {
@@ -75,10 +75,14 @@ const orderCalenderByStartDate = (calendar) => {
 const getCalendars = (calendarArray) => {
   const today = new Date(Date.now());
   const currentCalendar = getCurrentCalender(calendarArray, today);
-  const { previousCalendars, nextCalendars } = getPreviousAndNextCalenders(
+  const { previousCalendars, nextCalendars } = getPreviousAndNextCalendars(
     calendarArray,
     currentCalendar
   );
+  // console.log(currentCalendar);
+  // console.log(previousCalendars);
+  
+  
   return {
     previousCalendars: orderCalenderByStartDate(previousCalendars),
     currentCalendar,

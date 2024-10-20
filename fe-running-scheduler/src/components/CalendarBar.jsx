@@ -12,6 +12,9 @@ const CalendarBar = ({
   setRunningData,
   newScheduleFormSubmitted,
   saveNewSchedule,
+  showCurrentCalendar,
+  showPreviousCalendar,
+  showNextCalendar,
 }) => {
   // const [newRunningData, setNewRunningData] = useState(null);
   const [fileContent, setFileContent] = useState(null);
@@ -75,9 +78,9 @@ const CalendarBar = ({
     <>
       <div className="navbar">
         <span className="navbar-start">
-          <button className="btn btn-sm">Back</button>
-          <button className="btn btn-sm">Current</button>
-          <button className="btn btn-sm">Next</button>
+          <button className="btn btn-sm" onClick={showPreviousCalendar}>Back</button>
+          <button className="btn btn-sm" onClick={showCurrentCalendar}>Current</button>
+          <button className="btn btn-sm" onClick={showNextCalendar}>Next</button>
           {/* {newRunningData && <span>{newRunningData.name}</span>} */}
         </span>
         <div className="px-4">

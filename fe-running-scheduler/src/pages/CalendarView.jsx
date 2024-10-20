@@ -5,13 +5,13 @@ import { Outlet, useActionData, useLoaderData } from "react-router-dom";
 import { processFormDataFromScheduler } from "../data/processFormDataFromScheduler";
 import { createSchedule } from "../data/schedules";
 import { createRun } from "../data/runs";
-// import { createRunDataTemplate } from "../data/createRunDataTemplate";
+import getCalendars from "../data/getCurrentPreviousNextCalendars";
 
 const CalendarView = () => {
   const data = useActionData();
   const { loadedSchedules, loadedRuns } = useLoaderData();
   console.log("loadedSchedules", loadedSchedules);
-  console.log("loadedRuns", loadedRuns);  
+  console.log("loadedRuns", loadedRuns);
 
   const [trainingBlockData, setTrainingBlockData] = useState(
     localStorage.getItem("trainingBlockData")
@@ -26,6 +26,27 @@ const CalendarView = () => {
 
   const [newScheduleFormSubmitted, setNewScheduleFormSubmitted] =
     useState(false);
+
+  // it works fine:
+  const scheduleCalendars = getCalendars(loadedSchedules);
+  console.log(scheduleCalendars.currentCalendar.meta.title);
+  const runCalendars = getCalendars(loadedRuns);
+  console.log(runCalendars.currentCalendar.meta.title);
+
+  const showCurrentCalendar = () => {
+    setTrainingBlockData(scheduleCalendars.currentCalendar);
+    setRunningData(runCalendars.currentCalendar);
+  };
+
+  // ToDo: implement the logic for cycling through the arrays
+  const showPreviousCalendar = () => {
+    setTrainingBlockData(scheduleCalendars.previousCalendars[0]);
+    setRunningData(runCalendars.previousCalendars[0]);
+  };
+  const showNextCalendar = () => {
+    setTrainingBlockData(scheduleCalendars.nextCalendars[0]);
+    setRunningData(runCalendars.nextCalendars[0]);
+  };
 
   // console.log(data);
 
@@ -93,6 +114,9 @@ const CalendarView = () => {
         setRunningData={setRunningData}
         newScheduleFormSubmitted={newScheduleFormSubmitted}
         saveNewSchedule={saveNewSchedule}
+        showCurrentCalendar={showCurrentCalendar}
+        showPreviousCalendar={showPreviousCalendar}
+        showNextCalendar={showNextCalendar}
       />
       <CalendarBody
         trainingData={trainingBlockData}
