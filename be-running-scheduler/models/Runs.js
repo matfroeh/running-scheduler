@@ -62,6 +62,10 @@ const runsSchema = new Schema(
         type: Date,
         required: [true, "Start date is required"],
       },
+      endDate: {
+        type: Date,
+        required: [true, "End date is required"],
+      },
       weeks: {
         // Number of weeks
         type: Number,
