@@ -10,7 +10,7 @@ export const createSchedule = asyncHandler(async (req, res, next) => {
 });
 
 export const getAllSchedules = asyncHandler(async (req, res, next) => {
-    const schedules = await Schedule.find().populate("weeks");
+    const schedules = await Schedule.find();
     // const schedules = await Schedule.find({ "weeks": { $exists: true } });
     // const schedules = await Schedule.findOne({ _id: "6713ddbc87a72ae4f970f46b" })
 

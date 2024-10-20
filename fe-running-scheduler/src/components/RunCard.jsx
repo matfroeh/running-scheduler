@@ -13,9 +13,9 @@ const RunCard = ({ data }) => {
       className="card card-compact rounded-tr-none rounded-br-none rounded-tl-none ring-2
      image-full bg-base-100 h-36 w-full hover:ring-4 cursor-pointer"
     >
-      <div className="items-end flex justify-end text-white opacity-10 text-xs mt-1 mr-2">
+      {/* <div className="items-end flex justify-end text-white text-xs mt-1 mr-2">
         {formattedDate}
-      </div>
+      </div> */}
       <div className="card-body flex  flex-col">
         <div className="card-title flex-auto text-sm">{name}</div>
         <div className="flex flex-col justify-between flex-auto text-xs">
