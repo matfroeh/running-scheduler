@@ -3,8 +3,8 @@ const TrainingCard = ({ data }) => {
     data = "";
   }
   const { date, type, distance } = data;
+  // console.log(data._id);
 
-  // console.log("Training Card:", date, type, distance);
 
   const formattedDate = new Intl.DateTimeFormat("en-UK", {
     month: "numeric",

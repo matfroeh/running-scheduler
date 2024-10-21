@@ -1,11 +1,17 @@
 import TrainingCard from "./TrainingCard";
 import SummaryCard from "./SummaryCard";
 import RunCard from "./RunCard";
+import { useNavigate } from "react-router-dom";
 
 const CalendarWeekRow = ({ week, weekNumber, runningDataWeek }) => {
   if (Object.keys(week).length === 0) {
     week = "";
   }
+  const navigate = useNavigate();
+
+  const openRunCard = (data, weekNumber, day) => {
+    navigate(`/runs/${weekNumber}/${day}/${data._id}`);
+  };
 
   return (
     <>
@@ -17,7 +23,13 @@ const CalendarWeekRow = ({ week, weekNumber, runningDataWeek }) => {
       <SummaryCard week={week} weekNumber={weekNumber} />
       {runningDataWeek
         ? Object.entries(runningDataWeek.days).map(([day, data]) => {
-            return <RunCard key={day} data={data} />;
+            return (
+              <RunCard
+                key={day}
+                data={data}
+                openRunCard={() => openRunCard(data, weekNumber, day)}
+              />
+            );
           })
         : null}
       <div className="col-span-8 border-y-8 border-base-300"></div>
