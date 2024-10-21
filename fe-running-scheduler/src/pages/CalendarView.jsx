@@ -60,6 +60,7 @@ const CalendarView = () => {
   };
 
   // ToDo: some responsiveness that tells user that it will be discarded if he clicks somewhere else
+  // ToDo: some reload must be triggered if schedule is saved
   const saveNewSchedule = async () => {
     try {
       const schedule = await createSchedule(trainingBlockData);
