@@ -6,12 +6,14 @@ import { processFormDataFromScheduler } from "../data/processFormDataFromSchedul
 import { createSchedule } from "../data/schedules";
 import { createRun } from "../data/runs";
 import getCalendars from "../data/getCurrentPreviousNextCalendars";
+import { toast } from "react-toastify";
 
 const CalendarView = () => {
   const data = useActionData();
+  // wäre gut wenn wir beim loader gleich alles verabeiten könnten
   const { loadedSchedules, loadedRuns } = useLoaderData();
-  console.log("loadedSchedules", loadedSchedules);
-  console.log("loadedRuns", loadedRuns);
+  // console.log("loadedSchedules", loadedSchedules);
+  // console.log("loadedRuns", loadedRuns);
 
   const [trainingBlockData, setTrainingBlockData] = useState(
     localStorage.getItem("trainingBlockData")
@@ -23,43 +25,77 @@ const CalendarView = () => {
       ? JSON.parse(localStorage.getItem("runningData"))
       : {}
   );
+  const [calendarIndex, setCalendarIndex] = useState(0);
+  const [cycleState, setCycleState] = useState("current");
+  // console.log("cycleState", cycleState);
+  // console.log("calendarIndex", calendarIndex);
 
   const [newScheduleFormSubmitted, setNewScheduleFormSubmitted] =
     useState(false);
 
   // it works fine:
   const scheduleCalendars = getCalendars(loadedSchedules);
-  console.log(scheduleCalendars.currentCalendar.meta.title);
   const runCalendars = getCalendars(loadedRuns);
-  console.log(runCalendars.currentCalendar.meta.title);
+  // console.log(runCalendars.previousCalendars[0].meta.title);
+  // console.log(runCalendars.nextCalendars[1].meta.title);
 
   const showCurrentCalendar = () => {
     setTrainingBlockData(scheduleCalendars.currentCalendar);
     setRunningData(runCalendars.currentCalendar);
+    setCalendarIndex(0);
+    setCycleState("current");
   };
 
-  // ToDo: implement the logic for cycling through the arrays
+  // OK this works fine though I am quite sure that there is a more concise way to do this
+  // ToDo: clicking too fast leads to no reaction but right now as I am trying to reproduce it it works totally fine
   const showPreviousCalendar = () => {
-    setTrainingBlockData(scheduleCalendars.previousCalendars[0]);
-    setRunningData(runCalendars.previousCalendars[0]);
+    if (cycleState === "next" && calendarIndex > 0) {
+      setTrainingBlockData(
+        scheduleCalendars.nextCalendars[calendarIndex - 1]
+      );
+      setRunningData(runCalendars.nextCalendars[calendarIndex - 1]);
+      setCalendarIndex((prev) => prev - 1);
+      return;
+    }
+    if (cycleState === "next" && calendarIndex === 0) {
+      showCurrentCalendar();
+      return;
+    }
+    setTrainingBlockData(scheduleCalendars.previousCalendars[calendarIndex]);
+    setRunningData(runCalendars.previousCalendars[calendarIndex]);
+    setCycleState("previous");
+
+    if (calendarIndex >= scheduleCalendars.previousCalendars.length - 1) {
+      toast.info("End of previous schedules reached");
+      return;
+    }
+    setCalendarIndex((prev) => prev + 1);
   };
+
   const showNextCalendar = () => {
-    setTrainingBlockData(scheduleCalendars.nextCalendars[0]);
-    setRunningData(runCalendars.nextCalendars[0]);
+    if (cycleState === "previous" && calendarIndex > 0) {
+      setTrainingBlockData(
+        scheduleCalendars.previousCalendars[calendarIndex - 1]
+      );
+      setRunningData(runCalendars.previousCalendars[calendarIndex - 1]);
+      setCalendarIndex((prev) => prev - 1);
+      return;
+    }
+    if (cycleState === "previous" && calendarIndex === 0) {
+      showCurrentCalendar();
+      return;
+    }
+
+    setTrainingBlockData(scheduleCalendars.nextCalendars[calendarIndex]);
+    setRunningData(runCalendars.nextCalendars[calendarIndex]);
+    setCycleState("next");
+
+    if (calendarIndex >= scheduleCalendars.nextCalendars.length - 1) {
+      toast.info("End of upcoming schedules reached");
+      return;
+    }
+    setCalendarIndex((prev) => prev + 1);
   };
-
-  // console.log(data);
-
-  // const testDataFromAPI = async () => {
-  //   try {
-  //     const data = await getAllSchedules();
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // testDataFromAPI(); // working fine
 
   if (newScheduleFormSubmitted && data) {
     console.log("New Schedule Form Submitted");
@@ -83,9 +119,7 @@ const CalendarView = () => {
   localStorage.setItem("trainingBlockData", JSON.stringify(trainingBlockData));
   localStorage.setItem("runningData", JSON.stringify(runningData));
 
-  // ToDO: some button appearing on the calendarBar to save the newly created schedule
-  // this will trigger the action to save the data to the DB
-  // and only then will useEffect load the data FROM the DB
+  // ToDo: now the DB needs to be implemented
   useEffect(() => {
     if (data) {
       const { trainingBlockJson, runDataTemplate } =
@@ -94,17 +128,6 @@ const CalendarView = () => {
       setRunningData(runDataTemplate);
     }
   }, [data]);
-
-  // ToDo: right now when using localstorage the data needs to be cleared manually when setting up a new scheudle
-  // well we should give them an ID
-  // useEffect(() => {
-  //   if (Object.keys(runningData).length === 0) {
-  //     if (trainingBlockData) {
-  //       setRunningData(createRunDataTemplate(trainingBlockData));
-  //     }
-  //   }
-  // }, []);
-  // ToDo: not sure if we need trainingBlockData as dependency here, basically the template should be created only once
 
   return (
     <>

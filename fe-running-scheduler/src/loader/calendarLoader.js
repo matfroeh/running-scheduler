@@ -11,6 +11,7 @@ export const calendarLoader = async () => {
     };
   } catch (error) {
     console.error(error);
+    // ToDo: handle empty database
     return null;
   }
 };

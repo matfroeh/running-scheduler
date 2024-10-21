@@ -1,4 +1,5 @@
 // TODO: handle exceptions e.g. no longrun, no workout day, etc.
+// ToDo: but first, this needs to be really cleaned up and refactored, even the copilot agrees
 
 export function processFormDataFromScheduler(data) {
   const { title, distance, workoutDay, longRun, weeks, date } = data;
