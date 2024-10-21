@@ -9,7 +9,7 @@ export const getAllRuns = async () => {
     if (!res.ok) {
       const errorData = await res.json();
       if (!errorData.error) {
-        throw new Error("An error occurred while fetching the posts");
+        throw new Error("An error occurred while fetching the running data");
       }
       throw new Error(errorData.error);
     }

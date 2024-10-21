@@ -84,7 +84,7 @@ const getCalendars = (calendarArray) => {
   
   
   return {
-    previousCalendars: orderCalenderByStartDate(previousCalendars),
+    previousCalendars: orderCalenderByStartDate(previousCalendars).reverse(), // reversed due to cycling logic: higher index = older calendar
     currentCalendar,
     nextCalendars: orderCalenderByStartDate(nextCalendars),
   };

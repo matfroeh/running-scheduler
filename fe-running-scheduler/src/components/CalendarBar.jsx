@@ -16,7 +16,6 @@ const CalendarBar = ({
   showPreviousCalendar,
   showNextCalendar,
 }) => {
-  // const [newRunningData, setNewRunningData] = useState(null);
   const [fileContent, setFileContent] = useState(null);
   const navigate = useNavigate();
   const gpxInputRef = useRef(null);
@@ -50,14 +49,9 @@ const CalendarBar = ({
   // I don't see any other way to do this but with useEffect
   useEffect(() => {
     if (fileContent) {
-      // setNewRunningData(processGpx(fileContent));
       const newRunningData = processGpx(fileContent);
-      // console.log(newRunningData);
-      // console.log(newRunningData.date);
-
       const [week, day] = findDayObjectByDate(newRunningData.date, runningData);
       // console.log(week, day);
-
       if (week && day) {
         const updatedRunningData = { ...runningData };
         updatedRunningData.weeks[week].days[day] = newRunningData;
@@ -78,10 +72,15 @@ const CalendarBar = ({
     <>
       <div className="navbar">
         <span className="navbar-start">
-          <button className="btn btn-sm" onClick={showPreviousCalendar}>Back</button>
-          <button className="btn btn-sm" onClick={showCurrentCalendar}>Current</button>
-          <button className="btn btn-sm" onClick={showNextCalendar}>Next</button>
-          {/* {newRunningData && <span>{newRunningData.name}</span>} */}
+          <button className="btn btn-sm" onClick={showPreviousCalendar}>
+            Back
+          </button>
+          <button className="btn btn-sm" onClick={showCurrentCalendar}>
+            Current
+          </button>
+          <button className="btn btn-sm" onClick={showNextCalendar}>
+            Next
+          </button>
         </span>
         <div className="px-4">
           <div className="btn btn-sm ring-1" onClick={handleGpxInputClick}>
@@ -124,7 +123,9 @@ const CalendarBar = ({
       {newScheduleFormSubmitted && (
         <div className="mx-auto my-2 flex indicator">
           <span className="indicator-item badge badge-accent"></span>
-          <button onClick={saveNewSchedule} className="ml-24 flex btn btn-sm">Save New Schedule</button>
+          <button onClick={saveNewSchedule} className="ml-24 flex btn btn-sm">
+            Save New Schedule
+          </button>
         </div>
       )}
     </>
