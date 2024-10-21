@@ -1,8 +1,8 @@
 const RunCard = ({ data }) => {
   const { date, name, distance, duration, tempo } = data;
+
   // console.log(data._id);  
 
-  
   // const formattedDate = new Intl.DateTimeFormat("en-UK", {
   //   month: "numeric",
   //   day: "numeric",
