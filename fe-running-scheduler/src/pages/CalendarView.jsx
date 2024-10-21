@@ -7,111 +7,59 @@ import { createSchedule } from "../data/schedules";
 import { createRun } from "../data/runs";
 import getCalendars from "../data/getCurrentPreviousNextCalendars";
 import { toast } from "react-toastify";
+import {
+  showCurrentCalendar as showCurrent,
+  showPreviousCalendar as showPrevious,
+  showNextCalendar as showNext,
+} from "../logic/calendarCycling";
 
 const CalendarView = () => {
+  // ToDo: this needs to be exported to backend, but later
   const data = useActionData();
-  // wäre gut wenn wir beim loader gleich alles verabeiten könnten
+
+  // looks goods!
   const { loadedSchedules, loadedRuns } = useLoaderData();
+  const scheduleCalendars = getCalendars(loadedSchedules);
+  const runCalendars = getCalendars(loadedRuns);
+  // wäre gut wenn wir beim loader gleich alles verabeiten könnten
   // console.log("loadedSchedules", loadedSchedules);
   // console.log("loadedRuns", loadedRuns);
 
   const [trainingBlockData, setTrainingBlockData] = useState(
-    localStorage.getItem("trainingBlockData")
-      ? JSON.parse(localStorage.getItem("trainingBlockData"))
-      : {}
+    scheduleCalendars.currentCalendar
   );
-  const [runningData, setRunningData] = useState(
-    localStorage.getItem("runningData")
-      ? JSON.parse(localStorage.getItem("runningData"))
-      : {}
-  );
+  const [runningData, setRunningData] = useState(runCalendars.currentCalendar);
   const [calendarIndex, setCalendarIndex] = useState(0);
   const [cycleState, setCycleState] = useState("current");
-  console.log("cycleState", cycleState);
-  console.log("calendarIndex", calendarIndex);
-
   const [newScheduleFormSubmitted, setNewScheduleFormSubmitted] =
     useState(false);
 
-  // it works fine:
-  const scheduleCalendars = getCalendars(loadedSchedules);
-  const runCalendars = getCalendars(loadedRuns);
-  // console.log(runCalendars.previousCalendars[0].meta.title);
-  // console.log(runCalendars.nextCalendars[1].meta.title);
+    if (newScheduleFormSubmitted && data) {
+      console.log("New Schedule Form Submitted");
+    }
 
+  const params = {
+    cycleState,
+    calendarIndex,
+    setTrainingBlockData,
+    setRunningData,
+    setCalendarIndex,
+    scheduleCalendars,
+    runCalendars,
+    setCycleState,
+    toast,
+  };
   const showCurrentCalendar = () => {
-    setTrainingBlockData(scheduleCalendars.currentCalendar);
-    setRunningData(runCalendars.currentCalendar);
-    setCalendarIndex(0);
-    setCycleState("current");
+    showCurrent(params);
   };
-
-  // OK this works fine though I am quite sure that there is a more concise way to do this
-  // How should I export this to a separate logic file?
   const showPreviousCalendar = () => {
-    if (cycleState === "next" && calendarIndex > 0) {
-      setTrainingBlockData(scheduleCalendars.nextCalendars[calendarIndex - 1]);
-      setRunningData(runCalendars.nextCalendars[calendarIndex - 1]);
-      setCalendarIndex((prev) => prev - 1);
-      return;
-    }
-    if (cycleState === "next" && calendarIndex === 0) {
-      showCurrentCalendar();
-      return;
-    }
-    if (cycleState === "current") {
-      setTrainingBlockData(scheduleCalendars.previousCalendars[0]);
-      setRunningData(runCalendars.previousCalendars[0]);
-      setCycleState("previous");
-      return;
-    }
-    if (calendarIndex >= scheduleCalendars.previousCalendars.length - 1) {
-      toast.info("End of previous schedules reached");
-      return;
-    }
-
-    setTrainingBlockData(
-      scheduleCalendars.previousCalendars[calendarIndex + 1]
-    );
-    setRunningData(runCalendars.previousCalendars[calendarIndex + 1]);
-    setCycleState("previous");
-    setCalendarIndex((prev) => prev + 1);
+    showPrevious(params);
   };
-
   const showNextCalendar = () => {
-    if (cycleState === "previous" && calendarIndex > 0) {
-      setTrainingBlockData(
-        scheduleCalendars.previousCalendars[calendarIndex - 1]
-      );
-      setRunningData(runCalendars.previousCalendars[calendarIndex - 1]);
-      setCalendarIndex((prev) => prev - 1);
-      return;
-    }
-    if (cycleState === "previous" && calendarIndex === 0) {
-      showCurrentCalendar();
-      return;
-    }
-    if (cycleState === "current") {
-      setTrainingBlockData(scheduleCalendars.nextCalendars[0]);
-      setRunningData(runCalendars.nextCalendars[0]);
-      setCycleState("next");
-      return;
-    }
-    if (calendarIndex >= scheduleCalendars.nextCalendars.length - 1) {
-      toast.info("End of upcoming schedules reached");
-      return;
-    }
-
-    setTrainingBlockData(scheduleCalendars.nextCalendars[calendarIndex + 1]);
-    setRunningData(runCalendars.nextCalendars[calendarIndex + 1]);
-    setCycleState("next");
-    setCalendarIndex((prev) => prev + 1);
+    showNext(params);
   };
 
-  if (newScheduleFormSubmitted && data) {
-    console.log("New Schedule Form Submitted");
-  }
-
+  // ToDo: some responsiveness that tells user that it will be discarded if he clicks somewhere else
   const saveNewSchedule = async () => {
     try {
       const schedule = await createSchedule(trainingBlockData);
@@ -124,13 +72,15 @@ const CalendarView = () => {
     }
   };
 
+  // ToDo: do the same with the DB?
   // This works perfectly fine because as soon as the state changes this code line will run again
   // However we do not want this initially as the user should decide manually if he wants to keep
   // the created schedule or not
-  localStorage.setItem("trainingBlockData", JSON.stringify(trainingBlockData));
-  localStorage.setItem("runningData", JSON.stringify(runningData));
+  // localStorage.setItem("trainingBlockData", JSON.stringify(trainingBlockData));
+  // localStorage.setItem("runningData", JSON.stringify(runningData));
 
   // ToDo: now the DB needs to be implemented
+  // Sets the newly created schedule as the currently showed calendar
   useEffect(() => {
     if (data) {
       const { trainingBlockJson, runDataTemplate } =
@@ -138,6 +88,7 @@ const CalendarView = () => {
       setTrainingBlockData(trainingBlockJson);
       setRunningData(runDataTemplate);
     }
+    // The schedule is by then saved in the DB, but the calendars including the new schedule are not loaded yet
   }, [data]);
 
   return (
