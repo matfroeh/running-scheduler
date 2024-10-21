@@ -27,8 +27,8 @@ const CalendarView = () => {
   );
   const [calendarIndex, setCalendarIndex] = useState(0);
   const [cycleState, setCycleState] = useState("current");
-  // console.log("cycleState", cycleState);
-  // console.log("calendarIndex", calendarIndex);
+  console.log("cycleState", cycleState);
+  console.log("calendarIndex", calendarIndex);
 
   const [newScheduleFormSubmitted, setNewScheduleFormSubmitted] =
     useState(false);
@@ -47,12 +47,10 @@ const CalendarView = () => {
   };
 
   // OK this works fine though I am quite sure that there is a more concise way to do this
-  // ToDo: clicking too fast leads to no reaction but right now as I am trying to reproduce it it works totally fine
+  // How should I export this to a separate logic file?
   const showPreviousCalendar = () => {
     if (cycleState === "next" && calendarIndex > 0) {
-      setTrainingBlockData(
-        scheduleCalendars.nextCalendars[calendarIndex - 1]
-      );
+      setTrainingBlockData(scheduleCalendars.nextCalendars[calendarIndex - 1]);
       setRunningData(runCalendars.nextCalendars[calendarIndex - 1]);
       setCalendarIndex((prev) => prev - 1);
       return;
@@ -61,14 +59,22 @@ const CalendarView = () => {
       showCurrentCalendar();
       return;
     }
-    setTrainingBlockData(scheduleCalendars.previousCalendars[calendarIndex]);
-    setRunningData(runCalendars.previousCalendars[calendarIndex]);
-    setCycleState("previous");
-
+    if (cycleState === "current") {
+      setTrainingBlockData(scheduleCalendars.previousCalendars[0]);
+      setRunningData(runCalendars.previousCalendars[0]);
+      setCycleState("previous");
+      return;
+    }
     if (calendarIndex >= scheduleCalendars.previousCalendars.length - 1) {
       toast.info("End of previous schedules reached");
       return;
     }
+
+    setTrainingBlockData(
+      scheduleCalendars.previousCalendars[calendarIndex + 1]
+    );
+    setRunningData(runCalendars.previousCalendars[calendarIndex + 1]);
+    setCycleState("previous");
     setCalendarIndex((prev) => prev + 1);
   };
 
@@ -85,15 +91,20 @@ const CalendarView = () => {
       showCurrentCalendar();
       return;
     }
-
-    setTrainingBlockData(scheduleCalendars.nextCalendars[calendarIndex]);
-    setRunningData(runCalendars.nextCalendars[calendarIndex]);
-    setCycleState("next");
-
+    if (cycleState === "current") {
+      setTrainingBlockData(scheduleCalendars.nextCalendars[0]);
+      setRunningData(runCalendars.nextCalendars[0]);
+      setCycleState("next");
+      return;
+    }
     if (calendarIndex >= scheduleCalendars.nextCalendars.length - 1) {
       toast.info("End of upcoming schedules reached");
       return;
     }
+
+    setTrainingBlockData(scheduleCalendars.nextCalendars[calendarIndex + 1]);
+    setRunningData(runCalendars.nextCalendars[calendarIndex + 1]);
+    setCycleState("next");
     setCalendarIndex((prev) => prev + 1);
   };
 
