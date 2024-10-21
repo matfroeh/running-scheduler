@@ -1,7 +1,7 @@
-const RunCard = ({ data }) => {
-  const { date, name, distance, duration, tempo } = data;
+const RunCard = ({ data, openRunCard }) => {
+  const { name, distance, duration, tempo } = data;
 
-  // console.log(data._id);  
+  // console.log(data._id);
 
   // const formattedDate = new Intl.DateTimeFormat("en-UK", {
   //   month: "numeric",
@@ -12,6 +12,7 @@ const RunCard = ({ data }) => {
     <div
       className="card card-compact rounded-tr-none rounded-br-none rounded-tl-none ring-2
      image-full bg-base-100 h-36 w-full hover:ring-4 cursor-pointer"
+      onClick={openRunCard}
     >
       {/* <div className="items-end flex justify-end text-white text-xs mt-1 mr-2">
         {formattedDate}

@@ -7,6 +7,7 @@ import Error from "./pages/Error";
 import NotFound from "./pages/NotFound";
 import { action as getFormData } from "./actions/getFormData";
 import { calendarLoader } from "./loader/calendarLoader";
+import { getRunByParams } from "./data/runs";
 
 const router = createBrowserRouter([
   {
@@ -26,8 +27,15 @@ const router = createBrowserRouter([
             element: <CreateTrainingBlockModal />,
           },
           {
-            path: "runs/:runId",
+            path: "runs/:week/:day/:runId",
             element: <RunDetailsModal />,
+            // loader: async ({ params }) => {
+            //   const { week, day, runId } = params;
+            //   const data = await getRunByParams(week, day, runId);
+            //   console.log(data);
+
+            //   return data ? { data } : { error: "Run not found" };
+            // },
           },
         ],
       },
