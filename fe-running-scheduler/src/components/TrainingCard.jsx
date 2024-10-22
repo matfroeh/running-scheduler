@@ -1,7 +1,7 @@
 const TrainingCard = ({ data }) => {
-  if (Object.keys(data).length === 0) {
-    data = "";
-  }
+  // if (Object.keys(data).length === 0) {
+  //   data = "";
+  // }
   const { date, type, distance } = data;
   // console.log(data._id);
 

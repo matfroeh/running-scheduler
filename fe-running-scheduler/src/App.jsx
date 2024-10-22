@@ -21,7 +21,6 @@ const router = createBrowserRouter([
         element: <CalendarView />,
         errorElement: <Error />,
         action: getFormData,
-        // loader: calendarLoader,
         children: [
           {
             path: "new-schedule",
@@ -46,7 +45,6 @@ const router = createBrowserRouter([
         element: <CalendarView />,
         errorElement: <Error />,
         action: getFormData,
-        // loader: calendarLoader,
         children: [
           {
             path: "new-schedule",
