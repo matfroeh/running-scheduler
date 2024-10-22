@@ -2,21 +2,24 @@ import Runs from "../models/Runs.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 
-export const createRun = asyncHandler(async (req, res, next) => {
-  console.log(req.body);
+export const getAllRunningLogs = asyncHandler(async (req, res, next) => {
+  const runs = await Runs.find();
+  res.status(200).json(runs);
+});
+
+export const createRunningLog = asyncHandler(async (req, res, next) => {
   const run = await Runs.create(req.body);
   res.status(201).json(run);
 });
 
-export const getRunByParams = asyncHandler(async (req, res, next) => {
-  const { week, day, runId, calendarId } = req.params;
+export const getRunningLogById = asyncHandler(async (req, res, next) => {
+  const { week, day, calendarId } = req.params;
   const findCalendar = await Runs.findOne({ _id: calendarId });
-  console.log(findCalendar);
 
   if (!findCalendar)
     return next(
       new ErrorResponse(
-        `Running Calendar not found with id of ${calendarId}`,
+        `Running Log not found with id of ${calendarId}`,
         404
       )
     );
@@ -25,42 +28,44 @@ export const getRunByParams = asyncHandler(async (req, res, next) => {
   res.status(200).json(run);
 });
 
-export const updateRunCalendar = asyncHandler(async (req, res, next) => {
+export const updateRunningLog = asyncHandler(async (req, res, next) => {
   const { calendarId } = req.params;
-  console.log(calendarId);
-  
   const { meta, weeks } = req.body;
-  // console.log(req.params, calendarId);
-
-  const body = req.body;
-  // console.log(body);
-  // console.log(body._id);
-  // console.log(typeof(body._id));
 
   const findCalendar = await Runs.findOne({ _id: calendarId });
   if (!findCalendar)
     return next(
       new ErrorResponse(
-        `Running Calendar not found with id of ${calendarId}`,
+        `Running Log not found with id of ${calendarId}`,
         404
       )
     );
     
   const result = await Runs.updateOne(
-    { _id: calendarId }, // Match the document by its _id
-    // update the whole document
+    { _id: calendarId },
+    // update all
     { $set: { meta, weeks } } 
   );
-
-  console.log(result);
-
   res.status(201).json(result);
 });
 
-export const getAllRuns = asyncHandler(async (req, res, next) => {
-  const runs = await Runs.find();
-  res.status(200).json(runs);
+export const deleteRunningLog = asyncHandler(async (req, res, next) => {
+  const { calendarId } = req.params;
+  const findCalendar = await Runs.findOne({
+    _id: calendarId,
+  });
+  if (!findCalendar)
+    return next(
+      new ErrorResponse(
+        `Running Log not found with id of ${calendarId}`,
+        404
+      )
+    );
+  await Runs.deleteOne({ _id: calendarId });
+  res.status(200).json({ success: true });
 });
+
+
 
 // const conditions = [];
 // let result = null;
@@ -95,30 +100,4 @@ export const getAllRuns = asyncHandler(async (req, res, next) => {
 // // works
 // // adding properties works too
 
-// runOne.save(); // it works!
-
-export async function updateDayDate(
-  documentId,
-  weekNumber,
-  dayNumber,
-  newDate
-) {
-  try {
-    // Construct the path for the specific day (e.g., "weeks.week1.days.day1.date")
-    const dayPath = `weeks.week${weekNumber}.days.day${dayNumber}.date`;
-
-    // Update the specified day's date
-    const result = await YourModel.updateOne(
-      { _id: documentId }, // Match the document by its _id
-      { $set: { [dayPath]: newDate } } // Set the new date value using dynamic path
-    );
-
-    if (result.modifiedCount > 0) {
-      console.log("Day date updated successfully");
-    } else {
-      console.log("No matching document found or no changes made");
-    }
-  } catch (error) {
-    console.error("Error updating day date:", error);
-  }
-}
+// runOne.save(); // it works !

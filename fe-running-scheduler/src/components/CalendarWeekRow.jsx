@@ -20,7 +20,7 @@ const CalendarWeekRow = ({ week, weekNumber, runningDataWeek, activeCalendarId }
             return <TrainingCard key={day} data={data} />;
           })
         : null}
-      <SummaryCard week={week} weekNumber={weekNumber} />
+      <SummaryCard scheduleWeek={week} runningWeek={runningDataWeek} weekNumber={weekNumber} />
       {runningDataWeek
         ? Object.entries(runningDataWeek.days).map(([day, data]) => {
             return (
