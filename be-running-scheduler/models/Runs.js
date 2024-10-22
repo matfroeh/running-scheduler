@@ -53,6 +53,9 @@ const weekSchema = new Schema(
 
 const runsSchema = new Schema(
   {
+    _id: {type: Schema.ObjectId, required: true},
+    // _id: { type: String , required: true },
+
     meta: {
       title: {
         type: String,
@@ -76,7 +79,11 @@ const runsSchema = new Schema(
       of: weekSchema, // Dynamic key
       default: {},
     },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
   },
+  { _id: false },
+
   { timestamps: true }
 );
 

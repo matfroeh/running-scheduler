@@ -38,6 +38,20 @@ const router = createBrowserRouter([
             //   return data ? { data } : { error: "Run not found" };
             // },
           },
+
+        ],
+      },
+      {
+        path: "/",
+        element: <CalendarView />,
+        errorElement: <Error />,
+        action: getFormData,
+        // loader: calendarLoader,
+        children: [
+          {
+            path: "new-schedule",
+            element: <CreateTrainingBlockModal />,
+          },
         ],
       },
       {

@@ -74,7 +74,7 @@ const CalendarView = () => {
     try {
       const schedule = await createSchedule(trainingBlockData);
       console.log(schedule);
-      const run = await createRun(runningData);
+      const run = await createRun(runningData, schedule._id);
       console.log(run);
       setNewScheduleFormSubmitted(false);
     } catch (error) {

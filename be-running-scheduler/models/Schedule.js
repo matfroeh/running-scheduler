@@ -28,7 +28,7 @@ const weekSchema = new Schema({
 }, { _id: true } ); // ToDo: set to false if it is not used later
 
 const scheduleSchema = new Schema(
-  {
+  {    
     meta: {
       title: {
         type: String,
