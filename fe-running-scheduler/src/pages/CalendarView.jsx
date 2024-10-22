@@ -23,7 +23,7 @@ const CalendarView = () => {
   const { scheduleCalendars, runCalendars } = useOutletContext();
   const navigate = useNavigate();
 
-  console.log("scheduleCalendars", scheduleCalendars);
+  // console.log("scheduleCalendars", scheduleCalendars);
 
   const [trainingBlockData, setTrainingBlockData] = useState(
     scheduleCalendars.currentCalendar
@@ -61,9 +61,9 @@ const CalendarView = () => {
   const saveNewSchedule = async () => {
     try {
       const schedule = await createSchedule(trainingBlockData);
-      console.log(schedule);
+      // console.log(schedule);
       const run = await createRun(runningData, schedule._id);
-      console.log(run);
+      // console.log(run);
       setNewScheduleFormSubmitted(false);
       // navigate(`/`); // ToDo: to get to the root again for re-triggering the loader but it does not work (maybe because of the "/" index)
       // maybe this will work

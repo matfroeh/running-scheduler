@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { handleGpxUpload as processGpx } from "../data/handleGpxUpload";
 import { useRef } from "react";
+import { updateRunCalendar } from "../data/runs";
 import { useState, useEffect } from "react";
 import { findDayObjectByDate } from "../data/processRunningDataHelper.js";
+import { toast } from "react-toastify";
 
 // ToDo: We really want to upload multiple files here but this can wait
 
@@ -53,9 +55,16 @@ const CalendarBar = ({
       const [week, day] = findDayObjectByDate(newRunningData.date, runningData);
       // console.log(week, day);
       if (week && day) {
+        console.log("entry for update found");
+
         const updatedRunningData = { ...runningData };
         updatedRunningData.weeks[week].days[day] = newRunningData;
         setRunningData(updatedRunningData);
+        const response = updateRunCalendar(updatedRunningData, runningData._id);
+        console.log(response);        
+      }
+      else {
+        toast.error(`${newRunningData.date.slice(0, 10)} is outside of the current calendar`);
       }
     }
   }, [fileContent]);
