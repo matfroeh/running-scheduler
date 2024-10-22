@@ -1,6 +1,8 @@
 const RunCard = ({ data, openRunCard }) => {
-  const { name, distance, duration, tempo } = data;
+  const { date, name, distance, duration, tempo } = data;
 
+  const isToday =
+    date.slice(0, 10) === new Date(Date.now()).toISOString().slice(0, 10);
   // console.log(data._id);
 
   // const formattedDate = new Intl.DateTimeFormat("en-UK", {
@@ -10,8 +12,11 @@ const RunCard = ({ data, openRunCard }) => {
   return (
     // <div className="card card-compact bg-base-100 h-24 w-full hover:border-2 border-teal-400 cursor-pointer">
     <div
-      className="card card-compact rounded-tr-none rounded-br-none rounded-tl-none ring-2
-     image-full bg-base-100 h-36 w-full hover:ring-4 cursor-pointer"
+      className={
+        isToday
+          ? "card card-compact rounded-tr-none rounded-br-none rounded-tl-none ring-2 ring-green-500 image-full bg-base-100 h-36 w-full hover:ring-4 cursor-pointer"
+          : "card card-compact rounded-tr-none rounded-br-none rounded-tl-none ring-2 image-full bg-base-100 h-36 w-full hover:ring-4 cursor-pointer"
+      }
       onClick={openRunCard}
     >
       {/* <div className="items-end flex justify-end text-white text-xs mt-1 mr-2">

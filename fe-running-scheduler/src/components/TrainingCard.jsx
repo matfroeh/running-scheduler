@@ -5,6 +5,8 @@ const TrainingCard = ({ data }) => {
   const { date, type, distance } = data;
   // console.log(data._id);
 
+  const isToday =
+    date.slice(0, 10) === new Date(Date.now()).toISOString().slice(0, 10);
 
   const formattedDate = new Intl.DateTimeFormat("en-UK", {
     month: "numeric",
@@ -13,8 +15,11 @@ const TrainingCard = ({ data }) => {
 
   return (
     <div
-      className="card card-compact rounded-br-none rounded-bl-none rounded-tr-none 
-    ring-2 image-full bg-base-100 h-20 overflow-hidden w-full hover:ring-4 cursor-pointer"
+      className={
+        isToday
+          ? "card card-compact rounded-br-none rounded-bl-none rounded-tr-none ring-2 ring-green-500 image-full bg-base-100 h-20 overflow-hidden w-full hover:ring-4 cursor-pointer"
+          : "card card-compact rounded-br-none rounded-bl-none rounded-tr-none ring-2 image-full bg-base-100 h-20 overflow-hidden w-full hover:ring-4 cursor-pointer"
+      }
     >
       <div className="items-start justify-self-end text-white text-xs mt-1 mr-2">
         {formattedDate}

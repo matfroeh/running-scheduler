@@ -45,8 +45,7 @@ export const updateRunCalendar = asyncHandler(async (req, res, next) => {
         404
       )
     );
-  
-
+    
   const result = await Runs.updateOne(
     { _id: calendarId }, // Match the document by its _id
     // update the whole document
