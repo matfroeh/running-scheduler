@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { getRunByParams } from "../data/runs";
-const RunDetailsModal = () => {
+const RunDetailsModal = () => {  
   const { runId, week, day } = useParams();
 
   useEffect(() => {

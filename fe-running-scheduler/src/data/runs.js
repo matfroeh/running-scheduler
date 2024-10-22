@@ -17,13 +17,16 @@ export const getAllRuns = async () => {
   return data;
 };
 
-export const createRun = async (run) => {
+export const createRun = async (run, _id) => {
+  const body = { ...run, _id: _id };
+  console.log(body);
+  
   const res = await fetch(baseURL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(run),
+    body: JSON.stringify(body),
   });
   if (!res.ok) {
     const errorData = await res.json();

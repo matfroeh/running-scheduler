@@ -13,14 +13,15 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    loader: calendarLoader,
     errorElement: <Error />,
     children: [
       {
-        path: "/",
+        path: "/:calendarId",
         element: <CalendarView />,
         errorElement: <Error />,
         action: getFormData,
-        loader: calendarLoader,
+        // loader: calendarLoader,
         children: [
           {
             path: "new-schedule",
@@ -36,6 +37,20 @@ const router = createBrowserRouter([
 
             //   return data ? { data } : { error: "Run not found" };
             // },
+          },
+
+        ],
+      },
+      {
+        path: "/",
+        element: <CalendarView />,
+        errorElement: <Error />,
+        action: getFormData,
+        // loader: calendarLoader,
+        children: [
+          {
+            path: "new-schedule",
+            element: <CreateTrainingBlockModal />,
           },
         ],
       },

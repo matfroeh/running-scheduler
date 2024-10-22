@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import CalendarBar from "../components/CalendarBar";
 import CalendarBody from "../components/CalendarBody";
-import { Outlet, useActionData, useLoaderData } from "react-router-dom";
+import {
+  Outlet,
+  useActionData,
+  useOutletContext,
+  useNavigate,
+} from "react-router-dom";
 import { processFormDataFromScheduler } from "../data/processFormDataFromScheduler";
 import { createSchedule } from "../data/schedules";
 import { createRun } from "../data/runs";
-import getCalendars from "../data/getCurrentPreviousNextCalendars";
 import { toast } from "react-toastify";
 import {
   showCurrentCalendar as showCurrent,
@@ -16,11 +20,13 @@ import {
 const CalendarView = () => {
   // ToDo: this needs to be exported to backend, but later
   const data = useActionData();
+  const { scheduleCalendars, runCalendars } = useOutletContext();
+  const navigate = useNavigate();
 
   // looks goods!
-  const { loadedSchedules, loadedRuns } = useLoaderData();
-  const scheduleCalendars = getCalendars(loadedSchedules);
-  const runCalendars = getCalendars(loadedRuns);
+  // const { loadedSchedules, loadedRuns } = useLoaderData();
+  // const scheduleCalendars = getCalendars(loadedSchedules);
+  // const runCalendars = getCalendars(loadedRuns);
   // wäre gut wenn wir beim loader gleich alles verabeiten könnten
   // console.log("loadedSchedules", loadedSchedules);
   // console.log("loadedRuns", loadedRuns);
@@ -33,10 +39,13 @@ const CalendarView = () => {
   const [cycleState, setCycleState] = useState("current");
   const [newScheduleFormSubmitted, setNewScheduleFormSubmitted] =
     useState(false);
+  const activeCalendarId = runningData._id;
+  // console.log("activeCalendarId", activeCalendarId);
+  // console.log("name", runningData.meta?.title);
 
-    if (newScheduleFormSubmitted && data) {
-      console.log("New Schedule Form Submitted");
-    }
+  if (newScheduleFormSubmitted && data) {
+    console.log("New Schedule Form Submitted");
+  }
 
   const params = {
     cycleState,
@@ -65,7 +74,7 @@ const CalendarView = () => {
     try {
       const schedule = await createSchedule(trainingBlockData);
       console.log(schedule);
-      const run = await createRun(runningData);
+      const run = await createRun(runningData, schedule._id);
       console.log(run);
       setNewScheduleFormSubmitted(false);
     } catch (error) {
@@ -92,6 +101,11 @@ const CalendarView = () => {
     // The schedule is by then saved in the DB, but the calendars including the new schedule are not loaded yet
   }, [data]);
 
+  useEffect(() => {
+    navigate(`/${activeCalendarId}`);
+  }
+  , [runningData]);
+
   return (
     <>
       <CalendarBar
@@ -107,6 +121,7 @@ const CalendarView = () => {
       <CalendarBody
         trainingData={trainingBlockData}
         runningData={runningData}
+        activeCalendarId={activeCalendarId}
       />
       <Outlet context={{ setNewScheduleFormSubmitted }} />
     </>
