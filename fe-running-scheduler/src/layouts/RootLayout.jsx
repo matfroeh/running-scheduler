@@ -6,14 +6,25 @@ import getCalendars from "../data/getCurrentPreviousNextCalendars";
 import { useEffect } from "react";
 
 const RootLayout = () => {
-  const { loadedSchedules, loadedRuns } = useLoaderData();
-  const scheduleCalendars = getCalendars(loadedSchedules);
-  const runCalendars = getCalendars(loadedRuns);
   const navigate = useNavigate();
+  // console.log(loader);
 
-  const currentCalendarId = runCalendars.currentCalendar._id;
+  
+  const { loadedSchedules, loadedRuns } = useLoaderData();
 
-  // it works so far, now we need to transfer the cycling here as well
+  // If no schedules could be loaded from DB:
+  let scheduleCalendars = [];
+  let runCalendars = [];
+  Object.keys(loadedSchedules).length === 0
+    ? (scheduleCalendars = [])
+    : (scheduleCalendars = getCalendars(loadedSchedules));
+
+  Object.keys(loadedRuns).length === 0
+    ? (runCalendars = [])
+    : (runCalendars = getCalendars(loadedRuns));
+
+  const currentCalendarId = runCalendars?.currentCalendar?._id;
+
   useEffect(() => {
     navigate(`/${currentCalendarId}`);
   }, []);
@@ -26,6 +37,7 @@ const RootLayout = () => {
         theme="colored"
       />
       <NavBar />
+
       <Outlet context={{ scheduleCalendars, runCalendars }} />
     </>
   );

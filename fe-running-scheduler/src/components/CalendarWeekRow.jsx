@@ -4,9 +4,9 @@ import RunCard from "./RunCard";
 import { useNavigate } from "react-router-dom";
 
 const CalendarWeekRow = ({ week, weekNumber, runningDataWeek, activeCalendarId }) => {
-  if (Object.keys(week).length === 0) {
-    week = "";
-  }
+  // if (Object.keys(week).length === 0) {
+  //   week = "";
+  // }
   const navigate = useNavigate();
 
   const openRunCard = (data, weekNumber, day) => {

@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import { processFormDataFromScheduler } from "../data/processFormDataFromScheduler";
 import { createSchedule } from "../data/schedules";
-import { createRun } from "../data/runs";
+import { createRun, updateRunCalendar } from "../data/runs";
 import { toast } from "react-toastify";
 import {
   showCurrentCalendar as showCurrent,
@@ -18,18 +18,12 @@ import {
 } from "../logic/calendarCycling";
 
 const CalendarView = () => {
-  // ToDo: this needs to be exported to backend, but later
+  // ToDo: actionData needs to be exported to backend, but later
   const data = useActionData();
   const { scheduleCalendars, runCalendars } = useOutletContext();
   const navigate = useNavigate();
 
-  // looks goods!
-  // const { loadedSchedules, loadedRuns } = useLoaderData();
-  // const scheduleCalendars = getCalendars(loadedSchedules);
-  // const runCalendars = getCalendars(loadedRuns);
-  // wäre gut wenn wir beim loader gleich alles verabeiten könnten
-  // console.log("loadedSchedules", loadedSchedules);
-  // console.log("loadedRuns", loadedRuns);
+  console.log("scheduleCalendars", scheduleCalendars);
 
   const [trainingBlockData, setTrainingBlockData] = useState(
     scheduleCalendars.currentCalendar
@@ -39,14 +33,8 @@ const CalendarView = () => {
   const [cycleState, setCycleState] = useState("current");
   const [newScheduleFormSubmitted, setNewScheduleFormSubmitted] =
     useState(false);
-  const activeCalendarId = runningData._id;
-  // console.log("activeCalendarId", activeCalendarId);
-  // console.log("name", runningData.meta?.title);
 
-  if (newScheduleFormSubmitted && data) {
-    console.log("New Schedule Form Submitted");
-  }
-
+  const activeCalendarId = runningData?._id;
   const params = {
     cycleState,
     calendarIndex,
@@ -77,20 +65,33 @@ const CalendarView = () => {
       const run = await createRun(runningData, schedule._id);
       console.log(run);
       setNewScheduleFormSubmitted(false);
+      // navigate(`/`); // ToDo: to get to the root again for re-triggering the loader but it does not work (maybe because of the "/" index)
+      // maybe this will work
+      navigate(".", { replace: true });
+      navigate(`/${schedule._id}`);
     } catch (error) {
       console.error(error);
     }
   };
 
-  // ToDo: do the same with the DB?
-  // This works perfectly fine because as soon as the state changes this code line will run again
-  // However we do not want this initially as the user should decide manually if he wants to keep
-  // the created schedule or not
-  // localStorage.setItem("trainingBlockData", JSON.stringify(trainingBlockData));
-  // localStorage.setItem("runningData", JSON.stringify(runningData));
+  // not necessary and useful because it will get triggered by switching calendars
+  // useEffect(() => {
+  //   async function saveCalendar() {
+  //     try {
+  //       const response = await updateRunCalendar(
+  //         runningData,
+  //         activeCalendarId,
+  //       );
+  //       console.log(response);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   if (runningData) {
+  //     saveCalendar();
+  //   }
+  // }, [trainingBlockData, runningData]);
 
-  // ToDo: now the DB needs to be implemented
-  // Sets the newly created schedule as the currently showed calendar
   useEffect(() => {
     if (data) {
       const { trainingBlockJson, runDataTemplate } =
@@ -103,13 +104,12 @@ const CalendarView = () => {
 
   useEffect(() => {
     navigate(`/${activeCalendarId}`);
-  }
-  , [runningData]);
+  }, [runningData]);
 
   return (
     <>
       <CalendarBar
-        title={trainingBlockData.meta?.title}
+        title={trainingBlockData?.meta?.title}
         runningData={runningData}
         setRunningData={setRunningData}
         newScheduleFormSubmitted={newScheduleFormSubmitted}
@@ -123,7 +123,7 @@ const CalendarView = () => {
         runningData={runningData}
         activeCalendarId={activeCalendarId}
       />
-      <Outlet context={{ setNewScheduleFormSubmitted }} />
+      <Outlet context={{ setNewScheduleFormSubmitted, runningData, setRunningData }} />
     </>
   );
 };

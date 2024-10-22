@@ -2,9 +2,10 @@ import WeekDaysBar from "./WeekDaysBar";
 import CalendarWeekRow from "./CalendarWeekRow";
 
 const CalendarBody = ({ trainingData, runningData, activeCalendarId }) => {
-  if (Object.keys(trainingData).length === 0) {
-    trainingData = "";
-  }
+  // if (Object.keys(trainingData).length === 0) {
+  //   trainingData = "";
+  // }
+
 
   return (
     <div className="grid grid-cols-8 mx-4 gap-x-4 gap-y-1">
