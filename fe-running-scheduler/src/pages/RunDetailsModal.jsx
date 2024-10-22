@@ -2,12 +2,12 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { getRunByParams } from "../data/runs";
 const RunDetailsModal = () => {  
-  const { runId, week, day } = useParams();
+  const { calendarId, runId, week, day } = useParams();
 
   useEffect(() => {
     (async () => {
       try {
-        const run = await getRunByParams(week, day, runId);
+        const run = await getRunByParams(calendarId, week, day, runId);
         console.log(run);
       } catch (error) {
         console.log(error.message);
