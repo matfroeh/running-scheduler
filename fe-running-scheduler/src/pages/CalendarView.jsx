@@ -40,8 +40,8 @@ const CalendarView = () => {
   const [newScheduleFormSubmitted, setNewScheduleFormSubmitted] =
     useState(false);
   const activeCalendarId = runningData._id;
-  console.log("activeCalendarId", activeCalendarId);
-  console.log("name", runningData.meta?.title);
+  // console.log("activeCalendarId", activeCalendarId);
+  // console.log("name", runningData.meta?.title);
 
   if (newScheduleFormSubmitted && data) {
     console.log("New Schedule Form Submitted");
@@ -121,6 +121,7 @@ const CalendarView = () => {
       <CalendarBody
         trainingData={trainingBlockData}
         runningData={runningData}
+        activeCalendarId={activeCalendarId}
       />
       <Outlet context={{ setNewScheduleFormSubmitted }} />
     </>

@@ -1,7 +1,7 @@
 import WeekDaysBar from "./WeekDaysBar";
 import CalendarWeekRow from "./CalendarWeekRow";
 
-const CalendarBody = ({ trainingData, runningData }) => {
+const CalendarBody = ({ trainingData, runningData, activeCalendarId }) => {
   if (Object.keys(trainingData).length === 0) {
     trainingData = "";
   }
@@ -21,6 +21,7 @@ const CalendarBody = ({ trainingData, runningData }) => {
                 weekNumber={week}
                 week={data}
                 runningDataWeek={runningData.weeks[week]}
+                activeCalendarId={activeCalendarId}
               />
             );
           })
