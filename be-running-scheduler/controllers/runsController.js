@@ -10,43 +10,74 @@ export const createRun = asyncHandler(async (req, res, next) => {
 
 export const getRunByParams = asyncHandler(async (req, res, next) => {
   const { week, day, runId, calendarId } = req.params;
-  console.log(req.params);
-  
-  // console.log(week, day, runId, calendarId);
-
-  const conditions = [];
-  let result = null;
-
-  const findCalendar = await Runs.findOne(
-    { _id: calendarId });
+  const findCalendar = await Runs.findOne({ _id: calendarId });
   console.log(findCalendar);
 
-  // for (let weekNum = 1; weekNum <= 4; weekNum++) {
-  //   for (let dayNum = 0; dayNum <= 6; dayNum++) {
-  //     const weekKey = `weeks.${week}.days.${day}._id`;
-  //     conditions.push({ [weekKey]: runId });
-  //   }
-  //   result = await Runs.findOne({
-  //     $or: conditions,
-  //   });
-  // }
-  // console.log(result);
-  // console.log(result.get(`weeks.${week}.days.${day}`));
-  // if (!result)
-  //   return next(new ErrorResponse(`Run not found with id of ${runId}`, 404));
-
   if (!findCalendar)
-    return next(new ErrorResponse(`Running Calendar not found with id of ${calendarId}`, 404));
-
+    return next(
+      new ErrorResponse(
+        `Running Calendar not found with id of ${calendarId}`,
+        404
+      )
+    );
   const run = findCalendar.get(`weeks.${week}.days.${day}`);
 
   res.status(200).json(run);
+});
+
+export const updateRunCalendar = asyncHandler(async (req, res, next) => {
+  const { calendarId } = req.params;
+  console.log(calendarId);
+  
+  const { meta, weeks } = req.body;
+  // console.log(req.params, calendarId);
+
+  const body = req.body;
+  // console.log(body);
+  // console.log(body._id);
+  // console.log(typeof(body._id));
+
+  const findCalendar = await Runs.findOne({ _id: calendarId });
+  if (!findCalendar)
+    return next(
+      new ErrorResponse(
+        `Running Calendar not found with id of ${calendarId}`,
+        404
+      )
+    );
+  
+
+  const result = await Runs.updateOne(
+    { _id: calendarId }, // Match the document by its _id
+    // update the whole document
+    { $set: { meta, weeks } } 
+  );
+
+  console.log(result);
+
+  res.status(201).json(result);
 });
 
 export const getAllRuns = asyncHandler(async (req, res, next) => {
   const runs = await Runs.find();
   res.status(200).json(runs);
 });
+
+// const conditions = [];
+// let result = null;
+// for (let weekNum = 1; weekNum <= 4; weekNum++) {
+//   for (let dayNum = 0; dayNum <= 6; dayNum++) {
+//     const weekKey = `weeks.${week}.days.${day}._id`;
+//     conditions.push({ [weekKey]: runId });
+//   }
+//   result = await Runs.findOne({
+//     $or: conditions,
+//   });
+// }
+// console.log(result);
+// console.log(result.get(`weeks.${week}.days.${day}`));
+// if (!result)
+//   return next(new ErrorResponse(`Run not found with id of ${runId}`, 404));
 
 //   const runOne = await Runs.findOne({
 //     "weeks.week2._id": "6715807edd29f3a9ae91371c",

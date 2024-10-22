@@ -56,11 +56,14 @@ export const createRun = async (run, _id) => {
 };
 
 
-export const updateRunCalendar = async (run, calendarId, week, day, runId) => {
-  const body = { ...run, _id: runId };
+export const updateRunCalendar = async (run, calendarId) => {
+  // const body = { ...run, _id: calendarId };
+  const body = run;
+  console.log(calendarId);
+  
   console.log(body);
 
-  const res = await fetch(`${baseURL}/${calendarId}/${week}/${day}/${runId}`, {
+  const res = await fetch(`${baseURL}/${calendarId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -75,5 +78,7 @@ export const updateRunCalendar = async (run, calendarId, week, day, runId) => {
     throw new Error(errorData.error);
   }
   const data = await res.json();
+  console.log(data);
+  
   return data;
 };

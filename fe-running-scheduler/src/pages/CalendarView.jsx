@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import { processFormDataFromScheduler } from "../data/processFormDataFromScheduler";
 import { createSchedule } from "../data/schedules";
-import { createRun } from "../data/runs";
+import { createRun, updateRunCalendar } from "../data/runs";
 import { toast } from "react-toastify";
 import {
   showCurrentCalendar as showCurrent,
@@ -74,15 +74,23 @@ const CalendarView = () => {
     }
   };
 
-  useEffect(() => {
-    async function saveCalendar() {
-      try {
-        ;
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, [trainingBlockData, runningData]);
+  // not necessary and useful because it will get triggered by switching calendars
+  // useEffect(() => {
+  //   async function saveCalendar() {
+  //     try {
+  //       const response = await updateRunCalendar(
+  //         runningData,
+  //         activeCalendarId,
+  //       );
+  //       console.log(response);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   if (runningData) {
+  //     saveCalendar();
+  //   }
+  // }, [trainingBlockData, runningData]);
 
   useEffect(() => {
     if (data) {
@@ -115,7 +123,7 @@ const CalendarView = () => {
         runningData={runningData}
         activeCalendarId={activeCalendarId}
       />
-      <Outlet context={{ setNewScheduleFormSubmitted }} />
+      <Outlet context={{ setNewScheduleFormSubmitted, runningData, setRunningData }} />
     </>
   );
 };
