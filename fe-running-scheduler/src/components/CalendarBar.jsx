@@ -53,16 +53,15 @@ const CalendarBar = ({
     if (fileContent) {
       const newRunningData = processGpx(fileContent);
       const [week, day] = findDayObjectByDate(newRunningData.date, runningData);
-      // console.log(week, day);
+      
       if (week && day) {
-        console.log("entry for update found");
-
         const updatedRunningData = { ...runningData };
         updatedRunningData.weeks[week].days[day] = newRunningData;
         setRunningData(updatedRunningData);
         const response = updateRunCalendar(updatedRunningData, runningData._id);
         console.log(response);        
       }
+      // ToDo any other way to do this? Do we want that files outside of the calendar are processed?
       else {
         toast.error(`${newRunningData.date.slice(0, 10)} is outside of the current calendar`);
       }
