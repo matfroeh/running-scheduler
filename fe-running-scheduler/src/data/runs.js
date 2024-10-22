@@ -39,8 +39,8 @@ export const createRun = async (run, _id) => {
   return data;
 };
 
-export const getRunByParams = async (week, day, runId) => {
-  const res = await fetch(`${baseURL}/${week}/${day}/${runId}`);
+export const getRunByParams = async (calendarId, week, day, runId) => {
+  const res = await fetch(`${baseURL}/${calendarId}/${week}/${day}/${runId}`);
   if (!res.ok) {
     const errorData = await res.json();
     if (!errorData.error) {

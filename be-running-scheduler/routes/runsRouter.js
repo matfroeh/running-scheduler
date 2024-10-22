@@ -4,6 +4,6 @@ import { getAllRuns, createRun, getRunByParams } from "../controllers/runsContro
 const runsRouter = Router();
 
 runsRouter.route("/").get(getAllRuns).post(createRun);
-runsRouter.route("/:week/:day/:runId").get(getRunByParams);
+runsRouter.route("/:calendarId/:week/:day/:runId").get(getRunByParams);
 
 export default runsRouter;
