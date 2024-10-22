@@ -1,9 +1,24 @@
 import { Router } from "express";
-import { getAllSchedules, createSchedule } from "../controllers/scheduleController.js";
+import {
+  getAllTrainingSchedules,
+  createTrainingSchedule,
+  getTrainingScheduleById,
+  updateTrainingSchedule,
+  deleteTrainingSchedule,
+} from "../controllers/scheduleController.js";
 
 const scheduleRouter = Router();
 
-scheduleRouter.route("/").get(getAllSchedules).post(createSchedule);
-// scheduleRouter.route("/:id").get().put().delete();
+scheduleRouter
+  .route("/")
+  .get(getAllTrainingSchedules)
+  .post(createTrainingSchedule);
+scheduleRouter
+  .route("/:calendarId/:week/:day/:trainingId")
+  .get(getTrainingScheduleById);
+scheduleRouter
+  .route("/:calendarId")
+  .put(updateTrainingSchedule)
+  .delete(deleteTrainingSchedule);
 
 export default scheduleRouter;

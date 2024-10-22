@@ -1,10 +1,16 @@
 import { Router } from "express";
-import { getAllRuns, createRun, getRunByParams, updateRunCalendar } from "../controllers/runsController.js";
+import {
+  getAllRunningLogs,
+  createRunningLog,
+  getRunningLogById,
+  updateRunningLog,
+  deleteRunningLog,
+} from "../controllers/runsController.js";
 
 const runsRouter = Router();
 
-runsRouter.route("/").get(getAllRuns).post(createRun);
-runsRouter.route("/:calendarId/:week/:day/:runId").get(getRunByParams);
-runsRouter.route("/:calendarId").put(updateRunCalendar);
+runsRouter.route("/").get(getAllRunningLogs).post(createRunningLog);
+runsRouter.route("/:calendarId/:week/:day/:runId").get(getRunningLogById);
+runsRouter.route("/:calendarId").put(updateRunningLog).delete(deleteRunningLog);
 
 export default runsRouter;
