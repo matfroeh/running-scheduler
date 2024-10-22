@@ -13,14 +13,15 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    loader: calendarLoader,
     errorElement: <Error />,
     children: [
       {
-        path: "/",
+        path: "/:calendarId",
         element: <CalendarView />,
         errorElement: <Error />,
         action: getFormData,
-        loader: calendarLoader,
+        // loader: calendarLoader,
         children: [
           {
             path: "new-schedule",
