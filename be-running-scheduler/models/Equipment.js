@@ -3,13 +3,15 @@ const { Schema, model } = mongoose;
 
 // ToDo: basically there could be an equipment list independent from the user so that one can choose from a predefined list
 const equipmentSchema = new Schema({
-  equipmentOwner: { type: Schema.Types.ObjectId, ref: "User", required: true },
-  equipmentName: { type: String, required: true},
-  equipmentType: { type: String, required: true },
-  equipmentBrand: { type: String },
-  equipmentModel: { type: String },
-  equipmentDistance: { type: Number },
-  equipmentTime: { type: Number },
+  owner: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  name: { type: String, required: true},
+  type: { type: String, required: true },
+  brand: { type: String },
+  model: { type: String },
+  distance: { type: Number },
+  inUseSince: { type: Date },
+  time: { type: Number },
+  status: { type: String, enum: ["active", "inactive"], default: "active" },
 });
 
 export default model("Equipment", equipmentSchema);

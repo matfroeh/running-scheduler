@@ -28,17 +28,17 @@ export const signUp = asyncHandler(async (req, res, next) => {
       secure: isProduction,
       // overwrite: true,
     };
-    const checkCookieOptions = {
-      expires: new Date(Date.now() + 60 * 60 * 10000),
-      sameSite: isProduction ? "None" : "Lax",
-      secure: isProduction,
-      // overwrite: true,
-    };
+    // const checkCookieOptions = {
+    //   expires: new Date(Date.now() + 60 * 60 * 10000),
+    //   sameSite: isProduction ? "None" : "Lax",
+    //   secure: isProduction,
+    //   // overwrite: true,
+    // };
 
     const { userName, email } = newUser;
     res
       .cookie("auth", token, tokenCookieOptions)
-      .cookie("checkCookie", checkCookieValue, checkCookieOptions); // not used in the frontend by now
+      // .cookie("checkCookie", checkCookieValue, checkCookieOptions); // not used in the frontend by now
     res.status(201).json({ success: "User successfully created.", data: {userName, email } });
   } catch (error) {
     next(error);
@@ -70,17 +70,17 @@ export const login = asyncHandler(async (req, res, next) => {
       secure: isProduction,
       // overwrite: true,
     };
-    const checkCookieOptions = {
-      expires: new Date(Date.now() + 60 * 60 * 10000),
-      sameSite: isProduction ? "None" : "Lax",
-      secure: isProduction,
-      // overwrite: true,
-    };
+    // const checkCookieOptions = {
+    //   expires: new Date(Date.now() + 60 * 60 * 10000),
+    //   sameSite: isProduction ? "None" : "Lax",
+    //   secure: isProduction,
+    //   // overwrite: true,
+    // };
     
     const { userName, email } = user;
     res
       .cookie("auth", token, tokenCookieOptions)
-      .cookie("checkCookie", checkCookieValue, checkCookieOptions);
+      // .cookie("checkCookie", checkCookieValue, checkCookieOptions);
     res.status(200).json({ success: "User successfully logged in.", data: { userName, email } });
   } catch (error) {
     next(error);
