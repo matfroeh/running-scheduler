@@ -6,10 +6,12 @@ const daySchema = new Schema({
     type: Date,
     required: true,
   },
-  name: { // this is the name from the gpx (track)-metadata
+  name: {
+    // this is the name from the gpx (track)-metadata
     type: String,
   },
-  type: { // maybe the user can select from a list of types in the edit form of the frontend
+  type: {
+    // maybe the user can select from a list of types in the edit form of the frontend
     type: String,
   },
   distance: {
@@ -19,10 +21,12 @@ const daySchema = new Schema({
     // because we will save it as hh:mm:ss
     type: String,
   },
-  tempo: { // will be saved as min/km in mm:ss/km format
+  tempo: {
+    // will be saved as min/km in mm:ss/km format
     type: String,
   },
-  speed: { // will be saved as km/h, could be saved as number but we will use string for now
+  speed: {
+    // will be saved as km/h, could be saved as number but we will use string for now
     type: String,
   },
   effort: {
@@ -36,8 +40,9 @@ const daySchema = new Schema({
     text: true,
   },
   equipment: {
-    // ToDo: we will late create an equipment schema and use a reference here
-    type: String,
+    // this is the equipment used for this run
+    type: Schema.Types.ObjectId,
+    ref: "Equipment",
   },
 });
 
@@ -53,8 +58,13 @@ const weekSchema = new Schema(
 
 const runsSchema = new Schema(
   {
-    _id: {type: Schema.ObjectId, required: true},
-    // _id: { type: String , required: true },
+    _id: { type: Schema.ObjectId, required: true },
+
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: [true, "User is required"],
+    },
 
     meta: {
       title: {

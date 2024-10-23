@@ -8,8 +8,8 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { processFormDataFromScheduler } from "../data/processFormDataFromScheduler";
-import { createSchedule } from "../data/schedules";
-import { createRun, updateRunCalendar } from "../data/runs";
+import { createTrainingSchedule } from "../data/schedules";
+import { createRun } from "../data/runs";
 import { toast } from "react-toastify";
 import {
   showCurrentCalendar as showCurrent,
@@ -60,9 +60,9 @@ const CalendarView = () => {
   // ToDo: some reload must be triggered if schedule is saved
   const saveNewSchedule = async () => {
     try {
-      const schedule = await createSchedule(trainingBlockData);
+      const schedule = await createTrainingSchedule(trainingBlockData);
       // console.log(schedule);
-      const run = await createRun(runningData, schedule._id);
+      await createRun(runningData, schedule._id);
       // console.log(run);
       setNewScheduleFormSubmitted(false);
       // navigate(`/`); // ToDo: to get to the root again for re-triggering the loader but it does not work (maybe because of the "/" index)
@@ -104,7 +104,7 @@ const CalendarView = () => {
 
   useEffect(() => {
     navigate(`/${activeCalendarId}`);
-  }, [runningData]);
+  }, [runningData, trainingBlockData]);
 
   return (
     <>
@@ -123,7 +123,7 @@ const CalendarView = () => {
         runningData={runningData}
         activeCalendarId={activeCalendarId}
       />
-      <Outlet context={{ setNewScheduleFormSubmitted, runningData, setRunningData }} />
+      <Outlet context={{ setNewScheduleFormSubmitted, runningData, setRunningData, trainingBlockData, setTrainingBlockData }} />
     </>
   );
 };

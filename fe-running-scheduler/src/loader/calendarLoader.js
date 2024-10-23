@@ -1,9 +1,9 @@
-import { getAllSchedules } from "../data/schedules";
+import { getAllTrainingSchedules } from "../data/schedules";
 import { getAllRuns } from "../data/runs";
 
 export const calendarLoader = async () => {
   try {
-    const loadedSchedules = await getAllSchedules();
+    const loadedSchedules = await getAllTrainingSchedules();
     const loadedRuns = await getAllRuns();
     return {
       loadedSchedules,
@@ -11,7 +11,9 @@ export const calendarLoader = async () => {
     };
   } catch (error) {
     console.error(error);
-    // ToDo: handle empty database
-    return null;
+    return {
+      loadedSchedules: {},
+      loadedRuns: {},
+    };
   }
 };

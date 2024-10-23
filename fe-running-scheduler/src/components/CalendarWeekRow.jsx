@@ -3,7 +3,12 @@ import SummaryCard from "./SummaryCard";
 import RunCard from "./RunCard";
 import { useNavigate } from "react-router-dom";
 
-const CalendarWeekRow = ({ week, weekNumber, runningDataWeek, activeCalendarId }) => {
+const CalendarWeekRow = ({
+  week,
+  weekNumber,
+  runningDataWeek,
+  activeCalendarId,
+}) => {
   // if (Object.keys(week).length === 0) {
   //   week = "";
   // }
@@ -13,14 +18,28 @@ const CalendarWeekRow = ({ week, weekNumber, runningDataWeek, activeCalendarId }
     navigate(`/${activeCalendarId}/runs/${weekNumber}/${day}/${data._id}`);
   };
 
+  const openTrainingCard = (data, weekNumber, day) => {
+    navigate(`/${activeCalendarId}/schedule/${weekNumber}/${day}/${data._id}`);
+  };
+
   return (
     <>
       {week
         ? Object.entries(week.days).map(([day, data]) => {
-            return <TrainingCard key={day} data={data} />;
+            return (
+              <TrainingCard
+                key={day}
+                data={data}
+                openTrainingCard={() => openTrainingCard(data, weekNumber, day)}
+              />
+            );
           })
         : null}
-      <SummaryCard scheduleWeek={week} runningWeek={runningDataWeek} weekNumber={weekNumber} />
+      <SummaryCard
+        scheduleWeek={week}
+        runningWeek={runningDataWeek}
+        weekNumber={weekNumber}
+      />
       {runningDataWeek
         ? Object.entries(runningDataWeek.days).map(([day, data]) => {
             return (

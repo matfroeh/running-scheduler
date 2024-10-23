@@ -27,6 +27,7 @@ export const getRunByParams = async (calendarId, week, day, runId) => {
     throw new Error(errorData.error);
   }
   const data = await res.json();
+
   console.log(data);
 
   return data;
@@ -35,7 +36,6 @@ export const getRunByParams = async (calendarId, week, day, runId) => {
 // _id is the id of the scheduleCalendar
 export const createRun = async (run, _id) => {
   const body = { ...run, _id: _id };
-  console.log(body);
 
   const res = await fetch(baseURL, {
     method: "POST",
@@ -57,11 +57,7 @@ export const createRun = async (run, _id) => {
 
 
 export const updateRunCalendar = async (run, calendarId) => {
-  // const body = { ...run, _id: calendarId };
   const body = run;
-  console.log(calendarId);
-  
-  console.log(body);
 
   const res = await fetch(`${baseURL}/${calendarId}`, {
     method: "PUT",
@@ -78,6 +74,7 @@ export const updateRunCalendar = async (run, calendarId) => {
     throw new Error(errorData.error);
   }
   const data = await res.json();
+
   console.log(data);
   
   return data;
