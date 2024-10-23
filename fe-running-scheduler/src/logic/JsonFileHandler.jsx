@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const JsonFileHandler = () => {
+const JsonFileHandler = ( {scheduleCalendars, runCalendars} ) => {
   const [importedJson, setImportedJson] = useState(null);
 
   // Function to export a JSON object to a file
@@ -35,22 +35,29 @@ const JsonFileHandler = () => {
   };
 
   return (
-    <div>
-      <h2>JSON File Handler</h2>
+    <div className="flex gap-4">
 
       <div>
-        <h3>Export JSON</h3>
-        <button
+
+      
+        <button className="btn"
           onClick={() =>
-            exportJson({ name: "John Doe", age: 30, city: "New York" })
+            exportJson(scheduleCalendars, "trainingSchedules.json")
           }
         >
-          Export Sample JSON
+          Export Training Schedules as JSON
+        </button>
+        <button className="btn"
+          onClick={() =>
+            exportJson(runCalendars, "runningLogs.json")
+          }
+        >
+          Export Running Logs as JSON
         </button>
       </div>
 
-      <div>
-        <h3>Import JSON</h3>
+      {/* <div>
+      <h3>Import JSON Data</h3>
         <input type="file" accept=".json" onChange={importJson} />
       </div>
 
@@ -59,7 +66,7 @@ const JsonFileHandler = () => {
           <h3>Imported JSON Data</h3>
           <pre>{JSON.stringify(importedJson, null, 2)}</pre>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

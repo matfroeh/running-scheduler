@@ -21,8 +21,8 @@ const CalendarBar = ({
   const [fileContent, setFileContent] = useState(null);
   const navigate = useNavigate();
   const gpxInputRef = useRef(null);
-
-  title ? title : (title = "Create Your First Training Schedule");
+  // when no data is loaded
+  const initialTitle = "Create Your First Training Schedule";
   // console.log(newRunningData);
   // for (const key in newRunningData) {
   //   console.log(key, newRunningData[key]);
@@ -53,17 +53,22 @@ const CalendarBar = ({
     if (fileContent) {
       const newRunningData = processGpx(fileContent);
       const [week, day] = findDayObjectByDate(newRunningData.date, runningData);
-      
+
       if (week && day) {
         const updatedRunningData = { ...runningData };
         updatedRunningData.weeks[week].days[day] = newRunningData;
         setRunningData(updatedRunningData);
         const response = updateRunCalendar(updatedRunningData, runningData._id);
-        console.log(response);        
+        console.log(response);
       }
       // ToDo any other way to do this? Do we want that files outside of the calendar are processed?
       else {
-        toast.error(`${newRunningData.date.slice(0, 10)} is outside of the current calendar`);
+        toast.error(
+          `${newRunningData.date.slice(
+            0,
+            10
+          )} is outside of the current calendar`
+        );
       }
     }
   }, [fileContent]);
@@ -91,7 +96,7 @@ const CalendarBar = ({
           </button>
         </span>
         <div className="px-4">
-          <div className="btn btn-sm ring-1" onClick={handleGpxInputClick}>
+          <div className="btn btn-sm ring-1" onClick={handleGpxInputClick} disabled={title ? false : true}>
             Upload .gpx
             <input
               ref={gpxInputRef}
@@ -106,7 +111,12 @@ const CalendarBar = ({
           {/* <input className="w-52 text-center bg-inherit" contentEditable="false" value={thisTitle} onChange={(e) => handleTitleChange(e)} /> */}
 
           <div className="flex">
-            <span className="rounded-md p-1">{title}</span>
+            {title ? (
+              <span className="rounded-md p-1">{title}</span>
+            ) : (
+              <span className="rounded-md p-1">{initialTitle}</span>
+            )}
+
             <div className="group relative w-max">
               <button
                 className="btn btn-sm btn-circle mx-4 hover:ring-1"

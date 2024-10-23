@@ -11,6 +11,9 @@ export const calendarLoader = async () => {
     };
   } catch (error) {
     console.error(error);
-    return null;
+    return {
+      loadedSchedules: {},
+      loadedRuns: {},
+    };
   }
 };

@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import getCalendars from "../data/getCurrentPreviousNextCalendars";
 import { useEffect } from "react";
+// import JsonFileHandler from "../logic/JsonFileHandler";
 
 const RootLayout = () => {
   const navigate = useNavigate();
@@ -24,11 +25,14 @@ const RootLayout = () => {
 
   // ToDo: avoid this useEffect
   useEffect(() => {
-    navigate(`/${currentCalendarId}`);
+    // if (currentCalendarId) 
+      navigate(`/${currentCalendarId}`);
   }, []);
 
   return (
     <>
+      {/* ONLY DEV TOOL FOR NOW ToDo: maybe include this as a function?  */}
+      {/* <JsonFileHandler scheduleCalendars={scheduleCalendars} runCalendars={runCalendars} /> */}
       <ToastContainer
         position="bottom-right"
         autoClose={1500}
