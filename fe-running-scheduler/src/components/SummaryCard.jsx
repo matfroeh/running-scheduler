@@ -1,8 +1,8 @@
 const SummaryCard = ({ scheduleWeek, runningWeek, weekNumber }) => {
   const totalDistancePlanned = Object.keys(scheduleWeek.days).reduce(
     (acc, day) => {
-      if (scheduleWeek.days[day].distance) {
-        acc += scheduleWeek.days[day].distance;
+      if (scheduleWeek.days[day].distance) {  
+        acc += parseFloat(scheduleWeek.days[day].distance);
       }
       return Math.round(parseFloat(acc));
     },
