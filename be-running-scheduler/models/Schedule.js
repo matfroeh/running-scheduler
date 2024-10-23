@@ -28,7 +28,13 @@ const weekSchema = new Schema({
 }, { _id: true } ); // ToDo: set to false if it is not used later
 
 const scheduleSchema = new Schema(
-  {    
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: [true, "User is required"],
+    },
+    
     meta: {
       title: {
         type: String,

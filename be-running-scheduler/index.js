@@ -4,6 +4,7 @@ import cors from "cors";
 import errorHandler from "./middleware/errorHandler.js";
 import scheduleRouter from "./routes/scheduleRouter.js";
 import runsRouter from "./routes/runsRouter.js";
+import authRouter from "./routes/authRouter.js";
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use('/schedules', scheduleRouter);
 app.use('/runs', runsRouter);
+app.use('/auth', authRouter);
 
 app.use('*', (req, res) => {
   res.status(404).send("Not found");

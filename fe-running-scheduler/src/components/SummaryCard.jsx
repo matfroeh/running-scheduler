@@ -20,7 +20,7 @@ const SummaryCard = ({ scheduleWeek, runningWeek, weekNumber }) => {
 
   return (
     <div
-      className="card card-compact ring-1 ring-cyan-500 rounded-tr-none rounded-br-none row-span-2 
+      className="card card-compact bg-gray-800 ring-1 ring-cyan-500 rounded-tr-none rounded-br-none row-span-2 
     h-full w-full hover:ring-2 cursor-pointer"
     >
       {/* <div

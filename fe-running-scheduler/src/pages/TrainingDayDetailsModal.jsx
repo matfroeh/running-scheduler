@@ -146,7 +146,7 @@ const TrainingDayDetailsModal = () => {
             <h3 className="text-lg font-semibold">Description: </h3>
             {isEditMode ? (
               <textarea
-                placeholder="Add yours Workout protocol here"
+                placeholder="Add your Workout protocol here"
                 rows={4}
                 name="description"
                 value={formData.description || ""}
