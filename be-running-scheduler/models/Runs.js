@@ -40,8 +40,9 @@ const daySchema = new Schema({
     text: true,
   },
   equipment: {
-    // ToDo: we will late create an equipment schema and use a reference here
-    type: String,
+    // this is the equipment used for this run
+    type: Schema.Types.ObjectId,
+    ref: "Equipment",
   },
 });
 

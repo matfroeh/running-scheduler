@@ -10,15 +10,7 @@ const userSchema = new Schema({
     select: false,
   },
   role: { type: String, enum: ["user", "admin"], default: "user" }, // admin needs to be set directly via database management for now
-  equipmentList: [
-    {
-      equipmentItem: { type: String },
-      equipmentType: { type: String },
-      equipmentBrand: { type: String },
-      equipmentModel: { type: String },
-      equipmentDistance: { type: Number },
-    },
-  ],
+  equipmentList: [{ type: Schema.Types.ObjectId, ref: "Equipment" }],
   createdAt: { type: Date, default: Date.now },
 });
 
