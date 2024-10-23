@@ -4,12 +4,12 @@ if (!API_URL) {
 }
 const baseURL = `${API_URL}/schedules`;
 
-export const getAllSchedules = async () => {
+export const getAllTrainingSchedules = async () => {
   const res = await fetch(baseURL);
   if (!res.ok) {
     const errorData = await res.json();
     if (!errorData.error) {
-      throw new Error("An error occurred while fetching the schedules");
+      throw new Error("An error occurred while fetching the Training Schedules");
     }
     throw new Error(errorData.error);
   }
@@ -17,7 +17,7 @@ export const getAllSchedules = async () => {
   return data;
 };
 
-export const createSchedule = async (schedule) => {
+export const createTrainingSchedule = async (schedule) => {
   const res = await fetch(baseURL, {
     method: "POST",
     headers: {
@@ -28,10 +28,33 @@ export const createSchedule = async (schedule) => {
   if (!res.ok) {
     const errorData = await res.json();
     if (!errorData.error) {
-      throw new Error("An error occurred while creating the schedule");
+      throw new Error("An error occurred while creating the Training Schedule");
     }
     throw new Error(errorData.error);
   }
   const data = await res.json();
+  return data;
+};
+
+
+export const updateTrainingSchedule = async (schedule, calendarId) => {
+  const res = await fetch(`${baseURL}/${calendarId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(schedule),
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    if (!errorData.error) {
+      throw new Error("An error occurred while updating the Training Schedule");
+    }
+    throw new Error(errorData.error);
+  }
+  const data = await res.json();
+
+  console.log(data);
+  
   return data;
 };

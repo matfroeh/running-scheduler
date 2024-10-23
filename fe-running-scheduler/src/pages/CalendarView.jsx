@@ -8,7 +8,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { processFormDataFromScheduler } from "../data/processFormDataFromScheduler";
-import { createSchedule } from "../data/schedules";
+import { createTrainingSchedule } from "../data/schedules";
 import { createRun } from "../data/runs";
 import { toast } from "react-toastify";
 import {
@@ -60,7 +60,7 @@ const CalendarView = () => {
   // ToDo: some reload must be triggered if schedule is saved
   const saveNewSchedule = async () => {
     try {
-      const schedule = await createSchedule(trainingBlockData);
+      const schedule = await createTrainingSchedule(trainingBlockData);
       // console.log(schedule);
       await createRun(runningData, schedule._id);
       // console.log(run);
@@ -104,7 +104,7 @@ const CalendarView = () => {
 
   useEffect(() => {
     navigate(`/${activeCalendarId}`);
-  }, [runningData]);
+  }, [runningData, trainingBlockData]);
 
   return (
     <>
@@ -123,7 +123,7 @@ const CalendarView = () => {
         runningData={runningData}
         activeCalendarId={activeCalendarId}
       />
-      <Outlet context={{ setNewScheduleFormSubmitted, runningData, setRunningData }} />
+      <Outlet context={{ setNewScheduleFormSubmitted, runningData, setRunningData, trainingBlockData, setTrainingBlockData }} />
     </>
   );
 };

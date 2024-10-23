@@ -1,12 +1,11 @@
 import { useParams, useOutletContext, Link } from "react-router-dom";
 import { updateRunCalendar } from "../data/runs";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const RunDetailsModal = () => {
   const { calendarId, week, day } = useParams();
   const { runningData, setRunningData } = useOutletContext();
-
-  // console.log(runningData);
 
   const run = runningData.weeks[week].days[day];
 
@@ -23,20 +22,19 @@ const RunDetailsModal = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // console.log(name, value);
     setFormData({
       ...formData,
       [name]: value,
     });
   };
 
-  // Toggle edit mode
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
     if (isEditMode) {
       setFormData({ ...run });
     }
   };
+
 
   // for (const key in run) {
   //   console.log(key, run[key]);
@@ -46,19 +44,22 @@ const RunDetailsModal = () => {
     try {
       const updatedRunningData = { ...runningData };
       updatedRunningData.weeks[week].days[day] = formData;
+
       console.log(updatedRunningData.weeks[week].days[day]);
+      
       setRunningData(updatedRunningData);
       await updateRunCalendar(runningData, calendarId);
       // console.log(response);
+      toast.success("Run updated successfully");
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
 
   return (
     <div className="fixed overflow-hidden inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
-      <div className="card container md:max-w-[75%] lg:max-w-[65%] xl:max-w-[50%] max-h-screen overflow-auto modal-window p-4 bg-base-100 rounded-lg border shadow-lg">
-        <div className=" card-body overflow-y-scroll h-max">
+      <div className="card container md:max-w-[75%] lg:max-w-[65%] xl:max-w-[50%] max-h-screen modal-window p-4 bg-base-100 rounded-lg border shadow-lg">
+        <div className=" card-body overflow-y-auto h-max">
           <div className="card-actions justify-end">
             <Link
               className="btn btn-square btn-ghost btn-sm"
@@ -82,16 +83,16 @@ const RunDetailsModal = () => {
           </div>
           <h2 className="card-title text-xl font-bold">
             {isEditMode ? (
-                <div>
-                  <div>Name: </div>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name || ""}
-                    onChange={handleChange}
-                    className="input input-bordered w-full mt-2"
-                  />
-                </div>
+              <div>
+                <div>Name: </div>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name || ""}
+                  onChange={handleChange}
+                  className="input input-bordered w-full mt-2"
+                />
+              </div>
             ) : (
               <div>
                 <span>{formData.name || "N/A"}, </span>
@@ -112,11 +113,11 @@ const RunDetailsModal = () => {
           </div>
 
           <div className="grid grid-cols-2 gap-4 mt-2">
-          <div>
+            <div>
               <strong>Distance: </strong>
               {isEditMode ? (
                 <input
-                type="number"
+                  type="number"
                   name="distance"
                   value={formData.distance || ""}
                   onChange={handleChange}
@@ -141,7 +142,7 @@ const RunDetailsModal = () => {
                     value={formData.effort || 0}
                     className="range range-primary mt-3"
                     step="1"
-                    />
+                  />
                   <div className="flex w-full justify-between px-2 text-xs">
                     <span>0</span>
                     <span>|</span>
@@ -158,7 +159,7 @@ const RunDetailsModal = () => {
                 </>
               ) : (
                 <span>
-                  {formData.effort !== undefined ? formData.effort : ""} / 10
+                  {formData.effort !== undefined ? formData.effort : "0"} / 10
                 </span>
               )}
             </div>
@@ -168,35 +169,34 @@ const RunDetailsModal = () => {
                 <span>{formData.duration || "N/A"}</span>
               </div>
             )}
-              {isEditMode ? (
-                <div>
-                  <strong>Type: </strong>
-                  <select
-                    className="select select-bordered w-full max-w-xs mt-2"
-                    value={formData.type}
-                    name="type"
-                    onChange={handleChange}
-                  >
-                    <option disabled selected>
-                      Select a type
-                    </option>
-                    <option>Easy Run</option>
-                    <option>Long Run</option>
-                    <option>Interval Workout</option>
-                    <option>Threshold/Tempo Run</option>
-                    <option>Progression Run</option>
-                    <option>Hill Sprints</option>
-                    <option>Recovery Run</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-              ) : (
-                <div>
-                  <strong>Type: </strong>
-                  <span>{formData.type || ""}</span>
-                </div>
-              )}
-
+            {isEditMode ? (
+              <div>
+                <strong>Type: </strong>
+                <select
+                  className="select select-bordered w-full max-w-xs mt-2"
+                  value={formData.type}
+                  name="type"
+                  onChange={handleChange}
+                >
+                  <option disabled selected>
+                    Select a type
+                  </option>
+                  <option>Easy Run</option>
+                  <option>Long Run</option>
+                  <option>Interval Workout</option>
+                  <option>Threshold/Tempo Run</option>
+                  <option>Progression Run</option>
+                  <option>Hill Sprints</option>
+                  <option>Recovery Run</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            ) : (
+              <div>
+                <strong>Type: </strong>
+                <span>{formData.type || ""}</span>
+              </div>
+            )}
 
             {isEditMode ? null : (
               <div>
@@ -235,7 +235,7 @@ const RunDetailsModal = () => {
           </div>
 
           <div className="mt-4">
-            <h3 className="text-lg font-semibold">Comments:</h3>
+            <h3 className="text-lg font-semibold">Notes: </h3>
             {isEditMode ? (
               <textarea
                 placeholder="Add your comments here"

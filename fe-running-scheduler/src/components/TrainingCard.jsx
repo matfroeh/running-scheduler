@@ -1,4 +1,4 @@
-const TrainingCard = ({ data }) => {
+const TrainingCard = ({ data, openTrainingCard }) => {
   // if (Object.keys(data).length === 0) {
   //   data = "";
   // }
@@ -20,6 +20,7 @@ const TrainingCard = ({ data }) => {
           ? "card card-compact rounded-br-none rounded-bl-none rounded-tr-none ring-2 ring-green-500 image-full bg-base-100 h-20 overflow-hidden w-full hover:ring-4 cursor-pointer"
           : "card card-compact rounded-br-none rounded-bl-none rounded-tr-none ring-2 image-full bg-base-100 h-20 overflow-hidden w-full hover:ring-4 cursor-pointer"
       }
+      onClick={openTrainingCard}
     >
       <div className="items-start justify-self-end text-white text-xs mt-1 mr-2">
         {formattedDate}

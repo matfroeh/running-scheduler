@@ -3,6 +3,7 @@ import RootLayout from "./layouts/RootLayout";
 import CalendarView from "./pages/CalendarView";
 import CreateTrainingBlockModal from "./pages/CreateTrainingBlockModal";
 import RunDetailsModal from "./pages/RunDetailsModal";
+import TrainingDayDetailsModal from "./pages/TrainingDayDetailsModal";
 import Error from "./pages/Error";
 import NotFound from "./pages/NotFound";
 import { action as getFormData } from "./actions/getFormData";
@@ -29,6 +30,11 @@ const router = createBrowserRouter([
             path: "runs/:week/:day/:runId",
             element: <RunDetailsModal />,
           },
+          {
+            path: "schedule/:week/:day/:trainingDayId",
+            element: <TrainingDayDetailsModal />,
+          }
+
 
         ],
       },
