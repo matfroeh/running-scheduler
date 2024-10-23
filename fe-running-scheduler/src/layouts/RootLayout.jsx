@@ -7,9 +7,6 @@ import { useEffect } from "react";
 
 const RootLayout = () => {
   const navigate = useNavigate();
-  // console.log(loader);
-
-  
   const { loadedSchedules, loadedRuns } = useLoaderData();
 
   // If no schedules could be loaded from DB:
@@ -25,6 +22,7 @@ const RootLayout = () => {
 
   const currentCalendarId = runCalendars?.currentCalendar?._id;
 
+  // ToDo: avoid this useEffect
   useEffect(() => {
     navigate(`/${currentCalendarId}`);
   }, []);
@@ -37,7 +35,6 @@ const RootLayout = () => {
         theme="colored"
       />
       <NavBar />
-
       <Outlet context={{ scheduleCalendars, runCalendars }} />
     </>
   );

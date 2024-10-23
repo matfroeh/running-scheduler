@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import { processFormDataFromScheduler } from "../data/processFormDataFromScheduler";
 import { createSchedule } from "../data/schedules";
-import { createRun, updateRunCalendar } from "../data/runs";
+import { createRun } from "../data/runs";
 import { toast } from "react-toastify";
 import {
   showCurrentCalendar as showCurrent,
@@ -62,7 +62,7 @@ const CalendarView = () => {
     try {
       const schedule = await createSchedule(trainingBlockData);
       // console.log(schedule);
-      const run = await createRun(runningData, schedule._id);
+      await createRun(runningData, schedule._id);
       // console.log(run);
       setNewScheduleFormSubmitted(false);
       // navigate(`/`); // ToDo: to get to the root again for re-triggering the loader but it does not work (maybe because of the "/" index)
