@@ -4,7 +4,7 @@ import CalendarBody from "../components/CalendarBody";
 import {
   Outlet,
   useActionData,
-  useOutletContext,
+  useLoaderData,
   useNavigate,
 } from "react-router-dom";
 import { processFormDataFromScheduler } from "../data/processFormDataFromScheduler";
@@ -20,21 +20,23 @@ import {
 const CalendarView = () => {
   // ToDo: actionData needs to be exported to backend, but later
   const data = useActionData();
-  const { scheduleCalendars, runCalendars } = useOutletContext();
-  const navigate = useNavigate();
-
-  // console.log("scheduleCalendars", scheduleCalendars);
+  const { scheduleCalendars, runCalendars } = useLoaderData();
 
   const [trainingBlockData, setTrainingBlockData] = useState(
     scheduleCalendars.currentCalendar
   );
   const [runningData, setRunningData] = useState(runCalendars.currentCalendar);
+
   const [calendarIndex, setCalendarIndex] = useState(0);
   const [cycleState, setCycleState] = useState("current");
+  
   const [newScheduleFormSubmitted, setNewScheduleFormSubmitted] =
     useState(false);
+    
+  const navigate = useNavigate();
 
   const activeCalendarId = runningData?._id;
+
   const params = {
     cycleState,
     calendarIndex,
@@ -57,40 +59,16 @@ const CalendarView = () => {
   };
 
   // ToDo: some responsiveness that tells user that it will be discarded if he clicks somewhere else
-  // ToDo: some reload must be triggered if schedule is saved
   const saveNewSchedule = async () => {
     try {
       const schedule = await createTrainingSchedule(trainingBlockData);
-      // console.log(schedule);
       await createRun(runningData, schedule._id);
-      // console.log(run);
       setNewScheduleFormSubmitted(false);
       navigate(`/${schedule._id}`);
-      // navigate(`/`); // ToDo: to get to the root again for re-triggering the loader but it does not work (maybe because of the "/" index)
-      // maybe this will work
-      // navigate(".", { replace: true });
     } catch (error) {
       console.error(error);
     }
   };
-
-  // not necessary and useful because it will get triggered by switching calendars
-  // useEffect(() => {
-  //   async function saveCalendar() {
-  //     try {
-  //       const response = await updateRunCalendar(
-  //         runningData,
-  //         activeCalendarId,
-  //       );
-  //       console.log(response);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   if (runningData) {
-  //     saveCalendar();
-  //   }
-  // }, [trainingBlockData, runningData]);
 
   useEffect(() => {
     if (data) {
@@ -99,7 +77,6 @@ const CalendarView = () => {
       setTrainingBlockData(trainingBlockJson);
       setRunningData(runDataTemplate);
     }
-    // The schedule is by then saved in the DB, but the calendars including the new schedule are not loaded yet
   }, [data]);
 
   useEffect(() => {
@@ -123,7 +100,15 @@ const CalendarView = () => {
         runningData={runningData}
         activeCalendarId={activeCalendarId}
       />
-      <Outlet context={{ setNewScheduleFormSubmitted, runningData, setRunningData, trainingBlockData, setTrainingBlockData }} />
+      <Outlet
+        context={{
+          setNewScheduleFormSubmitted,
+          runningData,
+          setRunningData,
+          trainingBlockData,
+          setTrainingBlockData,
+        }}
+      />
     </>
   );
 };

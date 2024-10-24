@@ -19,7 +19,7 @@ export const signUp = asyncHandler(async (req, res, next) => {
     const payload = { userId: newUser.id, userRole: newUser.role }; 
     const tokenOptions = { expiresIn: "6d" }; 
     const token = jwt.sign(payload, secret, tokenOptions);
-    const checkCookieValue = true;
+    // const checkCookieValue = true;
 
     const isProduction = process.env.NODE_ENV === "production";
     const tokenCookieOptions = {
@@ -49,7 +49,7 @@ export const login = asyncHandler(async (req, res, next) => {
   try {
     const { body } = req;
     const user = await User.findOne({ email: body.email }).select("+password");
-    if (!user) throw new ErrorResponse("User not found", 404);
+    if (!user) throw new ErrorResponse("Invalid credentials", 401);
 
     const isPasswordValid = await bcrypt.compare(body.password, user.password);
     if (!isPasswordValid) throw new ErrorResponse("Invalid credentials", 401);
@@ -61,7 +61,7 @@ export const login = asyncHandler(async (req, res, next) => {
         expiresIn: "6d",
       }
     );
-    const checkCookieValue = true;
+    // const checkCookieValue = true;
 
     const isProduction = process.env.NODE_ENV === "production";
     const tokenCookieOptions = {
@@ -92,7 +92,7 @@ export const me = asyncHandler(async (req, res, next) => {
     const { userId, userRole } = req; // This is coming from the verifyTokenMiddleware
 
     const user = await User.findById(userId).select("-password");
-    if (!user) throw new ErrorResponse("User not found", 404);
+    if (!user) throw new ErrorResponse("Invalid credentials", 401);
 
     const { userName, email, equipmentList } = user;
 

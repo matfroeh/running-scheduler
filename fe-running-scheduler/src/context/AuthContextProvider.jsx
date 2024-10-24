@@ -17,7 +17,7 @@ const AuthContextProvider = ({ children }) => {
 
   // will be used as a toggle effect
   useEffect(() => {
-    console.log("checkSession called");
+    // console.log("checkSession called");
     
     const checkToken = async () => {
       await checkAuth()

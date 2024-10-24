@@ -8,9 +8,9 @@ const CreateTrainingBlockModal = () => {
     title: "",
     weeks: "",
     date: "",
-    distance: "",
-    longRun: "None",
-    workoutDay: "None",
+    distance: 0,
+    longRun: "none",
+    workoutDay: "none",
   });
   const [runningDays, setRunningDays] = useState({
     monday: false,
@@ -62,8 +62,8 @@ const CreateTrainingBlockModal = () => {
     }
     if (
       form.longRun === form.workoutDay &&
-      form.longRun !== "None" &&
-      form.workoutDay !== "None"
+      form.longRun !== "none" &&
+      form.workoutDay !== "none"
     ) {
       e.preventDefault();
       setError("Long Run and Workout Day should be on different days.");
@@ -109,7 +109,7 @@ const CreateTrainingBlockModal = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                  className="dropdown-content menu bg-base-200 rounded-box z-[1] w-52 p-2 shadow"
                 >
                   <li>
                     <div className="form-control">
@@ -279,7 +279,7 @@ const CreateTrainingBlockModal = () => {
 
             <button
               className="px-4 py-2 rounded-lg mr-2 hover:bg-base-100 transition-colors"
-              onClick={() => navigate("/")}
+              onClick={() => navigate(-1)}
             >
               Cancel
             </button>
