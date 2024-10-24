@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import getCalendars from "../data/getCurrentPreviousNextCalendars";
 import { useEffect } from "react";
 // import JsonFileHandler from "../logic/JsonFileHandler";
+// import ImageTest from "../components/ImageTest";
 
 const RootLayout = () => {
   const navigate = useNavigate();
@@ -33,6 +34,8 @@ const RootLayout = () => {
     <>
       {/* ONLY DEV TOOL FOR NOW ToDo: maybe include this as a function?  */}
       {/* <JsonFileHandler scheduleCalendars={scheduleCalendars} runCalendars={runCalendars} /> */}
+      {/* For Testing: */}
+      {/* <ImageTest /> */}
       <ToastContainer
         position="bottom-right"
         autoClose={1500}
