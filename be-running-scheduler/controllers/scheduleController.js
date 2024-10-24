@@ -3,7 +3,8 @@ import asyncHandler from "../utils/asyncHandler.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 
 export const getAllTrainingSchedules = asyncHandler(async (req, res, next) => {
-  const schedules = await Schedule.find();
+  const userId = req.userId;
+  const schedules = await Schedule.find( { user: userId });
   res.status(200).json(schedules);
 });
 

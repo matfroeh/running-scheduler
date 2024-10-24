@@ -5,7 +5,10 @@ if (!API_URL) {
 const baseURL = `${API_URL}/runs`;
 
 export const getAllRuns = async () => {
-  const res = await fetch(baseURL);
+  const res = await fetch(baseURL, {
+    method: "GET",
+    credentials: "include",
+  });
   if (!res.ok) {
     const errorData = await res.json();
     if (!errorData.error) {
