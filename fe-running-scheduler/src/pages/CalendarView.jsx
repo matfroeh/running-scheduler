@@ -65,10 +65,10 @@ const CalendarView = () => {
       await createRun(runningData, schedule._id);
       // console.log(run);
       setNewScheduleFormSubmitted(false);
+      navigate(`/${schedule._id}`);
       // navigate(`/`); // ToDo: to get to the root again for re-triggering the loader but it does not work (maybe because of the "/" index)
       // maybe this will work
-      navigate(".", { replace: true });
-      navigate(`/${schedule._id}`);
+      // navigate(".", { replace: true });
     } catch (error) {
       console.error(error);
     }

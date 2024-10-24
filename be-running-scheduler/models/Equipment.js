@@ -8,6 +8,7 @@ const equipmentSchema = new Schema({
   type: { type: String, required: true },
   brand: { type: String },
   model: { type: String },
+  picture: { type: Schema.Types.ObjectId, ref: "Image" },
   distance: { type: Number },
   inUseSince: { type: Date },
   time: { type: Number },

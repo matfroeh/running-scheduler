@@ -5,6 +5,7 @@ import {
   createEquipment,
   updateEquipment,
   deleteEquipmentFromUserList,
+  updateUser,
 } from "../controllers/userController.js";
 
 // separate router from authRouter for the user getting and posting equipment data
@@ -13,7 +14,7 @@ const userRouter = Router();
 
 userRouter
   .route("/:userId")
-  .get(getEquipmentListFromUser)
+  .get(getEquipmentListFromUser).put(updateUser) // we will use put to set the image_id
   .post(createEquipment); // get user equipment list, create user equipment (not insert in list)
 userRouter
   .route("/:userId/:equipmentId")

@@ -30,11 +30,11 @@ const RunCard = ({ data, openRunCard }) => {
       <div className="card-body flex  flex-col">
         <div className="card-title flex-auto text-sm">{name}</div>
         <div className="flex flex-col justify-between flex-auto text-xs">
-          {name && (
+          {distance && (
             <>
-              <span>{parseFloat(distance).toFixed(2)} km</span>
-              <span>{parseFloat(duration).toFixed(2)} mm:ss</span>
-              <span>{parseFloat(tempo).toFixed(2)} min/km</span>
+              <span>{parseFloat(distance).toFixed(1)} km</span>
+              <span>{duration}</span>
+              <span>{tempo} min/km</span>
               {/* <span>{speed} km/h</span> */}
             </>
           )}

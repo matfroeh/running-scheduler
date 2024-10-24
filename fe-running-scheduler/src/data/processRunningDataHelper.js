@@ -8,7 +8,14 @@ export const getSecondsAsHoursMinutesSecondsString = (duration) => {
   const hours = Math.floor(duration / 3600);
   const minutes = Math.floor((duration % 3600) / 60);
   const seconds = duration % 60;
-  return `${hours}:${minutes}:${seconds.toFixed(0).padStart(2, "0")}`;
+  if (hours === 0) {
+    return `${minutes.toFixed(0).padStart(2, "0")}:${seconds
+      .toFixed(0)
+      .padStart(2, "0")}`;
+  }
+  return `${hours.toFixed(0).padStart(2, "0")}:${minutes
+    .toFixed(0)
+    .padStart(2, "0")}:${seconds.toFixed(0).padStart(2, "0")}`;
 };
 
 // params: date: string/Date, runningData: object:{week: object:{day: object}}
