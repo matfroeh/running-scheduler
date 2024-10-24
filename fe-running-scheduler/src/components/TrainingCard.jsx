@@ -24,12 +24,12 @@ const TrainingCard = ({ data, openTrainingCard }) => {
       }
       onClick={openTrainingCard}
     >
-      <div className="card-body relative">
+      <div className="card-body overflow-x-clip relative">
         <div className="items-start absolute top-0 right-0 justify-self-end text-white text-xs mt-1 mr-2">
           {formattedDate}
         </div>
-        <div className="card-title text-sm mt-2">{type}</div>
-        <div>{distance ? <p>{distance} km</p> : null}</div>
+        <div className="card-title text-sm min-w-max mt-2">{type}</div>
+        <div className="min-w-max">{distance ? <p>{distance} km</p> : null}</div>
       </div>
     </div>
   );

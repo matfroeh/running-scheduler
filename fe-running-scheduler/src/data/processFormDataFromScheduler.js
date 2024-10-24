@@ -49,7 +49,7 @@ export function processFormDataFromScheduler(data) {
 
   const getEndDate = (startDate, weeks) => {
     const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() -1 + weeks * 7);
+    endDate.setDate(endDate.getDate() - 1 + weeks * 7);
     return endDate;
   };
 
@@ -63,13 +63,28 @@ export function processFormDataFromScheduler(data) {
   const longRunDayIndex = longRun !== "None" ? weekdays.indexOf(longRun) : null;
   // console.log(workoutDayIndex, longRunDayIndex);
 
-  const longRunDistance = Math.round(distance * (1 / 3)); // a reasonable starting point
-  const workoutDayDistance = 10; // fixed assumption
+  let longRunDistance = 0;
+  if (longRun !== "None") {
+    longRunDistance = Math.round(distance * (1 / 3)); // a reasonable starting point
+  }
+  let workoutDayDistance = 0;
+  if (workoutDay !== "None") {
+    workoutDayDistance = 10; // fixed assumption
+  }
 
-  // TODO: handle exceptions e.g. no longrun, no workout day, etc.
-  const easyRunDistance = Math.round(
-    (distance - longRunDistance - workoutDayDistance) / (runningDays.length - 2)
-  );
+  const totalEasyRunDistance = distance - longRunDistance - workoutDayDistance;
+
+  const getEasyRunDistance = (runningDays, totalEasyRunDistance) => {
+    let count = 0;
+    for (const day of runningDays) {
+      if (day !== workoutDayIndex || day !== longRunDayIndex) {
+        count++;
+      }
+    }
+    return Math.round(totalEasyRunDistance / count);
+  };
+
+  const easyRunDistance = getEasyRunDistance(runningDays, totalEasyRunDistance);
 
   const trainingBlockParameters = {
     title,
@@ -114,7 +129,7 @@ export function processFormDataFromScheduler(data) {
       i++;
     }
     // console.log(template);
-    
+
     return template;
   };
 
@@ -180,7 +195,6 @@ export function processFormDataFromScheduler(data) {
     trainingBlock.meta.endDate = trainingBlockParameters.endDate;
     trainingBlock.meta.weeks = trainingBlockParameters.weeks;
 
-
     // set the weeks
     trainingBlock.weeks = {};
     for (let i = 1; i <= weeks; i++) {
@@ -198,9 +212,11 @@ export function processFormDataFromScheduler(data) {
   );
   const runDataTemplate = createRunDataTemplate(trainingBlockJson);
 
+  trainingBlockJson.user = "6719541ce4e06aa54ecd564e";
+  runDataTemplate.user = "6719541ce4e06aa54ecd564e";
+
   return { trainingBlockJson, runDataTemplate };
 }
-
 
 // Creates the template for the later insertion of the running data (uploaded gpx files)
 // based on the TrainingBlockData
@@ -229,16 +245,14 @@ export const createRunDataTemplate = (trainingBlockData) => {
       for (const day in trainingBlockData.weeks[week]["days"]) {
         // console.log("createRunDataTemplate", trainingBlockData.weeks[week]["days"][day]);
 
-        
         // runDataTemplate[week]["days"][day] = {};
         runDataTemplate.weeks[week]["days"][day] = {
           date: trainingBlockData.weeks[week]["days"][day].date,
         };
         // console.log("createRunDataTemplate", runDataTemplate[week]["days"][day]);
-        
       }
     }
   }
-    // console.log("runDataTemplate", runDataTemplate);
+  // console.log("runDataTemplate", runDataTemplate);
   return runDataTemplate;
 };
