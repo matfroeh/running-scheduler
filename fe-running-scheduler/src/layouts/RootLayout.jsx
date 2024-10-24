@@ -26,9 +26,10 @@ const RootLayout = () => {
   const currentCalendarId = runCalendars?.currentCalendar?._id;
 
   // ToDo: avoid this useEffect
+  // Note: deactivated during auth implementation
   useEffect(() => {
     // if (currentCalendarId)
-    navigate(`/${currentCalendarId}`);
+    // navigate(`/${currentCalendarId}`);
   }, []);
 
   return (

@@ -22,7 +22,7 @@ const CalendarBar = ({
   const navigate = useNavigate();
   const gpxInputRef = useRef(null);
   // when no data is loaded
-  const initialTitle = "Create Your First Training Schedule";
+  const initialTitle = "Create A New Training Schedule";
   // console.log(newRunningData);
   // for (const key in newRunningData) {
   //   console.log(key, newRunningData[key]);

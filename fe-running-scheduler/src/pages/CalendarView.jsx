@@ -102,6 +102,7 @@ const CalendarView = () => {
     // The schedule is by then saved in the DB, but the calendars including the new schedule are not loaded yet
   }, [data]);
 
+  
   useEffect(() => {
     navigate(`/${activeCalendarId}`);
   }, [runningData, trainingBlockData]);

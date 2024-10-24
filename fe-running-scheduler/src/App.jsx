@@ -51,10 +51,10 @@ const router = createBrowserRouter([
         errorElement: <Error />,
         action: getFormData,
         children: [
-          {
-            path: "new-schedule",
-            element: <CreateTrainingBlockModal />,
-          },
+          // {
+          //   path: "new-schedule",
+          //   element: <CreateTrainingBlockModal />,
+          // },
           {
             path: "login",
             element: <Login />,
