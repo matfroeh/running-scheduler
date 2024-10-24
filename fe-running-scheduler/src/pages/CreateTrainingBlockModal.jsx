@@ -279,7 +279,7 @@ const CreateTrainingBlockModal = () => {
 
             <button
               className="px-4 py-2 rounded-lg mr-2 hover:bg-base-100 transition-colors"
-              onClick={() => navigate("/")}
+              onClick={() => navigate(-1)}
             >
               Cancel
             </button>

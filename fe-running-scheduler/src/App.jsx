@@ -11,28 +11,20 @@ import { calendarLoader } from "./loader/calendarLoader";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ProtectedLayout from "./layouts/ProtectedLayout";
+import { AuthContextProvider } from "@/context";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
-    loader: calendarLoader,
-    errorElement: <Error />,
     children: [
-      // {
-      //   path: "/protected",
-      //   element: <ProtectedLayout />,
-      //   children: [
       {
-        path: ":calendarId",
+        path: "/:calendarId",
         element: <CalendarView />,
+        loader: calendarLoader,
         errorElement: <Error />,
         action: getFormData,
         children: [
-          {
-            path: "new-schedule",
-            element: <CreateTrainingBlockModal />,
-          },
           {
             path: "runs/:week/:day/:runId",
             element: <RunDetailsModal />,
@@ -43,38 +35,96 @@ const router = createBrowserRouter([
           },
         ],
       },
-      //   ],
-      // },
       {
         path: "/",
         element: <CalendarView />,
+        loader: calendarLoader,
         errorElement: <Error />,
         action: getFormData,
         children: [
-          // {
-          //   path: "new-schedule",
-          //   element: <CreateTrainingBlockModal />,
-          // },
           {
-            path: "login",
-            element: <Login />,
-          },
-          {
-            path: "signup",
-            element: <SignUp />,
+            path: "new-schedule",
+            element: <CreateTrainingBlockModal />,
           },
         ],
       },
-      {
-        path: "*",
-        element: <NotFound />,
-      },
     ],
+  },
+  {
+    path: "login",
+    element: <Login />,
+  },
+  {
+    path: "signup",
+    element: <SignUp />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
+
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthContextProvider>
+      <RouterProvider router={router} />;
+    </AuthContextProvider>
+  );
 }
 
 export default App;
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <ProtectedLayout />,
+//     children: [
+//       {
+//         path: "/",
+//         element: <RootLayout />,
+//         loader: calendarLoader,
+//         errorElement: <Error />,
+//         children: [
+//           {
+//             path: ":calendarId",
+//             element: <CalendarView />,
+//             errorElement: <Error />,
+//             action: getFormData,
+//             children: [
+//               {
+//                 path: "new-schedule",
+//                 element: <CreateTrainingBlockModal />,
+//               },
+//               {
+//                 path: "runs/:week/:day/:runId",
+//                 element: <RunDetailsModal />,
+//               },
+//               {
+//                 path: "schedule/:week/:day/:trainingDayId",
+//                 element: <TrainingDayDetailsModal />,
+//               },
+//             ],
+//           },
+//           {
+//             path: "new-schedule",
+//             element: <CreateTrainingBlockModal />,
+//           },
+//         ],
+//       },
+//     ],
+//   },
+//   {
+//     path: "login",
+//     element: <Login />,
+//   },
+//   {
+//     path: "signup",
+//     element: <SignUp />,
+//   },
+
+//   {
+//     path: "*",
+//     element: <NotFound />,
+//   },
+// ]);

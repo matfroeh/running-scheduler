@@ -49,7 +49,7 @@ const SignUp = () => {
 
             <Link
               className="btn btn-square btn-ghost btn-sm"
-              to={`/}`}
+              to={`/`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

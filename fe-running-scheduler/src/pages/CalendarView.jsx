@@ -4,7 +4,7 @@ import CalendarBody from "../components/CalendarBody";
 import {
   Outlet,
   useActionData,
-  useOutletContext,
+  useLoaderData,
   useNavigate,
 } from "react-router-dom";
 import { processFormDataFromScheduler } from "../data/processFormDataFromScheduler";
@@ -20,7 +20,8 @@ import {
 const CalendarView = () => {
   // ToDo: actionData needs to be exported to backend, but later
   const data = useActionData();
-  const { scheduleCalendars, runCalendars } = useOutletContext();
+  // const { scheduleCalendars, runCalendars } = useOutletContext();
+  const { scheduleCalendars, runCalendars } = useLoaderData();
   const navigate = useNavigate();
 
   // console.log("scheduleCalendars", scheduleCalendars);
@@ -35,6 +36,8 @@ const CalendarView = () => {
     useState(false);
 
   const activeCalendarId = runningData?._id;
+  console.log("activeCalendarId", activeCalendarId);
+
   const params = {
     cycleState,
     calendarIndex,
@@ -74,24 +77,6 @@ const CalendarView = () => {
     }
   };
 
-  // not necessary and useful because it will get triggered by switching calendars
-  // useEffect(() => {
-  //   async function saveCalendar() {
-  //     try {
-  //       const response = await updateRunCalendar(
-  //         runningData,
-  //         activeCalendarId,
-  //       );
-  //       console.log(response);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   if (runningData) {
-  //     saveCalendar();
-  //   }
-  // }, [trainingBlockData, runningData]);
-
   useEffect(() => {
     if (data) {
       const { trainingBlockJson, runDataTemplate } =
@@ -102,7 +87,6 @@ const CalendarView = () => {
     // The schedule is by then saved in the DB, but the calendars including the new schedule are not loaded yet
   }, [data]);
 
-  
   useEffect(() => {
     navigate(`/${activeCalendarId}`);
   }, [runningData, trainingBlockData]);
@@ -124,7 +108,15 @@ const CalendarView = () => {
         runningData={runningData}
         activeCalendarId={activeCalendarId}
       />
-      <Outlet context={{ setNewScheduleFormSubmitted, runningData, setRunningData, trainingBlockData, setTrainingBlockData }} />
+      <Outlet
+        context={{
+          setNewScheduleFormSubmitted,
+          runningData,
+          setRunningData,
+          trainingBlockData,
+          setTrainingBlockData,
+        }}
+      />
     </>
   );
 };
