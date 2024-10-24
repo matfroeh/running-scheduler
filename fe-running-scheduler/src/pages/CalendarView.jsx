@@ -20,23 +20,22 @@ import {
 const CalendarView = () => {
   // ToDo: actionData needs to be exported to backend, but later
   const data = useActionData();
-  // const { scheduleCalendars, runCalendars } = useOutletContext();
   const { scheduleCalendars, runCalendars } = useLoaderData();
-  const navigate = useNavigate();
-
-  // console.log("scheduleCalendars", scheduleCalendars);
 
   const [trainingBlockData, setTrainingBlockData] = useState(
     scheduleCalendars.currentCalendar
   );
   const [runningData, setRunningData] = useState(runCalendars.currentCalendar);
+
   const [calendarIndex, setCalendarIndex] = useState(0);
   const [cycleState, setCycleState] = useState("current");
+  
   const [newScheduleFormSubmitted, setNewScheduleFormSubmitted] =
     useState(false);
+    
+  const navigate = useNavigate();
 
   const activeCalendarId = runningData?._id;
-  console.log("activeCalendarId", activeCalendarId);
 
   const params = {
     cycleState,
@@ -60,18 +59,12 @@ const CalendarView = () => {
   };
 
   // ToDo: some responsiveness that tells user that it will be discarded if he clicks somewhere else
-  // ToDo: some reload must be triggered if schedule is saved
   const saveNewSchedule = async () => {
     try {
       const schedule = await createTrainingSchedule(trainingBlockData);
-      // console.log(schedule);
       await createRun(runningData, schedule._id);
-      // console.log(run);
       setNewScheduleFormSubmitted(false);
       navigate(`/${schedule._id}`);
-      // navigate(`/`); // ToDo: to get to the root again for re-triggering the loader but it does not work (maybe because of the "/" index)
-      // maybe this will work
-      // navigate(".", { replace: true });
     } catch (error) {
       console.error(error);
     }
@@ -84,7 +77,6 @@ const CalendarView = () => {
       setTrainingBlockData(trainingBlockJson);
       setRunningData(runDataTemplate);
     }
-    // The schedule is by then saved in the DB, but the calendars including the new schedule are not loaded yet
   }, [data]);
 
   useEffect(() => {

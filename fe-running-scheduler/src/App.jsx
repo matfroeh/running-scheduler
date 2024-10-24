@@ -10,7 +10,6 @@ import { action as getFormData } from "./actions/getFormData";
 import { calendarLoader } from "./loader/calendarLoader";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import ProtectedLayout from "./layouts/ProtectedLayout";
 import { AuthContextProvider } from "@/context";
 
 const router = createBrowserRouter([

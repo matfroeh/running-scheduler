@@ -1,9 +1,7 @@
-// TODO: handle exceptions e.g. no longrun, no workout day, etc.
 // ToDo: but first, this needs to be really cleaned up and refactored, even the copilot agrees
 
 export function processFormDataFromScheduler(data) {
   const { title, distance, workoutDay, longRun, weeks, date } = data;
-
   const weekdays = [
     "sunday",
     "monday",
@@ -59,30 +57,37 @@ export function processFormDataFromScheduler(data) {
   const startDate = new Date(setDateToFollowingMonday(new Date(date)));
   const endDate = getEndDate(startDate, weeks);
   const workoutDayIndex =
-    workoutDay !== "None" ? weekdays.indexOf(workoutDay) : null;
-  const longRunDayIndex = longRun !== "None" ? weekdays.indexOf(longRun) : null;
+    workoutDay !== "none" ? weekdays.indexOf(workoutDay) : -1;
+  const longRunDayIndex = longRun !== "none" ? weekdays.indexOf(longRun) : -1;
   // console.log(workoutDayIndex, longRunDayIndex);
 
+  console.log("longRun", longRun);
+  console.log("workoutDay", workoutDay);
+
   let longRunDistance = 0;
-  if (longRun !== "None") {
+  if (longRun !== "none") {
     longRunDistance = Math.round(distance * (1 / 3)); // a reasonable starting point
   }
   let workoutDayDistance = 0;
-  if (workoutDay !== "None") {
+  if (workoutDay !== "none") {
     workoutDayDistance = 10; // fixed assumption
   }
+  // console.log(longRunDistance, workoutDayDistance);
+  // console.log(distance);
+  // console.log(distance - longRunDistance);
+  // console.log(runningDays);
+  // console.log(longRunDayIndex);
+  // console.log(workoutDayIndex);
 
   const totalEasyRunDistance = distance - longRunDistance - workoutDayDistance;
-  console.log(totalEasyRunDistance);
-  
+  // console.log(totalEasyRunDistance);
 
   const getEasyRunDistance = (runningDays, totalEasyRunDistance) => {
     let count = 0;
     for (const day of runningDays) {
-      if (day !== workoutDayIndex || day !== longRunDayIndex) {
+      if (day !== workoutDayIndex && day !== longRunDayIndex) {
         count++;
-        console.log(count);
-        
+        // console.log(count);
       }
     }
     return Math.round(totalEasyRunDistance / count);
@@ -104,10 +109,6 @@ export function processFormDataFromScheduler(data) {
     runningDays,
     restDays,
   };
-
-  // for (const key in trainingBlockParameters) {
-  //   console.log(key, trainingBlockParameters[key]);
-  // }
 
   const getAllWeekDates = (firstDay, week) => {
     const weekDates = [];
@@ -177,23 +178,14 @@ export function processFormDataFromScheduler(data) {
       trainingBlockWeek.days[`day${index}`].type = "Rest Day";
     });
 
-    // console.log(trainingBlockWeek);
-
     return trainingBlockWeek;
   };
-
-  // const testTrainingBlock1 = getTrainingBlockWeek(trainingBlockParameters, 1);
-
-  // for (const key in testTrainingBlock1) {
-  //   console.log(key, testTrainingBlock1[key]);
-  // }
 
   const createTrainingBlockJson = (trainingBlockParameters, weeks) => {
     let trainingBlock = {};
 
     // set meta data
-    // ToDo: let us see what we can add here as well
-    trainingBlock.meta = {}; // supposedly JS needs to know that meta will be an object beforehand
+    trainingBlock.meta = {};
     trainingBlock.meta.title = trainingBlockParameters.title;
     trainingBlock.meta.startDate = trainingBlockParameters.startDate;
     trainingBlock.meta.endDate = trainingBlockParameters.endDate;
@@ -248,16 +240,11 @@ export const createRunDataTemplate = (trainingBlockData) => {
       runDataTemplate.weeks[week] = {};
       runDataTemplate.weeks[week]["days"] = {};
       for (const day in trainingBlockData.weeks[week]["days"]) {
-        // console.log("createRunDataTemplate", trainingBlockData.weeks[week]["days"][day]);
-
-        // runDataTemplate[week]["days"][day] = {};
         runDataTemplate.weeks[week]["days"][day] = {
           date: trainingBlockData.weeks[week]["days"][day].date,
         };
-        // console.log("createRunDataTemplate", runDataTemplate[week]["days"][day]);
       }
     }
   }
-  // console.log("runDataTemplate", runDataTemplate);
   return runDataTemplate;
 };
