@@ -16,7 +16,7 @@ export const uploadImage = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Image could not be uploaded", 500));
 
   await newImage.save();
-  res.status(201).json(`Image uploaded successfully. ID: ${newImage._id}`);
+  res.status(201).json(newImage._id);
 });
 
 export const getImageById = asyncHandler(async (req, res, next) => {

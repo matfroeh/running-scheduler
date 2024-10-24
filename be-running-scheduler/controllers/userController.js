@@ -17,6 +17,27 @@ export const getEquipmentListFromUser = asyncHandler(async (req, res, next) => {
   res.status(200).json(equipmentList);
 });
 
+export const updateUser = asyncHandler(async (req, res, next) => {
+  const { userId } = req.params;
+  const user = await User.findOne({
+    _id: userId,
+  });
+
+  if (!user)
+    return next(new ErrorResponse(`User not found with id of ${userId}`, 404));
+
+  const updated = await User.findOneAndUpdate(
+    { _id: userId },
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  res.status(200).json(updated);
+});
+
 // modified it, so it will not only create the equipment, but also add the equipment to the user list
 export const createEquipment = asyncHandler(async (req, res, next) => {
   const { userId } = req.params;
