@@ -73,12 +73,16 @@ export function processFormDataFromScheduler(data) {
   }
 
   const totalEasyRunDistance = distance - longRunDistance - workoutDayDistance;
+  console.log(totalEasyRunDistance);
+  
 
   const getEasyRunDistance = (runningDays, totalEasyRunDistance) => {
     let count = 0;
     for (const day of runningDays) {
       if (day !== workoutDayIndex || day !== longRunDayIndex) {
         count++;
+        console.log(count);
+        
       }
     }
     return Math.round(totalEasyRunDistance / count);
@@ -212,6 +216,7 @@ export function processFormDataFromScheduler(data) {
   );
   const runDataTemplate = createRunDataTemplate(trainingBlockJson);
 
+  // ToDo:
   trainingBlockJson.user = "6719541ce4e06aa54ecd564e";
   runDataTemplate.user = "6719541ce4e06aa54ecd564e";
 

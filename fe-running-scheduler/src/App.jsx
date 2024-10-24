@@ -8,6 +8,9 @@ import Error from "./pages/Error";
 import NotFound from "./pages/NotFound";
 import { action as getFormData } from "./actions/getFormData";
 import { calendarLoader } from "./loader/calendarLoader";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import ProtectedLayout from "./layouts/ProtectedLayout";
 
 const router = createBrowserRouter([
   {
@@ -16,8 +19,12 @@ const router = createBrowserRouter([
     loader: calendarLoader,
     errorElement: <Error />,
     children: [
+      // {
+      //   path: "/protected",
+      //   element: <ProtectedLayout />,
+      //   children: [
       {
-        path: "/:calendarId",
+        path: ":calendarId",
         element: <CalendarView />,
         errorElement: <Error />,
         action: getFormData,
@@ -33,11 +40,11 @@ const router = createBrowserRouter([
           {
             path: "schedule/:week/:day/:trainingDayId",
             element: <TrainingDayDetailsModal />,
-          }
-
-
+          },
         ],
       },
+      //   ],
+      // },
       {
         path: "/",
         element: <CalendarView />,
@@ -47,6 +54,14 @@ const router = createBrowserRouter([
           {
             path: "new-schedule",
             element: <CreateTrainingBlockModal />,
+          },
+          {
+            path: "login",
+            element: <Login />,
+          },
+          {
+            path: "signup",
+            element: <SignUp />,
           },
         ],
       },

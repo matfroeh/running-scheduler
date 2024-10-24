@@ -11,7 +11,9 @@ import imageRouter from "./routes/imageRouter.js";
 const app = express();
 const PORT = process.env.PORT ?? 3000;
 
-app.use(cors()); // caution!
+// app.use(cors()); // caution!
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true })); // add your frontend url to the .env to allow cookie handling (just for demo in development)
+
 app.use(express.json());
 
 app.use("/schedules", scheduleRouter);

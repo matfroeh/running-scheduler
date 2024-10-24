@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import getCalendars from "../data/getCurrentPreviousNextCalendars";
 import { useEffect } from "react";
+import { AuthContextProvider } from "@/context";
 // import JsonFileHandler from "../logic/JsonFileHandler";
 // import ImageTest from "../components/ImageTest";
 
@@ -26,8 +27,8 @@ const RootLayout = () => {
 
   // ToDo: avoid this useEffect
   useEffect(() => {
-    // if (currentCalendarId) 
-      navigate(`/${currentCalendarId}`);
+    // if (currentCalendarId)
+    navigate(`/${currentCalendarId}`);
   }, []);
 
   return (
@@ -36,13 +37,15 @@ const RootLayout = () => {
       {/* <JsonFileHandler scheduleCalendars={scheduleCalendars} runCalendars={runCalendars} /> */}
       {/* For Testing: */}
       {/* <ImageTest /> */}
-      <ToastContainer
-        position="bottom-right"
-        autoClose={1500}
-        theme="colored"
-      />
-      <NavBar />
-      <Outlet context={{ scheduleCalendars, runCalendars }} />
+      <AuthContextProvider>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={1500}
+          theme="colored"
+        />
+        <NavBar />
+        <Outlet context={{ scheduleCalendars, runCalendars }} />
+      </AuthContextProvider>
     </>
   );
 };

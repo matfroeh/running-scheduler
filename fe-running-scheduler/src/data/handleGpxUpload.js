@@ -54,9 +54,7 @@ export const handleGpxUpload = (file) => {
       // set run data
       extractedData.name = gpxParser.tracks[0].name;
       extractedData.date = gpxParser.metadata.time; // carries the date
-      extractedData.duration = getSecondsAsHoursMinutesSecondsString(
-        totalTime / 60
-      ); // duration in minutes
+      extractedData.duration = getSecondsAsHoursMinutesSecondsString(totalTime); // duration in minutes
       extractedData.distance = totalDistance / 1000; // convert meters to kilometers
       extractedData.speed = (totalDistance / totalTime) * 3.6; // convert m/s to km/h
       extractedData.tempo = getTempoAsMinutesSecondsString(
