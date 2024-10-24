@@ -9,13 +9,16 @@ export const getAllTrainingSchedules = asyncHandler(async (req, res, next) => {
 });
 
 export const createTrainingSchedule = asyncHandler(async (req, res, next) => {
-  const schedule = await Schedule.create(req.body);
+  const userId = req.userId;
+  const schedule = await Schedule.create({ ...req.body, user: userId });
   res.status(201).json(schedule);
 });
 
 export const getTrainingScheduleById = asyncHandler(async (req, res, next) => {
   const { week, day, calendarId } = req.params;
-  const findSchedule = await Schedule.findOne({ _id: calendarId });
+  const userId = req.userId; 
+
+  const findSchedule = await Schedule.findOne({$and: [{ _id: calendarId }, { user: userId }]});
 
   if (!findSchedule)
     return next(
@@ -32,8 +35,9 @@ export const getTrainingScheduleById = asyncHandler(async (req, res, next) => {
 export const updateTrainingSchedule = asyncHandler(async (req, res, next) => {
   const { calendarId } = req.params;
   const { meta, weeks } = req.body;
+  const userId = req.userId;
 
-  const findCalendar = await Schedule.findOne({ _id: calendarId });
+  const findCalendar = await Schedule.findOne({$and: [{ _id: calendarId }, { user: userId }]});
   if (!findCalendar)
     return next(
       new ErrorResponse(
@@ -52,9 +56,9 @@ export const updateTrainingSchedule = asyncHandler(async (req, res, next) => {
 
 export const deleteTrainingSchedule = asyncHandler(async (req, res, next) => {
   const { calendarId } = req.params;
-  const findCalendar = await Schedule.findOne({
-    _id: calendarId,
-  });
+  const userId = req.userId;
+
+  const findCalendar = await Schedule.findOne({$and: [{ _id: calendarId }, { user: userId }]});
   if (!findCalendar)
     return next(
       new ErrorResponse(
@@ -62,6 +66,6 @@ export const deleteTrainingSchedule = asyncHandler(async (req, res, next) => {
         404
       )
     );
-  await Schedule.deleteOne({ _id: calendarId });
+  await Schedule.deleteOne({$and: [{ _id: calendarId }, { user: userId }]});
   res.status(200).json({ success: true });
 });

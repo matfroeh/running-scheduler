@@ -4,6 +4,7 @@ import CalendarView from "./pages/CalendarView";
 import CreateTrainingBlockModal from "./pages/CreateTrainingBlockModal";
 import RunDetailsModal from "./pages/RunDetailsModal";
 import TrainingDayDetailsModal from "./pages/TrainingDayDetailsModal";
+import EquipmentModal from "./pages/EquipmentModal";
 import Error from "./pages/Error";
 import NotFound from "./pages/NotFound";
 import { action as getFormData } from "./actions/getFormData";
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
             path: "new-schedule",
             element: <CreateTrainingBlockModal />,
           },
+          {
+            path: "equipment",
+            element: <EquipmentModal />,
+          }
         ],
       },
     ],

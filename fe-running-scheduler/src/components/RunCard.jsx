@@ -19,8 +19,8 @@ const RunCard = ({ data, openRunCard }) => {
     <div
       className={
         isToday
-          ? "card card-compact rounded-tr-none rounded-br-none rounded-tl-none ring-2 ring-green-500 h-36 w-full hover:ring-4 cursor-pointer"
-          : "card card-compact rounded-tr-none rounded-br-none rounded-tl-none ring-2 h-36 w-full hover:ring-4 cursor-pointer"
+          ? "bg-gray-900 card card-compact rounded-tr-none rounded-br-none rounded-tl-none ring-2 ring-green-500 h-36 w-full hover:ring-4 cursor-pointer"
+          : "bg-gray-900 card card-compact rounded-tr-none rounded-br-none rounded-tl-none ring-2 h-36 w-full hover:ring-4 cursor-pointer"
       }
       onClick={openRunCard}
     >

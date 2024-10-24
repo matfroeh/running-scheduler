@@ -21,7 +21,10 @@ export const getAllRuns = async () => {
 };
 
 export const getRunByParams = async (calendarId, week, day, runId) => {
-  const res = await fetch(`${baseURL}/${calendarId}/${week}/${day}/${runId}`);
+  const res = await fetch(`${baseURL}/${calendarId}/${week}/${day}/${runId}`, {
+    method: "GET",
+    credentials: "include",
+  });
   if (!res.ok) {
     const errorData = await res.json();
     if (!errorData.error) {
@@ -42,6 +45,7 @@ export const createRun = async (run, _id) => {
 
   const res = await fetch(baseURL, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -58,12 +62,12 @@ export const createRun = async (run, _id) => {
   return data;
 };
 
-
 export const updateRunCalendar = async (run, calendarId) => {
   const body = run;
 
   const res = await fetch(`${baseURL}/${calendarId}`, {
     method: "PUT",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -79,6 +83,6 @@ export const updateRunCalendar = async (run, calendarId) => {
   const data = await res.json();
 
   console.log(data);
-  
+
   return data;
 };

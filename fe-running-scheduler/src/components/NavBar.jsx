@@ -48,12 +48,10 @@ const NavBar = () => {
                 <h2 className="text-lg font-bold">{user?.userName}</h2>
               </li>
               <li>
-                <a className="justify-between">
-                  Profile
-                </a>
+                <a className="justify-between">Profile</a>
               </li>
               <li>
-                <a>Equipment</a>
+                <NavLink to="/equipment">Equipment</NavLink>
               </li>
               <li>
                 <NavLink onClick={handleLogOut}>Logout</NavLink>

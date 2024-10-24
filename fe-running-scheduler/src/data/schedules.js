@@ -23,6 +23,7 @@ export const getAllTrainingSchedules = async () => {
 export const createTrainingSchedule = async (schedule) => {
   const res = await fetch(baseURL, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -43,6 +44,7 @@ export const createTrainingSchedule = async (schedule) => {
 export const updateTrainingSchedule = async (schedule, calendarId) => {
   const res = await fetch(`${baseURL}/${calendarId}`, {
     method: "PUT",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
