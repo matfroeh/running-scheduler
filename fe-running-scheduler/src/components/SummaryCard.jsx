@@ -1,3 +1,8 @@
+import {
+  getTempoAsMinutesSecondsString,
+  getSecondsAsHoursMinutesSecondsString,
+} from "../data/processRunningDataHelper.js";
+
 const SummaryCard = ({ scheduleWeek, runningWeek, weekNumber }) => {
   const totalDistancePlanned = Object.keys(scheduleWeek.days).reduce(
     (acc, day) => {
@@ -16,11 +21,19 @@ const SummaryCard = ({ scheduleWeek, runningWeek, weekNumber }) => {
     return Math.round(parseFloat(acc));
   }, 0);
 
+  const totalTime = Object.keys(runningWeek.days).reduce((acc, day) => {
+    if (runningWeek.days[day].duration > 0) {
+      acc += parseInt(runningWeek.days[day].duration);
+    }
+    return acc;
+  }, 0);
+  const totalTimeFormatted = getSecondsAsHoursMinutesSecondsString(totalTime);
+
   const weekTitle = `Week ${weekNumber.match(/\d+$/)[0]}`;
 
   return (
     <div
-      className="card card-compact bg-gray-800 ring-1 ring-cyan-500 rounded-tr-none rounded-br-none row-span-2 
+      className="card card-compact bg-gray-950 ring-1 ring-cyan-500 rounded-tr-none rounded-br-none row-span-2 
     h-full w-full hover:ring-2 cursor-pointer"
     >
       {/* <div
@@ -42,7 +55,7 @@ const SummaryCard = ({ scheduleWeek, runningWeek, weekNumber }) => {
             <div className="inline-block">
               Run: {totalDistanceRun ? totalDistanceRun + " km" : ""}
             </div>
-            <div className="inline-block">Time:</div>
+            <div className="inline-block">Time: {totalTimeFormatted ? totalTimeFormatted : ""} </div>
             <div className="inline-block">Pace:</div>
             <div className="inline-block">HR:</div>
             <div className="inline-block">Effort:</div>

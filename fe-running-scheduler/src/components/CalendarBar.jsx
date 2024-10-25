@@ -17,6 +17,7 @@ const CalendarBar = ({
   showCurrentCalendar,
   showPreviousCalendar,
   showNextCalendar,
+  calendarTitles,
 }) => {
   const [fileContent, setFileContent] = useState(null);
   const navigate = useNavigate();
@@ -31,6 +32,9 @@ const CalendarBar = ({
   const openCreateTrainingBlockModal = () => {
     navigate("/new-schedule");
   };
+
+  // console.log(calendarTitles);
+  
 
   // This passes the click on the normal button to the hidden input field button
   const handleGpxInputClick = () => {
@@ -137,6 +141,13 @@ const CalendarBar = ({
           <button className="btn btn-sm">Details</button>
           <button className="btn btn-sm">Notes</button>
         </span>
+      </div>
+      <div className="flex justify-center">
+        {calendarTitles.map((title, index) => (
+          <button key={index} className="btn btn-sm">
+            {title}
+          </button>
+        ))}
       </div>
       {newScheduleFormSubmitted && (
         <div className="mx-auto my-2 flex indicator">

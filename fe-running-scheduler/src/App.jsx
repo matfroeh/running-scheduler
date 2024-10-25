@@ -4,12 +4,14 @@ import CalendarView from "./pages/CalendarView";
 import CreateTrainingBlockModal from "./pages/CreateTrainingBlockModal";
 import RunDetailsModal from "./pages/RunDetailsModal";
 import TrainingDayDetailsModal from "./pages/TrainingDayDetailsModal";
+import EquipmentModal from "./pages/EquipmentModal";
 import Error from "./pages/Error";
 import NotFound from "./pages/NotFound";
 import { action as getFormData } from "./actions/getFormData";
 import { calendarLoader } from "./loader/calendarLoader";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Welcome from "./pages/Welcome";
 import { AuthContextProvider } from "@/context";
 
 const router = createBrowserRouter([
@@ -45,17 +47,27 @@ const router = createBrowserRouter([
             path: "new-schedule",
             element: <CreateTrainingBlockModal />,
           },
+          {
+            path: "equipment",
+            element: <EquipmentModal />,
+          },
         ],
       },
     ],
   },
   {
-    path: "login",
-    element: <Login />,
-  },
-  {
-    path: "signup",
-    element: <SignUp />,
+    path: "welcome",
+    element: <Welcome />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "signup",
+        element: <SignUp />,
+      },
+    ],
   },
   {
     path: "*",
@@ -63,11 +75,10 @@ const router = createBrowserRouter([
   },
 ]);
 
-
 function App() {
   return (
     <AuthContextProvider>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </AuthContextProvider>
   );
 }

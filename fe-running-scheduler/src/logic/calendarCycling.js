@@ -99,3 +99,15 @@ export const showNextCalendar = (params) => {
   setCycleState("next");
   setCalendarIndex((prev) => prev + 1);
 };
+
+export const getCalendarTitles = (calendars) => {
+  let calendarTitlesArray = [];
+  calendars.previousCalendars.reverse().forEach((item) => {
+    calendarTitlesArray.push(item.meta.title);
+  });
+  calendarTitlesArray.push(calendars.currentCalendar.meta.title);
+  calendars.nextCalendars.forEach((item) => {
+    calendarTitlesArray.push(item.meta.title);
+  });
+  return calendarTitlesArray;
+};

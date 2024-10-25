@@ -48,12 +48,10 @@ const NavBar = () => {
                 <h2 className="text-lg font-bold">{user?.userName}</h2>
               </li>
               <li>
-                <a className="justify-between">
-                  Profile
-                </a>
+                <a className="justify-between">Profile</a>
               </li>
               <li>
-                <a>Equipment</a>
+                <NavLink to="/equipment">Equipment</NavLink>
               </li>
               <li>
                 <NavLink onClick={handleLogOut}>Logout</NavLink>
@@ -64,10 +62,10 @@ const NavBar = () => {
           <div className="flex-none">
             <ul className="menu menu-horizontal px-1">
               <li>
-                <NavLink to="/signup">Sign Up</NavLink>
+                <NavLink to="/welcome/signup">Sign Up</NavLink>
               </li>
               <li>
-                <NavLink to="/login">Login</NavLink>
+                <NavLink to="/welcome/login">Login</NavLink>
               </li>
             </ul>
           </div>

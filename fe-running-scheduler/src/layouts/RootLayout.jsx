@@ -15,7 +15,9 @@ const RootLayout = () => {
         theme="colored"
       />
       <NavBar />
-      {auth ? <Outlet /> : <Navigate to="/login" />}
+      {/* {auth ? <Outlet /> : <Navigate to="/login" />} */}
+      {auth ? <Outlet /> : <Navigate to="/welcome" />}
+
     </>
   );
 };

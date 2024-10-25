@@ -9,13 +9,17 @@ export const getAllRunningLogs = asyncHandler(async (req, res, next) => {
 });
 
 export const createRunningLog = asyncHandler(async (req, res, next) => {
-  const run = await Runs.create(req.body);
+  const userId = req.userId;
+  const run = await Runs.create({ ...req.body, user: userId });
   res.status(201).json(run);
 });
 
 export const getRunningLogById = asyncHandler(async (req, res, next) => {
   const { week, day, calendarId } = req.params;
-  const findCalendar = await Runs.findOne({ _id: calendarId });
+  const userId = req.userId;
+  const findCalendar = await Runs.findOne({
+    $and: [{ _id: calendarId }, { user: userId }],
+  });
 
   if (!findCalendar)
     return next(
@@ -29,8 +33,11 @@ export const getRunningLogById = asyncHandler(async (req, res, next) => {
 export const updateRunningLog = asyncHandler(async (req, res, next) => {
   const { calendarId } = req.params;
   const { meta, weeks } = req.body;
+  const userId = req.userId;
 
-  const findCalendar = await Runs.findOne({ _id: calendarId });
+  const findCalendar = await Runs.findOne({
+    $and: [{ _id: calendarId }, { user: userId }],
+  });
   if (!findCalendar)
     return next(
       new ErrorResponse(`Running Log not found with id of ${calendarId}`, 404)
@@ -46,14 +53,16 @@ export const updateRunningLog = asyncHandler(async (req, res, next) => {
 
 export const deleteRunningLog = asyncHandler(async (req, res, next) => {
   const { calendarId } = req.params;
+  const userId = req.userId;
+
   const findCalendar = await Runs.findOne({
-    _id: calendarId,
+    $and: [{ _id: calendarId }, { user: userId }],
   });
   if (!findCalendar)
     return next(
       new ErrorResponse(`Running Log not found with id of ${calendarId}`, 404)
     );
-  await Runs.deleteOne({ _id: calendarId });
+  await Runs.deleteOne({$and: [{ _id: calendarId }, { user: userId }]});
   res.status(200).json({ success: true });
 });
 
