@@ -13,11 +13,11 @@ const CalendarBar = ({
   runningData,
   setRunningData,
   newScheduleFormSubmitted,
+  setNewScheduleFormSubmitted,
   saveNewSchedule,
   showCurrentCalendar,
   showPreviousCalendar,
   showNextCalendar,
-  calendarTitles,
 }) => {
   const [fileContent, setFileContent] = useState(null);
   const navigate = useNavigate();
@@ -34,7 +34,6 @@ const CalendarBar = ({
   };
 
   // console.log(calendarTitles);
-  
 
   // This passes the click on the normal button to the hidden input field button
   const handleGpxInputClick = () => {
@@ -77,30 +76,51 @@ const CalendarBar = ({
     }
   }, [fileContent]);
 
+  const discardNewSchedule = () => {
+    setNewScheduleFormSubmitted(false);
+    showCurrentCalendar();
+  };
+
   // ToDo: this can be done in a different way using onInput event (see bookmarked article)
   // Spielerei
   // const handleTitleChange = (e) => {
-  //   console.log(e.target.value);
-  //   setThisTitle(e.target.value);
-  //   setTrainingBlockData( (prev) => { return {...prev, title: e.target.value} });
+  //   console.log(e.target.textContent);
+  // setThisTitle(e.target.value);
+  // setRunningData( (prev) => { return {...prev, title: e.target.value} });
   // };
 
   return (
     <>
       <div className="navbar">
         <span className="navbar-start">
-          <button className="btn btn-sm" onClick={showPreviousCalendar}>
-            Back
+          <button
+            className="btn btn-sm"
+            onClick={showPreviousCalendar}
+            disabled={newScheduleFormSubmitted ? true : false}
+          >
+            Previous
           </button>
-          <button className="btn btn-sm" onClick={showCurrentCalendar}>
+          <button
+            className="btn btn-sm"
+            onClick={showCurrentCalendar}
+            disabled={newScheduleFormSubmitted ? true : false}
+          >
             Current
           </button>
-          <button className="btn btn-sm" onClick={showNextCalendar}>
-            Next
+          <button
+            className="btn btn-sm"
+            onClick={showNextCalendar}
+            disabled={newScheduleFormSubmitted ? true : false}
+          >
+            Upcoming
           </button>
         </span>
         <div className="px-4">
-          <div className="btn btn-sm ring-1" onClick={handleGpxInputClick} disabled={title ? false : true}>
+          <div
+            className="btn btn-sm ring-1"
+            onClick={handleGpxInputClick}
+            disabled={!title || newScheduleFormSubmitted ? true : false}
+          >
             Upload .gpx
             <input
               ref={gpxInputRef}
@@ -142,18 +162,23 @@ const CalendarBar = ({
           <button className="btn btn-sm">Notes</button>
         </span>
       </div>
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         {calendarTitles.map((title, index) => (
           <button key={index} className="btn btn-sm">
             {title}
           </button>
         ))}
-      </div>
+      </div> */}
       {newScheduleFormSubmitted && (
-        <div className="mx-auto my-2 flex indicator">
-          <span className="indicator-item badge badge-accent"></span>
-          <button onClick={saveNewSchedule} className="ml-24 flex btn btn-sm">
-            Save New Schedule
+        <div className="flex justify-center gap-8 mb-2 mt-4">
+          <div className="indicator">
+            <span className="indicator-item badge badge-accent"></span>
+            <button onClick={saveNewSchedule} className="btn btn-sm">
+              Save New Schedule
+            </button>
+          </div>
+          <button onClick={discardNewSchedule} className="btn btn-sm">
+            Discard
           </button>
         </div>
       )}

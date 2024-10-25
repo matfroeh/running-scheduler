@@ -80,8 +80,6 @@ const RunDetailsModal = () => {
     }
   };
 
-  console.log(formData.type);
-  
 
   if (newScheduleFormSubmitted) {
     return (
@@ -153,7 +151,7 @@ const RunDetailsModal = () => {
               name="type"
               onChange={handleChange}
             >
-              <option disabled defaultValue="Select a type">
+              <option defaultValue="Select a type">
                 Select a type
               </option>
               <option value="Easy Run">Easy Run</option>

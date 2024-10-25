@@ -25,16 +25,16 @@ const RunCard = ({ data, openRunCard }) => {
       className={
         isToday
           ? "bg-gray-900 card card-compact rounded-tr-none rounded-br-none rounded-tl-none ring-2 ring-green-500 h-36 w-full hover:ring-4 cursor-pointer"
-          : "bg-gray-900 card card-compact rounded-tr-none rounded-br-none rounded-tl-none ring-2 h-36 w-full hover:ring-4 cursor-pointer"
+          : "bg-gray-900 card card-compact overflow-clip rounded-tr-none rounded-br-none rounded-tl-none ring-2 h-36 w-full hover:ring-4 cursor-pointer"
       }
       onClick={openRunCard}
     >
       {/* <div className="items-end flex justify-end text-white text-xs mt-1 mr-2">
         {formattedDate}
       </div> */}
-      <div className="card-body flex  flex-col">
-        <div className="card-title flex-auto text-sm">{name}</div>
-        <div className="flex flex-col justify-between flex-auto text-xs">
+      <div className="card-body justify-start gap-0 overflow-clip relative">
+        <div className="card-title text-sm -mt-2">{name}</div>
+        <div className="flex flex-col justify-start text-xs">
           {distance && <span>{parseFloat(distance).toFixed(1)} km</span>}
           {duration && (
             <span>Time: {getSecondsAsHoursMinutesSecondsString(duration)}</span>

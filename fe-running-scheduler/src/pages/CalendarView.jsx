@@ -15,16 +15,15 @@ import {
   showCurrentCalendar as showCurrent,
   showPreviousCalendar as showPrevious,
   showNextCalendar as showNext,
-  getCalendarTitles,
 } from "../logic/calendarCycling";
 
 const CalendarView = () => {
   // ToDo: actionData needs to be exported to backend, but later
 
   // only for devMode
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
   // reset to this afterwards
-  // let data = useActionData();
+  let data = useActionData();
   const { scheduleCalendars, runCalendars } = useLoaderData();
 
   const [trainingBlockData, setTrainingBlockData] = useState(
@@ -40,9 +39,7 @@ const CalendarView = () => {
 
   const navigate = useNavigate();
 
-  const calendarTitles = getCalendarTitles(scheduleCalendars);
-
-  const activeCalendarId = runningData?._id;
+  let activeCalendarId = runningData?._id;
 
   const params = {
     cycleState,
@@ -69,30 +66,32 @@ const CalendarView = () => {
   const saveNewSchedule = async () => {
     try {
       const schedule = await createTrainingSchedule(trainingBlockData);
-      await createRun(runningData, schedule._id);
+      const run = await createRun(runningData, schedule._id);
       setNewScheduleFormSubmitted(false);
+      setTrainingBlockData(schedule);
+      setRunningData(run);
       navigate(`/${schedule._id}`);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const devModeCreateInstantSchedule = () => {
-    const devModeData = {
-      title: "Test Schedule",
-      date: "2024-08-01",
-      distance: "30",
-      weeks: "4",
-      workoutDay: "tuesday",
-      longRun: "sunday",
-      monday: "on",
-      tuesday: "on",
-      wednesday: "on",
-      sunday: "on",
-    };
-    setData(devModeData);
-    setNewScheduleFormSubmitted(true);
-  };
+  // const devModeCreateInstantSchedule = () => {
+  //   const devModeData = {
+  //     title: "Zzz Again A Test Schedule",
+  //     date: "2024-08-01",
+  //     distance: "30",
+  //     weeks: "4",
+  //     workoutDay: "tuesday",
+  //     longRun: "sunday",
+  //     monday: "on",
+  //     tuesday: "on",
+  //     wednesday: "on",
+  //     sunday: "on",
+  //   };
+  //   setData(devModeData);
+  //   setNewScheduleFormSubmitted(true);
+  // };
 
   useEffect(() => {
     if (data) {
@@ -109,14 +108,14 @@ const CalendarView = () => {
 
   return (
     <>
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <button
           onClick={devModeCreateInstantSchedule}
           className="btn btn-xs btn-primary"
         >
           DevMode: Create Schedule
         </button>
-      </div>
+      </div> */}
       <CalendarBar
         title={trainingBlockData?.meta?.title}
         runningData={runningData}
@@ -126,7 +125,7 @@ const CalendarView = () => {
         showCurrentCalendar={showCurrentCalendar}
         showPreviousCalendar={showPreviousCalendar}
         showNextCalendar={showNextCalendar}
-        calendarTitles={calendarTitles}
+        setNewScheduleFormSubmitted={setNewScheduleFormSubmitted}
       />
       <CalendarBody
         trainingData={trainingBlockData}
