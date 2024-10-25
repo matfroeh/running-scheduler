@@ -61,8 +61,8 @@ export function processFormDataFromScheduler(data) {
   const longRunDayIndex = longRun !== "none" ? weekdays.indexOf(longRun) : -1;
   // console.log(workoutDayIndex, longRunDayIndex);
 
-  console.log("longRun", longRun);
-  console.log("workoutDay", workoutDay);
+  // console.log("longRun", longRun);
+  // console.log("workoutDay", workoutDay);
 
   let longRunDistance = 0;
   if (longRun !== "none") {
@@ -207,10 +207,6 @@ export function processFormDataFromScheduler(data) {
     weeks
   );
   const runDataTemplate = createRunDataTemplate(trainingBlockJson);
-
-  // ToDo:
-  trainingBlockJson.user = "6719541ce4e06aa54ecd564e";
-  runDataTemplate.user = "6719541ce4e06aa54ecd564e";
 
   return { trainingBlockJson, runDataTemplate };
 }

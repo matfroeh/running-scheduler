@@ -1,3 +1,8 @@
+import {
+  getTempoAsMinutesSecondsString,
+  getSecondsAsHoursMinutesSecondsString,
+} from "../data/processRunningDataHelper.js";
+
 const SummaryCard = ({ scheduleWeek, runningWeek, weekNumber }) => {
   const totalDistancePlanned = Object.keys(scheduleWeek.days).reduce(
     (acc, day) => {
@@ -15,6 +20,18 @@ const SummaryCard = ({ scheduleWeek, runningWeek, weekNumber }) => {
     }
     return Math.round(parseFloat(acc));
   }, 0);
+
+  const totalTime = Object.keys(runningWeek.days).reduce((acc, day) => {
+    if (runningWeek.days[day].duration > 0) {
+      console.log(runningWeek.days[day].duration);
+      
+      acc += parseInt(runningWeek.days[day].duration);
+      console.log(acc);
+      
+    }
+    return acc;
+  }, 0);
+  const totalTimeFormatted = getSecondsAsHoursMinutesSecondsString(totalTime);
 
   const weekTitle = `Week ${weekNumber.match(/\d+$/)[0]}`;
 
@@ -42,7 +59,7 @@ const SummaryCard = ({ scheduleWeek, runningWeek, weekNumber }) => {
             <div className="inline-block">
               Run: {totalDistanceRun ? totalDistanceRun + " km" : ""}
             </div>
-            <div className="inline-block">Time:</div>
+            <div className="inline-block">Time: {totalTimeFormatted ? totalTimeFormatted : ""} </div>
             <div className="inline-block">Pace:</div>
             <div className="inline-block">HR:</div>
             <div className="inline-block">Effort:</div>

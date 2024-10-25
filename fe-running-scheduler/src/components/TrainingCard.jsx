@@ -2,7 +2,8 @@ const TrainingCard = ({ data, openTrainingCard }) => {
   // if (Object.keys(data).length === 0) {
   //   data = "";
   // }
-  const { date, type, distance } = data;
+  const { date, type, distance, description } = data;
+console.log(description);
 
   let isToday = false;
   date &&
@@ -28,8 +29,9 @@ const TrainingCard = ({ data, openTrainingCard }) => {
         <div className="items-start absolute top-0 right-0 justify-self-end text-white text-xs mt-1 mr-2">
           {formattedDate}
         </div>
-        <div className="card-title text-sm min-w-max mt-2">{type}</div>
-        <div className="min-w-max">{distance ? <p>{distance} km</p> : null}</div>
+        {type && <div className="card-title text-sm min-w-max mt-2">{type}</div>}
+        {distance && <div className="min-w-max">{distance} km</div>}
+        {description && <div className="min-w-max line-clamp-2">{description}</div>}
       </div>
     </div>
   );

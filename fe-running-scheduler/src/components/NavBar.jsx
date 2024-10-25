@@ -62,10 +62,10 @@ const NavBar = () => {
           <div className="flex-none">
             <ul className="menu menu-horizontal px-1">
               <li>
-                <NavLink to="/signup">Sign Up</NavLink>
+                <NavLink to="/welcome/signup">Sign Up</NavLink>
               </li>
               <li>
-                <NavLink to="/login">Login</NavLink>
+                <NavLink to="/welcome/login">Login</NavLink>
               </li>
             </ul>
           </div>

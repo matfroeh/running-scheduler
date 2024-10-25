@@ -1,9 +1,6 @@
 import GpxParser from "gpxparser";
 import haversine from "haversine-distance";
-import {
-  getTempoAsMinutesSecondsString,
-  getSecondsAsHoursMinutesSecondsString,
-} from "./processRunningDataHelper";
+
 
 export const handleGpxUpload = (file) => {
   var extractedData = {};
@@ -54,12 +51,11 @@ export const handleGpxUpload = (file) => {
       // set run data
       extractedData.name = gpxParser.tracks[0].name;
       extractedData.date = gpxParser.metadata.time; // carries the date
-      extractedData.duration = getSecondsAsHoursMinutesSecondsString(totalTime); // duration in minutes
-      extractedData.distance = totalDistance / 1000; // convert meters to kilometers
+      extractedData.duration = totalTime; // duration in minutes
+      extractedData.distance = parseFloat(totalDistance / 1000).toFixed(2); // convert meters to kilometers
       extractedData.speed = (totalDistance / totalTime) * 3.6; // convert m/s to km/h
-      extractedData.tempo = getTempoAsMinutesSecondsString(
-        totalTime / 60 / extractedData.distance
-      ); // convert to min/km
+      extractedData.tempo = parseFloat(totalTime / 60 / extractedData.distance).toFixed(2);
+       // convert to min/km
 
       // console.log("Tempo:", extractedData.tempo);
       // console.log(`Total distance: ${extractedData.distance} km`);

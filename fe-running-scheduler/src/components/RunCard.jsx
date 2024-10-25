@@ -1,8 +1,13 @@
+import {
+  getTempoAsMinutesSecondsString,
+  getSecondsAsHoursMinutesSecondsString,
+} from "../data/processRunningDataHelper.js";
+
 const RunCard = ({ data, openRunCard }) => {
   // if (Object.keys(data).length === 0) {
   //   data = "";
   // }
-  const { date, name, distance, duration, tempo } = data;
+  const { date, name, distance, duration, tempo, avg_hr, comments, effort } = data;
 
   let isToday = false;
   date &&
@@ -30,14 +35,14 @@ const RunCard = ({ data, openRunCard }) => {
       <div className="card-body flex  flex-col">
         <div className="card-title flex-auto text-sm">{name}</div>
         <div className="flex flex-col justify-between flex-auto text-xs">
-          {distance && (
-            <>
-              <span>{parseFloat(distance).toFixed(1)} km</span>
-              <span>{duration}</span>
-              <span>{tempo} min/km</span>
-              {/* <span>{speed} km/h</span> */}
-            </>
+          {distance && <span>{parseFloat(distance).toFixed(1)} km</span>}
+          {duration && (
+            <span>{getSecondsAsHoursMinutesSecondsString(duration)}</span>
           )}
+          {tempo && <span>{getTempoAsMinutesSecondsString(tempo)} min/km</span>}
+          {avg_hr && <span>{avg_hr} bpm</span>}
+          {/* {comments && <span className="line-clamp-2">{comments}</span>} */}
+          {effort && <span >Effort: {effort}/10</span>}
         </div>
       </div>
     </div>

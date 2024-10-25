@@ -2,6 +2,10 @@ import { useParams, useOutletContext, Link } from "react-router-dom";
 import { updateRunCalendar } from "../data/runs";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import {
+  getTempoAsMinutesSecondsString,
+  getSecondsAsHoursMinutesSecondsString,
+} from "../data/processRunningDataHelper.js";
 
 const RunDetailsModal = () => {
   const { calendarId, week, day } = useParams();
@@ -166,7 +170,7 @@ const RunDetailsModal = () => {
             {isEditMode ? null : (
               <div>
                 <strong>Duration: </strong>
-                <span>{formData.duration || "N/A"}</span>
+                <span>{getSecondsAsHoursMinutesSecondsString(formData.duration) || "N/A"}</span>
               </div>
             )}
             {isEditMode ? (
@@ -200,8 +204,8 @@ const RunDetailsModal = () => {
 
             {isEditMode ? null : (
               <div>
-                <strong>Tempo: </strong>
-                <span>{formData.tempo || "N/A"}</span>
+                <strong>Pace: </strong>
+                <span>{getTempoAsMinutesSecondsString(formData.tempo) + " " + "min/km" || "N/A"}</span>
               </div>
             )}
             <div>
