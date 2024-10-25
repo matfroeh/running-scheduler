@@ -21,9 +21,9 @@ const CalendarView = () => {
   // ToDo: actionData needs to be exported to backend, but later
 
   // only for devMode
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
   // reset to this afterwards
-  // let data = useActionData();
+  let data = useActionData();
   const { scheduleCalendars, runCalendars } = useLoaderData();
 
   const [trainingBlockData, setTrainingBlockData] = useState(
