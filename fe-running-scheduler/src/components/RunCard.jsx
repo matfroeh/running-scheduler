@@ -37,10 +37,10 @@ const RunCard = ({ data, openRunCard }) => {
         <div className="flex flex-col justify-between flex-auto text-xs">
           {distance && <span>{parseFloat(distance).toFixed(1)} km</span>}
           {duration && (
-            <span>{getSecondsAsHoursMinutesSecondsString(duration)}</span>
+            <span>Time: {getSecondsAsHoursMinutesSecondsString(duration)}</span>
           )}
-          {tempo && <span>{getTempoAsMinutesSecondsString(tempo)} min/km</span>}
-          {avg_hr && <span>{avg_hr} bpm</span>}
+          {tempo && <span>Pace: {getTempoAsMinutesSecondsString(tempo)} min/km</span>}
+          {avg_hr && <span>HR: {avg_hr} bpm</span>}
           {/* {comments && <span className="line-clamp-2">{comments}</span>} */}
           {effort && <span >Effort: {effort}/10</span>}
         </div>

@@ -23,11 +23,7 @@ const SummaryCard = ({ scheduleWeek, runningWeek, weekNumber }) => {
 
   const totalTime = Object.keys(runningWeek.days).reduce((acc, day) => {
     if (runningWeek.days[day].duration > 0) {
-      console.log(runningWeek.days[day].duration);
-      
       acc += parseInt(runningWeek.days[day].duration);
-      console.log(acc);
-      
     }
     return acc;
   }, 0);

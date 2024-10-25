@@ -15,11 +15,16 @@ import {
   showCurrentCalendar as showCurrent,
   showPreviousCalendar as showPrevious,
   showNextCalendar as showNext,
+  getCalendarTitles,
 } from "../logic/calendarCycling";
 
 const CalendarView = () => {
   // ToDo: actionData needs to be exported to backend, but later
-  const data = useActionData();
+
+  // only for devMode
+  const [data, setData] = useState(null);
+  // reset to this afterwards
+  // let data = useActionData();
   const { scheduleCalendars, runCalendars } = useLoaderData();
 
   const [trainingBlockData, setTrainingBlockData] = useState(
@@ -29,11 +34,13 @@ const CalendarView = () => {
 
   const [calendarIndex, setCalendarIndex] = useState(0);
   const [cycleState, setCycleState] = useState("current");
-  
+
   const [newScheduleFormSubmitted, setNewScheduleFormSubmitted] =
     useState(false);
-    
+
   const navigate = useNavigate();
+
+  const calendarTitles = getCalendarTitles(scheduleCalendars);
 
   const activeCalendarId = runningData?._id;
 
@@ -70,6 +77,23 @@ const CalendarView = () => {
     }
   };
 
+  const devModeCreateInstantSchedule = () => {
+    const devModeData = {
+      title: "Test Schedule",
+      date: "2024-08-01",
+      distance: "30",
+      weeks: "4",
+      workoutDay: "tuesday",
+      longRun: "sunday",
+      monday: "on",
+      tuesday: "on",
+      wednesday: "on",
+      sunday: "on",
+    };
+    setData(devModeData);
+    setNewScheduleFormSubmitted(true);
+  };
+
   useEffect(() => {
     if (data) {
       const { trainingBlockJson, runDataTemplate } =
@@ -85,6 +109,14 @@ const CalendarView = () => {
 
   return (
     <>
+      <div className="flex justify-center">
+        <button
+          onClick={devModeCreateInstantSchedule}
+          className="btn btn-xs btn-primary"
+        >
+          DevMode: Create Schedule
+        </button>
+      </div>
       <CalendarBar
         title={trainingBlockData?.meta?.title}
         runningData={runningData}
@@ -94,6 +126,7 @@ const CalendarView = () => {
         showCurrentCalendar={showCurrentCalendar}
         showPreviousCalendar={showPreviousCalendar}
         showNextCalendar={showNextCalendar}
+        calendarTitles={calendarTitles}
       />
       <CalendarBody
         trainingData={trainingBlockData}
@@ -103,6 +136,7 @@ const CalendarView = () => {
       <Outlet
         context={{
           setNewScheduleFormSubmitted,
+          newScheduleFormSubmitted,
           runningData,
           setRunningData,
           trainingBlockData,

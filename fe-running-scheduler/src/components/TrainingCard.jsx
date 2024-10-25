@@ -3,7 +3,6 @@ const TrainingCard = ({ data, openTrainingCard }) => {
   //   data = "";
   // }
   const { date, type, distance, description } = data;
-console.log(description);
 
   let isToday = false;
   date &&

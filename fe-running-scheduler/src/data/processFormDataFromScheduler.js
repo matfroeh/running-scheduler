@@ -2,6 +2,8 @@
 
 export function processFormDataFromScheduler(data) {
   const { title, distance, workoutDay, longRun, weeks, date } = data;
+  console.log(data);
+  
   const weekdays = [
     "sunday",
     "monday",
