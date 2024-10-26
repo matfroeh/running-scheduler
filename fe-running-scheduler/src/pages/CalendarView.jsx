@@ -18,6 +18,7 @@ import {
 } from "../logic/calendarCycling";
 
 const CalendarView = () => {
+
   // ToDo: actionData needs to be exported to backend, but later
 
   // only for devMode
@@ -116,32 +117,34 @@ const CalendarView = () => {
           DevMode: Create Schedule
         </button>
       </div> */}
-      <CalendarBar
-        title={trainingBlockData?.meta?.title}
-        runningData={runningData}
-        setRunningData={setRunningData}
-        newScheduleFormSubmitted={newScheduleFormSubmitted}
-        saveNewSchedule={saveNewSchedule}
-        showCurrentCalendar={showCurrentCalendar}
-        showPreviousCalendar={showPreviousCalendar}
-        showNextCalendar={showNextCalendar}
-        setNewScheduleFormSubmitted={setNewScheduleFormSubmitted}
-      />
-      <CalendarBody
-        trainingData={trainingBlockData}
-        runningData={runningData}
-        activeCalendarId={activeCalendarId}
-      />
-      <Outlet
-        context={{
-          setNewScheduleFormSubmitted,
-          newScheduleFormSubmitted,
-          runningData,
-          setRunningData,
-          trainingBlockData,
-          setTrainingBlockData,
-        }}
-      />
+      <div className="">
+        <CalendarBar
+          title={trainingBlockData?.meta?.title}
+          runningData={runningData}
+          setRunningData={setRunningData}
+          newScheduleFormSubmitted={newScheduleFormSubmitted}
+          saveNewSchedule={saveNewSchedule}
+          showCurrentCalendar={showCurrentCalendar}
+          showPreviousCalendar={showPreviousCalendar}
+          showNextCalendar={showNextCalendar}
+          setNewScheduleFormSubmitted={setNewScheduleFormSubmitted}
+        />
+        <CalendarBody
+          trainingData={trainingBlockData}
+          runningData={runningData}
+          activeCalendarId={activeCalendarId}
+        />
+        <Outlet
+          context={{
+            setNewScheduleFormSubmitted,
+            newScheduleFormSubmitted,
+            runningData,
+            setRunningData,
+            trainingBlockData,
+            setTrainingBlockData,
+          }}
+        />
+      </div>
     </>
   );
 };
