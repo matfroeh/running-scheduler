@@ -9,20 +9,20 @@ const RootLayout = () => {
 
   return (
     <>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={1500}
-        theme="colored"
-      />
-      <NavBar />
-      {/* {auth ? <Outlet /> : <Navigate to="/login" />} */}
-      {auth ? <Outlet /> : <Navigate to="/welcome" />}
-
+      <div className="">
+        <ToastContainer
+          position="bottom-right"
+          autoClose={1500}
+          theme="colored"
+        />
+        <NavBar />
+        {/* {auth ? <Outlet /> : <Navigate to="/login" />} */}
+        {auth ? <Outlet /> : <Navigate to="/welcome" />}
+      </div>
     </>
   );
 };
 
 export default RootLayout;
-
 
 // state={{ next: location.pathname }}
