@@ -41,8 +41,8 @@ const RunCard = ({ data, openRunCard }) => {
           )}
           {tempo && <span>Pace: {getTempoAsMinutesSecondsString(tempo)} min/km</span>}
           {avg_hr && <span>HR: {avg_hr} bpm</span>}
-          {/* {comments && <span className="line-clamp-2">{comments}</span>} */}
           {effort && <span >Effort: {effort}/10</span>}
+          {comments && <span className="line-clamp-2 mt-0">{comments}</span>}
         </div>
       </div>
     </div>
