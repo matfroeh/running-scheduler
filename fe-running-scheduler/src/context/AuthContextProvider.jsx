@@ -12,7 +12,7 @@ const AuthContextProvider = ({ children }) => {
   const [auth, setAuth] = useState(false);
   const [checkSession, setCheckSession] = useState(true);
 
-  console.log(user);
+  // console.log(user);
   
 
   // will be used as a toggle effect
