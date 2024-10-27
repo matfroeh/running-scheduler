@@ -35,7 +35,7 @@ const RunCard = ({ data, openRunCard }) => {
       <div className="card-body justify-start gap-0 overflow-clip relative">
         <div className="card-title text-sm -mt-2">{name}</div>
         <div className="flex flex-col justify-start text-xs">
-          {distance && <span>{parseFloat(distance).toFixed(1)} km</span>}
+          {distance && <span>{parseFloat(distance).toFixed(2)} km</span>}
           {duration && (
             <span>Time: {getSecondsAsHoursMinutesSecondsString(duration)}</span>
           )}
