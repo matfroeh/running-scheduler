@@ -32,3 +32,15 @@ export const createEquipment = async (userId, equipment) => {
   const data = await response.json();
   return data;
 };
+
+export const updateEquipment = async (userId, equipmentId, equipment) => {
+  const response = await fetch(`${baseURL}/${userId}/${equipmentId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(equipment),
+  });
+  const data = await response.json();
+  return data;
+};

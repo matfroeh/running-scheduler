@@ -7,7 +7,8 @@ const RunCard = ({ data, openRunCard }) => {
   // if (Object.keys(data).length === 0) {
   //   data = "";
   // }
-  const { date, name, distance, duration, tempo, avg_hr, comments, effort } = data;
+  const { date, name, distance, duration, tempo, avg_hr, comments, effort } =
+    data;
 
   let isToday = false;
   date &&
@@ -24,25 +25,29 @@ const RunCard = ({ data, openRunCard }) => {
     <div
       className={
         isToday
-          ? "bg-gray-900 card card-compact rounded-tr-none rounded-br-none rounded-tl-none ring-2 ring-green-500 h-36 w-full hover:ring-4 cursor-pointer"
-          : "bg-gray-900 card card-compact overflow-clip rounded-tr-none rounded-br-none rounded-tl-none ring-2 h-36 w-full hover:ring-4 cursor-pointer"
+          ? "bg-gray-900 card card-compact rounded-tr-none rounded-br-none rounded-tl-none ring-2 ring-green-500 w-full hover:ring-4 cursor-pointer"
+          : "bg-gray-900 card card-compact overflow-clip rounded-tr-none rounded-br-none rounded-tl-none ring-2 w-full hover:ring-4 cursor-pointer"
       }
       onClick={openRunCard}
     >
       {/* <div className="items-end flex justify-end text-white text-xs mt-1 mr-2">
         {formattedDate}
       </div> */}
-      <div className="card-body justify-start gap-0 overflow-clip relative">
+      <div className="card-body justify-start gap-1 overflow-clip relative">
         <div className="card-title text-sm -mt-2">{name}</div>
-        <div className="flex flex-col justify-start text-xs">
-          {distance && <span>{parseFloat(distance).toFixed(2)} km</span>}
-          {duration && (
-            <span>Time: {getSecondsAsHoursMinutesSecondsString(duration)}</span>
+        <div className="flex flex-col gap-1 justify-start text-xs">
+          <div className="flex flex-wrap gap-1">
+            {distance && <span className="text-nowrap">{parseFloat(distance).toFixed(2)} km</span>}
+            {duration && (
+              <span>{getSecondsAsHoursMinutesSecondsString(duration)}</span>
+            )}
+          </div>
+          {tempo && (
+            <span>{getTempoAsMinutesSecondsString(tempo)} min/km</span>
           )}
-          {tempo && <span>Pace: {getTempoAsMinutesSecondsString(tempo)} min/km</span>}
           {avg_hr && <span>HR: {avg_hr} bpm</span>}
-          {effort && <span >Effort: {effort}/10</span>}
-          {comments && <span className="line-clamp-2 mt-0">{comments}</span>}
+          {effort && <span>Effort: {effort}/10</span>}
+          {comments && <span className="line-clamp-1 mt-0">{comments}</span>}
         </div>
       </div>
     </div>

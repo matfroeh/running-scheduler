@@ -10,6 +10,7 @@ import {
   Login,
   SignUp,
   Welcome,
+  Overview
 } from "@/pages";
 import RootLayout from "./layouts/RootLayout";
 import { action as getFormData } from "./actions/getFormData";
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
           {
             path: "runs/:week/:day/:runId",
             element: <RunDetailsModal />,
+            // children: [
+            //   {
+            //     element: <SelectEquipmentModal />,
+            //   },
+            // ],
           },
           {
             path: "schedule/:week/:day/:trainingDayId",
@@ -45,6 +51,10 @@ const router = createBrowserRouter([
             element: <EquipmentModal />,
           },
         ],
+      },
+      {
+        path: "overview",
+        element: <Overview />,
       },
       // {
       //   path: "/",

@@ -86,7 +86,7 @@ const TrainingDayDetailsModal = () => {
             name="type"
             onChange={handleChange}
           >
-            <option defaultValue="Select a type">Select a type</option>
+            <option value="" defaultValue="Select a type">Select a type</option>
             <option value="Easy Run">Easy Run</option>
             <option value="Long Run">Long Run</option>
             <option value="Interval Workout">Interval Workout</option>
