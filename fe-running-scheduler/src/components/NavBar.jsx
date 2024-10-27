@@ -22,8 +22,8 @@ const NavBar = () => {
         <a className="btn btn-ghost text-xl">Running Scheduler</a>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost text-l">Overview</a>
-        <a className="btn btn-ghost text-l">Calendar</a>
+        <NavLink to="/overview" className="btn btn-ghost text-l" >Overview</NavLink>
+        <NavLink to="/" className="btn btn-ghost text-l">Calendar</NavLink>
       </div>
       <div className="navbar-end">
         {auth ? (

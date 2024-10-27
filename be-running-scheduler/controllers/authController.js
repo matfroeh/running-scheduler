@@ -91,7 +91,7 @@ export const me = asyncHandler(async (req, res, next) => {
   try {
     const { userId, userRole } = req; // This is coming from the verifyTokenMiddleware
 
-    const user = await User.findById(userId).select("-password");
+    const user = await User.findById(userId).select("-password").populate("equipmentList");
     if (!user) throw new ErrorResponse("Invalid credentials", 401);
 
     const { userName, email, equipmentList } = user;

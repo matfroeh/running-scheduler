@@ -1,17 +1,20 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  CalendarView,
+  CreateTrainingBlockModal,
+  RunDetailsModal,
+  TrainingDayDetailsModal,
+  EquipmentModal,
+  Error,
+  NotFound,
+  Login,
+  SignUp,
+  Welcome,
+  Overview
+} from "@/pages";
 import RootLayout from "./layouts/RootLayout";
-import CalendarView from "./pages/CalendarView";
-import CreateTrainingBlockModal from "./pages/CreateTrainingBlockModal";
-import RunDetailsModal from "./pages/RunDetailsModal";
-import TrainingDayDetailsModal from "./pages/TrainingDayDetailsModal";
-import EquipmentModal from "./pages/EquipmentModal";
-import Error from "./pages/Error";
-import NotFound from "./pages/NotFound";
 import { action as getFormData } from "./actions/getFormData";
 import { calendarLoader } from "./loader/calendarLoader";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
-import Welcome from "./pages/Welcome";
 import { AuthContextProvider } from "@/context";
 
 const router = createBrowserRouter([
@@ -20,7 +23,7 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        path: "/:calendarId",
+        path: ":calendarId?",
         element: <CalendarView />,
         loader: calendarLoader,
         errorElement: <Error />,
@@ -29,20 +32,16 @@ const router = createBrowserRouter([
           {
             path: "runs/:week/:day/:runId",
             element: <RunDetailsModal />,
+            // children: [
+            //   {
+            //     element: <SelectEquipmentModal />,
+            //   },
+            // ],
           },
           {
             path: "schedule/:week/:day/:trainingDayId",
             element: <TrainingDayDetailsModal />,
           },
-        ],
-      },
-      {
-        path: "/",
-        element: <CalendarView />,
-        loader: calendarLoader,
-        errorElement: <Error />,
-        action: getFormData,
-        children: [
           {
             path: "new-schedule",
             element: <CreateTrainingBlockModal />,
@@ -53,6 +52,27 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "overview",
+        element: <Overview />,
+      },
+      // {
+      //   path: "/",
+      //   element: <CalendarView />,
+      //   loader: calendarLoader,
+      //   errorElement: <Error />,
+      //   action: getFormData,
+      //   children: [
+      //     {
+      //       path: "new-schedule",
+      //       element: <CreateTrainingBlockModal />,
+      //     },
+      //     {
+      //       path: "equipment",
+      //       element: <EquipmentModal />,
+      //     },
+      //   ],
+      // },
     ],
   },
   {
@@ -84,57 +104,3 @@ function App() {
 }
 
 export default App;
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <ProtectedLayout />,
-//     children: [
-//       {
-//         path: "/",
-//         element: <RootLayout />,
-//         loader: calendarLoader,
-//         errorElement: <Error />,
-//         children: [
-//           {
-//             path: ":calendarId",
-//             element: <CalendarView />,
-//             errorElement: <Error />,
-//             action: getFormData,
-//             children: [
-//               {
-//                 path: "new-schedule",
-//                 element: <CreateTrainingBlockModal />,
-//               },
-//               {
-//                 path: "runs/:week/:day/:runId",
-//                 element: <RunDetailsModal />,
-//               },
-//               {
-//                 path: "schedule/:week/:day/:trainingDayId",
-//                 element: <TrainingDayDetailsModal />,
-//               },
-//             ],
-//           },
-//           {
-//             path: "new-schedule",
-//             element: <CreateTrainingBlockModal />,
-//           },
-//         ],
-//       },
-//     ],
-//   },
-//   {
-//     path: "login",
-//     element: <Login />,
-//   },
-//   {
-//     path: "signup",
-//     element: <SignUp />,
-//   },
-
-//   {
-//     path: "*",
-//     element: <NotFound />,
-//   },
-// ]);

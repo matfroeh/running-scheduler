@@ -63,6 +63,7 @@ const CalendarBar = ({
         setRunningData(updatedRunningData);
         const response = updateRunCalendar(updatedRunningData, runningData._id);
         console.log(response);
+        // navigate(`/${runningData._id}/runs/${week}/${day}/${data._id}`); write as async 
       }
       // ToDo any other way to do this? Do we want that files outside of the calendar are processed?
       else {

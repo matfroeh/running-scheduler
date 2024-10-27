@@ -35,7 +35,7 @@ const EquipmentModal = () => {
               <h2 className="card-title">{equipment.name}</h2>
               <p>{equipment.description}</p>
               <p>{equipment.type}</p>
-              <p>{equipment.distance} km</p>
+              <p>{Math.round(parseFloat(equipment.distance))} km</p>
               <p>{equipment.inUseSince}()</p>
             </div>
           </div>
