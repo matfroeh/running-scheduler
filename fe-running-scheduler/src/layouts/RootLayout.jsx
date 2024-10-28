@@ -7,14 +7,10 @@ import { useAuth } from "@/context";
 const RootLayout = () => {
   const { auth } = useAuth();
   
-  
-  // well it works better than the AuthContextProvider as it is loaded before anything is rendered in the RootLayout
+  // authLoader works in that way better than the AuthContextProvider as it is loaded before anything is rendered in the RootLayout
   // but we still need the Context form the Provider
-  // also big con: upon logout the user is not redirected to the login page (cookie cleared though) because we have no access to the loader to change the output
-  //
+  // also big con: upon logout we have no access to the loader to change the output to set auth false
   // const auth = useLoaderData();
-
-console.log(auth);
 
   return (
     <>
@@ -25,7 +21,6 @@ console.log(auth);
           theme="colored"
         />
         <NavBar />
-        {/* {auth ? <Outlet /> : <Navigate to="/login" />} */}
         {auth ? <Outlet /> : <Navigate to="/welcome" />}
       </div>
     </>

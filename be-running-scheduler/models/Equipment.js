@@ -9,10 +9,10 @@ const equipmentSchema = new Schema({
   brand: { type: String },
   model: { type: String },
   picture: { type: Schema.Types.ObjectId, ref: "Image" },
-  distance: { type: Number },
-  inUseSince: { type: Date },
-  time: { type: Number },
-  status: { type: String, enum: ["active", "inactive"], default: "active" },
+  distance: { type: Number, default: 0, required: true },
+  inUseSince: { type: Date, default: Date.now, required: true },
+  time: { type: Number, default: 0, required: true },
+  status: { type: String, enum: ["active", "inactive"], default: "active", required: true },
 });
 
 export default model("Equipment", equipmentSchema);

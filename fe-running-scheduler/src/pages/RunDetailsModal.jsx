@@ -7,7 +7,7 @@ import {
   getSecondsAsHoursMinutesSecondsString,
 } from "../data/processRunningDataHelper.js";
 import { updateEquipment } from "../data/user.js";
-import CardModal from "../components/CardModal.jsx";
+import { CardModal } from "@/components";
 import { useAuth } from "@/context";
 
 const RunDetailsModal = () => {

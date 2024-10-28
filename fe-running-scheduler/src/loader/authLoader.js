@@ -8,7 +8,7 @@ export const authLoader = async () => {
       return true;
     })
     .catch(() => {
-      return null;
+      return false;
     });
 
     console.log(auth);
