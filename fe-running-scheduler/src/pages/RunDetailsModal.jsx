@@ -28,7 +28,7 @@ const RunDetailsModal = () => {
   const selectedEquipment = equipmentList.find(
     (item) => item.name === formData.equipment
   );
-  console.log(selectedEquipment?.distance);
+  // console.log(selectedEquipment?.distance);
 
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString("en-UK", {
@@ -62,7 +62,7 @@ const RunDetailsModal = () => {
       const updatedRunningData = { ...runningData };
       updatedRunningData.weeks[week].days[day] = formData;
 
-      console.log(updatedRunningData.weeks[week].days[day]);
+      // console.log(updatedRunningData.weeks[week].days[day]);
 
       setRunningData(updatedRunningData);
       await updateRunCalendar(runningData, calendarId);
@@ -288,9 +288,10 @@ const RunDetailsModal = () => {
                 </option>
                 {equipmentList.length > 0 &&
                   equipmentList.map((item) => (
-                    console.log(item),
+                    item.status === "active" &&
+                    // console.log(item),
 
-                    <option key={item.id} value={item.name}>
+                    <option key={item._id} value={item.name}>
                       {item.name}
                     </option>
                   ))}
