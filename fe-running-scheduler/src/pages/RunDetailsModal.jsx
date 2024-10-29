@@ -15,20 +15,26 @@ const RunDetailsModal = () => {
   const { runningData, setRunningData, newScheduleFormSubmitted } =
     useOutletContext();
   const { user } = useAuth();
-
-  // console.log(user.userId);
-  
-
   const run = runningData.weeks[week].days[day];
-  
+
   const [isEditMode, setIsEditMode] = useState(false);
   const [formData, setFormData] = useState({ ...run });
-  
+  const [equipmentChanged, setEquipmentChanged] = useState(false);
+// console.log("equip changed", equipmentChanged);
+
   const equipmentList = user?.equipmentList || [];
-  const selectedEquipment = equipmentList.find(
+
+  const activeEquipmentList = equipmentList.filter(
+    (item) => item.status === "active"
+  );
+
+  const selectedEquipment = activeEquipmentList.find(
     (item) => item.name === formData.equipment
   );
-  // console.log(selectedEquipment?.distance);
+
+  // console.log("activeEquipmentList", activeEquipmentList);
+  // console.log("equipment list", equipmentList);
+  // console.log("selected equipment", selectedEquipment);
 
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString("en-UK", {
@@ -37,7 +43,7 @@ const RunDetailsModal = () => {
       day: "numeric",
     });
   };
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -45,6 +51,11 @@ const RunDetailsModal = () => {
       [name]: value,
     });
   };
+  
+  const handleEquipmentChange = (e) => {
+    handleChange(e);
+    setEquipmentChanged(true);
+  }
 
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
@@ -68,11 +79,17 @@ const RunDetailsModal = () => {
       await updateRunCalendar(runningData, calendarId);
       // console.log(response);
 
-      // update the equipment distance
-      const distanceToAdd = formData.distance || 0;
-      const updatedEquipment = { ...selectedEquipment };
-      updatedEquipment.distance += distanceToAdd;
-      updateEquipment(user.userId, selectedEquipment._id, updatedEquipment);
+      // update the equipment distance if still exists in the list (as active equipment)
+      if (selectedEquipment && equipmentChanged) {
+        const distanceToAdd = formData.distance || 0;
+        const updatedEquipment = { ...selectedEquipment };
+        updatedEquipment.distance += distanceToAdd;
+        // console.log("selected equip id:", selectedEquipment._id);
+        
+        updateEquipment(user.userId, selectedEquipment._id, updatedEquipment);
+        console.log("added distance to shoe");
+        
+      }
 
       toast.success("Run updated successfully");
     } catch (error) {
@@ -153,7 +170,7 @@ const RunDetailsModal = () => {
               <input
                 type="number"
                 name="distance"
-                value={formData.distance || ""}
+                value={parseFloat(formData.distance) || ""}
                 onChange={handleChange}
                 className="input input-bordered w-full mt-2"
               />
@@ -170,7 +187,9 @@ const RunDetailsModal = () => {
                 name="type"
                 onChange={handleChange}
               >
-                <option value="" defaultValue="Select a type">Select a type</option>
+                <option value="" defaultValue="Select a type">
+                  Select a type
+                </option>
                 <option value="Easy Run">Easy Run</option>
                 <option value="Long Run">Long Run</option>
                 <option value="Interval Workout">Interval Workout</option>
@@ -281,20 +300,16 @@ const RunDetailsModal = () => {
                 className="select select-bordered w-full max-w-xs mt-2"
                 value={formData.equipment}
                 name="equipment"
-                onChange={handleChange}
+                onChange={handleEquipmentChange}
               >
                 <option value="" defaultValue="Select equipment used">
                   Select equipment used
                 </option>
-                {equipmentList.length > 0 &&
-                  equipmentList.map((item) => (
-                    item.status === "active" &&
-                    // console.log(item),
-
-                    <option key={item._id} value={item.name}>
-                      {item.name}
-                    </option>
-                  ))}
+                {activeEquipmentList.map((item) => (
+                  <option key={item._id} value={item.name}>
+                    {item.name}
+                  </option>
+                ))}
               </select>
             ) : (
               <span>{formData.equipment || ""}</span>

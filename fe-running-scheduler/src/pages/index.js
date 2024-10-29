@@ -10,6 +10,7 @@ import RunDetailsModal from "./RunDetailsModal";
 import Welcome from "./Welcome";
 import Overview from "./Overview";
 import EquipmentDetails from "./EquipmentDetails";
+import CreateEquipment from "./CreateEquipment";
 
 export {
   CalendarView,
@@ -24,4 +25,5 @@ export {
   Welcome,
   Overview,
   EquipmentDetails,
+  CreateEquipment,
 };
