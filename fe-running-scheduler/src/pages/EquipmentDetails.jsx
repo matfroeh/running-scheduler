@@ -5,6 +5,7 @@ import {
   getEquipmentById,
   updateEquipment,
   getEquipmentListFromUser,
+  deleteEquipmentFromUserList,
 } from "../data/user";
 import { useAuth } from "@/context";
 import { toast } from "react-toastify";
@@ -42,6 +43,10 @@ const EquipmentDetails = () => {
       "Are you sure you want to delete this equipment?"
     );
     if (!confirmDelete) return;
+    await deleteEquipmentFromUserList(user.userId, equipmentId);  
+    setEquipmentList((prev) => prev.filter((equipment) => equipment._id !== equipmentId));
+    toast.success("Equipment deleted successfully");
+    navigate(-1);
     // deleteEquipment(user.userId, equipmentId);
   };
 

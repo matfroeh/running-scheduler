@@ -13,13 +13,14 @@ export const getEquipmentListFromUser = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`User not found with id of ${userId}`, 404));
   const equipmentList = await Equipment.find({ owner: userId });
 
-
   res.status(200).json(equipmentList);
 });
 
 export const getEquipmentById = asyncHandler(async (req, res, next) => {
   const { equipmentId, userId } = req.params;
-  const equipment = await Equipment.findOne({ $and: [{_id: equipmentId }, { owner: userId }] });
+  const equipment = await Equipment.findOne({
+    $and: [{ _id: equipmentId }, { owner: userId }],
+  });
   if (!equipment)
     return next(
       new ErrorResponse(`Equipment not found with id of ${equipmentId}`, 404)
@@ -36,14 +37,10 @@ export const updateUser = asyncHandler(async (req, res, next) => {
   if (!user)
     return next(new ErrorResponse(`User not found with id of ${userId}`, 404));
 
-  const updated = await User.findOneAndUpdate(
-    { _id: userId },
-    req.body,
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
+  const updated = await User.findOneAndUpdate({ _id: userId }, req.body, {
+    new: true,
+    runValidators: true,
+  });
 
   res.status(200).json(updated);
 });
@@ -54,9 +51,9 @@ export const createEquipment = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ _id: userId });
   if (!user)
     return next(new ErrorResponse(`User not found with id of ${userId}`, 404));
-  const equipment = await Equipment.create({...req.body, owner: userId});
+  const equipment = await Equipment.create({ ...req.body, owner: userId });
   user.equipmentList.push(equipment._id);
-  await user.save();  
+  await user.save();
 
   res.status(201).json(equipment);
 });
@@ -119,9 +116,14 @@ export const deleteEquipmentFromUserList = asyncHandler(
       return next(
         new ErrorResponse(`Equipment not found with id of ${equipmentId}`, 404)
       );
-    user.equipmentList = user.equipmentList.filter(
-      (equipment) => equipment !== equipmentId
-    );
+
+    console.log("backend: equipment found", equipment);
+    console.log(equipmentId);
+
+    user.equipmentList.pull({ _id: equipmentId });
+
+    console.log("backend: userEquipList, ", user.equipmentList);
+
     await user.save();
     res.status(200).json(user);
   }

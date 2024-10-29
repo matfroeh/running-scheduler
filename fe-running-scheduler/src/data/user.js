@@ -3,6 +3,8 @@ if (!API_URL)
   throw new Error("API URL is required, are you missing a .env file?");
 const baseURL = `${API_URL}/user`;
 
+
+// ToDo: This is not getting the user.equipmentList but every item in the equipment collection with owner = userId
 export const getEquipmentListFromUser = async (userId) => {
   const response = await fetch(`${baseURL}/${userId}`);
   const data = await response.json();
@@ -46,6 +48,14 @@ export const updateEquipment = async (userId, equipmentId, equipment) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(equipment),
+  });
+  const data = await response.json();
+  return data;
+};
+
+export const deleteEquipmentFromUserList = async (userId, equipmentId) => {
+  const response = await fetch(`${baseURL}/${userId}/${equipmentId}`, {
+    method: "DELETE",
   });
   const data = await response.json();
   return data;

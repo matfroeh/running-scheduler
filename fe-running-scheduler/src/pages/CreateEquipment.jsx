@@ -29,13 +29,6 @@ const CreateEquipment = () => {
     });
   };
 
-  const handleDelete = async () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this equipment?"
-    );
-    if (!confirmDelete) return;
-    // deleteEquipment(user.userId, equipmentId);
-  };
 
   // ToDo: the user state needs to be updated after creating a new equipment
   const create = async () => {
@@ -53,12 +46,6 @@ const CreateEquipment = () => {
     <CardModal>
       <h2 className="card-title text-xl">Add New Equipment </h2>
       <div className="flex space-x-2 justify-end">
-        <button
-          className="btn btn-sm btn-neutral hover:btn-error"
-          onClick={handleDelete}
-        >
-          Delete
-        </button>
         <button
           type="submit"
           className="btn btn-sm btn-success ml-2"
