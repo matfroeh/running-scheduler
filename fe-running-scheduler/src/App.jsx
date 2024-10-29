@@ -12,6 +12,7 @@ import {
   Welcome,
   Overview,
   EquipmentDetails,
+  CreateEquipment,
 } from "@/pages";
 import RootLayout from "./layouts/RootLayout";
 import { action as getFormData } from "./actions/getFormData";
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
                 path: ":equipmentId",
                 element: <EquipmentDetails />,
               },
+              {
+                path: "new",
+                element: <CreateEquipment />,
+              }
             ],
           },
         ],

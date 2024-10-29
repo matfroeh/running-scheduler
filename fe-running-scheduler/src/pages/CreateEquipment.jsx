@@ -1,34 +1,25 @@
 import { CardModal } from "@/components";
-import { useState, useEffect } from "react";
-import { useParams, useOutletContext, useNavigate } from "react-router-dom";
-import {
-  getEquipmentById,
-  updateEquipment,
-  getEquipmentListFromUser,
-  deleteEquipmentFromUserList,
-} from "../data/user";
+import { useState } from "react";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context";
 import { toast } from "react-toastify";
-import dayjs from "dayjs";
+import { createEquipment } from "../data/user";
 
-const EquipmentDetails = () => {
-  const { equipmentId } = useParams();
+const CreateEquipment = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    status: "active",
+    type: "",
+    brand: "",
+    model: "",
+    distance: 0,
+    time: 0,
+    description: "",
+    inUseSince: "",
+  });
   const { user } = useAuth();
   const { setEquipmentList } = useOutletContext();
- 
-  const formatDate = (date) => {
-    return dayjs(date).format("YYYY-MM-DD");
-  };
-
-  useEffect(() => {
-    const fetchEquipment = async () => {
-      const data = await getEquipmentById(user.userId, equipmentId);
-      setFormData(data);
-    };
-    fetchEquipment();
-  }, [equipmentId, user.userId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,41 +29,28 @@ const EquipmentDetails = () => {
     });
   };
 
-  const handleDelete = async () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this equipment?"
-    );
-    if (!confirmDelete) return;
-    await deleteEquipmentFromUserList(user.userId, equipmentId);  
-    setEquipmentList((prev) => prev.filter((equipment) => equipment._id !== equipmentId));
-    toast.success("Equipment deleted successfully");
-    navigate(-1);
-    // deleteEquipment(user.userId, equipmentId);
-  };
 
-
-  // ToDo: the user state needs to be updated afterwards
-  const update = async () => {
+  // ToDo: the user state needs to be updated after creating a new equipment
+  const create = async () => {
     // ToDo: Error handling
-    const updatedEquipmentData = { ...formData };
-    await updateEquipment(user.userId, equipmentId, updatedEquipmentData);
-    const updatedEquipmentList = await getEquipmentListFromUser(user.userId);
-    setEquipmentList(updatedEquipmentList);
-    toast.success("Equipment updated successfully");
+    const newEquipment = { ...formData };
+    const addedEquipment = await createEquipment(user.userId, newEquipment);
+    console.log(addedEquipment);
+    
+    setEquipmentList((prev) => [...prev, addedEquipment]);
+    toast.success("Equipment successfully created");
     navigate(-1);
   };
 
   return (
-    <CardModal key={equipmentId}>
-      <h2 className="card-title text-xl">Equipment Details </h2>
+    <CardModal>
+      <h2 className="card-title text-xl">Add New Equipment </h2>
       <div className="flex space-x-2 justify-end">
         <button
-          className="btn btn-sm btn-neutral hover:btn-error"
-          onClick={handleDelete}
+          type="submit"
+          className="btn btn-sm btn-success ml-2"
+          onClick={create}
         >
-          Delete
-        </button>
-        <button type="submit" className="btn btn-sm btn-success ml-2" onClick={update}>
           Save
         </button>
       </div>
@@ -133,19 +111,19 @@ const EquipmentDetails = () => {
           />
         </div>
         <div>
-          <div>Distance (km): </div>
+          <div>(Starting)-Distance: </div>
           <input
-            type="number"
+            type="text"
             name="distance"
-            value={parseFloat(formData.distance).toFixed(1)}
+            value={formData.distance}
             onChange={handleChange}
             className="input input-bordered w-full mt-2"
           />
         </div>
         <div>
-          <div>Usage time (h): </div>
+          <div>Usage time until now (hours): </div>
           <input
-            type="number"
+            type="text"
             name="time"
             value={formData.time}
             onChange={handleChange}
@@ -167,7 +145,7 @@ const EquipmentDetails = () => {
           <input
             type="date"
             name="inUseSince"
-            value={formatDate(formData.inUseSince)}
+            value={formData.inUseSince}
             onChange={handleChange}
             className="input input-bordered w-full mt-2"
           />
@@ -177,4 +155,4 @@ const EquipmentDetails = () => {
   );
 };
 
-export default EquipmentDetails;
+export default CreateEquipment;

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const CardModal = ({ children }) => {
   return (
     <div className="fixed overflow-hidden inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
-      <div className="card container max-h-screen modal-window p-4 bg-base-100 rounded-lg border shadow-lg">
+      <div className="card container max-h-screen max-w-[50%] modal-window p-4 bg-base-100 rounded-lg border shadow-lg">
         <div className="card-body relative overflow-y-auto h-max">
           <div className="card-actions justify-end">
             <Link
