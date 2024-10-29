@@ -76,7 +76,9 @@ const TrainingDayDetailsModal = () => {
   }
   return (
     <CardModal>
-      <span className="absolute top-2 left-2 ">{formatDate(formData.date)}</span>
+      <span className="absolute top-2 left-2 ">
+        {formatDate(formData.date)}
+      </span>
       <h2 className="card-title text-xl font-bold mt-4">
         <div>
           <strong>Type: </strong>
@@ -86,7 +88,9 @@ const TrainingDayDetailsModal = () => {
             name="type"
             onChange={handleChange}
           >
-            <option value="" defaultValue="Select a type">Select a type</option>
+            <option value="" defaultValue="Select a type">
+              Select a type
+            </option>
             <option value="Easy Run">Easy Run</option>
             <option value="Long Run">Long Run</option>
             <option value="Interval Workout">Interval Workout</option>
@@ -106,10 +110,6 @@ const TrainingDayDetailsModal = () => {
         >
           Delete
         </button>
-        {/* <button className="btn btn-sm btn-primary" onClick={toggleEditMode}>
-          {isEditMode ? "Cancel" : "Edit"}
-        </button> */}
-
         <button className="btn btn-sm btn-success ml-2" onClick={update}>
           Save
         </button>

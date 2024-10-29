@@ -9,6 +9,19 @@ import TrainingDayDetailsModal from "./TrainingDayDetailsModal";
 import RunDetailsModal from "./RunDetailsModal";
 import Welcome from "./Welcome";
 import Overview from "./Overview";
-import SelectEquipmentModal from "./SelectEquipmentModal";
+import EquipmentDetails from "./EquipmentDetails";
 
-export { CalendarView, CreateTrainingBlockModal, EquipmentModal, Error, SignUp, Login, NotFound, TrainingDayDetailsModal, RunDetailsModal, Welcome, Overview, SelectEquipmentModal };
+export {
+  CalendarView,
+  CreateTrainingBlockModal,
+  EquipmentModal,
+  Error,
+  SignUp,
+  Login,
+  NotFound,
+  TrainingDayDetailsModal,
+  RunDetailsModal,
+  Welcome,
+  Overview,
+  EquipmentDetails,
+};

@@ -8,5 +8,6 @@ import TrainingCard from "./TrainingCard";
 import RunCard from "./RunCard";
 import WeekDaysBar from "./WeekDaysBar";
 import SummaryCard from "./SummaryCard";
+import CardElementCloseButton from "./CardElementCloseButton";
 
-export { Calendar, CalendarBar, CalendarBody, CalendarWeekRow, NavBar, CardModal, TrainingCard, RunCard, WeekDaysBar, SummaryCard };
+export { Calendar, CalendarBar, CalendarBody, CalendarWeekRow, CardElementCloseButton, NavBar, CardModal, TrainingCard, RunCard, WeekDaysBar, SummaryCard };

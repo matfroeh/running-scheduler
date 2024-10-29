@@ -10,10 +10,12 @@ import {
   Login,
   SignUp,
   Welcome,
-  Overview
+  Overview,
+  EquipmentDetails,
 } from "@/pages";
 import RootLayout from "./layouts/RootLayout";
 import { action as getFormData } from "./actions/getFormData";
+// import { authLoader } from "./loader/authLoader";
 import { calendarLoader } from "./loader/calendarLoader";
 import { AuthContextProvider } from "@/context";
 
@@ -21,6 +23,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    // loader: authLoader,
     children: [
       {
         path: ":calendarId?",
@@ -32,11 +35,6 @@ const router = createBrowserRouter([
           {
             path: "runs/:week/:day/:runId",
             element: <RunDetailsModal />,
-            // children: [
-            //   {
-            //     element: <SelectEquipmentModal />,
-            //   },
-            // ],
           },
           {
             path: "schedule/:week/:day/:trainingDayId",
@@ -49,6 +47,12 @@ const router = createBrowserRouter([
           {
             path: "equipment",
             element: <EquipmentModal />,
+            children: [
+              {
+                path: ":equipmentId",
+                element: <EquipmentDetails />,
+              },
+            ],
           },
         ],
       },
@@ -56,23 +60,6 @@ const router = createBrowserRouter([
         path: "overview",
         element: <Overview />,
       },
-      // {
-      //   path: "/",
-      //   element: <CalendarView />,
-      //   loader: calendarLoader,
-      //   errorElement: <Error />,
-      //   action: getFormData,
-      //   children: [
-      //     {
-      //       path: "new-schedule",
-      //       element: <CreateTrainingBlockModal />,
-      //     },
-      //     {
-      //       path: "equipment",
-      //       element: <EquipmentModal />,
-      //     },
-      //   ],
-      // },
     ],
   },
   {

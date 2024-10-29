@@ -17,6 +17,16 @@ export const getEquipmentListFromUser = asyncHandler(async (req, res, next) => {
   res.status(200).json(equipmentList);
 });
 
+export const getEquipmentById = asyncHandler(async (req, res, next) => {
+  const { equipmentId, userId } = req.params;
+  const equipment = await Equipment.findOne({ $and: [{_id: equipmentId }, { owner: userId }] });
+  if (!equipment)
+    return next(
+      new ErrorResponse(`Equipment not found with id of ${equipmentId}`, 404)
+    );
+  res.status(200).json(equipment);
+});
+
 export const updateUser = asyncHandler(async (req, res, next) => {
   const { userId } = req.params;
   const user = await User.findOne({
@@ -79,7 +89,7 @@ export const updateEquipment = asyncHandler(async (req, res, next) => {
     );
   const updatedEquipment = await Equipment.findOneAndUpdate(
     {
-      _id: equipmentId,
+      _id: equipmentId, // Is this really AND
       owner: userId, // not really necessary but maybe we want the equipment to be independent form the user later
     },
     req.body,

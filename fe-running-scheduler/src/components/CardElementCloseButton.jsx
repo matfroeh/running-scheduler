@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
 
-const CardModal = ({ children }) => {
+const CardElementCloseButton = () => {
   return (
-    <div className="fixed overflow-hidden inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
-      <div className="card container max-h-screen modal-window p-4 bg-base-100 rounded-lg border shadow-lg">
-        <div className="card-body relative overflow-y-auto h-max">
-          <div className="card-actions justify-end">
+    <div className="card-actions justify-end">
             <Link
               className="btn btn-square btn-ghost btn-sm absolute top-2 right-2"
               to={-1}
@@ -26,11 +23,7 @@ const CardModal = ({ children }) => {
               </svg>
             </Link>
           </div>
-          {children}
-        </div>
-      </div>
-    </div>
-  );
-};
+  )
+}
 
-export default CardModal;
+export default CardElementCloseButton

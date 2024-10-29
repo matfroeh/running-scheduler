@@ -9,6 +9,12 @@ export const getEquipmentListFromUser = async (userId) => {
   return data;
 };
 
+export const getEquipmentById = async (userId, equipmentId) => {
+  const response = await fetch(`${baseURL}/${userId}/${equipmentId}`);
+  const data = await response.json();
+  return data;
+}
+
 export const updateUser = async (userId, user) => {
   const response = await fetch(`${baseURL}/${userId}`, {
     method: "PUT",
