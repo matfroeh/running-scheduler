@@ -18,6 +18,7 @@ import RootLayout from "./layouts/RootLayout";
 import { action as getFormData } from "./actions/getFormData";
 // import { authLoader } from "./loader/authLoader";
 import { calendarLoader } from "./loader/calendarLoader";
+import { overviewLoader } from "./loader/overviewLoader";
 import { AuthContextProvider } from "@/context";
 
 const router = createBrowserRouter([
@@ -64,6 +65,7 @@ const router = createBrowserRouter([
       {
         path: "overview",
         element: <Overview />,
+        loader: overviewLoader,
       },
     ],
   },
