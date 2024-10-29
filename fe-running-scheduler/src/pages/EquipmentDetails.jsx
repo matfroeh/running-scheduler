@@ -56,8 +56,8 @@ const EquipmentDetails = () => {
     // ToDo: Error handling
     const updatedEquipmentData = { ...formData };
     await updateEquipment(user.userId, equipmentId, updatedEquipmentData);
-    const updatedEquipmentList = await getEquipmentListFromUser(user.userId);
-    setEquipmentList(updatedEquipmentList);
+    // const updatedEquipmentList = await getEquipmentListFromUser(user.userId);
+    setEquipmentList((prev) => prev.map((equipment) => (equipment._id === equipmentId ? updatedEquipmentData : equipment)));
     toast.success("Equipment updated successfully");
     navigate(-1);
   };
@@ -76,19 +76,8 @@ const EquipmentDetails = () => {
           Save
         </button>
       </div>
-      <div className="flex flex-wrap gap-4">
         <div>
-          <div>Name: </div>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="input input-bordered w-full mt-2"
-          />
-        </div>
-        <div>
-          <div>Status: </div>
+          <div className="text-red-500">Status: </div>
           <select
             type="text"
             name="status"
@@ -101,6 +90,17 @@ const EquipmentDetails = () => {
             </option>
             <option value="inactive">Inactive</option>
           </select>
+        </div>
+      <div className="flex flex-wrap gap-4 mt-4">
+        <div>
+          <div>Name: </div>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="input input-bordered w-full mt-2"
+          />
         </div>
         <div>
           <div>Type: </div>

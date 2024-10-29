@@ -179,10 +179,10 @@ const RunDetailsModal = () => {
             )}
           </div>
           {isEditMode ? (
-            <div>
+            <div className="">
               <strong>Type: </strong>
               <select
-                className="select select-bordered w-full max-w-xs mt-2"
+                className="select select-bordered w-full mt-2"
                 value={formData.type}
                 name="type"
                 onChange={handleChange}
@@ -297,7 +297,7 @@ const RunDetailsModal = () => {
             <strong>Equipment: </strong>
             {isEditMode ? (
               <select
-                className="select select-bordered w-full max-w-xs mt-2"
+                className="select select-bordered w-full mt-2"
                 value={formData.equipment}
                 name="equipment"
                 onChange={handleEquipmentChange}
