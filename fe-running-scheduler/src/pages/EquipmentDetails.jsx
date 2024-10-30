@@ -4,7 +4,6 @@ import { useParams, useOutletContext, useNavigate } from "react-router-dom";
 import {
   getEquipmentById,
   updateEquipment,
-  getEquipmentListFromUser,
   deleteEquipmentFromUserList,
 } from "../data/user";
 import { useAuth } from "@/context";
@@ -51,12 +50,10 @@ const EquipmentDetails = () => {
   };
 
 
-  // ToDo: the user state needs to be updated afterwards
   const update = async () => {
     // ToDo: Error handling
     const updatedEquipmentData = { ...formData };
     await updateEquipment(user.userId, equipmentId, updatedEquipmentData);
-    // const updatedEquipmentList = await getEquipmentListFromUser(user.userId);
     setEquipmentList((prev) => prev.map((equipment) => (equipment._id === equipmentId ? updatedEquipmentData : equipment)));
     toast.success("Equipment updated successfully");
     navigate(-1);
