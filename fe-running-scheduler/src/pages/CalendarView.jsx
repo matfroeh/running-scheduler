@@ -64,7 +64,6 @@ const CalendarView = () => {
     showNext(params);
   };
 
-  // ToDo: some responsiveness that tells user that it will be discarded if he clicks somewhere else
   const saveNewSchedule = async () => {
     try {
       const schedule = await createTrainingSchedule(trainingBlockData);

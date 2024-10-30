@@ -14,7 +14,7 @@ const RootLayout = () => {
 
   return (
     <>
-      <div className="">
+      <div className="container mx-auto">
         <ToastContainer
           position="bottom-right"
           autoClose={1500}
