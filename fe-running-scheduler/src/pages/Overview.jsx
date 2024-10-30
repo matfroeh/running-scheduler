@@ -1,132 +1,85 @@
 import { useLoaderData } from "react-router-dom";
-import { getOverviewData } from "../data/getOverviewData";
 import {
-  getTempoAsMinutesSecondsString,
-  getSecondsAsHoursMinutesSecondsString,
-} from "../data/processRunningDataHelper.js";
+  getOverviewData,
+  getTotalDistance,
+  getAverageHeartBeat,
+  getAveragePace,
+  getAverageEffort,
+  getTotalTime,
+  getWeeksXAxis,
+  getWeeklyDistance,
+  getWeeklyTime,
+} from "../data/getOverviewData.js";
 import dayjs from "dayjs";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
+import { useState } from "react";
 
 const Overview = () => {
   // Arrays of the schedule and the running part of the training blocks
   const { loadedRuns } = useLoaderData();
-
   const overviewData = getOverviewData(loadedRuns);
-  // console.log(overviewData);
+  const [selectedBlock, setSelectedBlock] = useState(
+    overviewData ? overviewData[0] : null
+  );
+  const modes = ["individual", "all"];
+  const [selectedMode, setSelectedMode] = useState(modes[0]);
 
-  const getTotalDistance = (block) => {
-    let totalDistance = 0;
-    block.weeks.map((week) => {
-      totalDistance += week.totalDistanceRun;
-    });
-    return parseFloat(totalDistance).toFixed(0);
-  };
 
-  const getAverageHeartBeat = (block) => {
-    let totalHeartBeat = 0;
-    let numberOfWeeksWithData = 0;
-    block.weeks.map((week) => {
-      if (week.avg_hr !== 0 && !isNaN(week.avg_hr)) {
-        numberOfWeeksWithData += 1;
-        totalHeartBeat += week.avg_hr;
-      }
-    });
-    // console.log(totalHeartBeat, numberOfWeeksWithData);
-    return numberOfWeeksWithData !== 0
-      ? parseFloat(totalHeartBeat / numberOfWeeksWithData).toFixed(0)
-      : "--";
-  };
-
-  const getAveragePace = (block) => {
-    let totalPace = 0;
-    let numberOfWeeksWithData = 0;
-    block.weeks.map((week) => {
-      if (week.avgPace !== 0 && !isNaN(week.avgPace)) {
-        // console.log(week.avgPace);
-        numberOfWeeksWithData += 1;
-        totalPace += parseFloat(week.avgPace);
-      }
-      // console.log(totalPace, numberOfWeeksWithData);
-    });
-    return numberOfWeeksWithData !== 0
-      ? getTempoAsMinutesSecondsString(totalPace / numberOfWeeksWithData)
-      : "--";
-  };
-
-  const getAverageEffort = (block) => {
-    let totalEffort = 0;
-    let numberOfWeeksWithData = 0;
-    block.weeks.map((week) => {
-      if (week.avgEffort !== 0 && !isNaN(week.avgEffort)) {
-        numberOfWeeksWithData += 1;
-        totalEffort += week.avgEffort;
-      }
-    });
-    return numberOfWeeksWithData !== 0
-      ? parseFloat(totalEffort / numberOfWeeksWithData).toFixed(1)
-      : "--";
-  };
-
-  const getTotalTime = (block) => {
-    let totalTime = 0;
-    block.weeks.map((week) => {
-      totalTime += parseFloat(week.totalTime);
-    });
-    // console.log(totalTime);
-
-    return getSecondsAsHoursMinutesSecondsString(totalTime);
-  };
-
-  const getWeeksXAxis = (block) => {
-    const xAxis = [];
-    let weekNumber = 1;
-    block.weeks.map(() => {
-      xAxis.push(weekNumber);
-      weekNumber += 1;
-    });
-    console.log(xAxis);
-
-    return xAxis;
-  };
-
-  const getWeeklyDistance = (block) => {
-    const weeklyDistance = [];
-    block.weeks.map((week) => {
-      weeklyDistance.push(week.totalDistanceRun);
-    });
-    console.log(weeklyDistance);
-    return weeklyDistance;
-  };
-
-  const getWeeklyTime = (block) => {
-    const weeklyTime = [];
-    block.weeks.map((week) => {
-      weeklyTime.push(parseFloat(week.totalTime) / 60);
-    });
-    return weeklyTime;
-  };
+  // console.log(selectedBlock);
 
   const getIndividualChart = (block) => {
     const data = {
       labels: getWeeksXAxis(block),
       datasets: [
         {
-          label: "Weekly Distance",
+          label: "Weekly Distance (km)",
           data: getWeeklyDistance(block),
-          fill: true,
+          fill: false,
           backgroundColor: "rgba(75,192,192,0.2)",
           borderColor: "rgba(75,192,192,1)",
+          yAxisID: "y1",
         },
-        // {
-        //   label: "Weekly Time",
-        //   data: getWeeklyTime(overviewData[2]),
-        //   fill: false,
-        //   borderColor: "#742774"
-        // }
+        {
+          label: "Weekly Time (minutes)",
+          data: getWeeklyTime(block),
+          fill: false,
+          borderColor: "#742774",
+          yAxisID: "y2",
+        },
       ],
     };
-    return <div className="w-full"><Line id={block.title} data={data} /> </div>;
+    const options = {
+      scales: {
+        y1: {
+          min: Math.round(Math.min.apply(null, getWeeklyDistance(block))),
+          max: Math.round(Math.max.apply(null, getWeeklyDistance(block)) * 1.5),
+          stepSize: 10,
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+        y2: {
+          min: Math.round(Math.min.apply(null, getWeeklyTime(block))),
+          max: Math.round(Math.max.apply(null, getWeeklyTime(block)) * 2),
+          stepSize: 30,
+          position: "right",
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+        x: {},
+      },
+    };
+    return (
+      <div className="w-full">
+        <Line id={block.title} data={data} options={options} />{" "}
+      </div>
+    );
+  };
+
+  const selectBlock = (block) => {
+    setSelectedBlock(block);
   };
 
   return (
@@ -140,7 +93,12 @@ const Overview = () => {
           {overviewData.map((block) => (
             <div
               key={block.title}
-              className="card card-compact bg-primary text-primary-content cursor-pointer"
+              className={
+                selectedBlock.title === block.title
+                  ? "bg-accent card card-compact text-primary-content cursor-pointer"
+                  : "bg-primary card card-compact text-primary-content cursor-pointer"
+              }
+              onClick={() => selectBlock(block)}
             >
               <div className="card-body">
                 <h2 className="card-title">{block.title}</h2>
@@ -204,7 +162,7 @@ const Overview = () => {
         </div>
 
         <div className="flex flex-col gap-8 mt-8 justify-center items-center w-full">
-          {getIndividualChart(overviewData[2])}
+          {overviewData && getIndividualChart(selectedBlock)}
         </div>
       </div>
     </div>

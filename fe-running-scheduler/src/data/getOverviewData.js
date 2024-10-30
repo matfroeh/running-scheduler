@@ -1,4 +1,8 @@
 import { calculateSummariesForOverview } from './calculateSummariesForOverview';
+import {
+  getTempoAsMinutesSecondsString,
+  getSecondsAsHoursMinutesSecondsString,
+} from "../data/processRunningDataHelper.js";
 
   // Creates an array of objects with the title, start date and array of weeks containing the summaries of each week
 export const getOverviewData = (runs) => {
@@ -18,6 +22,98 @@ export const getOverviewData = (runs) => {
         push(calculateSummariesForOverview(data));
       });
     }
-    console.log(summariesArray);
+    // console.log(summariesArray);
     return summariesArray;
+  };
+
+  export const getTotalDistance = (block) => {
+    let totalDistance = 0;
+    block.weeks.map((week) => {
+      totalDistance += week.totalDistanceRun;
+    });
+    return parseFloat(totalDistance).toFixed(0);
+  };
+
+  export const getAverageHeartBeat = (block) => {
+    let totalHeartBeat = 0;
+    let numberOfWeeksWithData = 0;
+    block.weeks.map((week) => {
+      if (week.avg_hr !== 0 && !isNaN(week.avg_hr)) {
+        numberOfWeeksWithData += 1;
+        totalHeartBeat += week.avg_hr;
+      }
+    });
+    // console.log(totalHeartBeat, numberOfWeeksWithData);
+    return numberOfWeeksWithData !== 0
+      ? parseFloat(totalHeartBeat / numberOfWeeksWithData).toFixed(0)
+      : "--";
+  };
+
+  export const getAveragePace = (block) => {
+    let totalPace = 0;
+    let numberOfWeeksWithData = 0;
+    block.weeks.map((week) => {
+      if (week.avgPace !== 0 && !isNaN(week.avgPace)) {
+        // console.log(week.avgPace);
+        numberOfWeeksWithData += 1;
+        totalPace += parseFloat(week.avgPace);
+      }
+      // console.log(totalPace, numberOfWeeksWithData);
+    });
+    return numberOfWeeksWithData !== 0
+      ? getTempoAsMinutesSecondsString(totalPace / numberOfWeeksWithData)
+      : "--";
+  };
+
+  export const getAverageEffort = (block) => {
+    let totalEffort = 0;
+    let numberOfWeeksWithData = 0;
+    block.weeks.map((week) => {
+      if (week.avgEffort !== 0 && !isNaN(week.avgEffort)) {
+        numberOfWeeksWithData += 1;
+        totalEffort += week.avgEffort;
+      }
+    });
+    return numberOfWeeksWithData !== 0
+      ? parseFloat(totalEffort / numberOfWeeksWithData).toFixed(1)
+      : "--";
+  };
+
+  export const getTotalTime = (block) => {
+    let totalTime = 0;
+    block.weeks.map((week) => {
+      totalTime += parseFloat(week.totalTime);
+    });
+    // console.log(totalTime);
+
+    return getSecondsAsHoursMinutesSecondsString(totalTime);
+  };
+
+  export const getWeeksXAxis = (block) => {
+    const xAxis = [];
+    let weekNumber = 1;
+    block.weeks.map(() => {
+      xAxis.push(weekNumber);
+      weekNumber += 1;
+    });
+    // console.log(xAxis);
+
+    return xAxis;
+  };
+
+  export const getWeeklyDistance = (block) => {
+    const weeklyDistance = [];
+    block.weeks.map((week) => {
+      weeklyDistance.push(week.totalDistanceRun);
+    });
+    // console.log(weeklyDistance);
+    return weeklyDistance;
+  };
+
+  export const getWeeklyTime = (block) => {
+    const weeklyTime = [];
+    block.weeks.map((week) => {
+      weeklyTime.push(parseFloat(week.totalTime) / 60);
+    });
+    return weeklyTime;
   };
