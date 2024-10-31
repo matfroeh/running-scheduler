@@ -31,16 +31,16 @@ const LineChartAllWeeksPaceHeartRate = ({ overviewData }) => {
   const options = {
     scales: {
       y1: {
-        min: Math.round(Math.min.apply(null, getAllWeeklyPace(overviewData))),
-        max: Math.round(Math.max.apply(null, getAllWeeklyPace(overviewData)) * 1.05),
+        // min: Math.round(Math.min.apply(null, getAllWeeklyPace(overviewData))),
+        // max: Math.round(Math.max.apply(null, getAllWeeklyPace(overviewData)) * 1.05),
         stepSize: 10,
         ticks: {
           beginAtZero: true,
         },
       },
       y2: {
-        min: Math.round(Math.min.apply(null, getAllWeeklyHeartRate(overviewData))),
-        max: Math.round(Math.max.apply(null, getAllWeeklyHeartRate(overviewData)) * 1.1),
+        // min: Math.round(Math.min.apply(null, getAllWeeklyHeartRate(overviewData))),
+        // max: Math.round(Math.max.apply(null, getAllWeeklyHeartRate(overviewData)) * 1.1),
         stepSize: 30,
         position: "right",
         ticks: {

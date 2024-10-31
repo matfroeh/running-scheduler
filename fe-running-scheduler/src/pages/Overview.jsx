@@ -38,10 +38,6 @@ const Overview = () => {
   const [selectedMode, setSelectedMode] = useState(modes[0]);
 
   console.log(overviewData);
-  console.log(selectedMode);
-  console.log(modes[0]);
-
-  console.log(getAllWeeksXAxis(overviewData));
 
   const handleSelectMode = () => {
     setSelectedMode(selectedMode === "one" ? "all" : "one");
