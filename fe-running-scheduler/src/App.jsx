@@ -13,6 +13,7 @@ import {
   Overview,
   EquipmentDetails,
   CreateEquipment,
+  Profile,
 } from "@/pages";
 import RootLayout from "./layouts/RootLayout";
 import { action as getFormData } from "./actions/getFormData";
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
               },
             ],
           },
+          {
+            path: "profile",
+            element: <Profile />,
+          },
         ],
       },
       {
@@ -81,35 +86,12 @@ const router = createBrowserRouter([
               },
             ],
           },
+          {
+            path: "profile",
+            element: <Profile />,
+          },
         ],
       },
-      // {
-      //   path: "/",
-      //   element: <CalendarView />,
-      //   loader: calendarLoader,
-      //   errorElement: <Error />,
-      //   action: getFormData,
-      //   children: [
-      //     {
-      //       path: "new-schedule",
-      //       element: <CreateTrainingBlockModal />,
-      //     },
-      //     {
-      //       path: "equipment",
-      //       element: <EquipmentModal />,
-      //       children: [
-      //         {
-      //           path: ":equipmentId",
-      //           element: <EquipmentDetails />,
-      //         },
-      //         {
-      //           path: "new",
-      //           element: <CreateEquipment />,
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
     ],
   },
   {

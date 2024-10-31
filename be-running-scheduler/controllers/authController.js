@@ -94,9 +94,9 @@ export const me = asyncHandler(async (req, res, next) => {
     const user = await User.findById(userId).select("-password").populate("equipmentList");
     if (!user) throw new ErrorResponse("Invalid credentials", 401);
 
-    const { userName, email, equipmentList } = user;
+    const { userName, email, equipmentList, profilePicture } = user;
 
-    res.status(200).json({ userId, userName, email, userRole, equipmentList });
+    res.status(200).json({ userId, userName, email, userRole, equipmentList, profilePicture });
   } catch (error) {
     next(error);
   }
