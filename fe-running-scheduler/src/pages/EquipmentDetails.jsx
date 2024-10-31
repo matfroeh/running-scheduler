@@ -44,7 +44,8 @@ const EquipmentDetails = () => {
     fetchEquipment();
   }, [equipmentId, user.userId]);
 
-  console.log(formData.image);
+  // console.log(formData.image);
+  
 
   const arrayBufferToBase64 = (buffer) => {
     let binary = "";

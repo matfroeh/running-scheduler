@@ -1,12 +1,12 @@
 import { useParams, useOutletContext } from "react-router-dom";
 import { updateRunCalendar } from "../data/runs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import {
   getTempoAsMinutesSecondsString,
   getSecondsAsHoursMinutesSecondsString,
 } from "../data/processRunningDataHelper.js";
-import { updateEquipment } from "../data/user.js";
+import { updateEquipment, getEquipmentListFromUser } from "../data/user.js";
 import { CardModal } from "@/components";
 import { useAuth } from "@/context";
 
@@ -20,9 +20,9 @@ const RunDetailsModal = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [formData, setFormData] = useState({ ...run });
   const [equipmentChanged, setEquipmentChanged] = useState(false);
-// console.log("equip changed", equipmentChanged);
+console.log("equip changed", equipmentChanged);
 
-  const equipmentList = user?.equipmentList || [];
+  const [equipmentList, setEquipmentList] = useState([]);
 
   const activeEquipmentList = equipmentList.filter(
     (item) => item.status === "active"
@@ -31,6 +31,18 @@ const RunDetailsModal = () => {
   const selectedEquipment = activeEquipmentList.find(
     (item) => item.name === formData.equipment
   );
+  console.log("selected equipment", selectedEquipment);
+  
+  useEffect(() => {
+    const fetchEquipmentList = async () => {
+      console.log("fetching equipment list");
+
+      const equipmentList = await getEquipmentListFromUser(user.userId);
+      // console.log(equipmentList);
+      setEquipmentList(equipmentList);
+    };
+    fetchEquipmentList();
+  }, []);
 
   // console.log("activeEquipmentList", activeEquipmentList);
   // console.log("equipment list", equipmentList);
