@@ -173,7 +173,7 @@ const EquipmentDetails = () => {
           </div>
         </div>
       )}
-      {images && (
+      {!imageUrl && images && (
         <img
           src={`data:${images.img.contentType};base64,${arrayBufferToBase64(
             images.img.data.data

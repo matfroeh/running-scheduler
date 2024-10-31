@@ -1,10 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/context";
 import { logout } from "../data/auth";
 import { toast } from "react-toastify";
 
 const NavBar = () => {
   const { auth, user, setCheckSession } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   const handleLogOut = async () => {
     try {
@@ -16,14 +19,23 @@ const NavBar = () => {
     }
   };
 
+  const openEquipmentModal = () => {
+    // navigate("/");
+    navigate(`${currentPath}/equipment`);
+  };
+
   return (
     <div className="navbar w-full">
       <div className="navbar-start">
         <a className="btn btn-ghost text-xl">Running Scheduler</a>
       </div>
       <div className="navbar-center">
-        <NavLink to="/overview" className="btn btn-ghost text-l" >Overview</NavLink>
-        <NavLink to="/" className="btn btn-ghost text-l">Calendar</NavLink>
+        <NavLink to="/overview" className="btn btn-ghost text-l">
+          Overview
+        </NavLink>
+        <NavLink to="/" className="btn btn-ghost text-l">
+          Calendar
+        </NavLink>
       </div>
       <div className="navbar-end">
         {auth ? (
@@ -51,7 +63,7 @@ const NavBar = () => {
                 <a className="justify-between">Profile</a>
               </li>
               <li>
-                <NavLink to="/equipment">Equipment</NavLink>
+                <a onClick={openEquipmentModal}>Equipment</a>
               </li>
               <li>
                 <NavLink onClick={handleLogOut}>Logout</NavLink>

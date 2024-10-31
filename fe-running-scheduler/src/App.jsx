@@ -57,7 +57,7 @@ const router = createBrowserRouter([
               {
                 path: "new",
                 element: <CreateEquipment />,
-              }
+              },
             ],
           },
         ],
@@ -66,6 +66,22 @@ const router = createBrowserRouter([
         path: "overview",
         element: <Overview />,
         loader: overviewLoader,
+        children: [
+          {
+            path: "equipment",
+            element: <EquipmentModal />,
+            children: [
+              {
+                path: ":equipmentId",
+                element: <EquipmentDetails />,
+              },
+              {
+                path: "new",
+                element: <CreateEquipment />,
+              },
+            ],
+          },
+        ],
       },
     ],
   },
