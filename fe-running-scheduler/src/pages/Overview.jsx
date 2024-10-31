@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Outlet } from "react-router-dom";
 import {
   getOverviewData,
   getTotalDistance,
@@ -127,7 +127,9 @@ const Overview = () => {
           {overviewData && selectedMode === "all" && <LineChartAllWeeksPaceHeartRate overviewData={overviewData} />}
         </div>
       </div>
+      <Outlet />
     </div>
+
   );
 };
 

@@ -113,7 +113,7 @@ const CalendarBar = ({
             onClick={showNextCalendar}
             disabled={newScheduleFormSubmitted ? true : false}
           >
-            Upcoming
+            Next
           </button>
         </span>
         <div className="px-4">

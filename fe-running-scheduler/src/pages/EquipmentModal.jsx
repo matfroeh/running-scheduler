@@ -1,15 +1,17 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/context";
 import { useEffect, useState } from "react";
 import { CardModal } from "@/components";
 import axios from "axios";
 
 const EquipmentModal = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
   const { user, setUser } = useAuth();
   const [equipmentList, setEquipmentList] = useState(user.equipmentList);
   const navigate = useNavigate();
   const [images, setImages] = useState(null);
-  const [loading , setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Fetch images from the server when the component mounts
@@ -30,10 +32,9 @@ const EquipmentModal = () => {
   }, [equipmentList]);
 
   console.log(images);
-  
 
-    const openEquipmentDetails = (equipmentId) => {
-    navigate(`/equipment/${equipmentId}`);
+  const openEquipmentDetails = (equipmentId) => {
+    navigate(`${currentPath}/${equipmentId}`);
   };
 
   const formatDate = (date) => {
@@ -77,16 +78,16 @@ const EquipmentModal = () => {
     <>
       <CardModal>
         <h2 className="card-title">Equipment</h2>
-        <div className="grid grid-cols-2 gap-8 mt-8">
+        <div className="grid grid-cols-3 gap-8 mt-8">
           {sortedEquipmentList(equipmentList).map((equipment) => (
             <div
               key={equipment._id}
-              className="card bg-gray-900 shadow-lg cursor-pointer items-center"
+              className="card bg-gray-900 shadow-lg cursor-pointer w-full"
               onClick={() => openEquipmentDetails(equipment._id)}
             >
               <div className="card-body gap-1 w-full">
-                <div className="flex">
-                  {!loading && images[equipment._id] &&  (
+                <div className="h-1/3">
+                  {!loading && images[equipment._id] && (
                     <img
                       src={`data:${
                         images[equipment._id].img.contentType
@@ -94,32 +95,36 @@ const EquipmentModal = () => {
                         images[equipment._id].img.data.data
                       )}`}
                       alt={equipment.name}
-                      className="w-1/2"
+                      className="w-full h-full object-cover"
                     />
                   )}
                 </div>
-                <h2 className="card-title mb-2">{equipment.name}</h2>
-                <p>Distance: {parseFloat(equipment.distance).toFixed(1)} km</p>
-                <p>Usage time: {equipment.time} h</p>
-                {equipment.description && (
-                  <p>Description: {equipment.description}</p>
-                )}
-                <p>In use since: {formatDate(equipment.inUseSince)}</p>
-                <p
-                  className={
-                    equipment?.status == "active"
-                      ? "text-red-700"
-                      : "text-gray-600"
-                  }
-                >
-                  {equipment.status}
-                </p>
+                <h2 className="card-title mb-2 mt-2">{equipment.name}</h2>
+                <div>
+                  <p>
+                    Distance: {parseFloat(equipment.distance).toFixed(1)} km
+                  </p>
+                  <p>Usage time: {equipment.time} h</p>
+                  {equipment.description && (
+                    <p>Description: {equipment.description}</p>
+                  )}
+                  <p>In use since: {formatDate(equipment.inUseSince)}</p>
+                  <p
+                    className={
+                      equipment?.status == "active"
+                        ? "text-red-700"
+                        : "text-gray-600"
+                    }
+                  >
+                    {equipment.status}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
         </div>
         <div className="flex justify-end">
-          <Link to="/equipment/new" className="btn btn-primary">
+          <Link to={`${currentPath}/new`} className="btn btn-primary">
             Add Equipment
           </Link>
         </div>

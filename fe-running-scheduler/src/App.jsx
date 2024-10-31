@@ -57,7 +57,7 @@ const router = createBrowserRouter([
               {
                 path: "new",
                 element: <CreateEquipment />,
-              }
+              },
             ],
           },
         ],
@@ -66,7 +66,50 @@ const router = createBrowserRouter([
         path: "overview",
         element: <Overview />,
         loader: overviewLoader,
+        children: [
+          {
+            path: "equipment",
+            element: <EquipmentModal />,
+            children: [
+              {
+                path: ":equipmentId",
+                element: <EquipmentDetails />,
+              },
+              {
+                path: "new",
+                element: <CreateEquipment />,
+              },
+            ],
+          },
+        ],
       },
+      // {
+      //   path: "/",
+      //   element: <CalendarView />,
+      //   loader: calendarLoader,
+      //   errorElement: <Error />,
+      //   action: getFormData,
+      //   children: [
+      //     {
+      //       path: "new-schedule",
+      //       element: <CreateTrainingBlockModal />,
+      //     },
+      //     {
+      //       path: "equipment",
+      //       element: <EquipmentModal />,
+      //       children: [
+      //         {
+      //           path: ":equipmentId",
+      //           element: <EquipmentDetails />,
+      //         },
+      //         {
+      //           path: "new",
+      //           element: <CreateEquipment />,
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // },
     ],
   },
   {
