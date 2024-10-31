@@ -8,6 +8,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
+  // console.log(currentPath);
 
   const handleLogOut = async () => {
     try {
@@ -21,7 +22,9 @@ const NavBar = () => {
 
   const openEquipmentModal = () => {
     // navigate("/");
-    navigate(`${currentPath}/equipment`);
+    if (currentPath === "/") {
+      navigate("equipment");
+    } else navigate(`${currentPath}/equipment`);
   };
 
   return (

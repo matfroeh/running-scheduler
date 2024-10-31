@@ -83,6 +83,33 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // {
+      //   path: "/",
+      //   element: <CalendarView />,
+      //   loader: calendarLoader,
+      //   errorElement: <Error />,
+      //   action: getFormData,
+      //   children: [
+      //     {
+      //       path: "new-schedule",
+      //       element: <CreateTrainingBlockModal />,
+      //     },
+      //     {
+      //       path: "equipment",
+      //       element: <EquipmentModal />,
+      //       children: [
+      //         {
+      //           path: ":equipmentId",
+      //           element: <EquipmentDetails />,
+      //         },
+      //         {
+      //           path: "new",
+      //           element: <CreateEquipment />,
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // },
     ],
   },
   {

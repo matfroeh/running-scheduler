@@ -1,10 +1,12 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/context";
 import { useEffect, useState } from "react";
 import { CardModal } from "@/components";
 import axios from "axios";
 
 const EquipmentModal = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
   const { user, setUser } = useAuth();
   const [equipmentList, setEquipmentList] = useState(user.equipmentList);
   const navigate = useNavigate();
@@ -32,7 +34,7 @@ const EquipmentModal = () => {
   console.log(images);
 
   const openEquipmentDetails = (equipmentId) => {
-    navigate(`/equipment/${equipmentId}`);
+    navigate(`${currentPath}/${equipmentId}`);
   };
 
   const formatDate = (date) => {
@@ -122,7 +124,7 @@ const EquipmentModal = () => {
           ))}
         </div>
         <div className="flex justify-end">
-          <Link to="/equipment/new" className="btn btn-primary">
+          <Link to={`${currentPath}/new`} className="btn btn-primary">
             Add Equipment
           </Link>
         </div>
