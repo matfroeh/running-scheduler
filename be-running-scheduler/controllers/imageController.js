@@ -5,8 +5,12 @@ import ErrorResponse from "../utils/ErrorResponse.js";
 export const uploadImage = asyncHandler(async (req, res, next) => {
   if (!req.file) return next(new ErrorResponse("Please upload a file", 400));
 
+  const name = Date.now().toString(36).substring(2, 15);
+  // console.log(name);
+  // console.log("body:", req.body);
+  // console.log("file", req.file);
   const newImage = new Image({
-    name: req.body.name,
+    name: name,
     img: {
       data: req.file.buffer,
       contentType: req.file.mimetype,
