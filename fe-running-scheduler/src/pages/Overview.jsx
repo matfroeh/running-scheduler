@@ -6,14 +6,11 @@ import {
   getAveragePace,
   getAverageEffort,
   getTotalTime,
-  getWeeksXAxis,
-  getWeeklyDistance,
-  getWeeklyTime,
 } from "../data/getOverviewData.js";
 import dayjs from "dayjs";
-import { Line } from "react-chartjs-2";
-import "chart.js/auto";
 import { useState } from "react";
+import LineChartDistanceTime from "../components/charts/LineChartDistanceTime.jsx";
+import LineChartPaceHeartRate from "../components/charts/LineChartPaceHeartRate.jsx";
 
 const Overview = () => {
   // Arrays of the schedule and the running part of the training blocks
@@ -22,60 +19,15 @@ const Overview = () => {
   const [selectedBlock, setSelectedBlock] = useState(
     overviewData ? overviewData[0] : null
   );
-  const modes = ["individual", "all"];
+  const modes = ["one", "all"];
   const [selectedMode, setSelectedMode] = useState(modes[0]);
 
-
-  // console.log(selectedBlock);
-
-  const getIndividualChart = (block) => {
-    const data = {
-      labels: getWeeksXAxis(block),
-      datasets: [
-        {
-          label: "Weekly Distance (km)",
-          data: getWeeklyDistance(block),
-          fill: false,
-          backgroundColor: "rgba(75,192,192,0.2)",
-          borderColor: "rgba(75,192,192,1)",
-          yAxisID: "y1",
-        },
-        {
-          label: "Weekly Time (minutes)",
-          data: getWeeklyTime(block),
-          fill: false,
-          borderColor: "#742774",
-          yAxisID: "y2",
-        },
-      ],
-    };
-    const options = {
-      scales: {
-        y1: {
-          min: Math.round(Math.min.apply(null, getWeeklyDistance(block))),
-          max: Math.round(Math.max.apply(null, getWeeklyDistance(block)) * 1.5),
-          stepSize: 10,
-          ticks: {
-            beginAtZero: true,
-          },
-        },
-        y2: {
-          min: Math.round(Math.min.apply(null, getWeeklyTime(block))),
-          max: Math.round(Math.max.apply(null, getWeeklyTime(block)) * 2),
-          stepSize: 30,
-          position: "right",
-          ticks: {
-            beginAtZero: true,
-          },
-        },
-        x: {},
-      },
-    };
-    return (
-      <div className="w-full">
-        <Line id={block.title} data={data} options={options} />{" "}
-      </div>
-    );
+  console.log(overviewData);
+  console.log(selectedMode);
+  console.log(modes[0]);
+  
+  const handleSelectMode = () => {
+    setSelectedMode(selectedMode === "one" ? "all" : "one");
   };
 
   const selectBlock = (block) => {
@@ -85,8 +37,8 @@ const Overview = () => {
   return (
     <div className="">
       <div className="navbar flex gap-2 justify-center">
-        <button className="btn btn-sm">Select All</button>
-        <button className="btn btn-sm">Select Individually</button>
+        <button className={selectedMode === "one" ? "btn-accent " + "btn btn-sm" : "btn btn-sm"} onClick={handleSelectMode} >Select One</button>
+        <button className={selectedMode === "all" ? "btn-primary " + "btn btn-sm" : "btn btn-sm"} onClick={handleSelectMode} >Select All</button>
       </div>
       <div className="grid grid-cols-2 gap-x-8 mb-8 w-full">
         <div className="flex flex-col gap-8 mt-8">
@@ -94,7 +46,7 @@ const Overview = () => {
             <div
               key={block.title}
               className={
-                selectedBlock.title === block.title
+                selectedBlock.title === block.title && selectedMode === "one"
                   ? "bg-accent card card-compact text-primary-content cursor-pointer"
                   : "bg-primary card card-compact text-primary-content cursor-pointer"
               }
@@ -119,11 +71,12 @@ const Overview = () => {
                       <div className="stat-value text-2xl">
                         {(getTotalDistance(block) / block.weeks.length).toFixed(
                           0
-                        )}
+                        )}{" "}
+                        km
                       </div>
                       <div className="stat-desc">
                         {" "}
-                        km in {block.weeks.length} Weeks
+                        in {block.weeks.length} Weeks
                       </div>
                     </div>
                     <div className="stat place-items-center">
@@ -162,7 +115,8 @@ const Overview = () => {
         </div>
 
         <div className="flex flex-col gap-8 mt-8 justify-center items-center w-full">
-          {overviewData && getIndividualChart(selectedBlock)}
+          {overviewData && <LineChartDistanceTime block={selectedBlock} />}
+          {overviewData && <LineChartPaceHeartRate block={selectedBlock} />}
         </div>
       </div>
     </div>

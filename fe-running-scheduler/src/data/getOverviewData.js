@@ -117,3 +117,19 @@ export const getOverviewData = (runs) => {
     });
     return weeklyTime;
   };
+
+  export const getWeeklyPace = (block) => {
+    const weeklyPace = [];
+    block.weeks.map((week) => {
+      weeklyPace.push(parseFloat(week.avgPace));
+    });
+    return weeklyPace;
+  }
+
+  export const getWeeklyHeartRate = (block) => {
+    const weeklyHeartRate = [];
+    block.weeks.map((week) => {
+      weeklyHeartRate.push(parseFloat(week.avg_hr));
+    });
+    return weeklyHeartRate;
+  }
