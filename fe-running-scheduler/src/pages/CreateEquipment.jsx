@@ -1,12 +1,14 @@
 import { CardModal } from "@/components";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context";
 import { toast } from "react-toastify";
 import { createEquipment } from "../data/user";
+import axios from "axios";
 
 const CreateEquipment = () => {
   const navigate = useNavigate();
+  const imgInputRef = useRef(null);
   const [formData, setFormData] = useState({
     name: "",
     status: "active",
@@ -18,6 +20,9 @@ const CreateEquipment = () => {
     description: "",
     inUseSince: "",
   });
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+  const [imageId, setImageId] = useState(null);
   const { user } = useAuth();
   const { setEquipmentList } = useOutletContext();
 
@@ -29,14 +34,48 @@ const CreateEquipment = () => {
     });
   };
 
+  console.log(formData);
+  console.log(imageId);
+  
+  
 
-  // ToDo: the user state needs to be updated after creating a new equipment
+  const handleImageInputClick = () => {
+    imgInputRef.current.click();
+  };
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
+    setSelectedFile(file);
+  };
+
+  const uploadImage = async () => {
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+    // console.log(formData);
+    // console.log(selectedFile);
+
+    const response = await fetch("http://localhost:3000/uploads", {
+      method: "POST",
+      body: formData,
+    });
+    const data = await response.json();
+    // console.log(data);
+
+    setImageId(data);
+  };
+
   const create = async () => {
     // ToDo: Error handling
     const newEquipment = { ...formData };
+    if (imageId) newEquipment.image = imageId;
     const addedEquipment = await createEquipment(user.userId, newEquipment);
     console.log(addedEquipment);
-    
+
     setEquipmentList((prev) => [...prev, addedEquipment]);
     toast.success("Equipment successfully created");
     navigate(-1);
@@ -149,6 +188,52 @@ const CreateEquipment = () => {
             onChange={handleChange}
             className="input input-bordered w-full mt-2"
           />
+        </div>
+        <div className="flex flex-col">
+          {!imageId && (
+            <div className="mt-4">
+              <div
+                className={
+                  !imageUrl
+                    ? "btn btn-sm btn-primary ring-1 justify-self-start"
+                    : "btn btn-sm justify-self-start"
+                }
+                onClick={handleImageInputClick}
+              >
+                Select An Image
+                <input
+                  ref={imgInputRef}
+                  type="file"
+                  onChange={handleImageChange}
+                  style={{ display: "none" }}
+                  accept="image/*"
+                />
+              </div>
+            </div>
+          )}
+
+          {imageUrl && (
+            <div className="flex flex-col justify-start mt-4">
+              <div>
+                <button
+                  className={
+                    !imageId
+                      ? "btn btn-primary btn-sm ring-1 justify-self-start"
+                      : "hidden"
+                  }
+                  onClick={uploadImage}
+                >
+                  Accept and Upload
+                </button>
+              </div>
+              <img
+                src={imageUrl}
+                alt="Equipment picture"
+                className="w-1/3 mt-4"
+              />
+
+            </div>
+          )}
         </div>
       </div>
     </CardModal>
