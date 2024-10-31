@@ -51,7 +51,7 @@ const Profile = () => {
     if (imageId) updatedUserData.profilePicture = imageId;
     const updatedUser = await updateUser(user.userId, updatedUserData);
     setUser(updatedUser);
-    toast.success("Equipment updated successfully");
+    toast.success("Profile picture successfully");
     navigate(-1);
   };
 
@@ -93,7 +93,7 @@ const Profile = () => {
         </button>
       </div>
       <div className="flex flex-col gap-2">
-        <p>User Name: {user.userName}</p>
+        <p>Username: {user.userName}</p>
         <p>Email: {user.email}</p>
       </div>
       {imageUrl && (

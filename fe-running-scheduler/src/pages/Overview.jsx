@@ -18,6 +18,18 @@ import LineChartAllWeeksPaceHeartRate from "../components/charts/LineChartAllWee
 const Overview = () => {
   // Arrays of the schedule and the running part of the training blocks
   const { loadedRuns } = useLoaderData();
+
+  if (loadedRuns.length === 0) {
+    return (
+      <div className="flex justify-center items-center mt-20">
+        <div className="flex text-xl">
+          Create your first Schedule and upload running data to create the
+          Overview
+        </div>
+      </div>
+    );
+  }
+
   const overviewData = getOverviewData(loadedRuns);
   const [selectedBlock, setSelectedBlock] = useState(
     overviewData ? overviewData[0] : null
@@ -28,9 +40,8 @@ const Overview = () => {
   console.log(overviewData);
   console.log(selectedMode);
   console.log(modes[0]);
-  
+
   console.log(getAllWeeksXAxis(overviewData));
-  
 
   const handleSelectMode = () => {
     setSelectedMode(selectedMode === "one" ? "all" : "one");
@@ -43,8 +54,24 @@ const Overview = () => {
   return (
     <div className="">
       <div className="navbar flex gap-2 justify-center">
-        <button className={selectedMode === "one" ? "btn-accent " + "btn btn-sm" : "btn btn-sm"} onClick={handleSelectMode} >Select One</button>
-        <button className={selectedMode === "all" ? "btn-primary " + "btn btn-sm" : "btn btn-sm"} onClick={handleSelectMode} >Select All</button>
+        <button
+          className={
+            selectedMode === "one" ? "btn-accent " + "btn btn-sm" : "btn btn-sm"
+          }
+          onClick={handleSelectMode}
+        >
+          Select One
+        </button>
+        <button
+          className={
+            selectedMode === "all"
+              ? "btn-primary " + "btn btn-sm"
+              : "btn btn-sm"
+          }
+          onClick={handleSelectMode}
+        >
+          Select All
+        </button>
       </div>
       <div className="grid grid-cols-2 gap-x-8 mb-8 w-full">
         <div className="flex flex-col gap-8 mt-8">
@@ -121,15 +148,22 @@ const Overview = () => {
         </div>
 
         <div className="flex flex-col gap-8 mt-8 justify-center items-center w-full">
-          {overviewData && selectedMode === "one" && <LineChartDistanceTime block={selectedBlock} />}
-          {overviewData && selectedMode === "one" && <LineChartPaceHeartRate block={selectedBlock} />}
-          {overviewData && selectedMode === "all" && <LineChartAllWeeksDistanceTime overviewData={overviewData} />}
-          {overviewData && selectedMode === "all" && <LineChartAllWeeksPaceHeartRate overviewData={overviewData} />}
+          {overviewData && selectedMode === "one" && (
+            <LineChartDistanceTime block={selectedBlock} />
+          )}
+          {overviewData && selectedMode === "one" && (
+            <LineChartPaceHeartRate block={selectedBlock} />
+          )}
+          {overviewData && selectedMode === "all" && (
+            <LineChartAllWeeksDistanceTime overviewData={overviewData} />
+          )}
+          {overviewData && selectedMode === "all" && (
+            <LineChartAllWeeksPaceHeartRate overviewData={overviewData} />
+          )}
         </div>
       </div>
       <Outlet />
     </div>
-
   );
 };
 

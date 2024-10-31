@@ -86,7 +86,7 @@ const SignUp = () => {
                 value={userName}
                 onChange={handleChange}
                 className="grow"
-                placeholder="First name"
+                placeholder="Username"
               />
             </label>
           </div>

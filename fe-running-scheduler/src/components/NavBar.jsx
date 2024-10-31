@@ -66,7 +66,7 @@ const NavBar = () => {
   return (
     <div className="navbar w-full">
       <div className="navbar-start">
-        <a className="btn btn-ghost text-xl">Running Scheduler</a>
+        <a className="btn btn-ghost text-xl">Running Journal</a>
       </div>
       <div className="navbar-center">
         <NavLink to="/overview" className="btn btn-ghost text-l">
