@@ -6,11 +6,14 @@ import {
   getAveragePace,
   getAverageEffort,
   getTotalTime,
+  getAllWeeksXAxis,
 } from "../data/getOverviewData.js";
 import dayjs from "dayjs";
 import { useState } from "react";
 import LineChartDistanceTime from "../components/charts/LineChartDistanceTime.jsx";
 import LineChartPaceHeartRate from "../components/charts/LineChartPaceHeartRate.jsx";
+import LineChartAllWeeksDistanceTime from "../components/charts/LineChartAllWeeksDistanceTime.jsx";
+import LineChartAllWeeksPaceHeartRate from "../components/charts/LineChartAllWeeksPaceHeartRate.jsx";
 
 const Overview = () => {
   // Arrays of the schedule and the running part of the training blocks
@@ -26,6 +29,9 @@ const Overview = () => {
   console.log(selectedMode);
   console.log(modes[0]);
   
+  console.log(getAllWeeksXAxis(overviewData));
+  
+
   const handleSelectMode = () => {
     setSelectedMode(selectedMode === "one" ? "all" : "one");
   };
@@ -50,7 +56,7 @@ const Overview = () => {
                   ? "bg-accent card card-compact text-primary-content cursor-pointer"
                   : "bg-primary card card-compact text-primary-content cursor-pointer"
               }
-              onClick={() => selectBlock(block)}
+              onClick={selectedMode == "one" ? () => selectBlock(block) : null}
             >
               <div className="card-body">
                 <h2 className="card-title">{block.title}</h2>
@@ -115,8 +121,10 @@ const Overview = () => {
         </div>
 
         <div className="flex flex-col gap-8 mt-8 justify-center items-center w-full">
-          {overviewData && <LineChartDistanceTime block={selectedBlock} />}
-          {overviewData && <LineChartPaceHeartRate block={selectedBlock} />}
+          {overviewData && selectedMode === "one" && <LineChartDistanceTime block={selectedBlock} />}
+          {overviewData && selectedMode === "one" && <LineChartPaceHeartRate block={selectedBlock} />}
+          {overviewData && selectedMode === "all" && <LineChartAllWeeksDistanceTime overviewData={overviewData} />}
+          {overviewData && selectedMode === "all" && <LineChartAllWeeksPaceHeartRate overviewData={overviewData} />}
         </div>
       </div>
     </div>
