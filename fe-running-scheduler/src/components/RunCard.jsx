@@ -3,7 +3,7 @@ import {
   getSecondsAsHoursMinutesSecondsString,
 } from "../data/processRunningDataHelper.js";
 
-const RunCard = ({ data, openRunCard }) => {
+const RunCard = ({ data, openRunCard, notes }) => {
   // if (Object.keys(data).length === 0) {
   //   data = "";
   // }
@@ -26,7 +26,7 @@ const RunCard = ({ data, openRunCard }) => {
       className={
         isToday
           ? "bg-gray-900 card card-compact rounded-tr-none rounded-br-none rounded-tl-none ring-2 ring-green-500 w-full hover:ring-4 cursor-pointer"
-          : "bg-gray-900 card card-compact overflow-clip rounded-tr-none rounded-br-none rounded-tl-none ring-2 w-full hover:ring-4 cursor-pointer"
+          : "bg-gray-900 card card-compact overflow-clip rounded-tr-none rounded-br-none rounded-tl-none ring-2 ring-primary w-full hover:ring-4 cursor-pointer"
       }
       onClick={openRunCard}
     >
@@ -34,21 +34,40 @@ const RunCard = ({ data, openRunCard }) => {
         {formattedDate}
       </div> */}
       <div className="card-body justify-start gap-1 overflow-clip relative">
-        <div className="card-title text-sm -mt-2">{name}</div>
-        <div className="flex flex-col gap-1 justify-start text-xs">
-          <div className="flex flex-wrap gap-1">
-            {distance && <span className="text-nowrap">{parseFloat(distance).toFixed(2)} km</span>}
-            {duration && (
-              <span>{getSecondsAsHoursMinutesSecondsString(duration)}</span>
-            )}
-          </div>
-          {tempo && (
-            <span>{getTempoAsMinutesSecondsString(tempo)} min/km</span>
-          )}
-          {avg_hr && <span>HR: {avg_hr} bpm</span>}
-          {effort && <span>Effort: {effort}/10</span>}
-          {comments && <span className="line-clamp-1 mt-0">{comments}</span>}
-        </div>
+        {!notes ? (
+          <>
+            <div className="card-title text-sm -mt-2">{name}</div>
+            <div className="flex flex-col gap-1 justify-start text-xs">
+              <div className="flex flex-wrap gap-1">
+                {distance && (
+                  <span className="text-nowrap">
+                    {parseFloat(distance).toFixed(2)} km
+                  </span>
+                )}
+                {duration && (
+                  <span>{getSecondsAsHoursMinutesSecondsString(duration)}</span>
+                )}
+              </div>
+              {tempo && (
+                <span>{getTempoAsMinutesSecondsString(tempo)} min/km</span>
+              )}
+              {avg_hr && <span>HR: {avg_hr} bpm</span>}
+              {effort && <span>Effort: {effort}/10</span>}
+              {comments && (
+                <span className="line-clamp-1 mt-0">{comments}</span>
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="card-title text-xs -mt-3">{name}</div>
+            <div className="flex flex-col gap-1 justify-start text-xs">
+              {comments && (
+                <span className="line-clamp-6 mt-0">{comments}</span>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
     // </div>

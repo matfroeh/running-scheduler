@@ -39,6 +39,8 @@ const CalendarView = () => {
   const [newScheduleFormSubmitted, setNewScheduleFormSubmitted] =
     useState(false);
 
+  const [notes, setNotes] = useState(false);
+
   const navigate = useNavigate();
 
   let activeCalendarId = runningData?._id;
@@ -128,11 +130,14 @@ const CalendarView = () => {
           showPreviousCalendar={showPreviousCalendar}
           showNextCalendar={showNextCalendar}
           setNewScheduleFormSubmitted={setNewScheduleFormSubmitted}
+          notes={notes}
+          setNotes={setNotes}
         />
         <CalendarBody
           trainingData={trainingBlockData}
           runningData={runningData}
           activeCalendarId={activeCalendarId}
+          notes={notes}
         />
         <Outlet
           context={{

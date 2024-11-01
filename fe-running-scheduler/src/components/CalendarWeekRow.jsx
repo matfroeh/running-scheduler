@@ -8,6 +8,7 @@ const CalendarWeekRow = ({
   weekNumber,
   runningDataWeek,
   activeCalendarId,
+  notes,
 }) => {
   const navigate = useNavigate();
 
@@ -46,6 +47,7 @@ const CalendarWeekRow = ({
             key={day}
             data={data}
             openRunCard={() => openRunCard(data, weekNumber, day)}
+            notes={notes}
           />
         );
       })}

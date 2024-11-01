@@ -20,7 +20,7 @@ const TrainingCard = ({ data, openTrainingCard }) => {
       className={
         isToday
           ? "ring-green-500 bg-gray-900 card card-compact rounded-br-none rounded-bl-none rounded-tr-none ring-2 w-full hover:ring-4 cursor-pointer"
-          : "bg-gray-800 card card-compact rounded-br-none rounded-bl-none rounded-tr-none ring-2 w-full hover:ring-4 cursor-pointer"
+          : "bg-gray-800 card card-compact rounded-br-none rounded-bl-none rounded-tr-none ring-2 ring-primary w-full hover:ring-4 cursor-pointer"
       }
       onClick={openTrainingCard}
     >

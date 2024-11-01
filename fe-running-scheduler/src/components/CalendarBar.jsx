@@ -18,6 +18,8 @@ const CalendarBar = ({
   showCurrentCalendar,
   showPreviousCalendar,
   showNextCalendar,
+  setNotes,
+  notes,
 }) => {
   const [fileContent, setFileContent] = useState(null);
   const navigate = useNavigate();
@@ -63,7 +65,7 @@ const CalendarBar = ({
         setRunningData(updatedRunningData);
         const response = updateRunCalendar(updatedRunningData, runningData._id);
         console.log(response);
-        // navigate(`/${runningData._id}/runs/${week}/${day}/${data._id}`); write as async 
+        // navigate(`/${runningData._id}/runs/${week}/${day}/${data._id}`); write as async
       }
       // ToDo any other way to do this? Do we want that files outside of the calendar are processed?
       else {
@@ -80,6 +82,10 @@ const CalendarBar = ({
   const discardNewSchedule = () => {
     setNewScheduleFormSubmitted(false);
     showCurrentCalendar();
+  };
+
+  const toggleNotes = () => {
+    setNotes(!notes);
   };
 
   // ToDo: this can be done in a different way using onInput event (see bookmarked article)
@@ -118,7 +124,7 @@ const CalendarBar = ({
         </span>
         <div className="px-4">
           <div
-            className="btn btn-sm ring-1"
+            className="btn btn-sm ring-1 ring-accent"
             onClick={handleGpxInputClick}
             disabled={!title || newScheduleFormSubmitted ? true : false}
           >
@@ -144,7 +150,7 @@ const CalendarBar = ({
 
             <div className="group relative w-max">
               <button
-                className="btn btn-sm btn-circle mx-4 hover:ring-1"
+                className="btn btn-sm btn-circle mx-4 hover:ring-1 ring-accent"
                 onClick={openCreateTrainingBlockModal}
               >
                 +
@@ -159,8 +165,14 @@ const CalendarBar = ({
           </div>
         </div>
         <span className="navbar-end">
-          <button className="btn btn-sm">Details</button>
-          <button className="btn btn-sm">Notes</button>
+          <label className="label cursor-pointer">
+            <span className="label-text text-base">Show notes only</span>
+            <input
+              type="checkbox"
+              className="toggle toggle-accent mx-2"
+              onClick={toggleNotes}
+            />
+          </label>
         </span>
       </div>
       {/* <div className="flex justify-center">
