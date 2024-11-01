@@ -55,28 +55,37 @@ const CalendarBar = ({
 
   // I don't see any other way to do this but with useEffect
   useEffect(() => {
-    if (fileContent) {
-      const newRunningData = processGpx(fileContent);
-      const [week, day] = findDayObjectByDate(newRunningData.date, runningData);
-
-      if (week && day) {
-        const updatedRunningData = { ...runningData };
-        updatedRunningData.weeks[week].days[day] = newRunningData;
-        setRunningData(updatedRunningData);
-        const response = updateRunCalendar(updatedRunningData, runningData._id);
-        console.log(response);
-        // navigate(`/${runningData._id}/runs/${week}/${day}/${data._id}`); write as async
-      }
-      // ToDo any other way to do this? Do we want that files outside of the calendar are processed?
-      else {
-        toast.error(
-          `${newRunningData.date.slice(
-            0,
-            10
-          )} is outside of the current calendar`
+    const processData = async () => {
+      if (fileContent) {
+        const newRunningData = processGpx(fileContent);
+        const [week, day] = findDayObjectByDate(
+          newRunningData.date,
+          runningData
         );
+
+        if (week && day) {
+          const updatedRunningData = { ...runningData };
+          updatedRunningData.weeks[week].days[day] = newRunningData;
+          setRunningData(updatedRunningData);
+          const response = await updateRunCalendar(
+            updatedRunningData,
+            runningData._id
+          );
+          console.log(response);
+          // navigate(`/${runningData._id}/runs/${week}/${day}/${data._id}`); write as async
+        }
+        // ToDo any other way to do this? Do we want that files outside of the calendar are processed?
+        else {
+          toast.error(
+            `${newRunningData.date.slice(
+              0,
+              10
+            )} is outside of the current calendar`
+          );
+        }
       }
-    }
+    };
+    processData();
   }, [fileContent]);
 
   const discardNewSchedule = () => {
