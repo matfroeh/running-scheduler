@@ -93,13 +93,20 @@ const RunDetailsModal = () => {
 
       // update the equipment distance if still exists in the list (as active equipment)
       if (selectedEquipment && equipmentChanged) {
+        console.log("equipment before change:", selectedEquipment);
+
         const distanceToAdd = formData.distance || 0;
+        const durationToAdd = formData.duration || 0;
         const updatedEquipment = { ...selectedEquipment };
         updatedEquipment.distance += distanceToAdd;
+        updatedEquipment.time +=
+          Math.round((parseFloat(durationToAdd) / 3600) * 100) / 100;
+        // console.log("updated equipment", updatedEquipment);
+
         // console.log("selected equip id:", selectedEquipment._id);
 
         updateEquipment(user.userId, selectedEquipment._id, updatedEquipment);
-        console.log("added distance to shoe");
+        // console.log("added distance to shoe");
       }
 
       toast.success("Run updated successfully");

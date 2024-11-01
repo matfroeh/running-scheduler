@@ -26,7 +26,7 @@ const RunCard = ({ data, openRunCard, notes }) => {
       className={
         isToday
           ? "bg-gray-900 card card-compact rounded-tr-none rounded-br-none rounded-tl-none ring-2 ring-green-500 w-full hover:ring-4 cursor-pointer"
-          : "bg-gray-900 card card-compact overflow-clip rounded-tr-none rounded-br-none rounded-tl-none ring-2 ring-primary w-full hover:ring-4 cursor-pointer"
+          : "bg-gray-900 card card-compact overflow-clip rounded-tr-none rounded-br-none rounded-tl-none ring-2 w-full hover:ring-4 cursor-pointer"
       }
       onClick={openRunCard}
     >
