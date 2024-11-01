@@ -1,5 +1,3 @@
-import { getSecondsAsHoursMinutesSecondsString } from  './processRunningDataHelper.js';
-
 export const calculateSummariesForOverview = (runningWeek) => {
 
   const totalDistanceRun = Object.keys(runningWeek.days).reduce((acc, day) => {
@@ -30,7 +28,7 @@ export const calculateSummariesForOverview = (runningWeek) => {
     if (avg_hr.days > 0) {
       return avg_hr.hr / avg_hr.days;
     }
-    return 0;
+    return null;
   };
 
   const getEffort = () => {

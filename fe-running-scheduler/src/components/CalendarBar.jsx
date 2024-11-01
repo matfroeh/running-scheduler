@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { handleGpxUpload as processGpx } from "../data/handleGpxUpload";
+import { handleGpxUpload as processGpx } from "../logic/handleGpxUpload";
 import { useRef } from "react";
 import { updateRunCalendar } from "../data/runs";
 import { useState, useEffect } from "react";
-import { findDayObjectByDate } from "../data/processRunningDataHelper.js";
+import { findDayObjectByDate } from "../utils/processRunningDataHelper.js";
 import { toast } from "react-toastify";
 
 // ToDo: We really want to upload multiple files here but this can wait

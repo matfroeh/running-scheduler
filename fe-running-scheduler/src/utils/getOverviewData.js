@@ -2,7 +2,7 @@ import { calculateSummariesForOverview } from "./calculateSummariesForOverview";
 import {
   getTempoAsMinutesSecondsString,
   getSecondsAsHoursMinutesSecondsString,
-} from "../data/processRunningDataHelper.js";
+} from "../utils/processRunningDataHelper.js";
 
 // Creates an array of objects with the title, start date and array of weeks containing the summaries of each week
 export const getOverviewData = (runs) => {

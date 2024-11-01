@@ -1,7 +1,7 @@
 import {
   getTempoAsMinutesSecondsString,
   getSecondsAsHoursMinutesSecondsString,
-} from "../data/processRunningDataHelper.js";
+} from "../utils/processRunningDataHelper.js";
 
 const RunCard = ({ data, openRunCard, notes }) => {
   // if (Object.keys(data).length === 0) {

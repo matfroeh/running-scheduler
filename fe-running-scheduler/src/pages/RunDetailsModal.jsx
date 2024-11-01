@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import {
   getTempoAsMinutesSecondsString,
   getSecondsAsHoursMinutesSecondsString,
-} from "../data/processRunningDataHelper.js";
+} from "../utils/processRunningDataHelper.js";
 import { updateEquipment, getEquipmentListFromUser } from "../data/user.js";
 import { CardModal } from "@/components";
 import { useAuth } from "@/context";

@@ -16,10 +16,10 @@ import {
   getAllWeeklyTime,
   getAllWeeklyPace,
   getAllWeeklyHeartRate,
-} from "../data/getOverviewData.js";
+} from "../utils/getOverviewData.js";
 import dayjs from "dayjs";
 import { useState } from "react";
-import LineChart from "../unused/LineChart.jsx";
+import LineChart from "../components/charts/LineChart";
 
 const Overview = () => {
   // Arrays of the schedule and the running part of the training blocks

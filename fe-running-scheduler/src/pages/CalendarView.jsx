@@ -7,7 +7,7 @@ import {
   useLoaderData,
   useNavigate,
 } from "react-router-dom";
-import { processFormDataFromScheduler } from "../data/processFormDataFromScheduler";
+import { processFormDataFromScheduler } from "../logic/processFormDataFromScheduler";
 import { createTrainingSchedule } from "../data/schedules";
 import { createRun } from "../data/runs";
 import { toast } from "react-toastify";

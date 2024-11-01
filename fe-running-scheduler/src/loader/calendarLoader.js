@@ -1,6 +1,6 @@
 import { getAllTrainingSchedules } from "../data/schedules";
 import { getAllRuns } from "../data/runs";
-import getCalendars from "../data/getCurrentPreviousNextCalendars";
+import getCalendars from "../utils/getCurrentPreviousNextCalendars";
 
 export const calendarLoader = async () => {
   try {
