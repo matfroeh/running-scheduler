@@ -98,9 +98,9 @@ const RunDetailsModal = () => {
         const distanceToAdd = formData.distance || 0;
         const durationToAdd = formData.duration || 0;
         const updatedEquipment = { ...selectedEquipment };
-        updatedEquipment.distance += distanceToAdd;
+        updatedEquipment.distance += parseFloat(distanceToAdd);
         updatedEquipment.time +=
-          Math.round((parseFloat(durationToAdd) / 3600) * 100) / 100;
+          Math.round((durationToAdd / 3600) * 100) / 100;
         // console.log("updated equipment", updatedEquipment);
 
         // console.log("selected equip id:", selectedEquipment._id);
