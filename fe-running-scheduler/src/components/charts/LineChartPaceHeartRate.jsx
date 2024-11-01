@@ -33,7 +33,8 @@ const LineChartPaceHeartRate = ({ block }) => {
       y1: {
         // min: Math.round(Math.min.apply(null, getWeeklyPace(block)) * 1),
         // max: Math.round(Math.max.apply(null, getWeeklyPace(block))),
-        stepSize: 10,
+        // stepSize: 10,
+        reverse : true,
         ticks: {
           beginAtZero: false,
         },
@@ -41,7 +42,7 @@ const LineChartPaceHeartRate = ({ block }) => {
       y2: {
         // min: Math.round(Math.min.apply(null, getWeeklyHeartRate(block))),
         // max: Math.round(Math.max.apply(null, getWeeklyHeartRate(block))),
-        stepSize: 30,
+        // stepSize: 30,
         position: "right",
         ticks: {
           beginAtZero: true,

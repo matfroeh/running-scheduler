@@ -33,7 +33,7 @@ const LineChartDistanceTime = ({ block }) => {
       y1: {
         min: Math.round(Math.min.apply(null, getWeeklyDistance(block))),
         max: Math.round(Math.max.apply(null, getWeeklyDistance(block)) * 1.5),
-        stepSize: 10,
+        // stepSize: 10,
         ticks: {
           beginAtZero: true,
         },
@@ -41,7 +41,7 @@ const LineChartDistanceTime = ({ block }) => {
       y2: {
         min: Math.round(Math.min.apply(null, getWeeklyTime(block))),
         max: Math.round(Math.max.apply(null, getWeeklyTime(block)) * 2),
-        stepSize: 30,
+        // stepSize: 30,
         position: "right",
         ticks: {
           beginAtZero: true,

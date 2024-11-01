@@ -33,7 +33,7 @@ const LineChartAllWeeksDistanceTime = ({ overviewData }) => {
       y1: {
         min: Math.round(Math.min.apply(null, getAllWeeklyDistance(overviewData))),
         max: Math.round(Math.max.apply(null, getAllWeeklyDistance(overviewData)) * 1.5),
-        stepSize: 10,
+        // stepSize: 10,
         ticks: {
           beginAtZero: true,
         },
@@ -41,7 +41,7 @@ const LineChartAllWeeksDistanceTime = ({ overviewData }) => {
       y2: {
         min: Math.round(Math.min.apply(null, getAllWeeklyTime(overviewData))),
         max: Math.round(Math.max.apply(null, getAllWeeklyTime(overviewData)) * 2),
-        stepSize: 30,
+        // stepSize: 30,
         position: "right",
         ticks: {
           beginAtZero: true,

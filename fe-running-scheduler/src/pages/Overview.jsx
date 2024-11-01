@@ -6,7 +6,16 @@ import {
   getAveragePace,
   getAverageEffort,
   getTotalTime,
+  getWeeksXAxis,
+  getWeeklyDistance,
+  getWeeklyTime,
+  getWeeklyPace,
+  getWeeklyHeartRate,
   getAllWeeksXAxis,
+  getAllWeeklyDistance,
+  getAllWeeklyTime,
+  getAllWeeklyPace,
+  getAllWeeklyHeartRate,
 } from "../data/getOverviewData.js";
 import dayjs from "dayjs";
 import { useState } from "react";
@@ -14,6 +23,7 @@ import LineChartDistanceTime from "../components/charts/LineChartDistanceTime.js
 import LineChartPaceHeartRate from "../components/charts/LineChartPaceHeartRate.jsx";
 import LineChartAllWeeksDistanceTime from "../components/charts/LineChartAllWeeksDistanceTime.jsx";
 import LineChartAllWeeksPaceHeartRate from "../components/charts/LineChartAllWeeksPaceHeartRate.jsx";
+import LineChart from "../components/charts/LineChart.jsx";
 
 const Overview = () => {
   // Arrays of the schedule and the running part of the training blocks
@@ -145,16 +155,60 @@ const Overview = () => {
 
         <div className="flex flex-col gap-8 mt-8 justify-center items-center w-full">
           {overviewData && selectedMode === "one" && (
-            <LineChartDistanceTime block={selectedBlock} />
-          )}
-          {overviewData && selectedMode === "one" && (
-            <LineChartPaceHeartRate block={selectedBlock} />
+            <>
+              <LineChart
+                xLabel={getWeeksXAxis(selectedBlock)}
+                yFunction={getWeeklyDistance(selectedBlock)}
+                yLabel="Weekly Distance (km)"
+                yAxisReversed={false}
+              />
+              <LineChart
+                xLabel={getWeeksXAxis(selectedBlock)}
+                yFunction={getWeeklyPace(selectedBlock)}
+                yLabel="Average Pace (minutes per km)"
+                yAxisReversed={true}
+              />
+              <LineChart
+                xLabel={getWeeksXAxis(selectedBlock)}
+                yFunction={getWeeklyHeartRate(selectedBlock)}
+                yLabel="Average Heart Beat (beats per minute)"
+                yAxisReversed={false}
+              />
+              <LineChart
+                xLabel={getWeeksXAxis(selectedBlock)}
+                yFunction={getWeeklyTime(selectedBlock)}
+                yLabel="Weekly Time (minutes)"
+                yAxisReversed={false}
+              />
+            </>
           )}
           {overviewData && selectedMode === "all" && (
-            <LineChartAllWeeksDistanceTime overviewData={overviewData} />
-          )}
-          {overviewData && selectedMode === "all" && (
-            <LineChartAllWeeksPaceHeartRate overviewData={overviewData} />
+            <>
+              <LineChart
+                xLabel={getAllWeeksXAxis(overviewData)}
+                yFunction={getAllWeeklyDistance(overviewData)}
+                yLabel="Weekly Distance (km)"
+                yAxisReversed={false}
+              />
+              <LineChart
+                xLabel={getAllWeeksXAxis(overviewData)}
+                yFunction={getAllWeeklyPace(overviewData)}
+                yLabel="Weekly Pace (minutes per km)"
+                yAxisReversed={true}
+              />
+              <LineChart
+                xLabel={getAllWeeksXAxis(overviewData)}
+                yFunction={getAllWeeklyHeartRate(overviewData)}
+                yLabel="Weekly Heart Beat (beats per minute)"
+                yAxisReversed={false}
+              />
+              <LineChart
+                xLabel={getAllWeeksXAxis(overviewData)}
+                yFunction={getAllWeeklyTime(overviewData)}
+                yLabel="Weekly Time (minutes)"
+                yAxisReversed={false}
+              />
+            </>
           )}
         </div>
       </div>

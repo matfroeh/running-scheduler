@@ -20,7 +20,7 @@ const RunDetailsModal = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [formData, setFormData] = useState({ ...run });
   const [equipmentChanged, setEquipmentChanged] = useState(false);
-console.log("equip changed", equipmentChanged);
+  console.log("equip changed", equipmentChanged);
 
   const [equipmentList, setEquipmentList] = useState([]);
 
@@ -32,7 +32,7 @@ console.log("equip changed", equipmentChanged);
     (item) => item.name === formData.equipment
   );
   console.log("selected equipment", selectedEquipment);
-  
+
   useEffect(() => {
     const fetchEquipmentList = async () => {
       console.log("fetching equipment list");
@@ -63,11 +63,11 @@ console.log("equip changed", equipmentChanged);
       [name]: value,
     });
   };
-  
+
   const handleEquipmentChange = (e) => {
     handleChange(e);
     setEquipmentChanged(true);
-  }
+  };
 
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
@@ -97,10 +97,9 @@ console.log("equip changed", equipmentChanged);
         const updatedEquipment = { ...selectedEquipment };
         updatedEquipment.distance += distanceToAdd;
         // console.log("selected equip id:", selectedEquipment._id);
-        
+
         updateEquipment(user.userId, selectedEquipment._id, updatedEquipment);
         console.log("added distance to shoe");
-        
       }
 
       toast.success("Run updated successfully");
@@ -205,9 +204,15 @@ console.log("equip changed", equipmentChanged);
                 <option value="Easy Run">Easy Run</option>
                 <option value="Long Run">Long Run</option>
                 <option value="Interval Workout">Interval Workout</option>
+                <option value="Steady State">Steady State</option>
                 <option value="Threshold/Tempo Run">Threshold/Tempo Run</option>
                 <option value="Progression Run">Progression Run</option>
                 <option value="Hill Sprints">Hill Sprints</option>
+                <option value="Cross Training">Cross Training</option>
+                <option value="Strength Training">Strength Training</option>
+                <option value="Race Day">Race Day</option>
+                <option value="Time Trial">Time Trial</option>
+                <option value="Fartlek">Fartlek</option>
                 <option value="Recovery Run">Recovery Run</option>
                 <option value="Rest Day">Rest Day</option>
                 <option value="Other">Other</option>

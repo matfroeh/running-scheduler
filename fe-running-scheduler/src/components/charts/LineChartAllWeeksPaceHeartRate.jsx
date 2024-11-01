@@ -5,6 +5,7 @@ getAllWeeksXAxis,
 getAllWeeklyPace,
 getAllWeeklyHeartRate,
 } from "../../data/getOverviewData.js";
+import { scales } from "chart.js/auto";
 
 const LineChartAllWeeksPaceHeartRate = ({ overviewData }) => {
 
@@ -31,9 +32,10 @@ const LineChartAllWeeksPaceHeartRate = ({ overviewData }) => {
   const options = {
     scales: {
       y1: {
+        reverse : true,
         // min: Math.round(Math.min.apply(null, getAllWeeklyPace(overviewData))),
         // max: Math.round(Math.max.apply(null, getAllWeeklyPace(overviewData)) * 1.05),
-        stepSize: 10,
+        // stepSize: 10,
         ticks: {
           beginAtZero: true,
         },
@@ -41,7 +43,7 @@ const LineChartAllWeeksPaceHeartRate = ({ overviewData }) => {
       y2: {
         // min: Math.round(Math.min.apply(null, getAllWeeklyHeartRate(overviewData))),
         // max: Math.round(Math.max.apply(null, getAllWeeklyHeartRate(overviewData)) * 1.1),
-        stepSize: 30,
+        // stepSize: 30,
         position: "right",
         ticks: {
           beginAtZero: true,
