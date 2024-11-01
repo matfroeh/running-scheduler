@@ -1,19 +1,19 @@
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
 import {
-  getWeeksXAxis,
-  getWeeklyDistance,
-  getWeeklyTime,
-} from "../../data/getOverviewData.js";
+getAllWeeksXAxis,
+getAllWeeklyDistance,
+getAllWeeklyTime,
+} from "../data/getOverviewData.js";
 
-const LineChartDistanceTime = ({ block }) => {
+const LineChartAllWeeksDistanceTime = ({ overviewData }) => {
 
   const data = {
-    labels: getWeeksXAxis(block),
+    labels: getAllWeeksXAxis(overviewData),
     datasets: [
       {
         label: "Weekly Distance (km)",
-        data: getWeeklyDistance(block),
+        data: getAllWeeklyDistance(overviewData),
         fill: false,
         backgroundColor: "rgba(75,192,192,0.2)",
         borderColor: "rgba(75,192,192,1)",
@@ -21,7 +21,7 @@ const LineChartDistanceTime = ({ block }) => {
       },
       {
         label: "Weekly Time (minutes)",
-        data: getWeeklyTime(block),
+        data: getAllWeeklyTime(overviewData),
         fill: false,
         borderColor: "#742774",
         yAxisID: "y2",
@@ -31,16 +31,16 @@ const LineChartDistanceTime = ({ block }) => {
   const options = {
     scales: {
       y1: {
-        min: Math.round(Math.min.apply(null, getWeeklyDistance(block))),
-        max: Math.round(Math.max.apply(null, getWeeklyDistance(block)) * 1.5),
+        min: Math.round(Math.min.apply(null, getAllWeeklyDistance(overviewData))),
+        max: Math.round(Math.max.apply(null, getAllWeeklyDistance(overviewData)) * 1.5),
         // stepSize: 10,
         ticks: {
           beginAtZero: true,
         },
       },
       y2: {
-        min: Math.round(Math.min.apply(null, getWeeklyTime(block))),
-        max: Math.round(Math.max.apply(null, getWeeklyTime(block)) * 2),
+        min: Math.round(Math.min.apply(null, getAllWeeklyTime(overviewData))),
+        max: Math.round(Math.max.apply(null, getAllWeeklyTime(overviewData)) * 2),
         // stepSize: 30,
         position: "right",
         ticks: {
@@ -53,9 +53,9 @@ const LineChartDistanceTime = ({ block }) => {
 
   return (
     <div className="w-full">
-      <Line id={block.title} data={data} options={options} />{" "}
+      <Line id={overviewData.title} data={data} options={options} />{" "}
     </div>
   );
 };
 
-export default LineChartDistanceTime;
+export default LineChartAllWeeksDistanceTime;

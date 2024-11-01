@@ -2,26 +2,27 @@ import { Line } from "react-chartjs-2";
 import "chart.js/auto";
 import {
 getAllWeeksXAxis,
-getAllWeeklyDistance,
-getAllWeeklyTime,
-} from "../../data/getOverviewData.js";
+getAllWeeklyPace,
+getAllWeeklyHeartRate,
+} from "../data/getOverviewData.js";
+import { scales } from "chart.js/auto";
 
-const LineChartAllWeeksDistanceTime = ({ overviewData }) => {
+const LineChartAllWeeksPaceHeartRate = ({ overviewData }) => {
 
   const data = {
     labels: getAllWeeksXAxis(overviewData),
     datasets: [
       {
-        label: "Weekly Distance (km)",
-        data: getAllWeeklyDistance(overviewData),
+        label: "Weekly Pace (min/km)",
+        data: getAllWeeklyPace(overviewData),
         fill: false,
         backgroundColor: "rgba(75,192,192,0.2)",
         borderColor: "rgba(75,192,192,1)",
         yAxisID: "y1",
       },
       {
-        label: "Weekly Time (minutes)",
-        data: getAllWeeklyTime(overviewData),
+        label: "Weekly Heart Rate (bpm)",
+        data: getAllWeeklyHeartRate(overviewData),
         fill: false,
         borderColor: "#742774",
         yAxisID: "y2",
@@ -31,16 +32,17 @@ const LineChartAllWeeksDistanceTime = ({ overviewData }) => {
   const options = {
     scales: {
       y1: {
-        min: Math.round(Math.min.apply(null, getAllWeeklyDistance(overviewData))),
-        max: Math.round(Math.max.apply(null, getAllWeeklyDistance(overviewData)) * 1.5),
+        reverse : true,
+        // min: Math.round(Math.min.apply(null, getAllWeeklyPace(overviewData))),
+        // max: Math.round(Math.max.apply(null, getAllWeeklyPace(overviewData)) * 1.05),
         // stepSize: 10,
         ticks: {
           beginAtZero: true,
         },
       },
       y2: {
-        min: Math.round(Math.min.apply(null, getAllWeeklyTime(overviewData))),
-        max: Math.round(Math.max.apply(null, getAllWeeklyTime(overviewData)) * 2),
+        // min: Math.round(Math.min.apply(null, getAllWeeklyHeartRate(overviewData))),
+        // max: Math.round(Math.max.apply(null, getAllWeeklyHeartRate(overviewData)) * 1.1),
         // stepSize: 30,
         position: "right",
         ticks: {
@@ -58,4 +60,4 @@ const LineChartAllWeeksDistanceTime = ({ overviewData }) => {
   );
 };
 
-export default LineChartAllWeeksDistanceTime;
+export default LineChartAllWeeksPaceHeartRate;

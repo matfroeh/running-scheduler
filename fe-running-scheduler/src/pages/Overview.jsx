@@ -19,11 +19,7 @@ import {
 } from "../data/getOverviewData.js";
 import dayjs from "dayjs";
 import { useState } from "react";
-import LineChartDistanceTime from "../components/charts/LineChartDistanceTime.jsx";
-import LineChartPaceHeartRate from "../components/charts/LineChartPaceHeartRate.jsx";
-import LineChartAllWeeksDistanceTime from "../components/charts/LineChartAllWeeksDistanceTime.jsx";
-import LineChartAllWeeksPaceHeartRate from "../components/charts/LineChartAllWeeksPaceHeartRate.jsx";
-import LineChart from "../components/charts/LineChart.jsx";
+import LineChart from "../unused/LineChart.jsx";
 
 const Overview = () => {
   // Arrays of the schedule and the running part of the training blocks
@@ -133,7 +129,7 @@ const Overview = () => {
                       <div className="stat-desc">minutes per km</div>
                     </div>
                     <div className="stat place-items-center">
-                      <div className="stat-title">Average Heart Beat</div>
+                      <div className="stat-title">Average Heart Rate</div>
                       <div className="stat-value text-2xl">
                         {getAverageHeartBeat(block)}
                       </div>
@@ -161,18 +157,21 @@ const Overview = () => {
                 yFunction={getWeeklyDistance(selectedBlock)}
                 yLabel="Weekly Distance (km)"
                 yAxisReversed={false}
+                color={"#00CDB7"}
               />
               <LineChart
                 xLabel={getWeeksXAxis(selectedBlock)}
                 yFunction={getWeeklyPace(selectedBlock)}
                 yLabel="Average Pace (minutes per km)"
                 yAxisReversed={true}
+                color={"#f59e0b"}
               />
               <LineChart
                 xLabel={getWeeksXAxis(selectedBlock)}
                 yFunction={getWeeklyHeartRate(selectedBlock)}
-                yLabel="Average Heart Beat (beats per minute)"
+                yLabel="Average Heart Rate (bpm)"
                 yAxisReversed={false}
+                color={"#FF52D9"}
               />
               <LineChart
                 xLabel={getWeeksXAxis(selectedBlock)}
@@ -189,18 +188,21 @@ const Overview = () => {
                 yFunction={getAllWeeklyDistance(overviewData)}
                 yLabel="Weekly Distance (km)"
                 yAxisReversed={false}
+                color={"#00CDB7"}
               />
               <LineChart
                 xLabel={getAllWeeksXAxis(overviewData)}
                 yFunction={getAllWeeklyPace(overviewData)}
                 yLabel="Weekly Pace (minutes per km)"
                 yAxisReversed={true}
+                color={"#f59e0b"}
               />
               <LineChart
                 xLabel={getAllWeeksXAxis(overviewData)}
                 yFunction={getAllWeeklyHeartRate(overviewData)}
-                yLabel="Weekly Heart Beat (beats per minute)"
+                yLabel="Weekly Heart Rate (bpm)"
                 yAxisReversed={false}
+                color={"#FF52D9"}
               />
               <LineChart
                 xLabel={getAllWeeksXAxis(overviewData)}

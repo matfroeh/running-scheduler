@@ -1,7 +1,7 @@
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
 
-const LineChart = ({ xLabel, yFunction, yLabel, yAxisReversed }) => {
+const LineChart = ({ xLabel, yFunction, yLabel, yAxisReversed, color }) => {
   const data = {
     labels: xLabel,
     datasets: [
@@ -9,8 +9,10 @@ const LineChart = ({ xLabel, yFunction, yLabel, yAxisReversed }) => {
         label: yLabel,
         data: yFunction,
         fill: false,
-        backgroundColor: "rgba(75,192,192,0.2)",
-        borderColor: "rgba(75,192,192,1)",
+        // backgroundColor: "rgba(75,192,192,0.2)",
+        backgroundColor: color,
+        borderColor: color,
+        // borderColor: "rgba(75,192,192,1)",
         yAxisID: "y1",
       },
     ],
