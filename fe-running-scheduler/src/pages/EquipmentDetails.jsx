@@ -23,6 +23,7 @@ const EquipmentDetails = () => {
   const [imageId, setImageId] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [images, setImages] = useState(null);
+  const [error, setError] = useState(null);
 
   const formatDate = (date) => {
     return dayjs(date).format("YYYY-MM-DD");
@@ -45,7 +46,6 @@ const EquipmentDetails = () => {
   }, [equipmentId, user.userId]);
 
   // console.log(formData.image);
-  
 
   const arrayBufferToBase64 = (buffer) => {
     let binary = "";
@@ -80,17 +80,21 @@ const EquipmentDetails = () => {
   };
 
   const update = async () => {
-    // ToDo: Error handling
-    const updatedEquipmentData = { ...formData };
-    if (imageId) updatedEquipmentData.image = imageId;
-    await updateEquipment(user.userId, equipmentId, updatedEquipmentData);
-    setEquipmentList((prev) =>
-      prev.map((equipment) =>
-        equipment._id === equipmentId ? updatedEquipmentData : equipment
-      )
-    );
-    toast.success("Equipment updated successfully");
-    navigate(-1);
+    if (!handleInputVerification()) return;
+    try {
+      const updatedEquipmentData = { ...formData };
+      if (imageId) updatedEquipmentData.image = imageId;
+      await updateEquipment(user.userId, equipmentId, updatedEquipmentData);
+      setEquipmentList((prev) =>
+        prev.map((equipment) =>
+          equipment._id === equipmentId ? updatedEquipmentData : equipment
+        )
+      );
+      toast.success("Equipment updated successfully");
+      navigate(-1);
+    } catch (error) {
+      toast.error(`Error updating equipment: ${error.message}`);
+    }
   };
 
   const handleImageChange = async (e) => {
@@ -123,6 +127,32 @@ const EquipmentDetails = () => {
     setImageId(data);
   };
 
+  const handleInputVerification = () => {
+    if (!formData.name) {
+      setError("Please specify a name for the equipment.");
+      return false;
+    }
+    if (!formData.type) {
+      setError("Please specify a type for the equipment.");
+      return false;
+    }
+    if (!formData.inUseSince) {
+      setError("Please specify when the equipment was put into use.");
+      return false;
+    }
+    if (isNaN(formData.distance) || formData.distance < 0) {
+      setError("Please specify the distance the equipment has covered.");
+      return false;
+    }
+    if (isNaN(formData.time) || formData.time < 0) {
+      setError("Please specify the time the equipment has been used.");
+      return false;
+    }
+
+    setError(null);
+    return true;
+  };
+
   return (
     <CardModal key={equipmentId}>
       <h2 className="card-title text-xl">Equipment Details </h2>
@@ -141,6 +171,9 @@ const EquipmentDetails = () => {
           Save
         </button>
       </div>
+      {error && (
+        <p className="text-red-500 text-sm flex justify-end mt-4">{error}</p>
+      )}
       {imageUrl && (
         <div className="flex justify-start items-center gap-10">
           <img src={imageUrl} alt="Equipment picture" className="w-1/4 mt-4" />

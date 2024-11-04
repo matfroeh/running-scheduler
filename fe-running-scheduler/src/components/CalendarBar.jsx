@@ -21,73 +21,6 @@ const CalendarBar = ({
   setNotes,
   notes,
 }) => {
-  // const [fileContent, setFileContent] = useState(null);
-  // const navigate = useNavigate();
-  // const gpxInputRef = useRef(null);
-  // // when no data is loaded
-  // const initialTitle = "Create A New Training Schedule";
-  // // console.log(newRunningData);
-  // // for (const key in newRunningData) {
-  // //   console.log(key, newRunningData[key]);
-  // // }
-
-  // const openCreateTrainingBlockModal = () => {
-  //   navigate("/new-schedule");
-  // };
-
-  // // console.log(calendarTitles);
-
-  // // This passes the click on the normal button to the hidden input field button
-  // const handleGpxInputClick = () => {
-  //   // console.log("handleinput event called");
-  //   gpxInputRef.current.click();
-  // };
-
-  // // Finally, this function reads the file content and sets it to the state
-  // const handleGpxFileChange = (event) => {
-  //   const file = event.target.files[0];
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     setFileContent(reader.result);
-  //   };
-  //   reader.readAsText(file);
-  // };
-
-  // // I don't see any other way to do this but with useEffect
-  // useEffect(() => {
-  //   const processData = async () => {
-  //     if (fileContent) {
-  //       const newRunningData = processGpx(fileContent);
-  //       const [week, day] = findDayObjectByDate(
-  //         newRunningData.date,
-  //         runningData
-  //       );
-
-  //       if (week && day) {
-  //         const updatedRunningData = { ...runningData };
-  //         updatedRunningData.weeks[week].days[day] = newRunningData;
-  //         setRunningData(updatedRunningData);
-  //         const response = await updateRunCalendar(
-  //           updatedRunningData,
-  //           runningData._id
-  //         );
-  //         console.log(response);
-  //         navigate(`/${runningData._id}/runs/${week}/${day}/${response._id}`);
-  //       }
-  //       // ToDo any other way to do this? Do we want that files outside of the calendar are processed?
-  //       else {
-  //         toast.error(
-  //           `${newRunningData.date.slice(
-  //             0,
-  //             10
-  //           )} is outside of the current calendar`
-  //         );
-  //       }
-  //     }
-  //   };
-  //   processData();
-  // }, [fileContent]);
-
   const [fileContents, setFileContents] = useState([]); // Array to hold multiple file contents
   const navigate = useNavigate();
   const gpxInputRef = useRef(null);
@@ -128,26 +61,43 @@ const CalendarBar = ({
   useEffect(() => {
     const processData = async () => {
       for (const content of fileContents) {
-        const newRunningData = processGpx(content);
-        const [week, day] = findDayObjectByDate(
-          newRunningData.date,
-          runningData
-        );
+        try {
+          const newRunningData = processGpx(content);
+          // check if the date is within the current calendar
+          const [week, day] = findDayObjectByDate(
+            newRunningData.date,
+            runningData
+          );
 
-        if (week && day) {
-          const updatedRunningData = { ...runningData };
-          updatedRunningData.weeks[week].days[day] = newRunningData;
-          setRunningData(updatedRunningData);
-          const response = await updateRunCalendar(
-            updatedRunningData,
-            runningData._id
-          );
-          console.log(response);
-          // navigate(`/${runningData._id}/runs/${week}/${day}/${response._id}`);
-        } else {
-          toast.error(
-            `${newRunningData.date.slice(0, 10)} is outside of the current calendar`
-          );
+          if (week && day) {
+            const updatedRunningData = { ...runningData };
+            updatedRunningData.weeks[week].days[day] = newRunningData;
+            setRunningData(updatedRunningData);
+            const response = await updateRunCalendar(
+              updatedRunningData,
+              runningData._id
+            );
+            console.log(response);
+            if (response) {
+              toast.success("New run added successfully");
+              // Single uploaded file: directly go to run details modal
+              if (fileContents.length === 1) {
+                navigate(
+                  `/${runningData._id}/runs/${week}/${day}/${response._id}`
+                );
+              }
+            }
+          } else {
+            toast.error(
+              `${newRunningData.date.slice(
+                0,
+                10
+              )} is outside of the current calendar`
+            );
+          }
+        } catch (error) {
+          toast.error(`Error adding run: ${error.message}`);
+          console.error(error);
         }
       }
     };
@@ -165,14 +115,6 @@ const CalendarBar = ({
   const toggleNotes = () => {
     setNotes(!notes);
   };
-
-  // ToDo: this can be done in a different way using onInput event (see bookmarked article)
-  // Spielerei
-  // const handleTitleChange = (e) => {
-  //   console.log(e.target.textContent);
-  // setThisTitle(e.target.value);
-  // setRunningData( (prev) => { return {...prev, title: e.target.value} });
-  // };
 
   return (
     <>
@@ -218,8 +160,6 @@ const CalendarBar = ({
           </div>
         </div>
         <div className="navbar-center w-1/2 justify-around ">
-          {/* <input className="w-52 text-center bg-inherit" contentEditable="false" value={thisTitle} onChange={(e) => handleTitleChange(e)} /> */}
-
           <div className="flex">
             {title ? (
               <span className="rounded-md p-1">{title}</span>
@@ -254,13 +194,6 @@ const CalendarBar = ({
           </label>
         </span>
       </div>
-      {/* <div className="flex justify-center">
-        {calendarTitles.map((title, index) => (
-          <button key={index} className="btn btn-sm">
-            {title}
-          </button>
-        ))}
-      </div> */}
       {newScheduleFormSubmitted && (
         <div className="flex justify-center gap-8 mb-2 mt-4">
           <div className="indicator">

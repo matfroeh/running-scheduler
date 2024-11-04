@@ -11,23 +11,23 @@ const daySchema = new Schema({
     type: String,
   },
   type: {
-    // maybe the user can select from a list of types in the edit form of the frontend
+    // the user can select from a list of types in the edit form of the frontend
     type: String,
   },
   distance: {
     type: Number,
   },
   duration: {
-    // because we will save it as hh:mm:ss
-    type: String,
+    // CHANGED NOW TO NUMBER (old: saved as hh:mm:ss)
+    type: Number,
   },
   tempo: {
-    // will be saved as min/km in mm:ss/km format
-    type: String,
+    // CHANGED NOW TO NUMBER (old saved as min/km in mm:ss/km format)
+    type: Number,
   },
   speed: {
-    // will be saved as km/h, could be saved as number but we will use string for now
-    type: String,
+    // CHANGED NOW TO NUMBER ( old: saved as km/h)
+    type: Number,
   },
   effort: {
     type: Number,
