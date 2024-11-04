@@ -14,8 +14,8 @@ const EquipmentModal = () => {
   const [images, setImages] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // console.log(user.equipmentList);
-  // console.log(equipmentList);
+  console.log(user.equipmentList);
+  console.log(equipmentList);
   
   
 
