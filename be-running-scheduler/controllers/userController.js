@@ -52,6 +52,8 @@ export const createEquipment = asyncHandler(async (req, res, next) => {
   if (!user)
     return next(new ErrorResponse(`User not found with id of ${userId}`, 404));
   const equipment = await Equipment.create({ ...req.body, owner: userId });
+  if (!equipment)
+    return next(new ErrorResponse(`Error creating equipment`, 404));
   user.equipmentList.push(equipment._id);
   await user.save();
 

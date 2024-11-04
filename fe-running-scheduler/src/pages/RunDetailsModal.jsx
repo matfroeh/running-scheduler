@@ -17,12 +17,13 @@ const RunDetailsModal = () => {
   const { user } = useAuth();
   const run = runningData.weeks[week].days[day];
 
+  console.log("run", run);
+
   const [isEditMode, setIsEditMode] = useState(false);
   const [formData, setFormData] = useState({ ...run });
   const [equipmentChanged, setEquipmentChanged] = useState(false);
-  console.log("equip changed", equipmentChanged);
-
   const [equipmentList, setEquipmentList] = useState([]);
+  const [error, setError] = useState(null);
 
   const activeEquipmentList = equipmentList.filter(
     (item) => item.status === "active"
@@ -31,7 +32,6 @@ const RunDetailsModal = () => {
   const selectedEquipment = activeEquipmentList.find(
     (item) => item.name === formData.equipment
   );
-  console.log("selected equipment", selectedEquipment);
 
   useEffect(() => {
     const fetchEquipmentList = async () => {
@@ -76,40 +76,27 @@ const RunDetailsModal = () => {
     }
   };
 
-  // for (const key in run) {
-  //   console.log(key, run[key]);
-  // }
-
   const update = async () => {
+    if (handleInputVerification() === false) return;
+
     try {
       const updatedRunningData = { ...runningData };
       updatedRunningData.weeks[week].days[day] = formData;
 
-      // console.log(updatedRunningData.weeks[week].days[day]);
-
       setRunningData(updatedRunningData);
       await updateRunCalendar(runningData, calendarId);
-      // console.log(response);
 
       // update the equipment distance if still exists in the list (as active equipment)
       if (selectedEquipment && equipmentChanged) {
-        console.log("equipment before change:", selectedEquipment);
-
         const distanceToAdd = formData.distance || 0;
         const durationToAdd = formData.duration || 0;
         const updatedEquipment = { ...selectedEquipment };
         updatedEquipment.distance += parseFloat(distanceToAdd);
-        updatedEquipment.time +=
-          Math.round((durationToAdd / 3600) * 100) / 100;
-        // console.log("updated equipment", updatedEquipment);
-
-        // console.log("selected equip id:", selectedEquipment._id);
+        updatedEquipment.time += Math.round((durationToAdd / 3600) * 100) / 100;
 
         updateEquipment(user.userId, selectedEquipment._id, updatedEquipment);
-        // console.log("added distance to shoe");
       }
-
-      toast.success("Run updated successfully");
+      toast.success("Run updated successfully.");
     } catch (error) {
       toast.error(error.message);
     }
@@ -128,10 +115,33 @@ const RunDetailsModal = () => {
       console.log(updatedRunningData.weeks[week].days[day]);
       setRunningData(updatedRunningData);
       await updateRunCalendar(runningData, calendarId);
-      toast.success("Run deleted successfully");
+      toast.success("Run deleted successfully.");
     } catch (error) {
       toast.error(error.message);
     }
+  };
+
+  const handleInputVerification = () => {
+    if (!formData.name) {
+      setError("Please specify a name.");
+      return false;
+    }
+    if (
+      !formData.distance ||
+      isNaN(formData.distance) || formData.distance <= 0) {
+      setError("Distance must be a number greater than 0.");
+      return false;
+    }
+    if (!formData.duration || isNaN(formData.duration) || formData.duration <= 0) {
+      setError("Duration must be a number greater than 0.");
+      return false;
+    }
+    if (!formData.avg_hr || isNaN(formData.avg_hr) || formData.avg_hr <= 0) {
+      setError("Average heart rate must be a number greater than 0.");
+      return false;
+    }
+    setError(null);
+    return true;
   };
 
   if (newScheduleFormSubmitted) {
@@ -176,11 +186,14 @@ const RunDetailsModal = () => {
             {isEditMode ? "Cancel" : "Edit"}
           </button>
           {isEditMode && (
-            <button className="btn btn-sm btn-success ml-2" onClick={update}>
-              Save
-            </button>
+            <>
+              <button className="btn btn-sm btn-success ml-2" onClick={update}>
+                Save
+              </button>
+            </>
           )}
         </div>
+        {isEditMode && error && <p className="text-red-500 text-sm flex justify-end mt-4">{error}</p>}
         <div className="grid grid-cols-2 gap-4 mt-2">
           <div>
             <strong>Distance: </strong>

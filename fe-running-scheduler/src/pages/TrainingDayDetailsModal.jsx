@@ -12,6 +12,7 @@ const TrainingDayDetailsModal = () => {
   const trainingDay = trainingBlockData.weeks[week].days[day];
 
   const [formData, setFormData] = useState({ ...trainingDay });
+  const [error, setError] = useState(null);
 
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString("en-UK", {
@@ -31,6 +32,8 @@ const TrainingDayDetailsModal = () => {
   };
 
   const update = async () => {
+    if (!handleInputVerification()) return;
+
     try {
       const updatedTrainingDayData = { ...trainingBlockData };
       updatedTrainingDayData.weeks[week].days[day] = formData;
@@ -63,6 +66,23 @@ const TrainingDayDetailsModal = () => {
     } catch (error) {
       toast.error(error.message);
     }
+  };
+
+  const handleInputVerification = () => {
+    if (!formData.type) {
+      setError("Please select a type.");
+      return false;
+    }
+    if (
+      !formData.distance ||
+      isNaN(formData.distance) ||
+      formData.distance <= 0
+    ) {
+      setError("Distance must be a number greater than 0.");
+      return false;
+    }
+    setError(null);
+    return true;
   };
 
   if (newScheduleFormSubmitted) {
@@ -120,6 +140,9 @@ const TrainingDayDetailsModal = () => {
           Save
         </button>
       </div>
+      {error && (
+        <p className="text-red-500 text-sm flex justify-end mt-4">{error}</p>
+      )}
       <div className="grid grid-cols-2 gap-4 mt-2">
         <div>
           <strong>Distance: </strong>
