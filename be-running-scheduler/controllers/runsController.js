@@ -62,9 +62,23 @@ export const deleteRunningLog = asyncHandler(async (req, res, next) => {
     return next(
       new ErrorResponse(`Running Log not found with id of ${calendarId}`, 404)
     );
-  await Runs.deleteOne({$and: [{ _id: calendarId }, { user: userId }]});
+  await Runs.deleteOne({ $and: [{ _id: calendarId }, { user: userId }] });
   res.status(200).json({ success: true });
 });
+
+
+// The output will be just the document in which the searchParam is found, so that is not very helpful
+// export const findInComments = asyncHandler(async (req, res, next) => {
+//   // const { calendarId } = req.params;
+//   // const userId = req.userId;
+//   const { searchParam } = req.body;
+//   console.log("searchParam:", searchParam);
+  
+
+//   const find = await Runs.find({ $text: { $search: searchParam } });
+//   if (!find) return next(new ErrorResponse("Search query not found", 404));
+//   res.status(200).json(find);
+// });
 
 // const conditions = [];
 // let result = null;

@@ -1,5 +1,5 @@
 import { checkAuth } from "../data/auth";
-
+import { Navigate } from "react-router-dom";
 // ToDO: it works, but there are limitations that make still the AuthContextProvider the better choice
 
 export const authLoader = async () => {
@@ -8,7 +8,7 @@ export const authLoader = async () => {
       return true;
     })
     .catch(() => {
-      return false;
+      return Navigate("/welcome");
     });
 
     console.log(auth);

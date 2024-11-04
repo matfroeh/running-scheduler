@@ -96,4 +96,6 @@ const runsSchema = new Schema(
   { timestamps: true }
 );
 
+runsSchema.index({ "$**": "text" });
+
 export default model("Runs", runsSchema);
