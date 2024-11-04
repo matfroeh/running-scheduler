@@ -3,8 +3,6 @@ import ErrorResponse from "../utils/ErrorResponse.js";
 import User from "../models/User.js";
 import Equipment from "../models/Equipment.js";
 
-// ToDo: This needs to be adapted. I forgot that we can add the userId in the cookie and get it
-// for all the following requests. This will make the routes more straightforward
 
 export const getEquipmentListFromUser = asyncHandler(async (req, res, next) => {
   const { userId } = req.params;
@@ -122,7 +120,11 @@ export const deleteEquipmentFromUserList = asyncHandler(
     console.log("backend: equipment found", equipment);
     console.log(equipmentId);
 
+    // remove from user's equipmentList
     user.equipmentList.pull({ _id: equipmentId });
+    // remove from equipment collection
+    await Equipment.deleteOne({ _id: equipmentId });
+
 
     console.log("backend: userEquipList, ", user.equipmentList);
 

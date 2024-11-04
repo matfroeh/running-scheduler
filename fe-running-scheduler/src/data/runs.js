@@ -86,3 +86,22 @@ export const updateRunCalendar = async (run, calendarId) => {
 
   return data;
 };
+
+export const deleteRunCalendar = async (calendarId) => {
+  const res = await fetch(`${baseURL}/${calendarId}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    if (!errorData.error) {
+      throw new Error("An error occurred while deleting the running data");
+    }
+    throw new Error(errorData.error);
+  }
+  const data = await res.json();
+
+  console.log(data);
+
+  return data;
+};

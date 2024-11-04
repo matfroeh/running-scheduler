@@ -35,17 +35,18 @@ const EquipmentDetails = () => {
       setFormData(data);
 
       const imageId = data.image;
-      const imageData = await axios.get(
-        `http://localhost:3000/uploads/${imageId}`
-      );
-      if (imageData) {
-        setImages(imageData.data);
+      // check if an image is available
+      if (imageId) {
+        const imageData = await axios.get(
+          `http://localhost:3000/uploads/${imageId}`
+        );
+        if (imageData) {
+          setImages(imageData.data);
+        }
       }
     };
     fetchEquipment();
   }, [equipmentId, user.userId]);
-
-  // console.log(formData.image);
 
   const arrayBufferToBase64 = (buffer) => {
     let binary = "";
@@ -76,7 +77,6 @@ const EquipmentDetails = () => {
     );
     toast.success("Equipment deleted successfully");
     navigate(-1);
-    // deleteEquipment(user.userId, equipmentId);
   };
 
   const update = async () => {
@@ -114,16 +114,11 @@ const EquipmentDetails = () => {
   const uploadImage = async () => {
     const formData = new FormData();
     formData.append("image", selectedFile);
-    // console.log(formData);
-    // console.log(selectedFile);
-
     const response = await fetch("http://localhost:3000/uploads", {
       method: "POST",
       body: formData,
     });
     const data = await response.json();
-    // console.log(data);
-
     setImageId(data);
   };
 
@@ -140,7 +135,7 @@ const EquipmentDetails = () => {
       setError("Please specify when the equipment was put into use.");
       return false;
     }
-    if (isNaN(formData.distance) || formData.distance < 0) {
+    if (!formData.distance || isNaN(formData.distance) || formData.distance < 0) {
       setError("Please specify the distance the equipment has covered.");
       return false;
     }
@@ -148,7 +143,6 @@ const EquipmentDetails = () => {
       setError("Please specify the time the equipment has been used.");
       return false;
     }
-
     setError(null);
     return true;
   };
@@ -284,7 +278,7 @@ const EquipmentDetails = () => {
           <input
             type="number"
             name="distance"
-            value={parseFloat(formData.distance).toFixed(1)}
+            value={formData.distance}
             onChange={handleChange}
             className="input input-bordered w-full mt-2"
           />
