@@ -12,6 +12,7 @@ import Overview from "./Overview";
 import EquipmentDetails from "./EquipmentDetails";
 import CreateEquipment from "./CreateEquipment";
 import Profile from "./Profile";
+import CalendarEditModal from "./CalendarEditModal";
 
 export {
   CalendarView,
@@ -28,4 +29,5 @@ export {
   EquipmentDetails,
   CreateEquipment,
   Profile,
+  CalendarEditModal,
 };

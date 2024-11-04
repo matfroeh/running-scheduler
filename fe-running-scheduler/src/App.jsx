@@ -14,6 +14,7 @@ import {
   EquipmentDetails,
   CreateEquipment,
   Profile,
+  CalendarEditModal,
 } from "@/pages";
 import RootLayout from "./layouts/RootLayout";
 import { action as getFormData } from "./actions/getFormData";
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
           {
             path: "new-schedule",
             element: <CreateTrainingBlockModal />,
+          },
+          {
+            path: "edit-schedule",
+            element: <CalendarEditModal />,
           },
           {
             path: "equipment",

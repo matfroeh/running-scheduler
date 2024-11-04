@@ -63,3 +63,19 @@ export const updateTrainingSchedule = async (schedule, calendarId) => {
   
   return data;
 };
+
+export const deleteTrainingSchedule = async (calendarId) => {
+  const res = await fetch(`${baseURL}/${calendarId}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    if (!errorData.error) {
+      throw new Error("An error occurred while deleting the Training Schedule");
+    }
+    throw new Error(errorData.error);
+  }
+  const data = await res.json();
+  return data;
+}

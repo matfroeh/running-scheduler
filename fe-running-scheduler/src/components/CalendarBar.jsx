@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { handleGpxUpload as processGpx } from "../logic/handleGpxUpload";
 import { useRef } from "react";
 import { updateRunCalendar } from "../data/runs";
@@ -23,6 +23,9 @@ const CalendarBar = ({
 }) => {
   const [fileContents, setFileContents] = useState([]); // Array to hold multiple file contents
   const navigate = useNavigate();
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   const gpxInputRef = useRef(null);
 
   const initialTitle = "Create A New Training Schedule";
@@ -116,6 +119,10 @@ const CalendarBar = ({
     setNotes(!notes);
   };
 
+  const handleCalendarEdit = () => {
+    navigate(`${currentPath}/edit-schedule`);
+  };
+
   return (
     <>
       <div className="navbar">
@@ -162,7 +169,12 @@ const CalendarBar = ({
         <div className="navbar-center w-1/2 justify-around ">
           <div className="flex">
             {title ? (
-              <span className="rounded-md p-1">{title}</span>
+              <span
+                onClick={handleCalendarEdit}
+                className="border border-accent cursor-pointer rounded-md p-1"
+              >
+                {title}
+              </span>
             ) : (
               <span className="rounded-md p-1">{initialTitle}</span>
             )}
