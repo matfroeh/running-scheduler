@@ -1,12 +1,12 @@
 import { useParams, useOutletContext } from "react-router-dom";
 import { updateRunCalendar } from "../data/runs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import {
   getTempoAsMinutesSecondsString,
   getSecondsAsHoursMinutesSecondsString,
-} from "../data/processRunningDataHelper.js";
-import { updateEquipment } from "../data/user.js";
+} from "../utils/processRunningDataHelper.js";
+import { updateEquipment, getEquipmentListFromUser } from "../data/user.js";
 import { CardModal } from "@/components";
 import { useAuth } from "@/context";
 
@@ -20,9 +20,9 @@ const RunDetailsModal = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [formData, setFormData] = useState({ ...run });
   const [equipmentChanged, setEquipmentChanged] = useState(false);
-// console.log("equip changed", equipmentChanged);
+  console.log("equip changed", equipmentChanged);
 
-  const equipmentList = user?.equipmentList || [];
+  const [equipmentList, setEquipmentList] = useState([]);
 
   const activeEquipmentList = equipmentList.filter(
     (item) => item.status === "active"
@@ -31,6 +31,18 @@ const RunDetailsModal = () => {
   const selectedEquipment = activeEquipmentList.find(
     (item) => item.name === formData.equipment
   );
+  console.log("selected equipment", selectedEquipment);
+
+  useEffect(() => {
+    const fetchEquipmentList = async () => {
+      console.log("fetching equipment list");
+
+      const equipmentList = await getEquipmentListFromUser(user.userId);
+      // console.log(equipmentList);
+      setEquipmentList(equipmentList);
+    };
+    fetchEquipmentList();
+  }, []);
 
   // console.log("activeEquipmentList", activeEquipmentList);
   // console.log("equipment list", equipmentList);
@@ -51,11 +63,11 @@ const RunDetailsModal = () => {
       [name]: value,
     });
   };
-  
+
   const handleEquipmentChange = (e) => {
     handleChange(e);
     setEquipmentChanged(true);
-  }
+  };
 
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
@@ -81,14 +93,20 @@ const RunDetailsModal = () => {
 
       // update the equipment distance if still exists in the list (as active equipment)
       if (selectedEquipment && equipmentChanged) {
+        console.log("equipment before change:", selectedEquipment);
+
         const distanceToAdd = formData.distance || 0;
+        const durationToAdd = formData.duration || 0;
         const updatedEquipment = { ...selectedEquipment };
-        updatedEquipment.distance += distanceToAdd;
+        updatedEquipment.distance += parseFloat(distanceToAdd);
+        updatedEquipment.time +=
+          Math.round((durationToAdd / 3600) * 100) / 100;
+        // console.log("updated equipment", updatedEquipment);
+
         // console.log("selected equip id:", selectedEquipment._id);
-        
+
         updateEquipment(user.userId, selectedEquipment._id, updatedEquipment);
-        console.log("added distance to shoe");
-        
+        // console.log("added distance to shoe");
       }
 
       toast.success("Run updated successfully");
@@ -193,9 +211,15 @@ const RunDetailsModal = () => {
                 <option value="Easy Run">Easy Run</option>
                 <option value="Long Run">Long Run</option>
                 <option value="Interval Workout">Interval Workout</option>
+                <option value="Steady State">Steady State</option>
                 <option value="Threshold/Tempo Run">Threshold/Tempo Run</option>
                 <option value="Progression Run">Progression Run</option>
                 <option value="Hill Sprints">Hill Sprints</option>
+                <option value="Cross Training">Cross Training</option>
+                <option value="Strength Training">Strength Training</option>
+                <option value="Race Day">Race Day</option>
+                <option value="Time Trial">Time Trial</option>
+                <option value="Fartlek">Fartlek</option>
                 <option value="Recovery Run">Recovery Run</option>
                 <option value="Rest Day">Rest Day</option>
                 <option value="Other">Other</option>

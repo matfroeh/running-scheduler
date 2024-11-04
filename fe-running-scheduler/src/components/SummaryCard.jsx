@@ -1,5 +1,5 @@
-import { getTempoAsMinutesSecondsString } from "../data/processRunningDataHelper.js";
-import { calculateWeeklySummary } from "../data/calculateWeeklySummary.js";
+import { getTempoAsMinutesSecondsString } from "../utils/processRunningDataHelper.js";
+import { calculateWeeklySummary } from "../utils/calculateWeeklySummary.js";
 
 const SummaryCard = ({ scheduleWeek, runningWeek, weekNumber, show }) => {
   const weekTitle = `Week ${weekNumber.match(/\d+$/)[0]}`;
@@ -16,8 +16,8 @@ const SummaryCard = ({ scheduleWeek, runningWeek, weekNumber, show }) => {
     <div
       className={
         show
-          ? "card card-compact bg-gray-950 ring-1 ring-cyan-500 rounded-tr-none rounded-br-none row-span-2 h-full w-full hover:ring-2 cursor-pointer"
-          : "card card-compact bg-gray-950 ring-1 ring-cyan-500 rounded-tr-none rounded-br-none row-span-1 h-full w-full hover:ring-2 cursor-pointer"
+          ? "card card-compact bg-gray-950 ring-1 ring-accent rounded-tr-none rounded-br-none row-span-2 h-full w-full hover:ring-2 cursor-pointer"
+          : "card card-compact bg-gray-950 ring-1 ring-accent rounded-tr-none rounded-br-none row-span-1 h-full w-full hover:ring-2 cursor-pointer"
       }
     >
       <div className="items-start justify-self-end text-white"></div>

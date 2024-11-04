@@ -8,12 +8,12 @@ import Equipment from "../models/Equipment.js";
 
 export const getEquipmentListFromUser = asyncHandler(async (req, res, next) => {
   const { userId } = req.params;
-  const user = await User.findOne({ _id: userId });
+  const user = await User.findOne({ _id: userId }).populate("equipmentList");
   if (!user)
     return next(new ErrorResponse(`User not found with id of ${userId}`, 404));
-  const equipmentList = await Equipment.find({ owner: userId });
+  // const equipmentList = await Equipment.find({ owner: userId });
 
-  res.status(200).json(equipmentList);
+  res.status(200).json(user.equipmentList);
 });
 
 export const getEquipmentById = asyncHandler(async (req, res, next) => {

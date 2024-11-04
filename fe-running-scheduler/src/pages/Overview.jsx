@@ -6,18 +6,36 @@ import {
   getAveragePace,
   getAverageEffort,
   getTotalTime,
+  getWeeksXAxis,
+  getWeeklyDistance,
+  getWeeklyTime,
+  getWeeklyPace,
+  getWeeklyHeartRate,
   getAllWeeksXAxis,
-} from "../data/getOverviewData.js";
+  getAllWeeklyDistance,
+  getAllWeeklyTime,
+  getAllWeeklyPace,
+  getAllWeeklyHeartRate,
+} from "../utils/getOverviewData.js";
 import dayjs from "dayjs";
 import { useState } from "react";
-import LineChartDistanceTime from "../components/charts/LineChartDistanceTime.jsx";
-import LineChartPaceHeartRate from "../components/charts/LineChartPaceHeartRate.jsx";
-import LineChartAllWeeksDistanceTime from "../components/charts/LineChartAllWeeksDistanceTime.jsx";
-import LineChartAllWeeksPaceHeartRate from "../components/charts/LineChartAllWeeksPaceHeartRate.jsx";
+import LineChart from "../components/charts/LineChart";
 
 const Overview = () => {
   // Arrays of the schedule and the running part of the training blocks
   const { loadedRuns } = useLoaderData();
+
+  if (loadedRuns.length === 0) {
+    return (
+      <div className="flex justify-center items-center mt-20">
+        <div className="flex text-xl">
+          Create your first Schedule and upload running data to create the
+          Overview
+        </div>
+      </div>
+    );
+  }
+
   const overviewData = getOverviewData(loadedRuns);
   const [selectedBlock, setSelectedBlock] = useState(
     overviewData ? overviewData[0] : null
@@ -26,11 +44,6 @@ const Overview = () => {
   const [selectedMode, setSelectedMode] = useState(modes[0]);
 
   console.log(overviewData);
-  console.log(selectedMode);
-  console.log(modes[0]);
-  
-  console.log(getAllWeeksXAxis(overviewData));
-  
 
   const handleSelectMode = () => {
     setSelectedMode(selectedMode === "one" ? "all" : "one");
@@ -43,8 +56,24 @@ const Overview = () => {
   return (
     <div className="">
       <div className="navbar flex gap-2 justify-center">
-        <button className={selectedMode === "one" ? "btn-accent " + "btn btn-sm" : "btn btn-sm"} onClick={handleSelectMode} >Select One</button>
-        <button className={selectedMode === "all" ? "btn-primary " + "btn btn-sm" : "btn btn-sm"} onClick={handleSelectMode} >Select All</button>
+        <button
+          className={
+            selectedMode === "one" ? "btn-accent " + "btn btn-sm" : "btn btn-sm"
+          }
+          onClick={handleSelectMode}
+        >
+          Select One
+        </button>
+        <button
+          className={
+            selectedMode === "all"
+              ? "btn-primary " + "btn btn-sm"
+              : "btn btn-sm"
+          }
+          onClick={handleSelectMode}
+        >
+          Select All
+        </button>
       </div>
       <div className="grid grid-cols-2 gap-x-8 mb-8 w-full">
         <div className="flex flex-col gap-8 mt-8">
@@ -100,7 +129,7 @@ const Overview = () => {
                       <div className="stat-desc">minutes per km</div>
                     </div>
                     <div className="stat place-items-center">
-                      <div className="stat-title">Average Heart Beat</div>
+                      <div className="stat-title">Average Heart Rate</div>
                       <div className="stat-value text-2xl">
                         {getAverageHeartBeat(block)}
                       </div>
@@ -121,15 +150,72 @@ const Overview = () => {
         </div>
 
         <div className="flex flex-col gap-8 mt-8 justify-center items-center w-full">
-          {overviewData && selectedMode === "one" && <LineChartDistanceTime block={selectedBlock} />}
-          {overviewData && selectedMode === "one" && <LineChartPaceHeartRate block={selectedBlock} />}
-          {overviewData && selectedMode === "all" && <LineChartAllWeeksDistanceTime overviewData={overviewData} />}
-          {overviewData && selectedMode === "all" && <LineChartAllWeeksPaceHeartRate overviewData={overviewData} />}
+          {overviewData && selectedMode === "one" && (
+            <>
+              <LineChart
+                xLabel={getWeeksXAxis(selectedBlock)}
+                yFunction={getWeeklyDistance(selectedBlock)}
+                yLabel="Weekly Distance (km)"
+                yAxisReversed={false}
+                color={"#00CDB7"}
+              />
+              <LineChart
+                xLabel={getWeeksXAxis(selectedBlock)}
+                yFunction={getWeeklyPace(selectedBlock)}
+                yLabel="Average Pace (minutes per km)"
+                yAxisReversed={true}
+                color={"#f59e0b"}
+              />
+              <LineChart
+                xLabel={getWeeksXAxis(selectedBlock)}
+                yFunction={getWeeklyHeartRate(selectedBlock)}
+                yLabel="Average Heart Rate (bpm)"
+                yAxisReversed={false}
+                color={"#FF52D9"}
+              />
+              <LineChart
+                xLabel={getWeeksXAxis(selectedBlock)}
+                yFunction={getWeeklyTime(selectedBlock)}
+                yLabel="Weekly Time (minutes)"
+                yAxisReversed={false}
+              />
+            </>
+          )}
+          {overviewData && selectedMode === "all" && (
+            <>
+              <LineChart
+                xLabel={getAllWeeksXAxis(overviewData)}
+                yFunction={getAllWeeklyDistance(overviewData)}
+                yLabel="Weekly Distance (km)"
+                yAxisReversed={false}
+                color={"#00CDB7"}
+              />
+              <LineChart
+                xLabel={getAllWeeksXAxis(overviewData)}
+                yFunction={getAllWeeklyPace(overviewData)}
+                yLabel="Weekly Pace (minutes per km)"
+                yAxisReversed={true}
+                color={"#f59e0b"}
+              />
+              <LineChart
+                xLabel={getAllWeeksXAxis(overviewData)}
+                yFunction={getAllWeeklyHeartRate(overviewData)}
+                yLabel="Weekly Heart Rate (bpm)"
+                yAxisReversed={false}
+                color={"#FF52D9"}
+              />
+              <LineChart
+                xLabel={getAllWeeksXAxis(overviewData)}
+                yFunction={getAllWeeklyTime(overviewData)}
+                yLabel="Weekly Time (minutes)"
+                yAxisReversed={false}
+              />
+            </>
+          )}
         </div>
       </div>
       <Outlet />
     </div>
-
   );
 };
 

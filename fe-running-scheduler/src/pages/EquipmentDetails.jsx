@@ -44,22 +44,8 @@ const EquipmentDetails = () => {
     fetchEquipment();
   }, [equipmentId, user.userId]);
 
-  console.log(formData.image);
-
-  // useEffect(() => {
-  //   // Fetch images from the server when the component mounts
-  //   const fetchImage = async (imageId) => {
-  //     try {
-  //       const response = await axios.get(
-  //         `http://localhost:3000/uploads/${imageId}`
-  //       );
-  //       setImages(response.data);
-  //     } catch (error) {
-  //       toast.error("Failed to load image:", error);
-  //     }
-  //   };
-  //   fetchImage(formData.image);
-  // },[]);
+  // console.log(formData.image);
+  
 
   const arrayBufferToBase64 = (buffer) => {
     let binary = "";
@@ -157,7 +143,7 @@ const EquipmentDetails = () => {
       </div>
       {imageUrl && (
         <div className="flex justify-start items-center gap-10">
-          <img src={imageUrl} alt="Equipment picture" className="w-1/3 mt-4" />
+          <img src={imageUrl} alt="Equipment picture" className="w-1/4 mt-4" />
 
           <div>
             <button
@@ -179,7 +165,7 @@ const EquipmentDetails = () => {
             images.img.data.data
           )}`}
           alt={images.name}
-          className="w-1/3 mt-4"
+          className="w-1/4 mt-4"
         />
       )}
       {!imageId && (

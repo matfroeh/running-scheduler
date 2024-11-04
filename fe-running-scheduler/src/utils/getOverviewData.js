@@ -2,7 +2,7 @@ import { calculateSummariesForOverview } from "./calculateSummariesForOverview";
 import {
   getTempoAsMinutesSecondsString,
   getSecondsAsHoursMinutesSecondsString,
-} from "../data/processRunningDataHelper.js";
+} from "../utils/processRunningDataHelper.js";
 
 // Creates an array of objects with the title, start date and array of weeks containing the summaries of each week
 export const getOverviewData = (runs) => {
@@ -21,6 +21,9 @@ export const getOverviewData = (runs) => {
       );
     });
   }
+  summariesArray.sort((a, b) => {
+    return new Date(b.startDate) - new Date(a.startDate);
+  });
   // console.log(summariesArray);
   return summariesArray;
 };
@@ -122,6 +125,8 @@ export const getWeeklyPace = (block) => {
   block.weeks.map((week) => {
     weeklyPace.push(parseFloat(week.avgPace));
   });
+  // console.log(weeklyPace);
+  
   return weeklyPace;
 };
 

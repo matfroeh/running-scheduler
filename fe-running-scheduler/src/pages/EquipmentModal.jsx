@@ -2,6 +2,7 @@ import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/context";
 import { useEffect, useState } from "react";
 import { CardModal } from "@/components";
+import { getEquipmentListFromUser } from "../data/user";
 import axios from "axios";
 
 const EquipmentModal = () => {
@@ -12,6 +13,11 @@ const EquipmentModal = () => {
   const navigate = useNavigate();
   const [images, setImages] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // console.log(user.equipmentList);
+  // console.log(equipmentList);
+  
+  
 
   useEffect(() => {
     // Fetch images from the server when the component mounts
@@ -31,7 +37,21 @@ const EquipmentModal = () => {
     fetchImages();
   }, [equipmentList]);
 
-  console.log(images);
+  useEffect(() => {
+    const fetchEquipmentList = async () => {
+      console.log("fetching equipment list");
+
+      const equipmentList = await getEquipmentListFromUser(user.userId);
+      // console.log(equipmentList);
+      setUser((prev) => ({ ...prev, equipmentList }));
+      setEquipmentList(equipmentList);
+    };
+    fetchEquipmentList();
+  }, []);
+
+  // console.log(images);
+  // console.log(user.equipmentList);
+  
 
   const openEquipmentDetails = (equipmentId) => {
     navigate(`${currentPath}/${equipmentId}`);
@@ -58,11 +78,9 @@ const EquipmentModal = () => {
     return sortedList;
   };
 
-  console.log(equipmentList);
-
-  useEffect(() => {
-    setUser((prev) => ({ ...prev, equipmentList }));
-  }, [equipmentList]);
+  // useEffect(() => {
+  //   setUser((prev) => ({ ...prev, equipmentList }));
+  // }, [equipmentList]);
 
   const arrayBufferToBase64 = (buffer) => {
     let binary = "";
@@ -104,7 +122,7 @@ const EquipmentModal = () => {
                   <p>
                     Distance: {parseFloat(equipment.distance).toFixed(1)} km
                   </p>
-                  <p>Usage time: {equipment.time} h</p>
+                  <p>Usage time: {parseFloat(equipment.time).toFixed(1)} h</p>
                   {equipment.description && (
                     <p>Description: {equipment.description}</p>
                   )}

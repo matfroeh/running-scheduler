@@ -2,9 +2,13 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/context";
 import { logout } from "../data/auth";
 import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const NavBar = () => {
   const { auth, user, setCheckSession } = useAuth();
+  const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
@@ -27,10 +31,42 @@ const NavBar = () => {
     } else navigate(`${currentPath}/equipment`);
   };
 
+  const openProfileModal = () => {
+    if (currentPath === "/") {
+      navigate("profile");
+    } else navigate(`${currentPath}/profile`);
+  };
+
+  useEffect(() => {
+    // Fetch images from the server when the component mounts
+    if (!user?.profilePicture) {
+      return;
+    }
+    const fetchImage = async () => {
+      const response = await axios.get(
+        `http://localhost:3000/uploads/${user.profilePicture}`
+      );
+      setImage(response.data);
+      setLoading(false);
+    };
+
+    fetchImage();
+  }, [user, auth]);
+
+  const arrayBufferToBase64 = (buffer) => {
+    let binary = "";
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+  };
+
   return (
     <div className="navbar w-full">
       <div className="navbar-start">
-        <a className="btn btn-ghost text-xl">Running Scheduler</a>
+        <a className="btn btn-ghost text-xl">Running Journal</a>
       </div>
       <div className="navbar-center">
         <NavLink to="/overview" className="btn btn-ghost text-l">
@@ -49,10 +85,21 @@ const NavBar = () => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
+                {!loading && image ? (
+                  <img
+                    className="rounded-full"
+                    src={`data:${
+                      image.img.contentType
+                    };base64,${arrayBufferToBase64(image.img.data.data)}`}
+                    alt="profile"
+                  />
+                ) : (
+                  <img
+                    className="rounded-full"
+                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    alt="profile"
+                  />
+                )}
               </div>
             </div>
             <ul
@@ -63,7 +110,7 @@ const NavBar = () => {
                 <h2 className="text-lg font-bold">{user?.userName}</h2>
               </li>
               <li>
-                <a className="justify-between">Profile</a>
+                <a onClick={openProfileModal}>Profile</a>
               </li>
               <li>
                 <a onClick={openEquipmentModal}>Equipment</a>

@@ -94,9 +94,15 @@ const TrainingDayDetailsModal = () => {
             <option value="Easy Run">Easy Run</option>
             <option value="Long Run">Long Run</option>
             <option value="Interval Workout">Interval Workout</option>
+            <option value="Steady State">Steady State</option>
             <option value="Threshold/Tempo Run">Threshold/Tempo Run</option>
             <option value="Progression Run">Progression Run</option>
             <option value="Hill Sprints">Hill Sprints</option>
+            <option value="Cross Training">Cross Training</option>
+            <option value="Strength Training">Strength Training</option>
+            <option value="Race Day">Race Day</option>
+            <option value="Time Trial">Time Trial</option>
+            <option value="Fartlek">Fartlek</option>
             <option value="Recovery Run">Recovery Run</option>
             <option value="Rest Day">Rest Day</option>
             <option value="Other">Other</option>

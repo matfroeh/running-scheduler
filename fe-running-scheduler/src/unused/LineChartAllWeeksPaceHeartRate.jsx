@@ -4,7 +4,8 @@ import {
 getAllWeeksXAxis,
 getAllWeeklyPace,
 getAllWeeklyHeartRate,
-} from "../../data/getOverviewData.js";
+} from "../data/getOverviewData.js";
+import { scales } from "chart.js/auto";
 
 const LineChartAllWeeksPaceHeartRate = ({ overviewData }) => {
 
@@ -20,7 +21,7 @@ const LineChartAllWeeksPaceHeartRate = ({ overviewData }) => {
         yAxisID: "y1",
       },
       {
-        label: "Weekly Heart Beat (bpm)",
+        label: "Weekly Heart Rate (bpm)",
         data: getAllWeeklyHeartRate(overviewData),
         fill: false,
         borderColor: "#742774",
@@ -31,17 +32,18 @@ const LineChartAllWeeksPaceHeartRate = ({ overviewData }) => {
   const options = {
     scales: {
       y1: {
-        min: Math.round(Math.min.apply(null, getAllWeeklyPace(overviewData))),
-        max: Math.round(Math.max.apply(null, getAllWeeklyPace(overviewData)) * 1.05),
-        stepSize: 10,
+        reverse : true,
+        // min: Math.round(Math.min.apply(null, getAllWeeklyPace(overviewData))),
+        // max: Math.round(Math.max.apply(null, getAllWeeklyPace(overviewData)) * 1.05),
+        // stepSize: 10,
         ticks: {
           beginAtZero: true,
         },
       },
       y2: {
-        min: Math.round(Math.min.apply(null, getAllWeeklyHeartRate(overviewData))),
-        max: Math.round(Math.max.apply(null, getAllWeeklyHeartRate(overviewData)) * 1.1),
-        stepSize: 30,
+        // min: Math.round(Math.min.apply(null, getAllWeeklyHeartRate(overviewData))),
+        // max: Math.round(Math.max.apply(null, getAllWeeklyHeartRate(overviewData)) * 1.1),
+        // stepSize: 30,
         position: "right",
         ticks: {
           beginAtZero: true,

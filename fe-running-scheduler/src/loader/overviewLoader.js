@@ -1,5 +1,4 @@
 import { getAllRuns } from "../data/runs";
-import { getAllTrainingSchedules } from "../data/schedules";
 
 export const overviewLoader = async () => {
   try {
