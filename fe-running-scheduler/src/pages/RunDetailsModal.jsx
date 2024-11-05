@@ -9,6 +9,8 @@ import {
 import { updateEquipment, getEquipmentListFromUser } from "../data/user.js";
 import { CardModal } from "@/components";
 import { useAuth } from "@/context";
+import LineChartTimeVelocity from "../components/charts/LineChartTimeVelocity";
+
 
 const RunDetailsModal = () => {
   const { calendarId, week, day } = useParams();
@@ -247,7 +249,7 @@ const RunDetailsModal = () => {
           <div>
             {isEditMode ? (
               <>
-                <strong>Duration (seconds): </strong>
+                <strong>Activity Time (seconds): </strong>
                 <input
                   type="number"
                   name="duration"
@@ -258,10 +260,33 @@ const RunDetailsModal = () => {
               </>
             ) : (
               <>
-                <strong>Duration: </strong>
+                <strong>Activity Time: </strong>
                 <span>
                   {formData.duration
                     ? getSecondsAsHoursMinutesSecondsString(formData.duration)
+                    : null}
+                </span>
+              </>
+            )}
+          </div>
+          <div>
+            {isEditMode ? (
+              <>
+                <strong>Total Time (seconds): </strong>
+                <input
+                  type="number"
+                  name="totalTime"
+                  value={formData.totalTime || ""}
+                  onChange={handleChange}
+                  className="input input-bordered w-full mt-2"
+                />
+              </>
+            ) : (
+              <>
+                <strong>Total Time: </strong>
+                <span>
+                  {formData.totalTime
+                    ? getSecondsAsHoursMinutesSecondsString(formData.totalTime)
                     : null}
                 </span>
               </>
@@ -353,6 +378,13 @@ const RunDetailsModal = () => {
             )}
           </div>
         </div>
+          <LineChartTimeVelocity
+                xLabel={run.timeArray}
+                yFunction={run.velocityArray}
+                yLabel="Tempo (min/km)"
+                yAxisReversed={true}
+                color={"#00CDB7"}
+              />
 
         <div className="mt-4">
           <h3 className="text-lg font-semibold">Notes: </h3>
