@@ -17,8 +17,12 @@ const daySchema = new Schema({
   distance: {
     type: Number,
   },
+  // Duration = Activity Time (ToDO: name change to activityTime)
   duration: {
     // CHANGED NOW TO NUMBER (old: saved as hh:mm:ss)
+    type: Number,
+  },
+  totalTime: {
     type: Number,
   },
   tempo: {
@@ -28,6 +32,14 @@ const daySchema = new Schema({
   speed: {
     // CHANGED NOW TO NUMBER ( old: saved as km/h)
     type: Number,
+  },
+  timeArray: {
+    // used to plot a time-velocity-diagram
+    type: [Number],
+  },
+  velocityArray: {
+    // used to plot a time-velocity-diagram
+    type: [Number],
   },
   effort: {
     type: Number,
