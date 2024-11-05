@@ -18,7 +18,7 @@ const RunDetailsModal = () => {
   const { user } = useAuth();
   const run = runningData.weeks[week].days[day];
 
-  console.log("run", run);
+  // console.log("run", run);
 
   const [isEditMode, setIsEditMode] = useState(false);
   const [formData, setFormData] = useState({ ...run });
@@ -36,7 +36,7 @@ const RunDetailsModal = () => {
 
   useEffect(() => {
     const fetchEquipmentList = async () => {
-      console.log("fetching equipment list");
+      // console.log("fetching equipment list");
 
       const equipmentList = await getEquipmentListFromUser(user.userId);
       // console.log(equipmentList);
@@ -113,7 +113,7 @@ const RunDetailsModal = () => {
 
       const updatedRunningData = { ...runningData };
       updatedRunningData.weeks[week].days[day] = { date: run.date };
-      console.log(updatedRunningData.weeks[week].days[day]);
+      // console.log(updatedRunningData.weeks[week].days[day]);
       setRunningData(updatedRunningData);
       await updateRunCalendar(runningData, calendarId);
       toast.success("Run deleted successfully.");
@@ -385,13 +385,15 @@ const RunDetailsModal = () => {
             )}
           </div>
         </div>
-        <LineChartTimeVelocity
-          xLabel={run.timeArray}
-          yFunction={run.velocityArray}
-          yLabel="Tempo (min/km)"
-          yAxisReversed={true}
-          color={"#00CDB7"}
-        />
+        {run.timeArray.length > 0 && run.velocityArray.length > 0 && (
+          <LineChartTimeVelocity
+            xLabel={run.timeArray}
+            yFunction={run.velocityArray}
+            yLabel="Tempo (min/km)"
+            yAxisReversed={true}
+            color={"#00CDB7"}
+          />
+        )}
 
         <div className="mt-4">
           <h3 className="text-lg font-semibold">Notes: </h3>

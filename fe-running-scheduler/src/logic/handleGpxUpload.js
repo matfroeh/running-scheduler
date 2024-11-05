@@ -100,10 +100,10 @@ export const handleGpxUpload = (file) => {
       // Reduce array size for plotting
       const reducedSmoothedVelocities = reduceArray(smoothedVelocities, 10);
 
-      console.log("activityTime: ", activityTime);
-      console.log("total time: ", totalTime);
-      console.log("activityDistance: ", activityDistance);
-      console.log("total distance: ", totalDistance);
+      // console.log("activityTime: ", activityTime);
+      // console.log("total time: ", totalTime);
+      // console.log("activityDistance: ", activityDistance);
+      // console.log("total distance: ", totalDistance);
 
       // set run data
       extractedData.name = gpxParser.tracks[0].name;
