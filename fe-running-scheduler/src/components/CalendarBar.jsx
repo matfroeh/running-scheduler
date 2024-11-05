@@ -6,8 +6,6 @@ import { useState, useEffect } from "react";
 import { findDayObjectByDate } from "../utils/processRunningDataHelper.js";
 import { toast } from "react-toastify";
 
-// ToDo: We really want to upload multiple files here but this can wait
-
 const CalendarBar = ({
   title,
   runningData,
@@ -25,6 +23,7 @@ const CalendarBar = ({
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
+  const [isLoading, setIsLoading] = useState(false);
 
   const gpxInputRef = useRef(null);
 
@@ -63,6 +62,7 @@ const CalendarBar = ({
   // Process each file's content once it is updated
   useEffect(() => {
     const processData = async () => {
+      setIsLoading(true);
       for (const content of fileContents) {
         try {
           const newRunningData = processGpx(content);
@@ -80,9 +80,8 @@ const CalendarBar = ({
               updatedRunningData,
               runningData._id
             );
-            console.log(response);
+            // console.log(response);
             if (response) {
-              toast.success("New run added successfully");
               // Single uploaded file: directly go to run details modal
               if (fileContents.length === 1) {
                 navigate(
@@ -103,6 +102,8 @@ const CalendarBar = ({
           console.error(error);
         }
       }
+      setIsLoading(false);
+      toast.success("New run(s) added successfully");
     };
 
     if (fileContents.length > 0) {
@@ -150,21 +151,43 @@ const CalendarBar = ({
           </button>
         </span>
         <div className="px-4">
-          <div
-            className="btn btn-sm ring-1 ring-accent"
-            onClick={handleGpxInputClick}
-            disabled={!title || newScheduleFormSubmitted ? true : false}
-          >
-            Upload .gpx
-            <input
-              ref={gpxInputRef}
-              type="file"
-              multiple
-              onChange={handleGpxFileChange}
-              style={{ display: "none" }}
-              accept=".gpx"
-            />
-          </div>
+          {!isLoading ? (
+            <div
+              className="btn btn-sm ring-1 ring-accent"
+              onClick={handleGpxInputClick}
+              disabled={!title || newScheduleFormSubmitted ? true : false}
+            >
+              Upload .gpx
+              <input
+                ref={gpxInputRef}
+                type="file"
+                multiple
+                onChange={handleGpxFileChange}
+                style={{ display: "none" }}
+                accept=".gpx"
+              />
+            </div>
+          ) : (
+            <button className="btn btn-sm text-warning ring-1 ring-warning">
+              <svg
+                className="animate-spin h-5 w-5 mr-3 ..."
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="#f59e0b"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  fill="#f59e0b"
+                  d="M4 12a8 8 0 018-8V4a10 10 0 00-10 10h2zm2 8a8 8 0 018-8h2a10 10 0 00-10-10V2a12 12 0 0110 10"
+                ></path>
+              </svg>
+              Processing...
+            </button>
+          )}
         </div>
         <div className="navbar-center w-1/2 justify-around ">
           <div className="flex">

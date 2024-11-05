@@ -14,8 +14,8 @@ const EquipmentModal = () => {
   const [images, setImages] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  console.log(user.equipmentList);
-  console.log(equipmentList);
+  // console.log(user.equipmentList);
+  // console.log(equipmentList);
   
   
 
@@ -39,7 +39,7 @@ const EquipmentModal = () => {
 
   useEffect(() => {
     const fetchEquipmentList = async () => {
-      console.log("fetching equipment list");
+      // console.log("fetching equipment list");
 
       const equipmentList = await getEquipmentListFromUser(user.userId);
       // console.log(equipmentList);

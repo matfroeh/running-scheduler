@@ -1,4 +1,4 @@
-import { useLoaderData, Outlet } from "react-router-dom";
+import { useLoaderData, Outlet, useNavigation } from "react-router-dom";
 import {
   getOverviewData,
   getTotalDistance,
@@ -18,23 +18,14 @@ import {
   getAllWeeklyHeartRate,
 } from "../utils/getOverviewData.js";
 import dayjs from "dayjs";
+import LoadingOverlay from "react-loading-overlay-ts";
 import { useState } from "react";
 import LineChart from "../components/charts/LineChart";
 
 const Overview = () => {
   // Arrays of the schedule and the running part of the training blocks
   const { loadedRuns } = useLoaderData();
-
-  if (loadedRuns.length === 0) {
-    return (
-      <div className="flex justify-center items-center mt-20">
-        <div className="flex text-xl">
-          Create your first Schedule and upload running data to create the
-          Overview
-        </div>
-      </div>
-    );
-  }
+  const navigation = useNavigation();
 
   const overviewData = getOverviewData(loadedRuns);
   const [selectedBlock, setSelectedBlock] = useState(
@@ -43,7 +34,7 @@ const Overview = () => {
   const modes = ["one", "all"];
   const [selectedMode, setSelectedMode] = useState(modes[0]);
 
-  console.log(overviewData);
+  // console.log(overviewData);
 
   const handleSelectMode = () => {
     setSelectedMode(selectedMode === "one" ? "all" : "one");
@@ -52,6 +43,28 @@ const Overview = () => {
   const selectBlock = (block) => {
     setSelectedBlock(block);
   };
+  {
+    /* <LoadingOverlay active={true} spinner text="Loading posts..." /> */
+  }
+
+  if (loadedRuns.length === 0) {
+    return (
+      <div className="flex justify-center items-center mt-20">
+        <div className="flex text-xl">
+          Create your first Schedule and upload running data to create the
+          Overview
+        </div>
+        <Outlet />
+      </div>
+    );
+  }
+  if (navigation.state === "loading") {
+    return (
+      <div className="flex justify-center content-center items-center w-full">
+        <LoadingOverlay active={true} spinner text="Loading..." />
+      </div>
+    );
+  }
 
   return (
     <div className="">

@@ -52,7 +52,7 @@ const daySchema = new Schema({
     text: true,
   },
   equipment: {
-    // this is the equipment used for this run: ToDo: explain why I am not using the equipmentId
+    // this is the equipment used for this run. It will be stored as a String and not as the equipment object ID because the equipment should be still in the equipment list even if it is deleted.
     type: String,
   },
 });
@@ -65,7 +65,7 @@ const weekSchema = new Schema(
     },
   },
   { _id: true }
-); // ToDo: set to false if it is not used later
+); 
 
 const runsSchema = new Schema(
   {

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
-// ToDo: basically there could be an equipment list independent from the user so that one can choose from a predefined list
+// ToDo: basically there could be an equipment list independent from the user so that one can choose from a predefined list but that will not fit in right now
 const equipmentSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, ref: "User", required: true },
   name: { type: String, required: true},

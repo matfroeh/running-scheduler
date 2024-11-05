@@ -25,8 +25,7 @@ const weekSchema = new Schema({
     type: Map,
     of: daySchema,
   },
-}, { _id: true } ); // ToDo: set to false if it is not used later
-
+}, { _id: true } ); 
 const scheduleSchema = new Schema(
   {
     user: {

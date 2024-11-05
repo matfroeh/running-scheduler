@@ -11,7 +11,6 @@ import { CardModal } from "@/components";
 import { useAuth } from "@/context";
 import LineChartTimeVelocity from "../components/charts/LineChartTimeVelocity";
 
-
 const RunDetailsModal = () => {
   const { calendarId, week, day } = useParams();
   const { runningData, setRunningData, newScheduleFormSubmitted } =
@@ -19,7 +18,7 @@ const RunDetailsModal = () => {
   const { user } = useAuth();
   const run = runningData.weeks[week].days[day];
 
-  console.log("run", run);
+  // console.log("run", run);
 
   const [isEditMode, setIsEditMode] = useState(false);
   const [formData, setFormData] = useState({ ...run });
@@ -37,7 +36,7 @@ const RunDetailsModal = () => {
 
   useEffect(() => {
     const fetchEquipmentList = async () => {
-      console.log("fetching equipment list");
+      // console.log("fetching equipment list");
 
       const equipmentList = await getEquipmentListFromUser(user.userId);
       // console.log(equipmentList);
@@ -114,7 +113,7 @@ const RunDetailsModal = () => {
 
       const updatedRunningData = { ...runningData };
       updatedRunningData.weeks[week].days[day] = { date: run.date };
-      console.log(updatedRunningData.weeks[week].days[day]);
+      // console.log(updatedRunningData.weeks[week].days[day]);
       setRunningData(updatedRunningData);
       await updateRunCalendar(runningData, calendarId);
       toast.success("Run deleted successfully.");
@@ -130,11 +129,17 @@ const RunDetailsModal = () => {
     }
     if (
       !formData.distance ||
-      isNaN(formData.distance) || formData.distance <= 0) {
+      isNaN(formData.distance) ||
+      formData.distance <= 0
+    ) {
       setError("Distance must be a number greater than 0.");
       return false;
     }
-    if (!formData.duration || isNaN(formData.duration) || formData.duration <= 0) {
+    if (
+      !formData.duration ||
+      isNaN(formData.duration) ||
+      formData.duration <= 0
+    ) {
       setError("Duration must be a number greater than 0.");
       return false;
     }
@@ -195,7 +200,9 @@ const RunDetailsModal = () => {
             </>
           )}
         </div>
-        {isEditMode && error && <p className="text-red-500 text-sm flex justify-end mt-4">{error}</p>}
+        {isEditMode && error && (
+          <p className="text-red-500 text-sm flex justify-end mt-4">{error}</p>
+        )}
         <div className="grid grid-cols-2 gap-4 mt-2">
           <div>
             <strong>Distance: </strong>
@@ -378,13 +385,15 @@ const RunDetailsModal = () => {
             )}
           </div>
         </div>
+        {run.timeArray.length > 0 && run.velocityArray.length > 0 && (
           <LineChartTimeVelocity
-                xLabel={run.timeArray}
-                yFunction={run.velocityArray}
-                yLabel="Tempo (min/km)"
-                yAxisReversed={true}
-                color={"#00CDB7"}
-              />
+            xLabel={run.timeArray}
+            yFunction={run.velocityArray}
+            yLabel="Tempo (min/km)"
+            yAxisReversed={true}
+            color={"#00CDB7"}
+          />
+        )}
 
         <div className="mt-4">
           <h3 className="text-lg font-semibold">Notes: </h3>

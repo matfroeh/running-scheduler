@@ -102,7 +102,6 @@ export const updateEquipment = asyncHandler(async (req, res, next) => {
   res.status(200).json(updatedEquipment);
 });
 
-// ToDo: there is something off in my logic of the Model here, because the Equipment will be still in the collection
 export const deleteEquipmentFromUserList = asyncHandler(
   async (req, res, next) => {
     const { userId, equipmentId } = req.params;
