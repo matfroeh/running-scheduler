@@ -6,8 +6,6 @@ import { useState, useEffect } from "react";
 import { findDayObjectByDate } from "../utils/processRunningDataHelper.js";
 import { toast } from "react-toastify";
 
-// ToDo: We really want to upload multiple files here but this can wait
-
 const CalendarBar = ({
   title,
   runningData,

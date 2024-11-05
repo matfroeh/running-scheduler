@@ -1,5 +1,4 @@
-// ToDo: but first, this needs to be really cleaned up and refactored, even the copilot agrees
-
+// ToDo: but first, this needs to be really cleaned up and refactored
 export function processFormDataFromScheduler(data) {
   const { title, distance, workoutDay, longRun, weeks, date } = data;
   console.log(data);
@@ -217,7 +216,7 @@ export function processFormDataFromScheduler(data) {
 // based on the TrainingBlockData
 // By that, the process simplifies as follows:
 // 1. from the gpx get the date
-// 2. find the week and day that corresponds to the date (ToDo: we will later add error handling if the date is outside of the training block)
+// 2. find the week and day that corresponds to the date
 // 3. insert the extracted gpx data by simply accessing runData.weeks[week].days[day].date
 // the run data will be a react state (separate from the training block data) and will update accordingly
 
