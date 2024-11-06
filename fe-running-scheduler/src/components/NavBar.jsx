@@ -64,7 +64,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="navbar w-full">
+    <div className="navbar w-full z-50">
       <div className="navbar-start">
         <a className="btn btn-ghost text-xl">Running Journal</a>
       </div>
@@ -104,7 +104,7 @@ const NavBar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-md dropdown-content bg-base-300 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-md dropdown-content bg-base-300 rounded-box z-[100] mt-3 w-52 p-2 shadow"
             >
               <li>
                 <h2 className="text-lg font-bold">{user?.userName}</h2>
