@@ -73,14 +73,6 @@ const TrainingDayDetailsModal = () => {
       setError("Please select a type.");
       return false;
     }
-    if (
-      !formData.distance ||
-      isNaN(formData.distance) ||
-      formData.distance <= 0
-    ) {
-      setError("Distance must be a number greater than 0.");
-      return false;
-    }
     setError(null);
     return true;
   };

@@ -13,6 +13,7 @@ const AuthContextProvider = ({ children }) => {
   const [checkSession, setCheckSession] = useState(true);
 
   // console.log(user);
+  // console.log("auth at context", auth);
   
 
   useEffect(() => {
