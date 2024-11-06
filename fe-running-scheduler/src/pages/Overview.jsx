@@ -60,7 +60,7 @@ const Overview = () => {
   }
   if (navigation.state === "loading") {
     return (
-      <div className="flex justify-center content-center items-center w-full">
+      <div className="flex justify-center mt-32">
         <LoadingOverlay active={true} spinner text="Loading..." />
       </div>
     );
