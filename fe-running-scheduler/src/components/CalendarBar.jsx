@@ -126,7 +126,7 @@ const CalendarBar = ({
 
   return (
     <>
-      <div className="navbar">
+      <div className="navbar sticky top-0 z-50 bg-base-100">
         <span className="navbar-start">
           <button
             className="btn btn-sm"
