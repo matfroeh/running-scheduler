@@ -14,7 +14,7 @@ const PORT = process.env.PORT ?? 3000;
 // app.use(cors()); // caution!
 app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true })); // add your frontend url to the .env to allow cookie handling (just for demo in development)
 
-app.use(express.json());
+app.use(express.json({limit : "50mb"}));
 
 app.use("/schedules", scheduleRouter);
 app.use("/runs", runsRouter);

@@ -6,6 +6,7 @@ import {
   useActionData,
   useLoaderData,
   useNavigate,
+  useNavigation,
 } from "react-router-dom";
 import { processFormDataFromScheduler } from "../logic/processFormDataFromScheduler";
 import { createTrainingSchedule } from "../data/schedules";
@@ -16,6 +17,7 @@ import {
   showPreviousCalendar as showPrevious,
   showNextCalendar as showNext,
 } from "../logic/calendarCycling";
+import LoadingOverlay from "react-loading-overlay-ts";
 
 const CalendarView = () => {
   // ToDo: actionData needs to be exported to backend, but later
@@ -38,8 +40,13 @@ const CalendarView = () => {
     useState(false);
 
   const [notes, setNotes] = useState(false);
+  const [hideSchedule, setHideSchedule] = useState(false);
+
+  console.log(hideSchedule);
+  
 
   const navigate = useNavigate();
+  const navigation = useNavigation();
 
   let activeCalendarId = runningData?._id;
 
@@ -130,13 +137,21 @@ const CalendarView = () => {
           setNewScheduleFormSubmitted={setNewScheduleFormSubmitted}
           notes={notes}
           setNotes={setNotes}
+          setHideSchedule={setHideSchedule}
         />
-        <CalendarBody
-          trainingData={trainingBlockData}
-          runningData={runningData}
-          activeCalendarId={activeCalendarId}
-          notes={notes}
-        />
+        {navigation.state === "loading" ? (
+          <div className="flex justify-center mt-32">
+            <LoadingOverlay active={true} spinner text="Loading..." />
+          </div>
+        ) : (
+          <CalendarBody
+            trainingData={trainingBlockData}
+            runningData={runningData}
+            activeCalendarId={activeCalendarId}
+            notes={notes}
+            hideSchedule={hideSchedule}
+          />
+        )}
         <Outlet
           context={{
             setNewScheduleFormSubmitted,

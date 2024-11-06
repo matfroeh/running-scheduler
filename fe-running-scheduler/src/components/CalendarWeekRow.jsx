@@ -9,6 +9,7 @@ const CalendarWeekRow = ({
   runningDataWeek,
   activeCalendarId,
   notes,
+  hideSchedule,
 }) => {
   const navigate = useNavigate();
 
@@ -19,11 +20,9 @@ const CalendarWeekRow = ({
     navigate(`/${activeCalendarId}/schedule/${weekNumber}/${day}/${data._id}`);
   };
 
-  const show = true;
-
   return (
     <>
-      {show &&
+      {!hideSchedule &&
         Object.entries(week.days).map(([day, data]) => {
           return (
             <TrainingCard
@@ -33,12 +32,12 @@ const CalendarWeekRow = ({
             />
           );
         })}
-      {show && (
+      {!hideSchedule && (
         <SummaryCard
           scheduleWeek={week}
           runningWeek={runningDataWeek}
           weekNumber={weekNumber}
-          show={show}
+          hideSchedule={hideSchedule}
         />
       )}
       {Object.entries(runningDataWeek.days).map(([day, data]) => {
@@ -48,15 +47,16 @@ const CalendarWeekRow = ({
             data={data}
             openRunCard={() => openRunCard(data, weekNumber, day)}
             notes={notes}
+            hideSchedule={hideSchedule}
           />
         );
       })}
-      {!show && (
+      {hideSchedule && (
         <SummaryCard
           scheduleWeek={week}
           runningWeek={runningDataWeek}
           weekNumber={weekNumber}
-          show={show}
+          hideSchedule={hideSchedule}
         />
       )}
 

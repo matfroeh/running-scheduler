@@ -105,7 +105,10 @@ const Login = () => {
               Register!
             </Link>
           </small>
-          <button className="btn btn-primary self-center mt-4" disabled={loading}>
+          <button
+            className="btn btn-primary self-center mt-4"
+            disabled={loading}
+          >
             Login
           </button>
         </form>

@@ -1,7 +1,7 @@
 import { getTempoAsMinutesSecondsString } from "../utils/processRunningDataHelper.js";
 import { calculateWeeklySummary } from "../utils/calculateWeeklySummary.js";
 
-const SummaryCard = ({ scheduleWeek, runningWeek, weekNumber, show }) => {
+const SummaryCard = ({ scheduleWeek, runningWeek, weekNumber, hideSchedule }) => {
   const weekTitle = `Week ${weekNumber.match(/\d+$/)[0]}`;
   const {
     totalDistancePlanned,
@@ -15,7 +15,7 @@ const SummaryCard = ({ scheduleWeek, runningWeek, weekNumber, show }) => {
   return (
     <div
       className={
-        show
+        !hideSchedule
           ? "card card-compact bg-gray-950 ring-1 ring-accent rounded-tr-none rounded-br-none row-span-2 h-full w-full hover:ring-2 cursor-pointer"
           : "card card-compact bg-gray-950 ring-1 ring-accent rounded-tr-none rounded-br-none row-span-1 h-full w-full hover:ring-2 cursor-pointer"
       }
