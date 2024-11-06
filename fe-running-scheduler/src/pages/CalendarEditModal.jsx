@@ -62,10 +62,10 @@ const CalendarEditModal = () => {
     try {
       await deleteTrainingSchedule(calendarId);
       await deleteRunCalendar(calendarId);
+      navigate("/");
       setRunningData([]);
       setTrainingBlockData([]);
       toast.success("Calendar deleted successfully!");
-      navigate("/");
     } catch (error) {
       toast.error(`Error deleting calendar: ${error.message}`);
     }

@@ -18,6 +18,7 @@ const CalendarBar = ({
   showNextCalendar,
   setNotes,
   notes,
+  setHideSchedule
 }) => {
   const [fileContents, setFileContents] = useState([]); // Array to hold multiple file contents
   const navigate = useNavigate();
@@ -120,6 +121,10 @@ const CalendarBar = ({
     setNotes(!notes);
   };
 
+  const toggleSchedule = () => {
+    setHideSchedule((prev) => !prev);
+  };
+
   const handleCalendarEdit = () => {
     navigate(`${currentPath}/edit-schedule`);
   };
@@ -219,14 +224,28 @@ const CalendarBar = ({
           </div>
         </div>
         <span className="navbar-end">
-          <label className="label cursor-pointer">
-            <span className="label-text text-base">Show notes only</span>
-            <input
-              type="checkbox"
-              className="toggle toggle-accent mx-2"
-              onClick={toggleNotes}
-            />
-          </label>
+          <div>
+            <label className="label cursor-pointer">
+              <span className="label-text text-base text-nowrap">Show Notes</span>
+              <input
+                type="checkbox"
+                className="toggle toggle-accent mx-2"
+                onClick={toggleNotes}
+              />
+            </label>
+          </div>
+          <div>
+            <label className="label cursor-pointer">
+              <span className="label-text text-base text-nowrap">
+                Hide Schedule
+              </span>
+              <input
+                type="checkbox"
+                className="toggle toggle-accent mx-2"
+                onClick={toggleSchedule}
+              />
+            </label>
+          </div>
         </span>
       </div>
       {newScheduleFormSubmitted && (

@@ -40,6 +40,10 @@ const CalendarView = () => {
     useState(false);
 
   const [notes, setNotes] = useState(false);
+  const [hideSchedule, setHideSchedule] = useState(false);
+
+  console.log(hideSchedule);
+  
 
   const navigate = useNavigate();
   const navigation = useNavigation();
@@ -133,6 +137,7 @@ const CalendarView = () => {
           setNewScheduleFormSubmitted={setNewScheduleFormSubmitted}
           notes={notes}
           setNotes={setNotes}
+          setHideSchedule={setHideSchedule}
         />
         {navigation.state === "loading" ? (
           <div className="flex justify-center mt-32">
@@ -144,6 +149,7 @@ const CalendarView = () => {
             runningData={runningData}
             activeCalendarId={activeCalendarId}
             notes={notes}
+            hideSchedule={hideSchedule}
           />
         )}
         <Outlet
