@@ -44,7 +44,9 @@ const NavBar = () => {
     }
     const fetchImage = async () => {
       const response = await axios.get(
-        `http://localhost:3000/uploads/${user.profilePicture}`
+        `http://localhost:3000/uploads/${user.profilePicture}`, {
+          withCredentials: true,
+        }
       );
       setImage(response.data);
       setLoading(false);

@@ -38,7 +38,9 @@ const EquipmentDetails = () => {
       // check if an image is available
       if (imageId) {
         const imageData = await axios.get(
-          `http://localhost:3000/uploads/${imageId}`
+          `http://localhost:3000/uploads/${imageId}`, {
+            withCredentials: true,
+          }
         );
         if (imageData) {
           setImages(imageData.data);
@@ -116,6 +118,7 @@ const EquipmentDetails = () => {
     formData.append("image", selectedFile);
     const response = await fetch("http://localhost:3000/uploads", {
       method: "POST",
+      credentials: "include",
       body: formData,
     });
     const data = await response.json();

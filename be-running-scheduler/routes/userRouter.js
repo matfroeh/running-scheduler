@@ -8,21 +8,21 @@ import {
   updateUser,
   getEquipmentById,
 } from "../controllers/userController.js";
+import verifyTokenMiddleware from "../middleware/verifyTokenMiddleware.js";
 
 // separate router from authRouter for the user getting and posting equipment data
-// ToDo: adding the verification  middleware after testing
 const userRouter = Router();
 
 userRouter
   .route("/:userId")
-  .get(getEquipmentListFromUser)
-  .put(updateUser) // we will use put to set the image_id
-  .post(createEquipment); // get user equipment list, create user equipment (not insert in list)
+  .get(verifyTokenMiddleware, getEquipmentListFromUser)
+  .put(verifyTokenMiddleware, updateUser) // we will use put to set the image_id
+  .post(verifyTokenMiddleware, createEquipment); // get user equipment list, create user equipment (not insert in list)
 userRouter
   .route("/:userId/:equipmentId")
-  .get(getEquipmentById)
-  .post(addEquipmentToUserList)
-  .put(updateEquipment)
-  .delete(deleteEquipmentFromUserList); // add to user equipment list, update or delete user equipment in list
+  .get(verifyTokenMiddleware, getEquipmentById)
+  .post(verifyTokenMiddleware, addEquipmentToUserList)
+  .put(verifyTokenMiddleware, updateEquipment)
+  .delete(verifyTokenMiddleware, deleteEquipmentFromUserList); // add to user equipment list, update or delete user equipment in list
 
 export default userRouter;

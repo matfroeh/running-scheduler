@@ -60,6 +60,7 @@ const CreateEquipment = () => {
 
     const response = await fetch("http://localhost:3000/uploads", {
       method: "POST",
+      credentials: "include",
       body: formData,
     });
     const data = await response.json();
