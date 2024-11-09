@@ -15,7 +15,6 @@ const Profile = () => {
   const [images, setImages] = useState(null);
   const navigate = useNavigate();
 
-
   console.log(user);
 
   const handleImageChange = async (e) => {
@@ -39,6 +38,7 @@ const Profile = () => {
     // console.log(selectedFile);
     const response = await fetch("http://localhost:3000/uploads", {
       method: "POST",
+      credentials: "include",
       body: formData,
     });
     const data = await response.json();
@@ -72,7 +72,10 @@ const Profile = () => {
     // Fetch images from the server when the component mounts
     const fetchImage = async () => {
       const response = await axios.get(
-        `http://localhost:3000/uploads/${user.profilePicture}`
+        `http://localhost:3000/uploads/${user.profilePicture}`,
+        {
+          withCredentials: true,
+        }
       );
       setImages(response.data);
     };

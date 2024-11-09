@@ -63,7 +63,7 @@ const RunCard = ({ data, openRunCard, notes, hideSchedule }) => {
               <div className="card-title text-xs -mt-3">{name}</div>
               <div className="flex flex-col gap-1 justify-start text-xs">
                 {comments && (
-                  <span className="line-clamp-6 mt-0">{comments}</span>
+                  <span className="mt-0">{comments}</span>
                 )}
               </div>
             </>
@@ -96,16 +96,16 @@ const RunCard = ({ data, openRunCard, notes, hideSchedule }) => {
                 {avg_hr && <span>HR: {avg_hr} bpm</span>}
                 {effort && <span>Effort: {effort}/10</span>}
                 {comments && (
-                  <span className="line-clamp-1 mt-0">{comments}</span>
+                  <span className="line-clamp-4 mt-0">{comments}</span>
                 )}
               </div>
             </>
           ) : (
             <>
-              <div className="card-title text-xs mt-1">{name}</div>
+              <div className="card-title text-sm mt-1">{name}</div>
               <div className="flex flex-col gap-1 justify-start text-xs">
                 {comments && (
-                  <span className="line-clamp-6 mt-0">{comments}</span>
+                  <span className="text-sm mt-0">{comments}</span>
                 )}
               </div>
             </>

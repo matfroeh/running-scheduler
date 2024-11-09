@@ -27,7 +27,10 @@ const EquipmentModal = () => {
             continue;
           }
           const response = await axios.get(
-            `http://localhost:3000/uploads/${equipment.image}`
+            `http://localhost:3000/uploads/${equipment.image}`,
+            {
+              withCredentials: true,
+            }
           );
           // console.log(response.data);
           setImages((prev) => ({ ...prev, [equipment._id]: response.data }));
