@@ -6,7 +6,7 @@ import { userSchema, loginSchema } from "../joi/schemas.js";
 
 const authRouter = Router();
 
-// authRouter.route('/signup').post(validateJOI(userSchema), signUp); 
+authRouter.route('/signup').post(validateJOI(userSchema), signUp); 
 authRouter.route('/login').post(validateJOI(loginSchema), login);
 authRouter.route('/me').get(verifyTokenMiddleware, me);
 authRouter.route('/logout').get(verifyTokenMiddleware, logout);

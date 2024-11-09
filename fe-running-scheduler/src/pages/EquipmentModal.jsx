@@ -7,6 +7,7 @@ import axios from "axios";
 import LoadingOverlay from "react-loading-overlay-ts";
 
 const EquipmentModal = () => {
+  const API_URL = import.meta.env.VITE_APP_RUNNING_SCHEDULER_API_URL;
   const location = useLocation();
   const currentPath = location.pathname;
   const { user, setUser } = useAuth();
@@ -27,7 +28,7 @@ const EquipmentModal = () => {
             continue;
           }
           const response = await axios.get(
-            `http://localhost:3000/uploads/${equipment.image}`,
+            `${API_URL}/uploads/${equipment.image}`,
             {
               withCredentials: true,
             }

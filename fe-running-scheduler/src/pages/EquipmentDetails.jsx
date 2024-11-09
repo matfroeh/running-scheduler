@@ -11,7 +11,9 @@ import { toast } from "react-toastify";
 import dayjs from "dayjs";
 import axios from "axios";
 
+
 const EquipmentDetails = () => {
+  const API_URL = import.meta.env.VITE_APP_RUNNING_SCHEDULER_API_URL;
   const { equipmentId } = useParams();
   const imgInputRef = useRef(null);
 
@@ -38,7 +40,7 @@ const EquipmentDetails = () => {
       // check if an image is available
       if (imageId) {
         const imageData = await axios.get(
-          `http://localhost:3000/uploads/${imageId}`, {
+          `${API_URL}/uploads/${imageId}`, {
             withCredentials: true,
           }
         );
@@ -116,7 +118,7 @@ const EquipmentDetails = () => {
   const uploadImage = async () => {
     const formData = new FormData();
     formData.append("image", selectedFile);
-    const response = await fetch("http://localhost:3000/uploads", {
+    const response = await fetch(`${API_URL}/uploads`, {
       method: "POST",
       credentials: "include",
       body: formData,
