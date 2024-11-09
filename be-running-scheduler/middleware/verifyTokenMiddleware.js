@@ -6,9 +6,7 @@ const verifyTokenMiddleware = asyncHandler(async (req, res, next) => {
   try {
     // const { headers: { authorization }} = req;
     let cookie = req.headers.cookie;
-    console.log("Headers:", req.headers);
-    console.log("Request:", req);
-    
+    console.log("Headers:", req.headers);    
     
     console.log("Cookie:", cookie);
     if (!cookie) throw new ErrorResponse("Unauthorized", 401);

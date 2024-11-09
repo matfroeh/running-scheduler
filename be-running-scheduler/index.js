@@ -12,9 +12,15 @@ const app = express();
 const PORT = process.env.PORT ?? 3000;
 
 // app.use(cors()); // caution!
-app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true })); // add your frontend url to the .env to allow cookie handling (just for demo in development)
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+); // add your frontend url to the .env to allow cookie handling (just for demo in development)
 
-app.use(express.json({limit : "50mb"}));
+app.use(express.json({ limit: "50mb" }));
 
 app.use("/schedules", scheduleRouter);
 app.use("/runs", runsRouter);
