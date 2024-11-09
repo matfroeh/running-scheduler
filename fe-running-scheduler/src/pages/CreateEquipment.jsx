@@ -6,7 +6,9 @@ import { toast } from "react-toastify";
 import { createEquipment } from "../data/user";
 import dayjs from "dayjs";
 
+
 const CreateEquipment = () => {
+  const API_URL = import.meta.env.VITE_APP_RUNNING_SCHEDULER_API_URL;
   const navigate = useNavigate();
   const imgInputRef = useRef(null);
   const [formData, setFormData] = useState({
@@ -58,7 +60,7 @@ const CreateEquipment = () => {
     // console.log(formData);
     // console.log(selectedFile);
 
-    const response = await fetch("http://localhost:3000/uploads", {
+    const response = await fetch(`${API_URL}/uploads`, {
       method: "POST",
       credentials: "include",
       body: formData,

@@ -5,7 +5,9 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+
 const NavBar = () => {
+  const API_URL = import.meta.env.VITE_APP_RUNNING_SCHEDULER_API_URL;
   const { auth, user, setCheckSession } = useAuth();
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -44,7 +46,7 @@ const NavBar = () => {
     }
     const fetchImage = async () => {
       const response = await axios.get(
-        `http://localhost:3000/uploads/${user.profilePicture}`, {
+        `${API_URL}/uploads/${user.profilePicture}`, {
           withCredentials: true,
         }
       );

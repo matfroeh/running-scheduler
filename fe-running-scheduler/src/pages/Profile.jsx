@@ -7,6 +7,7 @@ import { updateUser } from "../data/user";
 import { toast } from "react-toastify";
 
 const Profile = () => {
+  const API_URL = import.meta.env.VITE_APP_RUNNING_SCHEDULER_API_URL;
   const { user, setUser } = useAuth();
   const imgInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -36,7 +37,7 @@ const Profile = () => {
     formData.append("image", selectedFile);
     // console.log(formData);
     // console.log(selectedFile);
-    const response = await fetch("http://localhost:3000/uploads", {
+    const response = await fetch(`${API_URL}/uploads`, {
       method: "POST",
       credentials: "include",
       body: formData,
@@ -72,7 +73,7 @@ const Profile = () => {
     // Fetch images from the server when the component mounts
     const fetchImage = async () => {
       const response = await axios.get(
-        `http://localhost:3000/uploads/${user.profilePicture}`,
+        `${API_URL}/uploads/${user.profilePicture}`,
         {
           withCredentials: true,
         }
