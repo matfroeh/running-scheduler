@@ -71,8 +71,8 @@ export const login = asyncHandler(async (req, res, next) => {
       sameSite: isProduction ? "None" : "Lax",
       secure: isProduction,
       expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // 1 day
-      path: "/", // Same path as used when setting
-      domain: "running-scheduler-backend.onrender.com",
+      // path: "/", // Same path as used when setting
+      // domain: "running-scheduler-backend.onrender.com",
     };
     // const checkCookieOptions = {
     //   expires: new Date(Date.now() + 60 * 60 * 10000),
@@ -118,13 +118,14 @@ export const me = asyncHandler(async (req, res, next) => {
 
 export const logout = asyncHandler(async (req, res, next) => {
   try {
-    console.log(clearCookie("auth"));
-
     res
-      .clearCookie("auth", {
-        path: "/", // Same path as used when setting
-        domain: "running-scheduler-backend.onrender.com", // Specify this if you set a custom domain
-      })
+      .clearCookie(
+        "auth"
+        //   {
+        //   path: "/", // Same path as used when setting
+        //   domain: "running-scheduler-backend.onrender.com", // Specify this if you set a custom domain
+        // }
+      )
       // .clearCookie("checkCookie")
       .json({ success: "User successfully logged out." });
   } catch (error) {
