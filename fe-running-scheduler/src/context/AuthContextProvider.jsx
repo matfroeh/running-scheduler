@@ -37,7 +37,9 @@ const AuthContextProvider = ({ children }) => {
 
   const logOut = async () => {
     try {
-      await logout();
+      const res = await logout();
+      console.log("logout res", res);
+      
       toast.success('You have been logged out');
       setAuth(false);
       setUser(null);
