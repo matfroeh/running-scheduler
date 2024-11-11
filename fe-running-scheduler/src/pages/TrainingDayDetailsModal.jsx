@@ -38,7 +38,7 @@ const TrainingDayDetailsModal = () => {
       const updatedTrainingDayData = { ...trainingBlockData };
       updatedTrainingDayData.weeks[week].days[day] = formData;
 
-      console.log(updatedTrainingDayData.weeks[week].days[day]);
+      // console.log(updatedTrainingDayData.weeks[week].days[day]);
 
       setTrainingBlockData(updatedTrainingDayData);
       await updateTrainingSchedule(trainingBlockData, calendarId);
@@ -59,7 +59,7 @@ const TrainingDayDetailsModal = () => {
 
       const updatedTrainingDayData = { ...trainingBlockData };
       updatedTrainingDayData.weeks[week].days[day] = { date: trainingDay.date };
-      console.log(updatedTrainingDayData.weeks[week].days[day]);
+      // console.log(updatedTrainingDayData.weeks[week].days[day]);
       setTrainingBlockData(updatedTrainingDayData);
       await updateTrainingSchedule(trainingBlockData, calendarId);
       toast.success("Scheduled Training deleted successfully");

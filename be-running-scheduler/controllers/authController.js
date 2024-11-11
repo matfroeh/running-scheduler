@@ -68,13 +68,12 @@ export const login = asyncHandler(async (req, res, next) => {
       httpOnly: true,
       sameSite: isProduction ? "None" : "Lax",
       secure: isProduction,
-      // overwrite: true,
+      expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // 1 day
     };
     // const checkCookieOptions = {
     //   expires: new Date(Date.now() + 60 * 60 * 10000),
     //   sameSite: isProduction ? "None" : "Lax",
     //   secure: isProduction,
-    //   // overwrite: true,
     // };
     
     const { userName, email } = user;
@@ -106,7 +105,7 @@ export const logout = asyncHandler(async (req, res, next) => {
   try {
     res
       .clearCookie("auth")
-      .clearCookie("checkCookie")
+      // .clearCookie("checkCookie")
       .json({ success: "User successfully logged out." });
   } catch (error) {
     next(error);

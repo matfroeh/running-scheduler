@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import CalendarBar from "../components/CalendarBar";
 import CalendarBody from "../components/CalendarBody";
 import {
@@ -17,14 +17,11 @@ import {
   showPreviousCalendar as showPrevious,
   showNextCalendar as showNext,
 } from "../logic/calendarCycling";
-// import LoadingOverlay from "react-loading-overlay-ts";
+import LoadingOverlay from "react-loading-overlay-ts";
 
 const CalendarView = () => {
   // ToDo: actionData needs to be exported to backend, but later
 
-  // only for devMode
-  // const [data, setData] = useState(null);
-  // reset to this afterwards
   let data = useActionData();
   const { scheduleCalendars, runCalendars } = useLoaderData();
 
@@ -41,9 +38,6 @@ const CalendarView = () => {
 
   const [notes, setNotes] = useState(false);
   const [hideSchedule, setHideSchedule] = useState(false);
-
-  console.log(hideSchedule);
-  
 
   const navigate = useNavigate();
   // const navigation = useNavigation();
@@ -80,26 +74,9 @@ const CalendarView = () => {
       setRunningData(run);
       navigate(`/${schedule._id}`);
     } catch (error) {
-      console.error(error);
+      toast.error(`Error saving schedule: ${error.message}`);
     }
   };
-
-  // const devModeCreateInstantSchedule = () => {
-  //   const devModeData = {
-  //     title: "Zzz Again A Test Schedule",
-  //     date: "2024-08-01",
-  //     distance: "30",
-  //     weeks: "4",
-  //     workoutDay: "tuesday",
-  //     longRun: "sunday",
-  //     monday: "on",
-  //     tuesday: "on",
-  //     wednesday: "on",
-  //     sunday: "on",
-  //   };
-  //   setData(devModeData);
-  //   setNewScheduleFormSubmitted(true);
-  // };
 
   useEffect(() => {
     if (data) {
@@ -116,30 +93,27 @@ const CalendarView = () => {
 
   return (
     <>
-      {/* <div className="flex justify-center">
-        <button
-          onClick={devModeCreateInstantSchedule}
-          className="btn btn-xs btn-primary"
-        >
-          DevMode: Create Schedule
-        </button>
-      </div> */}
-      <div className="">
-        <CalendarBar
-          title={trainingBlockData?.meta?.title}
-          runningData={runningData}
-          setRunningData={setRunningData}
-          newScheduleFormSubmitted={newScheduleFormSubmitted}
-          saveNewSchedule={saveNewSchedule}
-          showCurrentCalendar={showCurrentCalendar}
-          showPreviousCalendar={showPreviousCalendar}
-          showNextCalendar={showNextCalendar}
-          setNewScheduleFormSubmitted={setNewScheduleFormSubmitted}
-          notes={notes}
-          setNotes={setNotes}
-          setHideSchedule={setHideSchedule}
-        />
-        {/* {navigation.state === "loading" ? (
+      <Suspense
+        fallback={
+          <LoadingOverlay active={true} spinner text="Loading posts..." />
+        }
+      >
+        <div className="">
+          <CalendarBar
+            title={trainingBlockData?.meta?.title}
+            runningData={runningData}
+            setRunningData={setRunningData}
+            newScheduleFormSubmitted={newScheduleFormSubmitted}
+            saveNewSchedule={saveNewSchedule}
+            showCurrentCalendar={showCurrentCalendar}
+            showPreviousCalendar={showPreviousCalendar}
+            showNextCalendar={showNextCalendar}
+            setNewScheduleFormSubmitted={setNewScheduleFormSubmitted}
+            notes={notes}
+            setNotes={setNotes}
+            setHideSchedule={setHideSchedule}
+          />
+          {/* {navigation.state === "loading" ? (
           <div className="flex justify-center mt-32">
             <LoadingOverlay active={true} spinner text="Loading..." />
           </div>
@@ -151,18 +125,19 @@ const CalendarView = () => {
             notes={notes}
             hideSchedule={hideSchedule}
           />
-        {/* )} */}
-        <Outlet
-          context={{
-            setNewScheduleFormSubmitted,
-            newScheduleFormSubmitted,
-            runningData,
-            setRunningData,
-            trainingBlockData,
-            setTrainingBlockData,
-          }}
-        />
-      </div>
+          {/* )} */}
+          <Outlet
+            context={{
+              setNewScheduleFormSubmitted,
+              newScheduleFormSubmitted,
+              runningData,
+              setRunningData,
+              trainingBlockData,
+              setTrainingBlockData,
+            }}
+          />
+        </div>
+      </Suspense>
     </>
   );
 };

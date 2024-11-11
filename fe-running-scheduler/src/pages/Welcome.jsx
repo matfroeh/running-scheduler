@@ -8,7 +8,7 @@ const WelcomePage = () => {
   return (
     <>
       {navigation.state === "loading" && (
-        <div className="flex justify-center text-nowrap h-full w-full mt-32">
+        <div className="flex justify-center text-nowrap h-full w-full mt-20">
           <LoadingOverlay active={true} spinner text="Loading..." />
         </div>
       )}

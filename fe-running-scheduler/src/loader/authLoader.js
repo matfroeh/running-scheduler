@@ -11,7 +11,7 @@ export const authLoader = async () => {
       return Navigate("/welcome");
     });
 
-    console.log(auth);
+    // console.log(auth);
     
     return auth;
 };

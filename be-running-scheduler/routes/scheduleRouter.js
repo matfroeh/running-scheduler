@@ -7,6 +7,8 @@ import {
   deleteTrainingSchedule,
 } from "../controllers/scheduleController.js";
 import verifyTokenMiddleware from "../middleware/verifyTokenMiddleware.js";
+import validateJOI from "../middleware/validateJOI.js";
+import scheduleSchema from "../joi/schedulesSchema.js";
 
 
 const scheduleRouter = Router();
@@ -14,13 +16,13 @@ const scheduleRouter = Router();
 scheduleRouter
   .route("/")
   .get(verifyTokenMiddleware, getAllTrainingSchedules)
-  .post(verifyTokenMiddleware, createTrainingSchedule);
+  .post(validateJOI(scheduleSchema), verifyTokenMiddleware, createTrainingSchedule);
 scheduleRouter
   .route("/:calendarId/:week/:day/:trainingId")
   .get(verifyTokenMiddleware, getTrainingScheduleById);
 scheduleRouter
   .route("/:calendarId")
-  .put(verifyTokenMiddleware, updateTrainingSchedule)
+  .put(validateJOI(scheduleSchema), verifyTokenMiddleware, updateTrainingSchedule)
   .delete(verifyTokenMiddleware, deleteTrainingSchedule);
 
 export default scheduleRouter;
