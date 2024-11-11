@@ -104,7 +104,10 @@ export const me = asyncHandler(async (req, res, next) => {
 export const logout = asyncHandler(async (req, res, next) => {
   try {
     res
-      .clearCookie("auth")
+      .clearCookie("auth", {
+        path: '/', // Same path as used when setting
+        domain: 'running-scheduler-backend.onrender.com', // Specify this if you set a custom domain
+      })
       // .clearCookie("checkCookie")
       .json({ success: "User successfully logged out." });
   } catch (error) {
