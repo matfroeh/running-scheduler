@@ -11,6 +11,7 @@ import {
 import verifyTokenMiddleware from "../middleware/verifyTokenMiddleware.js";
 
 // separate router from authRouter for the user getting and posting equipment data
+// ToDo: make it a own route with a own controller
 const userRouter = Router();
 
 userRouter

@@ -93,6 +93,7 @@ const runsSchema = new Schema(
       weeks: {
         // Number of weeks
         type: Number,
+        required: [true, "Number of weeks is required"],
       },
     },
     weeks: {

@@ -33,7 +33,6 @@ export const login = async (formData) => {
   });
   if (!res.ok) {
     const errorData = await res.json();
-    console.log(errorData);
 
     if (!errorData.error) {
       throw new Error("An error occurred while logging in");

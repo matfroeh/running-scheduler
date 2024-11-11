@@ -35,7 +35,7 @@ const Overview = () => {
   const [selectedMode, setSelectedMode] = useState(modes[0]);
   const [listOfSelectedBlocks, setListOfSelectedBlocks] = useState([]);
 
-  console.log(overviewData);
+  // console.log(overviewData);
 
   const handleSelectOne = () => {
     setSelectedMode("one");
@@ -53,7 +53,7 @@ const Overview = () => {
     setSelectedBlock(block);
     if (selectedMode === "multiple") {
       setListOfSelectedBlocks((prev) => {
-        console.log(prev.find((item) => item.startDate === block.startDate));
+        // console.log(prev.find((item) => item.startDate === block.startDate));
 
         if (prev.find((item) => item.startDate === block.startDate)) {
           return prev.filter((item) => item !== block);
@@ -64,7 +64,7 @@ const Overview = () => {
     }
   };
 
-  console.log(listOfSelectedBlocks);
+  // console.log(listOfSelectedBlocks);
 
   if (loadedRuns.length === 0) {
     return (

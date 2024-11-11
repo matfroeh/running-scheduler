@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 // import Cookies from "universal-cookie";
-import { checkAuth } from "../data/auth";
+import { checkAuth, logout } from "../data/auth";
 import { AuthContext } from "./AuthContext";
+import { toast } from "react-toastify";
+
 
 // this could be used instead of the checkSession state
 // const cookies = new Cookies();
@@ -30,12 +32,23 @@ const AuthContextProvider = ({ children }) => {
           setCheckSession(false);
         });
     };
-    checkToken();
+    checkSession && checkToken();
   }, [checkSession]);
+
+  const logOut = async () => {
+    try {
+      await logout();
+      toast.success('You have been logged out');
+      setAuth(false);
+      setUser(null);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <AuthContext.Provider
-      value={{ auth, setAuth, user, setUser, setCheckSession }}
+      value={{ auth, setAuth, user, setUser, setCheckSession, logOut }}
     >
       {children}
     </AuthContext.Provider>

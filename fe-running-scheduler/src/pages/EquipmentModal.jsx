@@ -138,10 +138,10 @@ const EquipmentModal = () => {
                   </div>
                   <h2 className="card-title mb-2 mt-2">{equipment.name}</h2>
                   <div>
-                    <p>
+                    <p className="text-nowrap">
                       Distance: {parseFloat(equipment.distance).toFixed(1)} km
                     </p>
-                    <p>Usage time: {parseFloat(equipment.time).toFixed(1)} h</p>
+                    <p className="text-nowrap">Usage time: {parseFloat(equipment.time).toFixed(1)} h</p>
                     {equipment.description && (
                       <p>Description: {equipment.description}</p>
                     )}

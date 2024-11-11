@@ -127,26 +127,27 @@ const RunDetailsModal = () => {
       setError("Please specify a name.");
       return false;
     }
-    if (
-      !formData.distance ||
-      isNaN(formData.distance) ||
-      formData.distance <= 0
-    ) {
-      setError("Distance must be a number greater than 0.");
-      return false;
-    }
-    if (
-      !formData.duration ||
-      isNaN(formData.duration) ||
-      formData.duration <= 0
-    ) {
-      setError("Duration must be a number greater than 0.");
-      return false;
-    }
-    if (!formData.avg_hr || isNaN(formData.avg_hr) || formData.avg_hr <= 0) {
-      setError("Average heart rate must be a number greater than 0.");
-      return false;
-    }
+    // COMMENTED OUT BECAUSE WE ALLOW TO SET, FOR EXAMPLE, STRENGTH TRAINING DAYS WITH NO DISTANCE
+    // if (
+    //   !formData.distance ||
+    //   isNaN(formData.distance) ||
+    //   formData.distance <= 0
+    // ) {
+    //   setError("Distance must be a number greater than 0.");
+    //   return false;
+    // }
+    // if (
+    //   !formData.duration ||
+    //   isNaN(formData.duration) ||
+    //   formData.duration <= 0
+    // ) {
+    //   setError("Duration must be a number greater than 0.");
+    //   return false;
+    // }
+    // if (!formData.avg_hr || isNaN(formData.avg_hr) || formData.avg_hr <= 0) {
+    //   setError("Average heart rate must be a number greater than 0.");
+    //   return false;
+    // }
     setError(null);
     return true;
   };
@@ -385,7 +386,7 @@ const RunDetailsModal = () => {
             )}
           </div>
         </div>
-        {run.timeArray.length > 0 && run.velocityArray.length > 0 && (
+        {run?.timeArray?.length > 0 && run?.velocityArray?.length > 0 && (
           <LineChartTimeVelocity
             xLabel={run.timeArray}
             yFunction={run.velocityArray}

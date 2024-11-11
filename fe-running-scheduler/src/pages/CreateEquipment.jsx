@@ -77,7 +77,7 @@ const CreateEquipment = () => {
       const newEquipment = { ...formData };
       if (imageId) newEquipment.image = imageId;
       const addedEquipment = await createEquipment(user.userId, newEquipment);
-      console.log(addedEquipment);
+      // console.log(addedEquipment);
       if (addedEquipment.error) throw new Error(addedEquipment.error);
       setEquipmentList((prev) => [...prev, addedEquipment]);
       toast.success("Equipment successfully created");

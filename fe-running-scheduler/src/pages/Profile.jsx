@@ -16,7 +16,7 @@ const Profile = () => {
   const [images, setImages] = useState(null);
   const navigate = useNavigate();
 
-  console.log(user);
+  // console.log(user);
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];

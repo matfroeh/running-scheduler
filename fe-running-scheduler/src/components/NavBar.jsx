@@ -1,29 +1,19 @@
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/context";
-import { logout } from "../data/auth";
-import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-
 const NavBar = () => {
   const API_URL = import.meta.env.VITE_APP_RUNNING_SCHEDULER_API_URL;
-  const { auth, user, setCheckSession } = useAuth();
+  const { auth, user, logOut } = useAuth();
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
-  // console.log(currentPath);
 
-  const handleLogOut = async () => {
-    try {
-      await logout(); // this handles deleting the cookie by the API
-      setCheckSession((prev) => !prev);
-      toast.success("Successfully logged out!");
-    } catch (error) {
-      toast.error(error.message);
-    }
+  const handleLogOut = () => {
+    logOut();
   };
 
   const openEquipmentModal = () => {
@@ -46,7 +36,8 @@ const NavBar = () => {
     }
     const fetchImage = async () => {
       const response = await axios.get(
-        `${API_URL}/uploads/${user.profilePicture}`, {
+        `${API_URL}/uploads/${user.profilePicture}`,
+        {
           withCredentials: true,
         }
       );
@@ -108,7 +99,7 @@ const NavBar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-md dropdown-content bg-base-300 rounded-box z-[100] mt-3 w-52 p-2 shadow"
+              className="menu menu-md dropdown-content bg-base-300 rounded-box z-[50] mt-3 w-52 p-2 shadow"
             >
               <li>
                 <h2 className="text-lg font-bold">{user?.userName}</h2>

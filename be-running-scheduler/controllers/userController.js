@@ -116,8 +116,8 @@ export const deleteEquipmentFromUserList = asyncHandler(
         new ErrorResponse(`Equipment not found with id of ${equipmentId}`, 404)
       );
 
-    console.log("backend: equipment found", equipment);
-    console.log(equipmentId);
+    // console.log("backend: equipment found", equipment);
+    // console.log(equipmentId);
 
     // remove from user's equipmentList
     user.equipmentList.pull({ _id: equipmentId });
@@ -125,7 +125,7 @@ export const deleteEquipmentFromUserList = asyncHandler(
     await Equipment.deleteOne({ _id: equipmentId });
 
 
-    console.log("backend: userEquipList, ", user.equipmentList);
+    // console.log("backend: userEquipList, ", user.equipmentList);
 
     await user.save();
     res.status(200).json(user);

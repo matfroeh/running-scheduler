@@ -34,7 +34,7 @@ export const getRunByParams = async (calendarId, week, day, runId) => {
   }
   const data = await res.json();
 
-  console.log(data);
+  // console.log(data);
 
   return data;
 };
@@ -82,7 +82,7 @@ export const updateRunCalendar = async (run, calendarId) => {
   }
   const data = await res.json();
 
-  console.log(data);
+  // console.log(data);
 
   return data;
 };
@@ -101,7 +101,7 @@ export const deleteRunCalendar = async (calendarId) => {
   }
   const data = await res.json();
 
-  console.log(data);
+  // console.log(data);
 
   return data;
 };
