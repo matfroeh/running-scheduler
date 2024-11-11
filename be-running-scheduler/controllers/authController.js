@@ -15,9 +15,9 @@ export const signUp = asyncHandler(async (req, res, next) => {
     const newUser = await User.create({ ...body, password: hashedPassword });
     if (!newUser) throw new ErrorResponse("Error creating user", 500);
 
-    const secret = process.env.JWT_SECRET; 
-    const payload = { userId: newUser.id, userRole: newUser.role }; 
-    const tokenOptions = { expiresIn: "6d" }; 
+    const secret = process.env.JWT_SECRET;
+    const payload = { userId: newUser.id, userRole: newUser.role };
+    const tokenOptions = { expiresIn: "6d" };
     const token = jwt.sign(payload, secret, tokenOptions);
     // const checkCookieValue = true;
 
@@ -36,10 +36,14 @@ export const signUp = asyncHandler(async (req, res, next) => {
     // };
 
     const { userName, email } = newUser;
+    res.cookie("auth", token, tokenCookieOptions);
+    // .cookie("checkCookie", checkCookieValue, checkCookieOptions); // not used in the frontend by now
     res
-      .cookie("auth", token, tokenCookieOptions)
-      // .cookie("checkCookie", checkCookieValue, checkCookieOptions); // not used in the frontend by now
-    res.status(201).json({ success: "User successfully created.", data: {userName, email } });
+      .status(201)
+      .json({
+        success: "User successfully created.",
+        data: { userName, email },
+      });
   } catch (error) {
     next(error);
   }
@@ -69,18 +73,24 @@ export const login = asyncHandler(async (req, res, next) => {
       sameSite: isProduction ? "None" : "Lax",
       secure: isProduction,
       expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // 1 day
+      path: "/", // Same path as used when setting
+      domain: "running-scheduler-backend.onrender.com",
     };
     // const checkCookieOptions = {
     //   expires: new Date(Date.now() + 60 * 60 * 10000),
     //   sameSite: isProduction ? "None" : "Lax",
     //   secure: isProduction,
     // };
-    
+
     const { userName, email } = user;
+    res.cookie("auth", token, tokenCookieOptions);
+    // .cookie("checkCookie", checkCookieValue, checkCookieOptions);
     res
-      .cookie("auth", token, tokenCookieOptions)
-      // .cookie("checkCookie", checkCookieValue, checkCookieOptions);
-    res.status(200).json({ success: "User successfully logged in.", data: { userName, email } });
+      .status(200)
+      .json({
+        success: "User successfully logged in.",
+        data: { userName, email },
+      });
   } catch (error) {
     next(error);
   }
@@ -90,12 +100,23 @@ export const me = asyncHandler(async (req, res, next) => {
   try {
     const { userId, userRole } = req; // This is coming from the verifyTokenMiddleware
 
-    const user = await User.findById(userId).select("-password").populate("equipmentList");
+    const user = await User.findById(userId)
+      .select("-password")
+      .populate("equipmentList");
     if (!user) throw new ErrorResponse("Invalid credentials", 401);
 
     const { userName, email, equipmentList, profilePicture } = user;
 
-    res.status(200).json({ userId, userName, email, userRole, equipmentList, profilePicture });
+    res
+      .status(200)
+      .json({
+        userId,
+        userName,
+        email,
+        userRole,
+        equipmentList,
+        profilePicture,
+      });
   } catch (error) {
     next(error);
   }
@@ -105,8 +126,8 @@ export const logout = asyncHandler(async (req, res, next) => {
   try {
     res
       .clearCookie("auth", {
-        path: '/', // Same path as used when setting
-        domain: 'running-scheduler-backend.onrender.com', // Specify this if you set a custom domain
+        path: "/", // Same path as used when setting
+        domain: "running-scheduler-backend.onrender.com", // Specify this if you set a custom domain
       })
       // .clearCookie("checkCookie")
       .json({ success: "User successfully logged out." });
