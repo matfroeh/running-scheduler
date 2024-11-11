@@ -118,16 +118,23 @@ export const me = asyncHandler(async (req, res, next) => {
 
 export const logout = asyncHandler(async (req, res, next) => {
   try {
-    res
-      .clearCookie(
-        "auth"
-        //   {
-        //   path: "/", // Same path as used when setting
-        //   domain: "running-scheduler-backend.onrender.com", // Specify this if you set a custom domain
-        // }
-      )
-      // .clearCookie("checkCookie")
-      .json({ success: "User successfully logged out." });
+    // Workaround to remove the cookie as there seems to be an issue when deployed on render
+    res.cookie('auth', '', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'None',
+      expires: new Date(0),  // Immediate expiration to force removal
+    }).json({ success: "User successfully logged out." });
+    // res
+    //   .clearCookie(
+    //     "auth"
+    //     //   {
+    //     //   path: "/", // Same path as used when setting
+    //     //   domain: "running-scheduler-backend.onrender.com", // Specify this if you set a custom domain
+    //     // }
+    //   )
+    //   // .clearCookie("checkCookie")
+    //   .json({ success: "User successfully logged out." });
   } catch (error) {
     next(error);
   }
