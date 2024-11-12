@@ -12,6 +12,9 @@ const NavBar = () => {
   const location = useLocation();
   const currentPath = location.pathname;
 
+  console.log("navbar loaded");
+  
+
   const handleLogOut = () => {
     logOut();
   };
@@ -59,7 +62,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="navbar w-full z-50">
+    <div className="navbar w-full z-50 min-w-min">
       <div className="navbar-start">
         <a className="btn btn-ghost text-xl">Running Journal</a>
       </div>

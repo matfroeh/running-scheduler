@@ -17,10 +17,11 @@ import {
   showPreviousCalendar as showPrevious,
   showNextCalendar as showNext,
 } from "../logic/calendarCycling";
-import LoadingOverlay from "react-loading-overlay-ts";
+import Loading from "../components/Loading";
 
 const CalendarView = () => {
   // ToDo: actionData needs to be exported to backend, but later
+  console.log("CalendarView loaded");
 
   let data = useActionData();
   const { scheduleCalendars, runCalendars } = useLoaderData();
@@ -92,53 +93,45 @@ const CalendarView = () => {
   }, [runningData, trainingBlockData]);
 
   return (
-    <>
-      <Suspense
-        fallback={
-          <LoadingOverlay active={true} spinner text="Loading posts..." />
-        }
-      >
-        <div className="">
-          <CalendarBar
-            title={trainingBlockData?.meta?.title}
-            runningData={runningData}
-            setRunningData={setRunningData}
-            newScheduleFormSubmitted={newScheduleFormSubmitted}
-            saveNewSchedule={saveNewSchedule}
-            showCurrentCalendar={showCurrentCalendar}
-            showPreviousCalendar={showPreviousCalendar}
-            showNextCalendar={showNextCalendar}
-            setNewScheduleFormSubmitted={setNewScheduleFormSubmitted}
-            notes={notes}
-            setNotes={setNotes}
-            setHideSchedule={setHideSchedule}
-          />
-          {/* {navigation.state === "loading" ? (
+    <div className="min-w-min">
+      <CalendarBar
+        title={trainingBlockData?.meta?.title}
+        runningData={runningData}
+        setRunningData={setRunningData}
+        newScheduleFormSubmitted={newScheduleFormSubmitted}
+        saveNewSchedule={saveNewSchedule}
+        showCurrentCalendar={showCurrentCalendar}
+        showPreviousCalendar={showPreviousCalendar}
+        showNextCalendar={showNextCalendar}
+        setNewScheduleFormSubmitted={setNewScheduleFormSubmitted}
+        notes={notes}
+        setNotes={setNotes}
+        setHideSchedule={setHideSchedule}
+      />
+      {/* {navigation.state === "loading" ? (
           <div className="flex justify-center mt-32">
             <LoadingOverlay active={true} spinner text="Loading..." />
           </div>
         ) : ( */}
-          <CalendarBody
-            trainingData={trainingBlockData}
-            runningData={runningData}
-            activeCalendarId={activeCalendarId}
-            notes={notes}
-            hideSchedule={hideSchedule}
-          />
-          {/* )} */}
-          <Outlet
-            context={{
-              setNewScheduleFormSubmitted,
-              newScheduleFormSubmitted,
-              runningData,
-              setRunningData,
-              trainingBlockData,
-              setTrainingBlockData,
-            }}
-          />
-        </div>
-      </Suspense>
-    </>
+      <CalendarBody
+        trainingData={trainingBlockData}
+        runningData={runningData}
+        activeCalendarId={activeCalendarId}
+        notes={notes}
+        hideSchedule={hideSchedule}
+      />
+      {/* )} */}
+      <Outlet
+        context={{
+          setNewScheduleFormSubmitted,
+          newScheduleFormSubmitted,
+          runningData,
+          setRunningData,
+          trainingBlockData,
+          setTrainingBlockData,
+        }}
+      />
+    </div>
   );
 };
 

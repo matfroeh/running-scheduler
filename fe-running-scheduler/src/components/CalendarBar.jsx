@@ -18,7 +18,7 @@ const CalendarBar = ({
   showNextCalendar,
   setNotes,
   notes,
-  setHideSchedule
+  setHideSchedule,
 }) => {
   const [fileContents, setFileContents] = useState([]); // Array to hold multiple file contents
   const navigate = useNavigate();
@@ -131,122 +131,132 @@ const CalendarBar = ({
 
   return (
     <>
-      <div className="navbar sticky top-0 z-10 bg-base-100">
-        <span className="navbar-start">
-          <button
-            className="btn btn-sm"
-            onClick={showPreviousCalendar}
-            disabled={newScheduleFormSubmitted ? true : false}
-          >
-            Previous
-          </button>
-          <button
-            className="btn btn-sm"
-            onClick={showCurrentCalendar}
-            disabled={newScheduleFormSubmitted ? true : false}
-          >
-            Current
-          </button>
-          <button
-            className="btn btn-sm"
-            onClick={showNextCalendar}
-            disabled={newScheduleFormSubmitted ? true : false}
-          >
-            Next
-          </button>
-        </span>
-        <div className="px-4">
-          {!isLoading ? (
-            <div
-              className="btn btn-sm ring-1 ring-accent"
-              onClick={handleGpxInputClick}
-              disabled={!title || newScheduleFormSubmitted ? true : false}
+      <div className="flex flex-auto flex-wrap navbar sticky top-0 z-10 bg-base-100">
+        <div className="flex flex-1 navbar-start">
+          <span className="">
+            <button
+              className="btn btn-sm"
+              onClick={showPreviousCalendar}
+              disabled={newScheduleFormSubmitted ? true : false}
             >
-              Upload .gpx
-              <input
-                ref={gpxInputRef}
-                type="file"
-                multiple
-                onChange={handleGpxFileChange}
-                style={{ display: "none" }}
-                accept=".gpx"
-              />
-            </div>
-          ) : (
-            <button className="btn btn-sm text-warning ring-1 ring-warning">
-              <svg
-                className="animate-spin h-5 w-5 mr-3 ..."
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="#f59e0b"
-                  strokeWidth="4"
-                ></circle>
-                <path
-                  fill="#f59e0b"
-                  d="M4 12a8 8 0 018-8V4a10 10 0 00-10 10h2zm2 8a8 8 0 018-8h2a10 10 0 00-10-10V2a12 12 0 0110 10"
-                ></path>
-              </svg>
-              Processing...
+              Previous
             </button>
-          )}
-        </div>
-        <div className="navbar-center w-1/2 justify-around ">
-          <div className="flex">
-            {title ? (
-              <span
-                onClick={handleCalendarEdit}
-                className="border border-accent cursor-pointer rounded-md p-1"
-              >
-                {title}
-              </span>
-            ) : (
-              <span className="rounded-md p-1">{initialTitle}</span>
-            )}
+            <button
+              className="btn btn-sm"
+              onClick={showCurrentCalendar}
+              disabled={newScheduleFormSubmitted ? true : false}
+            >
+              Current
+            </button>
+            <button
+              className="btn btn-sm"
+              onClick={showNextCalendar}
+              disabled={newScheduleFormSubmitted ? true : false}
+            >
+              Next
+            </button>
+          </span>
 
-            <div className="group relative w-max">
-              <button
-                className="btn btn-sm btn-circle mx-4 hover:ring-1 ring-accent"
-                onClick={openCreateTrainingBlockModal}
+          <div className="px-4">
+            {!isLoading ? (
+              <div
+                className="btn btn-sm ring-1 ring-accent"
+                onClick={handleGpxInputClick}
+                disabled={!title || newScheduleFormSubmitted ? true : false}
               >
-                +
+                Upload .gpx
+                <input
+                  ref={gpxInputRef}
+                  type="file"
+                  multiple
+                  onChange={handleGpxFileChange}
+                  style={{ display: "none" }}
+                  accept=".gpx"
+                />
+              </div>
+            ) : (
+              <button className="btn btn-sm text-warning ring-1 ring-warning">
+                <svg
+                  className="animate-spin h-5 w-5 mr-3 ..."
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="#f59e0b"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    fill="#f59e0b"
+                    d="M4 12a8 8 0 018-8V4a10 10 0 00-10 10h2zm2 8a8 8 0 018-8h2a10 10 0 00-10-10V2a12 12 0 0110 10"
+                  ></path>
+                </svg>
+                Processing...
               </button>
-              <span
-                className="pointer-events-none absolute left-6 -top-6 text-sm w-max 
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-1 navbar-center">
+          <div className="flex flex-1  w-1/2 justify-around ">
+            <div className="flex">
+              {title ? (
+                <span
+                  onClick={handleCalendarEdit}
+                  className="border border-accent cursor-pointer rounded-md p-1"
+                >
+                  {title}
+                </span>
+              ) : (
+                <span className="rounded-md p-1">{initialTitle}</span>
+              )}
+
+              <div className="group relative">
+                <button
+                  className="btn btn-sm btn-circle mx-4 hover:ring-1 ring-accent"
+                  onClick={openCreateTrainingBlockModal}
+                >
+                  +
+                </button>
+                <span
+                  className="pointer-events-none absolute left-6 -top-6 text-sm w-max 
           opacity-0 transition-opacity duration-700 bg-base-100 group-hover:opacity-100"
-              >
-                New Training Schedule
-              </span>
+                >
+                  New Training Schedule
+                </span>
+              </div>
             </div>
           </div>
         </div>
-        <span className="navbar-end">
-          <div>
-            <label className="label cursor-pointer">
-              <span className="label-text text-base text-nowrap">Show Notes</span>
-              <input
-                type="checkbox"
-                className="toggle toggle-accent mx-2"
-                onClick={toggleNotes}
-              />
-            </label>
-          </div>
-          <div>
-            <label className="label cursor-pointer">
-              <span className="label-text text-base text-nowrap">
-                Hide Schedule
-              </span>
-              <input
-                type="checkbox"
-                className="toggle toggle-accent mx-2"
-                onClick={toggleSchedule}
-              />
-            </label>
-          </div>
-        </span>
+        <div className="flex flex-1 navbar-end">
+          <span className="flex ">
+            <div>
+              <label className="label cursor-pointer">
+                <span className="label-text text-base text-nowrap">
+                  Show Notes
+                </span>
+                <input
+                  type="checkbox"
+                  className="toggle toggle-accent mx-2"
+                  onClick={toggleNotes}
+                />
+              </label>
+            </div>
+            <div>
+              <label className="label cursor-pointer">
+                <span className="label-text text-base text-nowrap">
+                  Hide Schedule
+                </span>
+                <input
+                  type="checkbox"
+                  className="toggle toggle-accent mx-2"
+                  onClick={toggleSchedule}
+                />
+              </label>
+            </div>
+          </span>
+        </div>
       </div>
       {newScheduleFormSubmitted && (
         <div className="flex justify-center gap-8 mb-2 mt-4">
