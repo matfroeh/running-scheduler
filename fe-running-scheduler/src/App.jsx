@@ -16,6 +16,7 @@ import {
   Profile,
   CalendarEditModal,
 } from "@/pages";
+import { Loading } from "@/components";
 import RootLayout from "./layouts/RootLayout";
 import { action as getFormData } from "./actions/getFormData";
 // import { authLoader } from "./loader/authLoader";
@@ -27,15 +28,25 @@ import CookieConsent from "react-cookie-consent";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    async lazy() {
+      // let { RootLayout } = await import("./layouts/RootLayout");
+      return { Component: RootLayout };
+    },
     // loader: authLoader,
     children: [
       {
         path: ":calendarId?",
-        element: <CalendarView />,
-        loader: calendarLoader,
-        errorElement: <Error />,
-        action: getFormData,
+        async lazy() {
+          let { CalendarView } = await import("@/pages");
+          return {
+            loader: calendarLoader,
+            Component: CalendarView,
+            errorElement: <Error />,
+            action: getFormData,
+          };
+        },
+        // element: <CalendarView />,
+
         children: [
           {
             path: "runs/:week/:day/:runId",
@@ -75,8 +86,13 @@ const router = createBrowserRouter([
       },
       {
         path: "overview",
-        element: <Overview />,
-        loader: overviewLoader,
+        async lazy() {
+          let { Overview } = await import("@/pages");
+          return {
+            Component: Overview,
+            loader: overviewLoader,
+          };
+        },
         children: [
           {
             path: "equipment",
@@ -130,12 +146,12 @@ function App() {
           authentication cookie is classified as a third party cookie, as right
           now the backend server shares not the same domain as the deployed
           frontend side. If you are using third party cookie blocking tools, you
-          will not be able to log in. This will be fixed soon. Thank you for your
-          understanding.
+          will not be able to log in. This will be fixed soon. Thank you for
+          your understanding.
         </div>
       </CookieConsent>
       <AuthContextProvider>
-        <RouterProvider router={router} />
+        <RouterProvider router={router} fallbackElement={<Loading/>}/>
       </AuthContextProvider>
     </>
   );

@@ -9,7 +9,7 @@ const WelcomePage = () => {
     <>
       {navigation.state === "loading" && (
         <div className="flex justify-center text-nowrap h-full w-full mt-20">
-          <LoadingOverlay active={true} spinner text="Loading..." />
+          {/* <LoadingOverlay active={true} spinner text="Loading..." /> */}
         </div>
       )}
       <div className="flex flex-col items-center justify-center min-h-screen bg-base-200 text-center">

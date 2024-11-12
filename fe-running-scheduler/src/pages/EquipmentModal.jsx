@@ -109,7 +109,7 @@ const EquipmentModal = () => {
       <CardModal>
         <h2 className="card-title">Equipment</h2>
         {loading && (
-          <div className="flex justify-center content-center items-center w-full">
+          <div className="flex justify-center content-center items-center">
             <LoadingOverlay active={true} spinner text="Loading..." />
           </div>
         )}
@@ -119,10 +119,10 @@ const EquipmentModal = () => {
             sortedEquipmentList(equipmentList).map((equipment) => (
               <div
                 key={equipment._id}
-                className="card bg-gray-900 shadow-lg overflow-clip cursor-pointer h-96"
+                className="card min-w-min bg-gray-900 shadow-lg overflow-clip cursor-pointer h-96"
                 onClick={() => openEquipmentDetails(equipment._id)}
               >
-                <div className="card-body gap-1 w-full">
+                <div className="card-body min-w-min">
                   <div className="h-1/3">
                     {images[equipment?._id] && (
                       <img
