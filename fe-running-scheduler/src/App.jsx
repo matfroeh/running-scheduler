@@ -22,6 +22,7 @@ import { action as getFormData } from "./actions/getFormData";
 import { calendarLoader } from "./loader/calendarLoader";
 import { overviewLoader } from "./loader/overviewLoader";
 import { AuthContextProvider } from "@/context";
+import CookieConsent from "react-cookie-consent";
 
 const router = createBrowserRouter([
   {
@@ -121,9 +122,22 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <AuthContextProvider>
-      <RouterProvider router={router} />
-    </AuthContextProvider>
+    <>
+      <CookieConsent debug={false} location="top" expires={3}>
+        <div className="">
+          This website uses functional cookies to enhance the user experience.
+          Particularly, due to the developmental character of this project, an
+          authentication cookie is classified as a third party cookie, as right
+          now the backend server shares not the same domain as the deployed
+          frontend side. If you are using third party cookie blocking tools, you
+          will not be able to log in. This will be fixed soon. Thank you for your
+          understanding.
+        </div>
+      </CookieConsent>
+      <AuthContextProvider>
+        <RouterProvider router={router} />
+      </AuthContextProvider>
+    </>
   );
 }
 
