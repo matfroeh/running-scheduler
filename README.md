@@ -6,7 +6,7 @@ This repo contains a full working demo project of a MERN (MongoDB, Express.js Re
   - tracking of equipment (distance & time)
   - providing an overview of whole training blocks
 
-## [deployed-demo](https://running-scheduler-frontend.onrender.com/welcome)
+## [deployed-demo](https://app.runningjournal.online)
 
 ## Setup
 ### Backend (be-running-scheduler)
