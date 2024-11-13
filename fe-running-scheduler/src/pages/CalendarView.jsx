@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import CalendarBar from "../components/CalendarBar";
 import CalendarBody from "../components/CalendarBody";
 import {
@@ -17,11 +17,10 @@ import {
   showPreviousCalendar as showPrevious,
   showNextCalendar as showNext,
 } from "../logic/calendarCycling";
-import Loading from "../components/Loading";
 
 const CalendarView = () => {
   // ToDo: actionData needs to be exported to backend, but later
-  console.log("CalendarView loaded");
+  // console.log("CalendarView loaded");
 
   let data = useActionData();
   const { scheduleCalendars, runCalendars } = useLoaderData();

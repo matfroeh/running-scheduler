@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
-  CalendarView,
+  // CalendarView,
   CreateTrainingBlockModal,
   RunDetailsModal,
   TrainingDayDetailsModal,
@@ -10,29 +10,32 @@ import {
   Login,
   SignUp,
   Welcome,
-  Overview,
+  // Overview,
   EquipmentDetails,
   CreateEquipment,
   Profile,
   CalendarEditModal,
 } from "@/pages";
 import { Loading } from "@/components";
-import RootLayout from "./layouts/RootLayout";
+// import RootLayout from "./layouts/RootLayout";
 import { action as getFormData } from "./actions/getFormData";
-// import { authLoader } from "./loader/authLoader";
 import { calendarLoader } from "./loader/calendarLoader";
 import { overviewLoader } from "./loader/overviewLoader";
 import { AuthContextProvider } from "@/context";
 import CookieConsent from "react-cookie-consent";
+import { lazy, Suspense } from "react";
+
+// Lazy loading the RootLayout
+const RootLayout = lazy(() => import("./layouts/RootLayout"));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    async lazy() {
-      // let { RootLayout } = await import("./layouts/RootLayout");
-      return { Component: RootLayout };
-    },
-    // loader: authLoader,
+    element: <RootLayout />,
+    // async lazy() {
+    // let { RootLayout } = await import("./layouts/RootLayout");
+    // return { Component: RootLayout };
+    // },
     children: [
       {
         path: ":calendarId?",
@@ -142,16 +145,14 @@ function App() {
       <CookieConsent debug={false} location="top" expires={3}>
         <div className="">
           This website uses functional cookies to enhance the user experience.
-          Particularly, due to the developmental character of this project, an
-          authentication cookie is classified as a third party cookie, as right
-          now the backend server shares not the same domain as the deployed
-          frontend side. If you are using third party cookie blocking tools, you
-          will not be able to log in. This will be fixed soon. Thank you for
-          your understanding.
+          Particularly, an authentication cookie is set to keep you logged in.
         </div>
       </CookieConsent>
       <AuthContextProvider>
-        <RouterProvider router={router} fallbackElement={<Loading/>}/>
+        {/* <RouterProvider router={router} fallbackElement={<Loading />}  /> */}
+        <Suspense fallback={<Loading />}>
+          <RouterProvider router={router} />
+        </Suspense>
       </AuthContextProvider>
     </>
   );

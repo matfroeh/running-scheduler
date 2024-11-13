@@ -12,7 +12,7 @@ const NavBar = () => {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  console.log("navbar loaded");
+  // console.log("navbar loaded");
   
 
   const handleLogOut = () => {
