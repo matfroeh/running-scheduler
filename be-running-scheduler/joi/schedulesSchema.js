@@ -10,13 +10,13 @@ const daySchema = Joi.object({
 });
 
 const weekSchema = Joi.object({
-  _id: Joi.string().required(),
+  _id: Joi.string().optional(),
   days: Joi.object().pattern(Joi.string().regex(/^day\d+$/), daySchema),
 });
 
 const schedulesSchema = Joi.object({
-  _id: Joi.string().required(),
-  user: Joi.string().required(), // Also assuming ObjectId as a string for the user reference
+  _id: Joi.string().optional(),
+  user: Joi.string().optional(), // Also assuming ObjectId as a string for the user reference
   meta: Joi.object({
     title: Joi.string().required(),
     startDate: Joi.date().required(),
