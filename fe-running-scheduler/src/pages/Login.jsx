@@ -24,7 +24,7 @@ const Login = () => {
       await login({ email, password });
       setCheckSession(true);
       toast.success(`Successfully logged in!`);
-      navigate("/");
+      navigate("/auth");
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -32,7 +32,7 @@ const Login = () => {
     }
   };
 
-  if (auth) return <Navigate to={location.state?.next || "/"} />;
+  if (auth) return <Navigate to={location.state?.next || "/auth"} />;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
@@ -101,7 +101,7 @@ const Login = () => {
           </label>
           <small>
             Don&apos;t have an account?{" "}
-            <Link to="/welcome/signup" className="text-primary hover:underline">
+            <Link to="/signup" className="text-primary hover:underline">
               Register!
             </Link>
           </small>

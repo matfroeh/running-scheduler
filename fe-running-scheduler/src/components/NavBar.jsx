@@ -67,10 +67,10 @@ const NavBar = () => {
         <a className="btn btn-ghost text-xl">Running Journal</a>
       </div>
       <div className="navbar-center">
-        <NavLink to="/overview" className="btn btn-ghost text-l">
+        <NavLink to="overview" className="btn btn-ghost text-l">
           Overview
         </NavLink>
-        <NavLink to="/" className="btn btn-ghost text-l">
+        <NavLink to="calendar" className="btn btn-ghost text-l">
           Calendar
         </NavLink>
       </div>

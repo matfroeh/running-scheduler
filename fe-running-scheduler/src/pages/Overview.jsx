@@ -77,13 +77,13 @@ const Overview = () => {
       </div>
     );
   }
-  if (navigation.state === "loading") {
-    return (
-      <div className="flex justify-center mt-32">
-        <LoadingOverlay active={true} spinner text="Loading..." />
-      </div>
-    );
-  }
+  // if (navigation.state === "loading") {
+  //   return (
+  //     <div className="flex justify-center mt-32">
+  //       <LoadingOverlay active={true} spinner text="Loading..." />
+  //     </div>
+  //   );
+  // }
 
   // if (overviewData && selectedMode === "multiple") {
   //   return (

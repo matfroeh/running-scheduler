@@ -31,7 +31,7 @@ const CalendarBar = ({
   const initialTitle = "Create A New Training Schedule";
 
   const openCreateTrainingBlockModal = () => {
-    navigate("/new-schedule");
+    navigate("new-schedule");
   };
 
   // This passes the click on the normal button to the hidden input field button

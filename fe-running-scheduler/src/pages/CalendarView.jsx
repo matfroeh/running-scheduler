@@ -6,6 +6,7 @@ import {
   useActionData,
   useLoaderData,
   useNavigate,
+  // useLocation,
   // useNavigation,
 } from "react-router-dom";
 import { processFormDataFromScheduler } from "../logic/processFormDataFromScheduler";
@@ -41,6 +42,8 @@ const CalendarView = () => {
 
   const navigate = useNavigate();
   // const navigation = useNavigation();
+  // const location = useLocation();
+  // const currentPath = location.pathname;
 
   let activeCalendarId = runningData?._id;
 
@@ -72,7 +75,7 @@ const CalendarView = () => {
       setNewScheduleFormSubmitted(false);
       setTrainingBlockData(schedule);
       setRunningData(run);
-      navigate(`/${schedule._id}`);
+      navigate(`/auth/calendar/${schedule._id}`);
     } catch (error) {
       toast.error(`Error saving schedule: ${error.message}`);
     }
@@ -88,7 +91,13 @@ const CalendarView = () => {
   }, [data]);
 
   useEffect(() => {
-    navigate(`/${activeCalendarId}`);
+    navigate(`/auth/calendar/${activeCalendarId}`);
+
+
+    // if (currentPath === "/auth/calendar") {
+    //   navigate(`${activeCalendarId}`);
+    // } else
+    // navigate(`/auth/calendar/${activeCalendarId}`);
   }, [runningData, trainingBlockData]);
 
   return (
