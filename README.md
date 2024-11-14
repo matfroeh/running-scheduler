@@ -13,7 +13,7 @@ The code is in process of undergoing huge modifications to improve quality and c
 
 
 ## Setup
-### Backend (be-running-scheduler)
+## Backend (be-running-scheduler)
 ### Setup .env file
 
 ```js
@@ -25,7 +25,7 @@ NODE_ENV=*development | production*
 FRONTEND_URL=*url of frontend*
 
 ```
-### Frontend (fe-running-scheduler)
+## Frontend (fe-running-scheduler)
 ### Setup .env file
 
 ```js
