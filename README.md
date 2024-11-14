@@ -2,7 +2,8 @@
 
 This repo contains a full working demo project of a MERN (MongoDB, Express.js React, Node.js) full stack web application for a Running Scheduler providing the following (main) features:
   - creating training schedules based on user preferences
-  - logging performed runs by uploading .gpx files and extracting the relevant data; tracking of equipment (distance & time)
+  - logging performed runs by uploading .gpx files and extracting the relevant data
+  - tracking of equipment (distance & time)
   - providing an overview of whole training blocks
 
 Please note that this demo project serves as an experimenting field and as an setup for continued learning on developing React apps.
