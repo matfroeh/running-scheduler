@@ -62,53 +62,73 @@ const scheduleSchema = new Schema(
 
 export default model("Schedule", scheduleSchema);
 
-// const daysSchema = new Schema({
-//   day: {
+// const daySchema = new Schema({
+//   _id: false, // Prevents Mongoose from auto-generating an _id for each day
+//   dayOfWeek: {
 //     type: String,
-//     required: [true, "Day number is required"],
+//     enum: [
+//       "Monday",
+//       "Tuesday",
+//       "Wednesday",
+//       "Thursday",
+//       "Friday",
+//       "Saturday",
+//       "Sunday",
+//     ],
+//     required: true,
 //   },
-//   type: {
+//   activities: {
+//     type: [String], // Array of activity descriptions
+//     default: [],
+//   },
+//   notes: {
 //     type: String,
-//     required: [true, "Day type is required"],
+//     default: "",
 //   },
 // });
 
-// const weeksSchema = new Schema({
-//   //   name: {
-//   //     type: String,
-//   //     required: [true, "Week+Number week# is required"],
-//   //   },
-
-//   days: [daysSchema],
-// });
-
-// const scheduleSchema = new Schema({
-//   meta: {
-//     // Nested Path => object has no own ID? I get different answers, needs to be tested...
-//     title: {
-//       type: String,
-//       required: [true, "Title is required"],
-//     },
-//     startDate: {
-//       type: Date,
-//       required: [true, "Start date is required"],
-//     },
+// const weekSchema = new Schema({
+//   _id: {
+//     type: String,
+//     default: () => new mongoose.Types.ObjectId().toString(), // Custom ID for the week
 //   },
-//   weeks: [weeksSchema],
-// });
-
-// const scheduleSchema = new Schema({
-//   meta: {
-//     title: {
-//       type: String,
-//       required: [true, "Title is required"],
-//     },
-//     startDate: {
-//       type: Date,
-//       required: [true, "Start date is required"],
-//     },
+//   weekNumber: {
+//     type: Number,
+//     required: true,
 //   },
-//   weeks: {
-//     type: Object,
+//   description: {
+//     type: String,
+//     default: "",
+//   },
+//   status: {
+//     type: String,
+//     enum: ["planned", "in-progress", "completed"],
+//     default: "planned",
+//   },
+//   days: {
+//     type: [daySchema], // Array of day objects
+//     default: [],
 //   },
 // });
+
+// const scheduleSchema = new Schema(
+//   {
+//     meta: {
+//       title: {
+//         type: String,
+//         required: [true, "Title is required"],
+//       },
+//       startDate: {
+//         type: Date,
+//         required: [true, "Start date is required"],
+//       },
+//     },
+//     weeks: {
+//       type: [weekSchema], // Array of week objects with more nested properties
+//       default: [],
+//     },
+//   },
+//   { timestamps: true } // Adds createdAt and updatedAt fields automatically
+// );
+
+// module.exports = mongoose.model("Schedule", scheduleSchema);
