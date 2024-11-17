@@ -1,9 +1,8 @@
-import { useNavigate, Form, useOutletContext } from "react-router-dom";
+import { useNavigate, Form } from "react-router-dom";
 import { useState } from "react";
 
 const CreateTrainingBlockModal = () => {
   const navigate = useNavigate();
-  const { setNewScheduleFormSubmitted } = useOutletContext();
   const [form, setForm] = useState({
     title: "",
     weeks: "",
@@ -69,11 +68,11 @@ const CreateTrainingBlockModal = () => {
       setError("Long Run and Workout Day should be on different days.");
       return;
     }
-    setNewScheduleFormSubmitted(true);
+    // setNewScheduleFormSubmitted(true);
   };
 
   return (
-    <Form method="post" action="/">
+    <Form method="post" action="/auth/calendar">
       <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
         <div className="modal-window p-8 bg-base-100 rounded-lg border shadow-lg">
           <div className="grid grid-cols-2 gap-4">
@@ -278,6 +277,7 @@ const CreateTrainingBlockModal = () => {
             </div>
 
             <button
+              type="button"
               className="px-4 py-2 rounded-lg mr-2 hover:bg-base-100 transition-colors"
               onClick={() => navigate(-1)}
             >

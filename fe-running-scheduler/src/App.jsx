@@ -1,6 +1,10 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
-  // CalendarView,
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
+import {
+  CalendarView,
   CreateTrainingBlockModal,
   RunDetailsModal,
   TrainingDayDetailsModal,
@@ -10,121 +14,27 @@ import {
   Login,
   SignUp,
   Welcome,
-  // Overview,
+  Overview,
   EquipmentDetails,
   CreateEquipment,
   Profile,
   CalendarEditModal,
 } from "@/pages";
-import { Loading } from "@/components";
-// import RootLayout from "./layouts/RootLayout";
+import { RootLayout, AuthLayout } from "@/layouts";
 import { action as getFormData } from "./actions/getFormData";
 import { calendarLoader } from "./loader/calendarLoader";
 import { overviewLoader } from "./loader/overviewLoader";
 import { AuthContextProvider } from "@/context";
+// import { ModalContextProvider } from "./context";
 import CookieConsent from "react-cookie-consent";
-import { lazy, Suspense } from "react";
-
-// Lazy loading the RootLayout
-const RootLayout = lazy(() => import("./layouts/RootLayout"));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
-    // async lazy() {
-    // let { RootLayout } = await import("./layouts/RootLayout");
-    // return { Component: RootLayout };
-    // },
-    children: [
-      {
-        path: ":calendarId?",
-        async lazy() {
-          let { CalendarView } = await import("@/pages");
-          return {
-            loader: calendarLoader,
-            Component: CalendarView,
-            errorElement: <Error />,
-            action: getFormData,
-          };
-        },
-        // element: <CalendarView />,
-
-        children: [
-          {
-            path: "runs/:week/:day/:runId",
-            element: <RunDetailsModal />,
-          },
-          {
-            path: "schedule/:week/:day/:trainingDayId",
-            element: <TrainingDayDetailsModal />,
-          },
-          {
-            path: "new-schedule",
-            element: <CreateTrainingBlockModal />,
-          },
-          {
-            path: "edit-schedule",
-            element: <CalendarEditModal />,
-          },
-          {
-            path: "equipment",
-            element: <EquipmentModal />,
-            children: [
-              {
-                path: ":equipmentId",
-                element: <EquipmentDetails />,
-              },
-              {
-                path: "new",
-                element: <CreateEquipment />,
-              },
-            ],
-          },
-          {
-            path: "profile",
-            element: <Profile />,
-          },
-        ],
-      },
-      {
-        path: "overview",
-        async lazy() {
-          let { Overview } = await import("@/pages");
-          return {
-            Component: Overview,
-            loader: overviewLoader,
-          };
-        },
-        children: [
-          {
-            path: "equipment",
-            element: <EquipmentModal />,
-            children: [
-              {
-                path: ":equipmentId",
-                element: <EquipmentDetails />,
-              },
-              {
-                path: "new",
-                element: <CreateEquipment />,
-              },
-            ],
-          },
-          {
-            path: "profile",
-            element: <Profile />,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    path: "welcome",
     element: <Welcome />,
     children: [
       {
-        path: "login",
+        path: "/login",
         element: <Login />,
       },
       {
@@ -136,6 +46,72 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <NotFound />,
+  },
+  {
+    path: "auth",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "/auth",
+        element: <RootLayout />,
+        children: [
+          {
+            index: true,
+            element: <Navigate to="/auth/calendar" replace />,
+          },
+          {
+            path: "calendar/:calendarId?",
+            // path: "calendar",
+            element: <CalendarView />,
+            loader: calendarLoader,
+            action: getFormData,
+            errorElement: <Error />,
+            children: [
+              {
+                path: "runs/:week/:day/:runId",
+                element: <RunDetailsModal />,
+              },
+              {
+                path: "schedule/:week/:day/:trainingDayId",
+                element: <TrainingDayDetailsModal />,
+              },
+              {
+                path: "new-schedule",
+                element: <CreateTrainingBlockModal />,
+              },
+              {
+                path: "edit-schedule",
+                element: <CalendarEditModal />,
+              },
+            ],
+          },
+          {
+            path: "overview",
+            element: <Overview />,
+            loader: overviewLoader,
+            errorElement: <Error />,
+          },
+          {
+            path: "equipment",
+            element: <EquipmentModal />,
+            children: [
+              {
+                path: ":equipmentId",
+                element: <EquipmentDetails />,
+              },
+              {
+                path: "new",
+                element: <CreateEquipment />,
+              },
+            ],
+          },
+          {
+            path: "profile",
+            element: <Profile />,
+          },
+        ],
+      },
+    ],
   },
 ]);
 
@@ -149,10 +125,7 @@ function App() {
         </div>
       </CookieConsent>
       <AuthContextProvider>
-        {/* <RouterProvider router={router} fallbackElement={<Loading />}  /> */}
-        <Suspense fallback={<Loading />}>
-          <RouterProvider router={router} />
-        </Suspense>
+        <RouterProvider router={router} />
       </AuthContextProvider>
     </>
   );

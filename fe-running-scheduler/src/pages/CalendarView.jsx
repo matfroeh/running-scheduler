@@ -6,6 +6,7 @@ import {
   useActionData,
   useLoaderData,
   useNavigate,
+  // useLocation,
   // useNavigation,
 } from "react-router-dom";
 import { processFormDataFromScheduler } from "../logic/processFormDataFromScheduler";
@@ -41,6 +42,8 @@ const CalendarView = () => {
 
   const navigate = useNavigate();
   // const navigation = useNavigation();
+  // const location = useLocation();
+  // const currentPath = location.pathname;
 
   let activeCalendarId = runningData?._id;
 
@@ -72,11 +75,13 @@ const CalendarView = () => {
       setNewScheduleFormSubmitted(false);
       setTrainingBlockData(schedule);
       setRunningData(run);
-      navigate(`/${schedule._id}`);
+      navigate(`/auth/calendar/${schedule._id}`);
     } catch (error) {
       toast.error(`Error saving schedule: ${error.message}`);
     }
   };
+
+  // console.log("newScheduleFormSubmitted", newScheduleFormSubmitted);
 
   useEffect(() => {
     if (data) {
@@ -84,12 +89,19 @@ const CalendarView = () => {
         processFormDataFromScheduler(data);
       setTrainingBlockData(trainingBlockJson);
       setRunningData(runDataTemplate);
+      setNewScheduleFormSubmitted(true);
     }
+    // navigate(`/auth/calendar/${activeCalendarId}`);
   }, [data]);
 
-  useEffect(() => {
-    navigate(`/${activeCalendarId}`);
-  }, [runningData, trainingBlockData]);
+  // useEffect(() => {
+  //   navigate(`/auth/calendar/${activeCalendarId}`);
+
+  //   // if (currentPath === "/auth/calendar") {
+  //   //   navigate(`${activeCalendarId}`);
+  //   // } else
+  //   // navigate(`/auth/calendar/${activeCalendarId}`);
+  // }, [runningData, trainingBlockData]);
 
   return (
     <div className="min-w-min">

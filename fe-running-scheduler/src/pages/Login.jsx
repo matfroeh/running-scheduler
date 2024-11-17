@@ -24,7 +24,7 @@ const Login = () => {
       await login({ email, password });
       setCheckSession(true);
       toast.success(`Successfully logged in!`);
-      navigate("/");
+      navigate("/auth");
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -32,11 +32,11 @@ const Login = () => {
     }
   };
 
-  if (auth) return <Navigate to={location.state?.next || "/"} />;
+  if (auth) return <Navigate to={location.state?.next || "/auth"} />;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
-      <div className="modal-window flex-auto max-w-lg p-8 bg-base-100 rounded-lg border shadow-lg">
+    <div className="modal modal-open bg-black bg-opacity-70 flex justify-center items-center z-50">
+      <div className="modal-box flex-auto max-w-lg p-8 bg-base-100 rounded-lg border shadow-lg">
         <div className="flex justify-between">
           <h2 className="text-2xl font-bold">Login</h2>
 
@@ -101,7 +101,7 @@ const Login = () => {
           </label>
           <small>
             Don&apos;t have an account?{" "}
-            <Link to="/welcome/signup" className="text-primary hover:underline">
+            <Link to="/signup" className="text-primary hover:underline">
               Register!
             </Link>
           </small>

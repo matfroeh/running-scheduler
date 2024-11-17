@@ -1,15 +1,17 @@
-import { useParams, useOutletContext } from "react-router-dom";
+import { useParams, useOutletContext, useNavigate } from "react-router-dom";
 import { updateTrainingSchedule } from "../data/schedules";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import CardModal from "../components/CardModal";
 
 const TrainingDayDetailsModal = () => {
-  const { calendarId, week, day } = useParams();
+  const { week, day } = useParams();
   const { trainingBlockData, setTrainingBlockData, newScheduleFormSubmitted } =
     useOutletContext();
 
   const trainingDay = trainingBlockData.weeks[week].days[day];
+  const calendarId = trainingBlockData._id;
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({ ...trainingDay });
   const [error, setError] = useState(null);
@@ -44,6 +46,7 @@ const TrainingDayDetailsModal = () => {
       await updateTrainingSchedule(trainingBlockData, calendarId);
       // console.log(response);
       toast.success("Training Day updated successfully");
+      navigate("/auth/calendar");
     } catch (error) {
       toast.error(error.message);
     }

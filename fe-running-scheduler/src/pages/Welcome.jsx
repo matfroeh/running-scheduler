@@ -1,10 +1,14 @@
 // WelcomePage.jsx
-import { Link, Outlet, useNavigation } from "react-router-dom";
+import { Link, Outlet, useNavigation, Navigate } from "react-router-dom";
 // import LoadingOverlay from "react-loading-overlay-ts";
 import { Loading } from "@/components";
+import { useAuth } from "@/context";
 
 const WelcomePage = () => {
+  const { auth } = useAuth();
   const navigation = useNavigation();
+
+  if (auth) return <Navigate to={location.state?.next || "/auth"} />;
 
   return (
     <>
@@ -22,10 +26,10 @@ const WelcomePage = () => {
         </div>
 
         <div className="mt-8 space-x-4">
-          <Link to="/welcome/login" className="btn btn-primary">
+          <Link to="login" className="btn btn-primary">
             Log In
           </Link>
-          <Link to="/welcome/signup" className="btn btn-secondary">
+          <Link to="signup" className="btn btn-secondary">
             Sign Up
           </Link>
         </div>

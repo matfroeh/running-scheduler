@@ -5,12 +5,10 @@ import {
   updateTrainingSchedule,
   deleteTrainingSchedule,
 } from "../data/schedules";
-import { useParams, useOutletContext, useNavigate } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const CalendarEditModal = () => {
-  const { calendarId } = useParams();
-  // console.log(calendarId);
   const navigate = useNavigate();
   const {
     trainingBlockData,
@@ -19,6 +17,7 @@ const CalendarEditModal = () => {
     setRunningData,
   } = useOutletContext();
   const [title, setTitle] = useState(trainingBlockData.meta.title);
+  const calendarId = trainingBlockData._id;
 
   const handleChange = (e) => {
     setTitle(e.target.value);

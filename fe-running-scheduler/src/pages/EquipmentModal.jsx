@@ -1,15 +1,13 @@
-import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context";
 import { useEffect, useState } from "react";
-import { CardModal } from "@/components";
 import { getEquipmentListFromUser } from "../data/user";
 import axios from "axios";
 import LoadingOverlay from "react-loading-overlay-ts";
+import { Loading } from "@/components";
 
 const EquipmentModal = () => {
   const API_URL = import.meta.env.VITE_APP_RUNNING_SCHEDULER_API_URL;
-  const location = useLocation();
-  const currentPath = location.pathname;
   const { user, setUser } = useAuth();
   const [equipmentList, setEquipmentList] = useState(user.equipmentList);
   const navigate = useNavigate();
@@ -60,7 +58,7 @@ const EquipmentModal = () => {
   }, []);
 
   const openEquipmentDetails = (equipmentId) => {
-    navigate(`${currentPath}/${equipmentId}`);
+    navigate(`${equipmentId}`);
   };
 
   const formatDate = (date) => {
@@ -104,16 +102,22 @@ const EquipmentModal = () => {
     return window.btoa(binary);
   };
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <>
-      <CardModal>
-        <h2 className="card-title">Equipment</h2>
-        {loading && (
-          <div className="flex justify-center content-center items-center">
-            <LoadingOverlay active={true} spinner text="Loading..." />
-          </div>
-        )}
-        <div className="grid grid-cols-3 gap-8 mt-8">
+      <div className="card-body relative overflow-y-auto h-max">
+        <div className="card-actions justify-start mt-4">
+          <Link className="btn btn-primary" to={-1}>
+            Back
+          </Link>
+          <Link to={`new`} className="btn btn-primary">
+            Add Equipment
+          </Link>
+        </div>
+        <div className="grid grid-cols-3 gap-8 mt-2">
           {!loading &&
             images &&
             sortedEquipmentList(equipmentList).map((equipment) => (
@@ -141,7 +145,9 @@ const EquipmentModal = () => {
                     <p className="text-nowrap">
                       Distance: {parseFloat(equipment.distance).toFixed(1)} km
                     </p>
-                    <p className="text-nowrap">Usage time: {parseFloat(equipment.time).toFixed(1)} h</p>
+                    <p className="text-nowrap">
+                      Usage time: {parseFloat(equipment.time).toFixed(1)} h
+                    </p>
                     {equipment.description && (
                       <p>Description: {equipment.description}</p>
                     )}
@@ -160,12 +166,7 @@ const EquipmentModal = () => {
               </div>
             ))}
         </div>
-        <div className="flex justify-end">
-          <Link to={`${currentPath}/new`} className="btn btn-primary">
-            Add Equipment
-          </Link>
-        </div>
-      </CardModal>
+      </div>
       <Outlet context={{ setEquipmentList }} />
     </>
   );

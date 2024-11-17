@@ -1,4 +1,4 @@
-import { useLoaderData, Outlet, useNavigation } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import {
   getOverviewData,
   getTotalDistance,
@@ -18,14 +18,12 @@ import {
   getAllWeeklyHeartRate,
 } from "../utils/getOverviewData.js";
 import dayjs from "dayjs";
-import LoadingOverlay from "react-loading-overlay-ts";
 import { useState } from "react";
 import LineChart from "../components/charts/LineChart";
 
 const Overview = () => {
   // Arrays of the schedule and the running part of the training blocks
   const { loadedRuns } = useLoaderData();
-  const navigation = useNavigation();
 
   const overviewData = getOverviewData(loadedRuns);
   const [selectedBlock, setSelectedBlock] = useState(
@@ -73,17 +71,16 @@ const Overview = () => {
           Create your first Schedule and upload running data to create the
           Overview
         </div>
-        <Outlet />
       </div>
     );
   }
-  if (navigation.state === "loading") {
-    return (
-      <div className="flex justify-center mt-32">
-        <LoadingOverlay active={true} spinner text="Loading..." />
-      </div>
-    );
-  }
+  // if (navigation.state === "loading") {
+  //   return (
+  //     <div className="flex justify-center mt-32">
+  //       <LoadingOverlay active={true} spinner text="Loading..." />
+  //     </div>
+  //   );
+  // }
 
   // if (overviewData && selectedMode === "multiple") {
   //   return (
@@ -507,7 +504,6 @@ const Overview = () => {
           )} */}
         </div>
       </div>
-      <Outlet />
     </div>
   );
 };
