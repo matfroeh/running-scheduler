@@ -81,7 +81,7 @@ const CalendarView = () => {
     }
   };
 
-  console.log("newScheduleFormSubmitted", newScheduleFormSubmitted);
+  // console.log("newScheduleFormSubmitted", newScheduleFormSubmitted);
   
 
   useEffect(() => {
