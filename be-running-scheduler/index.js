@@ -10,11 +10,11 @@ import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
 import imageRouter from "./routes/imageRouter.js";
 
-import {
-  journalRouter,
-  performedRouter,
-  scheduledRouter,
-} from "./routes/index.js";
+// import {
+//   journalRouter,
+//   performedRouter,
+//   scheduledRouter,
+// } from "./routes/index.js";
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
@@ -51,9 +51,9 @@ app.use("/user", userRouter);
 app.use("/uploads", imageRouter);
 
 // Testing new model
-app.use("/journal", journalRouter);
-app.use("/performed", performedRouter);
-app.use("/scheduled", scheduledRouter);
+// app.use("/journal", journalRouter);
+// app.use("/performed", performedRouter);
+// app.use("/scheduled", scheduledRouter);
 
 app.use("*", (req, res) => {
   res.status(404).send("Not found");
