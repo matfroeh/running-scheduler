@@ -1,4 +1,4 @@
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -9,27 +9,27 @@ const NavBar = () => {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const location = useLocation();
-  const currentPath = location.pathname;
+  // const location = useLocation();
+  // const currentPath = location.pathname;
 
   // console.log("navbar loaded");
-  
 
   const handleLogOut = () => {
     logOut();
   };
 
   const openEquipmentModal = () => {
-    // navigate("/");
-    if (currentPath === "/") {
-      navigate("equipment");
-    } else navigate(`${currentPath}/equipment`);
+    navigate("/auth/equipment");
+    // if (currentPath === "/") {
+    //   navigate("equipment");
+    // } else navigate(`${currentPath}/equipment`);
   };
 
   const openProfileModal = () => {
-    if (currentPath === "/") {
-      navigate("profile");
-    } else navigate(`${currentPath}/profile`);
+    navigate("/auth/profile");
+    // if (currentPath === "/") {
+    //   navigate("profile");
+    // } else navigate(`${currentPath}/profile`);
   };
 
   useEffect(() => {
@@ -102,7 +102,7 @@ const NavBar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-md dropdown-content bg-base-300 rounded-box z-[50] mt-3 w-52 p-2 shadow"
+              className="menu menu-md dropdown-content bg-base-300 rounded-box z-[150] mt-3 w-52 p-2 shadow"
             >
               <li>
                 <h2 className="text-lg font-bold">{user?.userName}</h2>

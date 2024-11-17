@@ -7,7 +7,7 @@ import { Loading } from "@/components";
 const RootLayout = () => {
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
-  console.log("RootLayout.jsx");
+  // console.log("RootLayout.jsx");
 
   if (isLoading) {
     console.log("RootLayout, state:", navigation.state);

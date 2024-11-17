@@ -15,8 +15,11 @@ const AuthLayout = () => {
         theme="colored"
       />
       {auth ? <Outlet /> : <Navigate to="/login" />}
+
     </div>
   );
 };
 
 export default AuthLayout;
+
+// if (auth) return <Navigate to={location.state?.next || "/auth"} />;

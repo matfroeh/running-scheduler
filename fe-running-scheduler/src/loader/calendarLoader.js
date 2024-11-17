@@ -4,7 +4,7 @@ import getCalendars from "../utils/getCurrentPreviousNextCalendars";
 
 export const calendarLoader = async () => {
   try {
-    // console.log("calendarLoader called");
+    console.log("calendarLoader called");
     
     const loadedSchedules = await getAllTrainingSchedules();
     const loadedRuns = await getAllRuns();

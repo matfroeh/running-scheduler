@@ -21,7 +21,9 @@ import { action as getFormData } from "./actions/getFormData";
 import { calendarLoader } from "./loader/calendarLoader";
 import { overviewLoader } from "./loader/overviewLoader";
 import { AuthContextProvider } from "@/context";
+// import { ModalContextProvider } from "./context";
 import CookieConsent from "react-cookie-consent";
+import Modal from "./components/Modal";
 
 const router = createBrowserRouter([
   {
@@ -81,24 +83,6 @@ const router = createBrowserRouter([
                 path: "edit-schedule",
                 element: <CalendarEditModal />,
               },
-              {
-                path: "equipment",
-                element: <EquipmentModal />,
-                children: [
-                  {
-                    path: ":equipmentId",
-                    element: <EquipmentDetails />,
-                  },
-                  {
-                    path: "new",
-                    element: <CreateEquipment />,
-                  },
-                ],
-              },
-              {
-                path: "profile",
-                element: <Profile />,
-              },
             ],
           },
           {
@@ -106,26 +90,24 @@ const router = createBrowserRouter([
             element: <Overview />,
             loader: overviewLoader,
             errorElement: <Error />,
+          },
+          {
+            path: "equipment",
+            element: <EquipmentModal />,
             children: [
               {
-                path: "equipment",
-                element: <EquipmentModal />,
-                children: [
-                  {
-                    path: ":equipmentId",
-                    element: <EquipmentDetails />,
-                  },
-                  {
-                    path: "new",
-                    element: <CreateEquipment />,
-                  },
-                ],
+                path: ":equipmentId",
+                element: <EquipmentDetails />,
               },
               {
-                path: "profile",
-                element: <Profile />,
+                path: "new",
+                element: <CreateEquipment />,
               },
             ],
+          },
+          {
+            path: "profile",
+            element: <Profile />,
           },
         ],
       },
@@ -143,9 +125,10 @@ function App() {
         </div>
       </CookieConsent>
       <AuthContextProvider>
+        {/* <ModalContextProvider> */}
         <RouterProvider router={router} />
+        {/* </ModalContextProvider> */}
       </AuthContextProvider>
-
     </>
   );
 }

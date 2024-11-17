@@ -68,6 +68,8 @@ export const showNextCalendar = (params) => {
     setCycleState,
     toast,
   } = params;
+  // console.log(params);
+  
   if (cycleState === "previous" && calendarIndex > 0) {
     setTrainingBlockData(
       scheduleCalendars.previousCalendars[calendarIndex - 1]
@@ -83,7 +85,7 @@ export const showNextCalendar = (params) => {
     setCycleState("current");
     return;
   }
-  if (cycleState === "current") {
+  if (cycleState === "current" && scheduleCalendars.nextCalendars.length > 0) {
     setTrainingBlockData(scheduleCalendars.nextCalendars[0]);
     setRunningData(runCalendars.nextCalendars[0]);
     setCycleState("next");

@@ -81,6 +81,9 @@ const CalendarView = () => {
     }
   };
 
+  console.log("newScheduleFormSubmitted", newScheduleFormSubmitted);
+  
+
   useEffect(() => {
     if (data) {
       const { trainingBlockJson, runDataTemplate } =
@@ -88,6 +91,7 @@ const CalendarView = () => {
       setTrainingBlockData(trainingBlockJson);
       setRunningData(runDataTemplate);
     }
+    // navigate(`/auth/calendar/${activeCalendarId}`);
   }, [data]);
 
   useEffect(() => {

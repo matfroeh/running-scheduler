@@ -30,6 +30,8 @@ const CalendarBar = ({
 
   const initialTitle = "Create A New Training Schedule";
 
+  console.log("CalendarBar: newScheduleSubmitted", newScheduleFormSubmitted);
+  
   const openCreateTrainingBlockModal = () => {
     navigate("new-schedule");
   };

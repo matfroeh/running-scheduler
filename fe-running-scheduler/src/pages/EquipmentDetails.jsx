@@ -154,7 +154,7 @@ const EquipmentDetails = () => {
 
   return (
     <CardModal key={equipmentId}>
-      <h2 className="card-title text-xl">Equipment Details </h2>
+      <h2 className="card-title text-xl">{formData.name} - Details </h2>
       <div className="flex space-x-2 justify-end">
         <button
           className="btn btn-sm btn-neutral hover:btn-error"
