@@ -31,7 +31,7 @@ const CalendarBar = ({
   const initialTitle = "Create A New Training Schedule";
 
   // console.log("CalendarBar: newScheduleSubmitted", newScheduleFormSubmitted);
-  
+
   const openCreateTrainingBlockModal = () => {
     navigate("new-schedule");
   };
@@ -87,9 +87,7 @@ const CalendarBar = ({
             if (response) {
               // Single uploaded file: directly go to run details modal
               if (fileContents.length === 1) {
-                navigate(
-                  `/${runningData._id}/runs/${week}/${day}/${response._id}`
-                );
+                navigate(`runs/${week}/${day}/new`);
               }
             }
           } else {

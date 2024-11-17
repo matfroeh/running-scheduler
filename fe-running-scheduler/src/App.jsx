@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 import {
   CalendarView,
   CreateTrainingBlockModal,
@@ -23,7 +27,6 @@ import { overviewLoader } from "./loader/overviewLoader";
 import { AuthContextProvider } from "@/context";
 // import { ModalContextProvider } from "./context";
 import CookieConsent from "react-cookie-consent";
-import Modal from "./components/Modal";
 
 const router = createBrowserRouter([
   {
@@ -54,10 +57,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <CalendarView />,
-            loader: calendarLoader,
-            action: getFormData,
-            errorElement: <Error />,
+            element: <Navigate to="/auth/calendar" replace />,
           },
           {
             path: "calendar/:calendarId?",
@@ -125,9 +125,7 @@ function App() {
         </div>
       </CookieConsent>
       <AuthContextProvider>
-        {/* <ModalContextProvider> */}
         <RouterProvider router={router} />
-        {/* </ModalContextProvider> */}
       </AuthContextProvider>
     </>
   );

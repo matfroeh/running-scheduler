@@ -9,20 +9,12 @@ const RootLayout = () => {
   const isLoading = navigation.state === "loading";
   // console.log("RootLayout.jsx");
 
-  if (isLoading) {
-    console.log("RootLayout, state:", navigation.state);
-  }
-
-  // authLoader works in that way better than the AuthContextProvider as it is loaded before anything is rendered in the RootLayout
-  // but we still need the Context form the Provider
-  // also big con: upon logout we have no access to the loader to change the output to set auth false
-  // const auth = useLoaderData();
+  // console.log("RootLayout, state:", navigation.state);
 
   return (
     <>
       <NavBar />
-      {/* {isLoading ? <Loading /> : <Outlet />} */}
-      <Outlet />
+      {isLoading ? <Loading /> : <Outlet />}
     </>
   );
 };

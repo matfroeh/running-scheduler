@@ -1,4 +1,4 @@
-import { useParams, useOutletContext } from "react-router-dom";
+import { useParams, useOutletContext, useNavigate } from "react-router-dom";
 import { updateRunCalendar } from "../data/runs";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
@@ -12,11 +12,13 @@ import { useAuth } from "@/context";
 import LineChartTimeVelocity from "../components/charts/LineChartTimeVelocity";
 
 const RunDetailsModal = () => {
-  const { calendarId, week, day } = useParams();
+  const { week, day } = useParams();
   const { runningData, setRunningData, newScheduleFormSubmitted } =
     useOutletContext();
   const { user } = useAuth();
   const run = runningData.weeks[week].days[day];
+  const calendarId = runningData._id;
+  const navigate = useNavigate();
 
   // console.log("run", run);
 
@@ -98,6 +100,7 @@ const RunDetailsModal = () => {
         updateEquipment(user.userId, selectedEquipment._id, updatedEquipment);
       }
       toast.success("Run updated successfully.");
+      navigate("/auth/calendar");
     } catch (error) {
       toast.error(error.message);
     }

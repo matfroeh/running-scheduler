@@ -82,7 +82,6 @@ const CalendarView = () => {
   };
 
   // console.log("newScheduleFormSubmitted", newScheduleFormSubmitted);
-  
 
   useEffect(() => {
     if (data) {
@@ -90,19 +89,19 @@ const CalendarView = () => {
         processFormDataFromScheduler(data);
       setTrainingBlockData(trainingBlockJson);
       setRunningData(runDataTemplate);
+      setNewScheduleFormSubmitted(true);
     }
     // navigate(`/auth/calendar/${activeCalendarId}`);
   }, [data]);
 
-  useEffect(() => {
-    navigate(`/auth/calendar/${activeCalendarId}`);
+  // useEffect(() => {
+  //   navigate(`/auth/calendar/${activeCalendarId}`);
 
-
-    // if (currentPath === "/auth/calendar") {
-    //   navigate(`${activeCalendarId}`);
-    // } else
-    // navigate(`/auth/calendar/${activeCalendarId}`);
-  }, [runningData, trainingBlockData]);
+  //   // if (currentPath === "/auth/calendar") {
+  //   //   navigate(`${activeCalendarId}`);
+  //   // } else
+  //   // navigate(`/auth/calendar/${activeCalendarId}`);
+  // }, [runningData, trainingBlockData]);
 
   return (
     <div className="min-w-min">
