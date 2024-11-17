@@ -21,5 +21,6 @@ const scheduledSchema = new Schema({
       text: true,
     },
   });
+  
 
   export default model("Scheduled", scheduledSchema);

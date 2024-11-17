@@ -42,7 +42,7 @@ export const getAverageHeartBeat = (block) => {
   block.weeks.map((week) => {
     if (week.avg_hr !== 0 && !isNaN(week.avg_hr)) {
       numberOfWeeksWithData += 1;
-      totalHeartBeat += week.avg_hr;
+      totalHeartBeat += parseFloat(week.avg_hr);
     }
   });
   // console.log(totalHeartBeat, numberOfWeeksWithData);

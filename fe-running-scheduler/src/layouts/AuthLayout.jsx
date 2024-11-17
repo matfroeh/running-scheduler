@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 const AuthLayout = () => {
   const { auth } = useAuth();
 
-  console.log("AuthLayout.jsx");
+  // console.log("AuthLayout.jsx");
 
   return (
     <div className="container mx-auto">
