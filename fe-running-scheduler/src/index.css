@@ -9,6 +9,37 @@
   }
 
   .active {
+    /* background-color: base;    */
+    /* style for active link background */
     /* color: blue; */
-    /* background-color: #f0f0f0; style for active link background */
+    text-decoration: underline;
+    text-decoration-color: oklch(var(--a));
+    text-underline-offset: 10px;
+    text-decoration-thickness: 3px;
+  }
+
+  @media (max-width: 300px) {
+    .zoomable {
+      zoom: 0.3; 
+  }
+  }
+  @media (min-width: 300px) {
+    .zoomable {
+      zoom: 0.5; 
+  }
+  }
+  @media (min-width: 500px) {
+    .zoomable {
+      zoom: 0.6; 
+  }
+  }
+  @media (min-width: 800px) {
+    .zoomable {
+      zoom: 0.8; 
+    }
+  }
+  @media (min-width: 1000px) {
+    .zoomable {
+      zoom: 1; 
+    }
   }

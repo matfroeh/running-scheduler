@@ -8,7 +8,7 @@ const AuthLayout = () => {
   // console.log("AuthLayout.jsx");
 
   return (
-    <div className="container mx-auto">
+    <div className="mx-auto zoomable">
       <ToastContainer
         position="bottom-right"
         autoClose={1500}
