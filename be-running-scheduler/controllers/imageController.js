@@ -6,7 +6,7 @@ import { resizeImage } from "../utils/resizeImage.js";
 export const uploadImage = asyncHandler(async (req, res, next) => {
   if (!req.file) return next(new ErrorResponse("Please upload a file", 400));
 
-  const resizedBuffer = await resizeImage(req.file.buffer, 640, 480);
+  const resizedBuffer = await resizeImage(req.file.buffer, 640, null);
   const name = Date.now().toString(36).substring(2, 15);
 
   const newImage = new Image({
