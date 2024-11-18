@@ -258,7 +258,7 @@ const CreateEquipment = () => {
                   }
                   onClick={uploadImage}
                 >
-                  Accept and Upload
+                  Accept and Upload Image
                 </button>
               </div>
               <img
