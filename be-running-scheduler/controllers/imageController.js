@@ -1,18 +1,18 @@
 import Image from "../models/Image.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
+import { resizeImage } from "../utils/resizeImage.js";
 
 export const uploadImage = asyncHandler(async (req, res, next) => {
   if (!req.file) return next(new ErrorResponse("Please upload a file", 400));
 
+  const resizedBuffer = await resizeImage(req.file.buffer, 640, 480);
   const name = Date.now().toString(36).substring(2, 15);
-  // console.log(name);
-  // console.log("body:", req.body);
-  // console.log("file", req.file);
+
   const newImage = new Image({
     name: name,
     img: {
-      data: req.file.buffer,
+      data: resizedBuffer,
       contentType: req.file.mimetype,
     },
   });

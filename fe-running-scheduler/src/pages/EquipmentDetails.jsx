@@ -186,7 +186,7 @@ const EquipmentDetails = () => {
               }
               onClick={uploadImage}
             >
-              Accept and Upload
+              Accept and Upload Image
             </button>
           </div>
         </div>
