@@ -77,6 +77,11 @@ export const handleGpxUpload = (file) => {
               time: totalTime,
               velocity: velocity,
             });
+          } else if (velocity.isNan()) {
+            velocities.push({
+              time: totalTime,
+              velocity: 0,
+            });
           } else {
             velocities.push({
               time: totalTime,
@@ -86,7 +91,7 @@ export const handleGpxUpload = (file) => {
         }
 
         // Calculate "active" distance and time if speed is greater than threshold
-        if (segmentDistance / timeDiff > 0.40) {
+        if (segmentDistance / timeDiff > 0.4) {
           activityDistance += segmentDistance;
           activityTime += timeDiff;
         }
@@ -107,7 +112,9 @@ export const handleGpxUpload = (file) => {
 
       // set run data
       extractedData.name = gpxParser.tracks[0].name;
-      extractedData.date = gpxParser.metadata.time ? new Date(gpxParser.metadata.time).toISOString() : new Date(points[0].time).toISOString(); // carries the date
+      extractedData.date = gpxParser.metadata.time
+        ? new Date(gpxParser.metadata.time).toISOString()
+        : new Date(points[0].time).toISOString(); // carries the date
       extractedData.duration = activityTime; // duration in seconds
       extractedData.totalTime = totalTime; // duration in seconds
       extractedData.distance = parseFloat(totalDistance / 1000).toFixed(2); // convert meters to kilometers
@@ -115,9 +122,10 @@ export const handleGpxUpload = (file) => {
       extractedData.tempo = parseFloat(
         activityTime / 60 / extractedData.distance
       ).toFixed(2); // convert seconds per kilometer to minutes per kilometer
-      extractedData.avg_hr = Math.round(getAverageHeartRate(file)) ? Math.round(getAverageHeartRate(file)) : "";
+      extractedData.avg_hr = Math.round(getAverageHeartRate(file))
+        ? Math.round(getAverageHeartRate(file))
+        : "";
       // console.log("avg_hr: ", extractedData.avg_hr);
-      
 
       // extractedData.velocityArray = velocities.map((v) =>
       //   parseFloat(16.666666667 / v.velocity).toFixed(2)
@@ -132,11 +140,10 @@ export const handleGpxUpload = (file) => {
       extractedData.timeArray = reducedSmoothedVelocities.map((v) =>
         parseFloat(v.time / 60).toFixed(1)
       ); // convert seconds to minutes
-
     }
   }
   console.log("extractedData: ", extractedData);
-  
+
   return extractedData;
 };
 
@@ -174,7 +181,6 @@ function reduceArray(array, interval) {
     }
     return acc;
   }, reducedArray);
-
 
   return reducedArray;
 }
