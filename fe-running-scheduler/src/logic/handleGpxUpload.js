@@ -134,9 +134,13 @@ export const handleGpxUpload = (file) => {
       //   parseFloat(v.time / 60).toFixed(1)
       // ); // convert seconds to minutes
 
-      extractedData.velocityArray = reducedSmoothedVelocities.map((v) =>
-        parseFloat(16.666666667 / v.velocity).toFixed(2)
-      ); // convert m/s to min/km
+      extractedData.velocityArray = reducedSmoothedVelocities.map((v) => {
+        if (v.velocity > 0) {
+          return parseFloat(16.666666667 / v.velocity).toFixed(2);
+        } else {
+          return 0;
+        }
+      }); // convert m/s to min/km
       extractedData.timeArray = reducedSmoothedVelocities.map((v) =>
         parseFloat(v.time / 60).toFixed(1)
       ); // convert seconds to minutes
