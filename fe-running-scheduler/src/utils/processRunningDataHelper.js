@@ -27,6 +27,7 @@ export const findDayObjectByDate = (date, runningData) => {
     if (week === "meta") continue;
     for (const day in runningData.weeks[week].days) {
       // console.log(runningData.weeks[week]["days"][day]);
+      console.log(date);
       
       if (runningData.weeks[week].days[day].date.slice(0, 10) === date.slice(0, 10)) { // Check only leading YYYY-MM-DD
         return [week, day];

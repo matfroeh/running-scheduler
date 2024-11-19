@@ -11,6 +11,9 @@ import SummaryCard from "./SummaryCard";
 import CardElementCloseButton from "./CardElementCloseButton";
 import Loading from "./Loading";
 import Modal from "./Modal";
+import Footer from "./Footer";
+import SocialMedia from "./SocialMedia";
+import StartupDelay from "./StartupDelay";
 
 export {
   Calendar,
@@ -26,4 +29,7 @@ export {
   WeekDaysBar,
   SummaryCard,
   Modal,
+  Footer,
+  SocialMedia,
+  StartupDelay,
 };

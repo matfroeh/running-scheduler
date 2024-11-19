@@ -69,7 +69,7 @@ const NavBar = () => {
               <a onClick={openEquipmentModal}>Equipment</a>
             </li>
             <li>
-              <NavLink onClick={handleLogOut}>Logout</NavLink>
+              <a onClick={handleLogOut}>Logout</a>
             </li>
           </ul>
         </div>

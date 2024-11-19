@@ -14,9 +14,9 @@ export const handleGpxUpload = (file) => {
     let accHeartRate = 0;
     let numberOfTrackPointsWithHrData = trackPointsArray.length;
     for (let i = 0; i < trackPointsArray.length; i++) {
-      // console.log(trackPointsArray[i]);
+      // console.log(trackPointsArray[i].extensions?.["gpxdata:hr"]);
 
-      if (trackPointsArray[i]?.extensions["gpxdata:hr"]?._text) {
+      if (trackPointsArray[i]?.extensions?.["gpxdata:hr"]?._text) {
         accHeartRate += parseInt(
           trackPointsArray[i].extensions["gpxdata:hr"]._text
         );
@@ -107,7 +107,7 @@ export const handleGpxUpload = (file) => {
 
       // set run data
       extractedData.name = gpxParser.tracks[0].name;
-      extractedData.date = gpxParser.metadata.time; // carries the date
+      extractedData.date = gpxParser.metadata.time ? new Date(gpxParser.metadata.time).toISOString() : new Date(points[0].time).toISOString(); // carries the date
       extractedData.duration = activityTime; // duration in seconds
       extractedData.totalTime = totalTime; // duration in seconds
       extractedData.distance = parseFloat(totalDistance / 1000).toFixed(2); // convert meters to kilometers
@@ -115,7 +115,9 @@ export const handleGpxUpload = (file) => {
       extractedData.tempo = parseFloat(
         activityTime / 60 / extractedData.distance
       ).toFixed(2); // convert seconds per kilometer to minutes per kilometer
-      extractedData.avg_hr = Math.round(getAverageHeartRate(file));
+      extractedData.avg_hr = Math.round(getAverageHeartRate(file)) ? Math.round(getAverageHeartRate(file)) : "";
+      // console.log("avg_hr: ", extractedData.avg_hr);
+      
 
       // extractedData.velocityArray = velocities.map((v) =>
       //   parseFloat(16.666666667 / v.velocity).toFixed(2)
@@ -133,7 +135,8 @@ export const handleGpxUpload = (file) => {
 
     }
   }
-
+  console.log("extractedData: ", extractedData);
+  
   return extractedData;
 };
 
