@@ -77,7 +77,7 @@ export const handleGpxUpload = (file) => {
               time: totalTime,
               velocity: velocity,
             });
-          } else if (velocity.isNan()) {
+          } else if (isNaN(velocity)) {
             velocities.push({
               time: totalTime,
               velocity: 0,
