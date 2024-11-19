@@ -2,7 +2,7 @@ import NavBar from "../components/NavBar";
 import { Outlet } from "react-router-dom";
 import { useNavigation } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import { Loading } from "@/components";
+import { Loading, Footer } from "@/components";
 
 const RootLayout = () => {
   const navigation = useNavigation();
