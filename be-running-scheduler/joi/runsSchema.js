@@ -13,7 +13,7 @@ const daySchema = Joi.object({
   timeArray: Joi.array().items(Joi.number()).optional(),
   velocityArray: Joi.array().items(Joi.number()).optional(),
   effort: Joi.number().optional(),
-  avg_hr: Joi.number().optional(),
+  avg_hr: Joi.number().allow(null).optional(),
   comments: Joi.string().allow("").optional(),
   equipment: Joi.string().optional(),
 });
