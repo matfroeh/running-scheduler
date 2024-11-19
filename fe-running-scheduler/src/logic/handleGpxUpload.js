@@ -124,7 +124,7 @@ export const handleGpxUpload = (file) => {
       ).toFixed(2); // convert seconds per kilometer to minutes per kilometer
       extractedData.avg_hr = Math.round(getAverageHeartRate(file))
         ? Math.round(getAverageHeartRate(file))
-        : "";
+        : null;
       // console.log("avg_hr: ", extractedData.avg_hr);
 
       // extractedData.velocityArray = velocities.map((v) =>
@@ -146,7 +146,7 @@ export const handleGpxUpload = (file) => {
       ); // convert seconds to minutes
     }
   }
-  console.log("extractedData: ", extractedData);
+  // console.log("extractedData: ", extractedData);
 
   return extractedData;
 };
