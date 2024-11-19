@@ -19,14 +19,11 @@ const Footer = () => {
         </div>
         <div>
           <p className="mt-4">
-            <strong>Haftungsausschluss:</strong>
-            <p>
-              {" "}
-              Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine
-              Haftung für die Inhalte externer Links. <br />
-              Für den Inhalt der verlinkten Seiten sind ausschließlich deren
-              Betreiber verantwortlich.
-            </p>
+            <strong>Haftungsausschluss:</strong> Trotz sorgfältiger inhaltlicher
+            Kontrolle übernehmen wir keine Haftung für die Inhalte externer
+            Links. <br />
+            Für den Inhalt der verlinkten Seiten sind ausschließlich deren
+            Betreiber verantwortlich.
           </p>
           {/* <p className="mt-4">
             <a href="/datenschutz" className="text-blue-400 underline">
