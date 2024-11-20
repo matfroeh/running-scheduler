@@ -16,7 +16,7 @@ const Profile = () => {
   const [images, setImages] = useState(null);
   const navigate = useNavigate();
 
-  console.log(user);
+  // console.log(user);
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
@@ -68,7 +68,7 @@ const Profile = () => {
       if (!confirmDelete) return;
     }
     const response = await deleteUser(user.userId);
-    console.log("response", response);
+    // console.log("response", response);
     
     if (response.status === 200) {
       toast.success("Account deleted successfully");
