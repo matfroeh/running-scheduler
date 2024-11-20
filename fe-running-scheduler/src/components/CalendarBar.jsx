@@ -1,10 +1,10 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { handleGpxUpload as processGpx } from "../logic/handleGpxUpload";
 import { useRef } from "react";
 import { updateRunCalendar } from "../data/runs";
 import { useState, useEffect } from "react";
 import { findDayObjectByDate } from "../utils/processRunningDataHelper.js";
 import { toast } from "react-toastify";
+import processGpxData from "@/logic/processGpxData.js";
 
 const CalendarBar = ({
   title,
@@ -62,13 +62,32 @@ const CalendarBar = ({
     Promise.all(readers).then((contents) => setFileContents(contents));
   };
 
+  // TESTING GPX PARSING / PROCESSING
+  // useEffect(() => {
+  //   const processData = async () => {
+  //     setIsLoading(true);
+  //     for (const content of fileContents) {
+  //       try {
+  //         const newRunningData = processGpxData(content);
+  //         console.log("newRunningData: ", newRunningData);
+  //       } catch (error) {
+  //         console.log("Error adding run: ", error);
+  //       }
+  //     }
+  //     setIsLoading(false);
+  //   };
+  //   if (fileContents.length > 0) {
+  //     processData();
+  //   }
+  // }, [fileContents]);
+
   // Process each file's content once it is updated
   useEffect(() => {
     const processData = async () => {
       setIsLoading(true);
       for (const content of fileContents) {
         try {
-          const newRunningData = processGpx(content);
+          const newRunningData = processGpxData(content);
           // check if the date is within the current calendar
           const [week, day] = findDayObjectByDate(
             newRunningData.date,
