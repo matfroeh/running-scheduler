@@ -20,22 +20,22 @@
 
   @media (max-width: 300px) {
     .zoomable {
-      zoom: 0.3; 
+      zoom: 0.4; 
   }
   }
   @media (min-width: 300px) {
     .zoomable {
-      zoom: 0.5; 
+      zoom: 0.55; 
   }
   }
   @media (min-width: 500px) {
     .zoomable {
-      zoom: 0.6; 
+      zoom: 0.8; 
   }
   }
   @media (min-width: 800px) {
     .zoomable {
-      zoom: 0.8; 
+      zoom: 0.95; 
     }
   }
   @media (min-width: 1000px) {

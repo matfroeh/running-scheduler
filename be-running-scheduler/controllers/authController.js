@@ -119,12 +119,14 @@ export const me = asyncHandler(async (req, res, next) => {
 export const logout = asyncHandler(async (req, res, next) => {
   try {
     // Workaround to remove the cookie as there seems to be an issue when deployed on render
-    res.cookie('auth', '', {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'None',
-      expires: new Date(0),  // Immediate expiration to force removal
-    }).json({ success: "User successfully logged out." });
+    res
+      .cookie("auth", "", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+        expires: new Date(0), // Immediate expiration to force removal
+      })
+      .json({ success: "User successfully logged out." });
     // res
     //   .clearCookie(
     //     "auth"
@@ -138,4 +140,21 @@ export const logout = asyncHandler(async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+});
+
+export const changePassword = asyncHandler(async (req, res, next) => {
+  const { userId } = req;
+  const { currentPassword, newPassword } = req.body;
+
+  const user = await User.findById(userId).select("+password");
+  if (!user) throw new ErrorResponse("Invalid credentials", 401);
+
+  const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
+  if (!isPasswordValid) throw new ErrorResponse("Invalid credentials", 401);
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  user.password = hashedPassword;
+  await user.save();
+
+  res.status(200).json({ success: "Password successfully changed." });
 });

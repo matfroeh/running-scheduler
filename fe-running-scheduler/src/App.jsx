@@ -19,6 +19,7 @@ import {
   CreateEquipment,
   Profile,
   CalendarEditModal,
+  Datenschutz
 } from "@/pages";
 import { RootLayout, AuthLayout } from "@/layouts";
 import { action as getFormData } from "./actions/getFormData";
@@ -113,15 +114,25 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "datenschutz",
+    element: <Datenschutz />,
+  }
 ]);
 
 function App() {
   return (
     <>
-      <CookieConsent debug={false} location="top" expires={3}>
+      <CookieConsent
+        debug={false}
+        location="top"
+        buttonText="Allow functional cookies."
+        expires={7}
+      >
         <div className="">
           This website uses functional cookies to enhance the user experience.
-          Particularly, an authentication cookie is set to keep you logged in.
+          Particularly, an authentication cookie will be set to verify your
+          credentials and keep you logged in.
         </div>
       </CookieConsent>
       <AuthContextProvider>

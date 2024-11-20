@@ -12,10 +12,11 @@ const RootLayout = () => {
   // console.log("RootLayout, state:", navigation.state);
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <NavBar />
       {isLoading ? <Loading /> : <Outlet />}
-    </>
+      <Footer />
+    </div>
   );
 };
 

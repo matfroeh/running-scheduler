@@ -69,3 +69,14 @@ export const deleteEquipmentFromUserList = async (userId, equipmentId) => {
   const data = await response.json();
   return data;
 };
+
+export const deleteUser = async (userId) => {
+  console.log("deleteUser", userId);
+  
+  const response = await fetch(`${baseURL}/${userId}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+  const data = await response.json();
+  return data;
+};

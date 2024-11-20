@@ -7,6 +7,7 @@ import {
   deleteEquipmentFromUserList,
   updateUser,
   getEquipmentById,
+  deleteUser,
 } from "../controllers/userController.js";
 import verifyTokenMiddleware from "../middleware/verifyTokenMiddleware.js";
 
@@ -18,7 +19,8 @@ userRouter
   .route("/:userId")
   .get(verifyTokenMiddleware, getEquipmentListFromUser)
   .put(verifyTokenMiddleware, updateUser) // we will use put to set the image_id
-  .post(verifyTokenMiddleware, createEquipment); // get user equipment list, create user equipment (not insert in list)
+  .post(verifyTokenMiddleware, createEquipment) // get user equipment list, create user equipment (not insert in list)
+  .delete(verifyTokenMiddleware, deleteUser); // delete user
 userRouter
   .route("/:userId/:equipmentId")
   .get(verifyTokenMiddleware, getEquipmentById)
