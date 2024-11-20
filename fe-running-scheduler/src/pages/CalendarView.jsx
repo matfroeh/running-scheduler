@@ -104,7 +104,7 @@ const CalendarView = () => {
   // }, [runningData, trainingBlockData]);
 
   return (
-    <div className="min-w-min">
+    <div className="min-w-min flex-grow">
       <CalendarBar
         title={trainingBlockData?.meta?.title}
         runningData={runningData}
