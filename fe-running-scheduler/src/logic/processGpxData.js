@@ -118,19 +118,7 @@ const processGpxData = (file) => {
         heartRates.reduce((acc, hr) => acc + hr, 0) / heartRates.length
       ) || null;
 
-    // Get average heart rate
-    // processedData.avg_hr = Math.round(getAverageHeartRate(file))
-    //   ? Math.round(getAverageHeartRate(file))
-    //   : null;
-    // console.log("avg_hr: ", extractedData.avg_hr);
-
-    // extractedData.velocityArray = velocities.map((v) =>
-    //   parseFloat(16.666666667 / v.velocity).toFixed(2)
-    // ); // convert m/s to min/km
-    // extractedData.timeArray = velocities.map((v) =>
-    //   parseFloat(v.time / 60).toFixed(1)
-    // ); // convert seconds to minutes
-
+    // Set velocity and time arrays for plotting
     processedData.velocityArray = reducedSmoothedVelocities.map((v) => {
       if (v.velocity > 0) {
         return parseFloat(16.666666667 / v.velocity).toFixed(2);
