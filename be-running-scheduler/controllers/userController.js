@@ -3,7 +3,6 @@ import ErrorResponse from "../utils/ErrorResponse.js";
 import User from "../models/User.js";
 import Equipment from "../models/Equipment.js";
 
-
 export const getEquipmentListFromUser = asyncHandler(async (req, res, next) => {
   const { userId } = req.params;
   const user = await User.findOne({ _id: userId }).populate("equipmentList");
@@ -124,10 +123,20 @@ export const deleteEquipmentFromUserList = asyncHandler(
     // remove from equipment collection
     await Equipment.deleteOne({ _id: equipmentId });
 
-
     // console.log("backend: userEquipList, ", user.equipmentList);
 
     await user.save();
     res.status(200).json(user);
   }
 );
+
+export const deleteUser = asyncHandler(async (req, res, next) => {
+  const { userId } = req.params;
+  console.log("request received to delete user with id: ", userId);
+  
+  const user = await User.findOne({ _id: userId });
+  if (!user)
+    return next(new ErrorResponse(`User not found with id of ${userId}`, 404));
+  await User.deleteOne({ _id: userId });
+  res.status(200).json({ success: "User deleted successfully", status: 200 });
+});
