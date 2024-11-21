@@ -20,6 +20,9 @@ import ButtonCalendarNavigate from "./ButtonCalendarNavigate";
 import ButtonHiddenInput from "./ButtonHiddenInput";
 import NavBarDropDownMenu from "./NavBarDropDownMenu";
 import NavBarNavButtons from "./NavBarNavButtons";
+import InputErrorBar from "./InputErrorBar";
+import ButtonSave from "./ButtonSave";
+import ButtonDelete from "./ButtonDelete";
 
 export {
   Calendar,
@@ -44,4 +47,7 @@ export {
   ButtonHiddenInput,
   NavBarDropDownMenu,
   NavBarNavButtons,
+  InputErrorBar,
+  ButtonSave,
+  ButtonDelete,
 };
