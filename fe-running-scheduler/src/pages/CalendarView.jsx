@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import CalendarBar from "../components/CalendarBar";
-import CalendarBody from "../components/CalendarBody";
+import CalendarBar from "../components/Calendar/CalendarBar";
+import CalendarBody from "../components/Calendar/CalendarBody";
 import {
   Outlet,
   useActionData,
