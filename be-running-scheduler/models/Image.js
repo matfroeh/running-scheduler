@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
 const imageSchema = new mongoose.Schema({
+  userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+  },
   name: {
       type: String,
       required: true,
@@ -9,6 +14,10 @@ const imageSchema = new mongoose.Schema({
   img: {
       data: Buffer,
       contentType: String,
+  },
+  Date: {
+      type: Date,
+      default: Date.now,
   },
 });
 

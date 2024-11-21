@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { initialTitle } from "@/lib/uiConstants.js";
+import { initialTitle, newTrainingSchedule } from "@/lib/uiConstants.js";
 import { readMultipleFiles } from "@/lib/fileHandling.js";
 import { useProcessGpxData } from "@/lib/hooks.js";
 import {
@@ -139,7 +139,7 @@ const CalendarBar = ({
                   className="pointer-events-none absolute left-6 -top-6 text-sm w-max 
           opacity-0 transition-opacity duration-700 bg-base-100 group-hover:opacity-100"
                 >
-                  New Training Schedule
+                  {newTrainingSchedule}
                 </span>
               </div>
             </div>

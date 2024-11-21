@@ -10,6 +10,9 @@ export function useFetchUserProfile(user) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     if (!user?.profilePicture) {
       // check for profile picture
       return;
@@ -17,8 +20,9 @@ export function useFetchUserProfile(user) {
     const fetchImage = async () => {
       setLoading(true);
       try {
-        const data = await getUserProfilePicture(user);
+        const data = await getUserProfilePicture(user, signal);
         setImage(data);
+        // ToDo: Check if this is the correct way to handle this
       } catch (error) {
         console.error(error);
       } finally {
@@ -26,6 +30,10 @@ export function useFetchUserProfile(user) {
       }
     };
     fetchImage();
+
+    return () => {
+      controller.abort();
+    };
   }, [user]);
 
   return { image, loading };
