@@ -33,8 +33,6 @@ export const getRunningLogById = asyncHandler(async (req, res, next) => {
 export const updateRunningLog = asyncHandler(async (req, res, next) => {
   const { calendarId } = req.params;
   const { meta, weeks } = req.body;
-  // console.log("meta:", meta);
-  // console.log("weeks:", weeks);
   
   const userId = req.userId;
 

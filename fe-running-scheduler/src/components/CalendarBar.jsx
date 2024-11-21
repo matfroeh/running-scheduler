@@ -1,10 +1,16 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
-import { updateRunCalendar } from "../data/runs";
-import { useState, useEffect } from "react";
-import { findDayObjectByDate } from "../utils/processRunningDataHelper.js";
+import { useState } from "react";
 import { toast } from "react-toastify";
-import processGpxData from "@/logic/processGpxData.js";
+import { initialTitle, newTrainingSchedule } from "@/lib/uiConstants.js";
+import { readMultipleFiles } from "@/lib/fileHandling.js";
+import { useProcessGpxData } from "@/lib/hooks.js";
+import {
+  ButtonLoadingState,
+  ButtonToggle,
+  ButtonCalendarNavigate,
+  ButtonHiddenInput,
+} from "@/components";
 
 const CalendarBar = ({
   title,
@@ -21,115 +27,37 @@ const CalendarBar = ({
   setHideSchedule,
 }) => {
   const [fileContents, setFileContents] = useState([]); // Array to hold multiple file contents
-  const navigate = useNavigate();
-  const location = useLocation();
-  const currentPath = location.pathname;
   const [isLoading, setIsLoading] = useState(false);
-
+  const navigate = useNavigate();
   const gpxInputRef = useRef(null);
 
-  const initialTitle = "Create A New Training Schedule";
+  // This function reads the content of multiple files and sets them to the state
+  const handleGpxFileChange = (event) => {
+    const readers = readMultipleFiles(event);
 
-  // console.log("CalendarBar: newScheduleSubmitted", newScheduleFormSubmitted);
-
-  const openCreateTrainingBlockModal = () => {
-    navigate("new-schedule");
+    // Wait until all files are read and set the results to fileContents
+    Promise.all(readers).then((contents) => setFileContents(contents));
   };
+
+  // This hook processes the gpx data and sets the new running data
+  useProcessGpxData(
+    runningData,
+    setRunningData,
+    fileContents,
+    setFileContents,
+    setIsLoading,
+    toast,
+    navigate
+  );
 
   // This passes the click on the normal button to the hidden input field button
   const handleGpxInputClick = () => {
     gpxInputRef.current.click();
   };
 
-  // This function reads the content of multiple files and sets them to the state
-  const handleGpxFileChange = (event) => {
-    const files = event.target.files;
-    const readers = [];
-
-    Array.from(files).forEach((file) => {
-      const reader = new FileReader();
-      readers.push(
-        new Promise((resolve) => {
-          reader.onload = () => {
-            resolve(reader.result);
-          };
-          reader.readAsText(file);
-        })
-      );
-    });
-
-    // Wait until all files are read and set the results to fileContents
-    Promise.all(readers).then((contents) => setFileContents(contents));
+  const openCreateTrainingBlockModal = () => {
+    navigate("new-schedule");
   };
-
-  // TESTING GPX PARSING / PROCESSING
-  // useEffect(() => {
-  //   const processData = async () => {
-  //     setIsLoading(true);
-  //     for (const content of fileContents) {
-  //       try {
-  //         const newRunningData = processGpxData(content);
-  //         console.log("newRunningData: ", newRunningData);
-  //       } catch (error) {
-  //         console.log("Error adding run: ", error);
-  //       }
-  //     }
-  //     setIsLoading(false);
-  //   };
-  //   if (fileContents.length > 0) {
-  //     processData();
-  //   }
-  // }, [fileContents]);
-
-  // Process each file's content once it is updated
-  useEffect(() => {
-    const processData = async () => {
-      setIsLoading(true);
-      for (const content of fileContents) {
-        try {
-          const newRunningData = processGpxData(content);
-          // check if the date is within the current calendar
-          const [week, day] = findDayObjectByDate(
-            newRunningData.date,
-            runningData
-          );
-
-          if (week && day) {
-            const updatedRunningData = { ...runningData };
-            updatedRunningData.weeks[week].days[day] = newRunningData;
-            setRunningData(updatedRunningData);
-            const response = await updateRunCalendar(
-              updatedRunningData,
-              runningData._id
-            );
-            // console.log(response);
-            if (response) {
-              // Single uploaded file: directly go to run details modal
-              if (fileContents.length === 1) {
-                navigate(`runs/${week}/${day}/new`);
-              }
-            }
-          } else {
-            toast.error(
-              `${newRunningData.date.slice(
-                0,
-                10
-              )} is outside of the current calendar`
-            );
-          }
-        } catch (error) {
-          toast.error(`Error adding run: ${error.message}`);
-          console.error(error);
-        }
-      }
-      setIsLoading(false);
-      toast.success("New run(s) added successfully");
-    };
-
-    if (fileContents.length > 0) {
-      processData();
-    }
-  }, [fileContents]);
 
   const discardNewSchedule = () => {
     setNewScheduleFormSubmitted(false);
@@ -145,74 +73,43 @@ const CalendarBar = ({
   };
 
   const handleCalendarEdit = () => {
-    navigate(`${currentPath}/edit-schedule`);
+    navigate(`edit-schedule`);
   };
 
   return (
     <>
       <div className="flex flex-auto flex-wrap navbar sticky top-0 z-10 bg-base-100">
         <div className="flex flex-1 navbar-start">
-          <span className="">
-            <button
-              className="btn btn-sm"
+          <div className="">
+            <ButtonCalendarNavigate
+              text={"Previous"}
               onClick={showPreviousCalendar}
-              disabled={newScheduleFormSubmitted ? true : false}
-            >
-              Previous
-            </button>
-            <button
-              className="btn btn-sm"
+              disabled={newScheduleFormSubmitted}
+            />
+            <ButtonCalendarNavigate
+              text={"Current"}
               onClick={showCurrentCalendar}
-              disabled={newScheduleFormSubmitted ? true : false}
-            >
-              Current
-            </button>
-            <button
-              className="btn btn-sm"
+              disabled={newScheduleFormSubmitted}
+            />
+            <ButtonCalendarNavigate
+              text={"Next"}
               onClick={showNextCalendar}
-              disabled={newScheduleFormSubmitted ? true : false}
-            >
-              Next
-            </button>
-          </span>
+              disabled={newScheduleFormSubmitted}
+            />
+          </div>
 
           <div className="px-4">
             {!isLoading ? (
-              <div
-                className="btn btn-sm ring-1 ring-accent"
+              <ButtonHiddenInput
+                text={"Upload .gpx"}
+                accept=".gpx"
                 onClick={handleGpxInputClick}
+                onChange={handleGpxFileChange}
                 disabled={!title || newScheduleFormSubmitted ? true : false}
-              >
-                Upload .gpx
-                <input
-                  ref={gpxInputRef}
-                  type="file"
-                  multiple
-                  onChange={handleGpxFileChange}
-                  style={{ display: "none" }}
-                  accept=".gpx"
-                />
-              </div>
+                refForward={gpxInputRef}
+              />
             ) : (
-              <button className="btn btn-sm text-warning ring-1 ring-warning">
-                <svg
-                  className="animate-spin h-5 w-5 mr-3 ..."
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="#f59e0b"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    fill="#f59e0b"
-                    d="M4 12a8 8 0 018-8V4a10 10 0 00-10 10h2zm2 8a8 8 0 018-8h2a10 10 0 00-10-10V2a12 12 0 0110 10"
-                  ></path>
-                </svg>
-                Processing...
-              </button>
+              <ButtonLoadingState text={"Processing..."} />
             )}
           </div>
         </div>
@@ -242,7 +139,7 @@ const CalendarBar = ({
                   className="pointer-events-none absolute left-6 -top-6 text-sm w-max 
           opacity-0 transition-opacity duration-700 bg-base-100 group-hover:opacity-100"
                 >
-                  New Training Schedule
+                  {newTrainingSchedule}
                 </span>
               </div>
             </div>
@@ -250,30 +147,8 @@ const CalendarBar = ({
         </div>
         <div className="flex flex-1 navbar-end">
           <span className="flex ">
-            <div>
-              <label className="label cursor-pointer">
-                <span className="label-text text-base text-nowrap">
-                  Show Notes
-                </span>
-                <input
-                  type="checkbox"
-                  className="toggle toggle-accent mx-2"
-                  onClick={toggleNotes}
-                />
-              </label>
-            </div>
-            <div>
-              <label className="label cursor-pointer">
-                <span className="label-text text-base text-nowrap">
-                  Hide Schedule
-                </span>
-                <input
-                  type="checkbox"
-                  className="toggle toggle-accent mx-2"
-                  onClick={toggleSchedule}
-                />
-              </label>
-            </div>
+            <ButtonToggle text={"Show Notes"} onClick={toggleNotes} />
+            <ButtonToggle text={"Hide Schedule"} onClick={toggleSchedule} />
           </span>
         </div>
       </div>

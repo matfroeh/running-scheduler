@@ -4,6 +4,8 @@ import asyncHandler from "../utils/asyncHandler.js";
 
 const verifyTokenMiddleware = asyncHandler(async (req, res, next) => {
   try {
+    // console.log("headers:", req.headers);
+    // console.log("body:", req.body);   
     // const { headers: { authorization }} = req;
     let cookie = req.headers.cookie;
     // console.log("Headers:", req.headers);    

@@ -1,10 +1,14 @@
 import { Router } from "express";
-import { uploadImage, getImageById } from "../controllers/imageController.js";
+import {
+  uploadImage,
+  getImageById,
+  deleteImage,
+} from "../controllers/imageController.js";
 import multer from "multer";
 import verifyTokenMiddleware from "../middleware/verifyTokenMiddleware.js";
-import validateJOI from "../middleware/validateJOI.js";
-import imageSchema from "../joi/imageSchema.js";
-
+// ToDo: need to find a separate validation middleware for image upload
+// import validateJOI from "../middleware/validateJOI.js";
+// import imageSchema from "../joi/imageSchema.js";
 
 // const upload = multer({ dest: "./uploads/", limits: { fileSize: 5 * 1024 * 1024 } });
 const storage = multer.memoryStorage();
@@ -18,11 +22,13 @@ const imageRouter = Router();
 imageRouter
   .route("/")
   .post(
-    validateJOI(imageSchema),
     verifyTokenMiddleware,
     upload.single("image"),
     uploadImage
   );
-imageRouter.route("/:imageId").get(verifyTokenMiddleware, getImageById);
+imageRouter
+  .route("/:imageId")
+  .get(verifyTokenMiddleware, getImageById)
+  .delete(verifyTokenMiddleware, deleteImage);
 
 export default imageRouter;

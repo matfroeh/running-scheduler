@@ -62,10 +62,11 @@ export const createRun = async (run, _id) => {
   return data;
 };
 
-export const updateRunCalendar = async (run, calendarId) => {
+export const updateRunCalendar = async (run, calendarId, signal) => {
   const body = run;
 
   const res = await fetch(`${baseURL}/${calendarId}`, {
+    signal: signal ? signal : null,
     method: "PUT",
     credentials: "include",
     headers: {

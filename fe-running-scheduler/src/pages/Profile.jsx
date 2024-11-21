@@ -1,50 +1,32 @@
 import { CardModal } from "@/components";
 import { useAuth } from "@/context";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { updateUser, deleteUser } from "../data/user";
 import { toast } from "react-toastify";
+import { useFetchUserProfile } from "@/lib/hooks";
+import { uploadProfilePicture, imageChange } from "../lib/fileHandling";
 
 const Profile = () => {
-  const API_URL = import.meta.env.VITE_APP_RUNNING_SCHEDULER_API_URL;
   const { user, setUser, logOut } = useAuth();
   const imgInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageId, setImageId] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [images, setImages] = useState(null);
+  const { image: images } = useFetchUserProfile(user);
   const navigate = useNavigate();
 
-  // console.log(user);
-
   const handleImageChange = async (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImageUrl(reader.result);
-    };
-    reader.readAsDataURL(file);
-    setSelectedFile(file);
+    await imageChange(e, setImageUrl, setSelectedFile);
   };
 
   const handleImageInputClick = () => {
     imgInputRef.current.click();
   };
 
-  const uploadImage = async () => {
-    const formData = new FormData();
-    formData.append("image", selectedFile);
-    // console.log(formData);
-    // console.log(selectedFile);
-    const response = await fetch(`${API_URL}/uploads`, {
-      method: "POST",
-      credentials: "include",
-      body: formData,
-    });
-    const data = await response.json();
-    // console.log(data);
-    setImageId(data);
+  const setProfilePicture = async () => {
+    await uploadProfilePicture(selectedFile, user, setImageId);
+    setSelectedFile(null);
   };
 
   const update = async () => {
@@ -69,7 +51,7 @@ const Profile = () => {
     }
     const response = await deleteUser(user.userId);
     // console.log("response", response);
-    
+
     if (response.status === 200) {
       toast.success("Account deleted successfully");
       logOut();
@@ -87,24 +69,6 @@ const Profile = () => {
     }
     return window.btoa(binary);
   };
-
-  useEffect(() => {
-    if (!user.profilePicture) {
-      return;
-    }
-    // Fetch images from the server when the component mounts
-    const fetchImage = async () => {
-      const response = await axios.get(
-        `${API_URL}/uploads/${user.profilePicture}`,
-        {
-          withCredentials: true,
-        }
-      );
-      setImages(response.data);
-    };
-
-    fetchImage();
-  }, [user.profilePicture]);
 
   return (
     <CardModal>
@@ -154,7 +118,7 @@ const Profile = () => {
                     ? "btn btn-primary btn-sm ring-1 justify-self-start"
                     : "hidden"
                 }
-                onClick={uploadImage}
+                onClick={setProfilePicture}
               >
                 Accept and Upload
               </button>
@@ -184,7 +148,10 @@ const Profile = () => {
           )}
         </div>
       </div>
-      <button className="mx-auto btn btn-sm w-max btn-error" onClick={deleteAccount}>
+      <button
+        className="mx-auto btn btn-sm w-max btn-error"
+        onClick={deleteAccount}
+      >
         Delete Account
       </button>
     </CardModal>
