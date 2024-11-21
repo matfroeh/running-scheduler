@@ -1,0 +1,1 @@
+export const initialTitle = "Create A New Training Schedule";
