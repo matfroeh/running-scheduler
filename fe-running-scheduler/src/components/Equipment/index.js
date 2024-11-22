@@ -5,6 +5,15 @@ import ButtonUpload from "./ButtonUpload";
 import ImagePreviewGroup from "./ImagePreviewGroup";
 import ImageUploader from "./ImageUploader";
 import ImageContainer from "./ImageContainer";
+import EquipmentCard from "./EquipmentCard";
 
-
-export { FormEquipmentStats, ButtonSubmit, ButtonHiddenInput, ButtonUpload, ImagePreviewGroup, ImageUploader, ImageContainer };
+export {
+  FormEquipmentStats,
+  ButtonSubmit,
+  ButtonHiddenInput,
+  ButtonUpload,
+  ImagePreviewGroup,
+  ImageUploader,
+  ImageContainer,
+  EquipmentCard,
+};
