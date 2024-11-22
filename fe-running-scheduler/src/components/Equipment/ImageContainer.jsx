@@ -9,7 +9,7 @@ const ImageContainer = ({ imageUrl, image }) => {
             image.img.data.data
           )}`}
           alt={image.name}
-          className="w-1/4 mt-4"
+          className="rounded-lg w-32 h-32 object-scale-down"
         />
       )}
     </>
