@@ -13,6 +13,9 @@ const EquipmentDetails = () => {
     imageProps,
   } = useEquipmentDetails();
 
+  // console.log(imageProps);
+  
+
   return (
     <CardModal>
       <h2 className="card-title text-xl">{formData.name} - Details</h2>

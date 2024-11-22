@@ -203,13 +203,13 @@ export function processFormDataFromScheduler(data) {
     return trainingBlock;
   };
 
-  const trainingBlockJson = createTrainingBlockJson(
+  const newSchedule = createTrainingBlockJson(
     trainingBlockParameters,
     weeks
   );
-  const runDataTemplate = createRunDataTemplate(trainingBlockJson);
+  const newRuns = createRunDataTemplate(newSchedule);
 
-  return { trainingBlockJson, runDataTemplate };
+  return { newSchedule, newRuns };
 }
 
 // Creates the template for the later insertion of the running data (uploaded gpx files)

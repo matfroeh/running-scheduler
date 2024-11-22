@@ -2,26 +2,27 @@ import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { initialTitle, newTrainingSchedule } from "@/lib/uiConstants.js";
+import { INITIAL_TITLE, NEW_TRAINING_SCHEDULE } from "@/lib/uiConstants.js";
 import { readMultipleFiles } from "@/lib/fileHandling.js";
 import { useProcessGpxData } from "@/lib//hooks/miscDataHooks.js";
 import {
   ButtonLoadingState,
   ButtonToggle,
-  ButtonCalendarNavigate,
   ButtonHiddenInput,
 } from "@/components";
+import ButtonCalendarNavigate from "@/components/Calendar/ButtonCalendarNavigate";
 
 const CalendarBar = ({
   title,
-  runningData,
-  setRunningData,
-  newScheduleFormSubmitted,
-  setNewScheduleFormSubmitted,
-  saveNewSchedule,
-  showCurrentCalendar,
-  showPreviousCalendar,
-  showNextCalendar,
+  runs,
+  setRuns,
+  cyclingProps: {
+    showPreviousCalendar,
+    showCurrentCalendar,
+    showNextCalendar,
+    currentIndex,
+    calendarSize,
+  },
   setNotes,
   notes,
   setHideSchedule,
@@ -41,8 +42,8 @@ const CalendarBar = ({
 
   // This hook processes the gpx data and sets the new running data
   useProcessGpxData(
-    runningData,
-    setRunningData,
+    runs,
+    setRuns,
     fileContents,
     setFileContents,
     setIsLoading,
@@ -57,11 +58,6 @@ const CalendarBar = ({
 
   const openCreateTrainingBlockModal = () => {
     navigate("new-schedule");
-  };
-
-  const discardNewSchedule = () => {
-    setNewScheduleFormSubmitted(false);
-    showCurrentCalendar();
   };
 
   const toggleNotes = () => {
@@ -84,17 +80,16 @@ const CalendarBar = ({
             <ButtonCalendarNavigate
               text={"Previous"}
               onClick={showPreviousCalendar}
-              disabled={newScheduleFormSubmitted}
+              disabled={currentIndex === 0}
             />
             <ButtonCalendarNavigate
               text={"Current"}
               onClick={showCurrentCalendar}
-              disabled={newScheduleFormSubmitted}
             />
             <ButtonCalendarNavigate
               text={"Next"}
               onClick={showNextCalendar}
-              disabled={newScheduleFormSubmitted}
+              disabled={currentIndex === calendarSize - 1}
             />
           </div>
 
@@ -105,7 +100,7 @@ const CalendarBar = ({
                 accept=".gpx"
                 onClick={handleGpxInputClick}
                 onChange={handleGpxFileChange}
-                disabled={!title || newScheduleFormSubmitted ? true : false}
+                disabled={!title ? true : false}
                 refForward={gpxInputRef}
               />
             ) : (
@@ -125,7 +120,7 @@ const CalendarBar = ({
                   {title}
                 </span>
               ) : (
-                <span className="rounded-md p-1">{initialTitle}</span>
+                <span className="rounded-md p-1">{INITIAL_TITLE}</span>
               )}
 
               <div className="group relative">
@@ -139,7 +134,7 @@ const CalendarBar = ({
                   className="pointer-events-none absolute left-6 -top-6 text-sm w-max 
           opacity-0 transition-opacity duration-700 bg-base-100 group-hover:opacity-100"
                 >
-                  {newTrainingSchedule}
+                  {NEW_TRAINING_SCHEDULE}
                 </span>
               </div>
             </div>
@@ -152,19 +147,6 @@ const CalendarBar = ({
           </span>
         </div>
       </div>
-      {newScheduleFormSubmitted && (
-        <div className="flex justify-center gap-8 mb-2 mt-4">
-          <div className="indicator">
-            <span className="indicator-item badge badge-accent"></span>
-            <button onClick={saveNewSchedule} className="btn btn-sm">
-              Save New Schedule
-            </button>
-          </div>
-          <button onClick={discardNewSchedule} className="btn btn-sm">
-            Discard
-          </button>
-        </div>
-      )}
     </>
   );
 };

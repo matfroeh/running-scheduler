@@ -8,19 +8,20 @@ import {
 } from "../utils/processRunningDataHelper.js";
 import { updateEquipment, getEquipmentListFromUser } from "../data/user.js";
 import { CardModal } from "@/components";
+import { TypeSelectOptions } from "@/components/RunAndTrainingDetails";
 import { useAuth } from "@/context";
 import LineChartTimeVelocity from "../components/charts/LineChartTimeVelocity";
+import formatDate from "@/utils/formatDate";
 
 const RunDetailsModal = () => {
   const { week, day } = useParams();
-  const { runningData, setRunningData, newScheduleFormSubmitted } =
-    useOutletContext();
+  const { runs, setRuns } = useOutletContext();
+  // console.log("runs", runs);
+  
   const { user } = useAuth();
-  const run = runningData.weeks[week].days[day];
-  const calendarId = runningData._id;
+  const run = runs.weeks[week].days[day];
+  const calendarId = runs._id;
   const navigate = useNavigate();
-
-  // console.log("run", run);
 
   const [isEditMode, setIsEditMode] = useState(false);
   const [formData, setFormData] = useState({ ...run });
@@ -38,26 +39,11 @@ const RunDetailsModal = () => {
 
   useEffect(() => {
     const fetchEquipmentList = async () => {
-      // console.log("fetching equipment list");
-
       const equipmentList = await getEquipmentListFromUser(user.userId);
-      // console.log(equipmentList);
       setEquipmentList(equipmentList);
     };
     fetchEquipmentList();
   }, []);
-
-  // console.log("activeEquipmentList", activeEquipmentList);
-  // console.log("equipment list", equipmentList);
-  // console.log("selected equipment", selectedEquipment);
-
-  const formatDate = (date) => {
-    return new Date(date).toLocaleDateString("en-UK", {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-    });
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -83,11 +69,11 @@ const RunDetailsModal = () => {
     if (handleInputVerification() === false) return;
 
     try {
-      const updatedRunningData = { ...runningData };
+      const updatedRunningData = { ...runs };
       updatedRunningData.weeks[week].days[day] = formData;
 
-      setRunningData(updatedRunningData);
-      await updateRunCalendar(runningData, calendarId);
+      setRuns(updatedRunningData);
+      await updateRunCalendar(runs, calendarId);
 
       // update the equipment distance if still exists in the list (as active equipment)
       if (selectedEquipment && equipmentChanged) {
@@ -114,11 +100,11 @@ const RunDetailsModal = () => {
       );
       if (!confirmDelete) return;
 
-      const updatedRunningData = { ...runningData };
+      const updatedRunningData = { ...runs };
       updatedRunningData.weeks[week].days[day] = { date: run.date };
       // console.log(updatedRunningData.weeks[week].days[day]);
-      setRunningData(updatedRunningData);
-      await updateRunCalendar(runningData, calendarId);
+      setRuns(updatedRunningData);
+      await updateRunCalendar(runs, calendarId);
       toast.success("Run deleted successfully.");
     } catch (error) {
       toast.error(error.message);
@@ -155,15 +141,6 @@ const RunDetailsModal = () => {
     return true;
   };
 
-  if (newScheduleFormSubmitted) {
-    return (
-      <CardModal>
-        <h2 className="card-title text-xl font-bold">
-          Please save your new schedule first
-        </h2>
-      </CardModal>
-    );
-  }
   return (
     <>
       <CardModal>
@@ -223,34 +200,10 @@ const RunDetailsModal = () => {
             )}
           </div>
           {isEditMode ? (
-            <div className="">
-              <strong>Type: </strong>
-              <select
-                className="select select-bordered w-full mt-2"
-                value={formData.type}
-                name="type"
-                onChange={handleChange}
-              >
-                <option value="" defaultValue="Select a type">
-                  Select a type
-                </option>
-                <option value="Easy Run">Easy Run</option>
-                <option value="Long Run">Long Run</option>
-                <option value="Interval Workout">Interval Workout</option>
-                <option value="Steady State">Steady State</option>
-                <option value="Threshold/Tempo Run">Threshold/Tempo Run</option>
-                <option value="Progression Run">Progression Run</option>
-                <option value="Hill Sprints">Hill Sprints</option>
-                <option value="Cross Training">Cross Training</option>
-                <option value="Strength Training">Strength Training</option>
-                <option value="Race Day">Race Day</option>
-                <option value="Time Trial">Time Trial</option>
-                <option value="Fartlek">Fartlek</option>
-                <option value="Recovery Run">Recovery Run</option>
-                <option value="Rest Day">Rest Day</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
+            <TypeSelectOptions
+              type={formData.type}
+              handleChange={handleChange}
+            />
           ) : (
             <div>
               <strong>Type: </strong>
