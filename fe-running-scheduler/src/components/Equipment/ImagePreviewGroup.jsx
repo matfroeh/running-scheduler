@@ -1,4 +1,4 @@
-import { ButtonUpload } from './ButtonUpload'
+import ButtonUpload  from './ButtonUpload'
 
 const ImagePreviewGroup = ({imageId, setImage, imageUrl}) => {
   return (

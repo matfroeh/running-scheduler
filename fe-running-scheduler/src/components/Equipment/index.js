@@ -1,4 +1,4 @@
-import FormEquipmentStats from "@/formEquipmentStats";
+import FormEquipmentStats from "./FormEquipmentStats";
 import ButtonSubmit from "./ButtonSubmit";
 import ButtonHiddenInput from "./ButtonHiddenInput";
 import ButtonUpload from "./ButtonUpload";
