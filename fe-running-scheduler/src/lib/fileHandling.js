@@ -1,4 +1,4 @@
-import { postUserProfilePicture } from "../data/image";
+import { postImageToApi } from "../data/image";
 
 export const readMultipleFiles = (event) => {
   const files = event.target.files;
@@ -20,17 +20,17 @@ export const readMultipleFiles = (event) => {
 };
 
 // ToDo: Not sure where to put this function optimally
-export const uploadProfilePicture = async (selectedFile, user, setImageId) => {
+export const uploadImage = async (selectedFile, user, imageName) => {
   const controller = new AbortController();
   const signal = controller.signal;
 
   const formData = new FormData();
   formData.append("image", selectedFile);
   formData.append("userId", user.userId);
-  formData.append("name", "profilePicture");
-  const data = await postUserProfilePicture(formData, signal);
-  setImageId(data);
+  formData.append("name", imageName);
+  const imageId = await postImageToApi(formData, signal);
   controller.abort();
+  return imageId;
 };
 
 export const imageChange = async (e, setImageUrl, setSelectedFile) => {

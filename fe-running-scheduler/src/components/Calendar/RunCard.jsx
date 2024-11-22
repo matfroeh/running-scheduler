@@ -1,12 +1,9 @@
 import {
   getTempoAsMinutesSecondsString,
   getSecondsAsHoursMinutesSecondsString,
-} from "../utils/processRunningDataHelper.js";
+} from "@/utils/processRunningDataHelper.js";
 
 const RunCard = ({ data, openRunCard, notes, hideSchedule }) => {
-  // if (Object.keys(data).length === 0) {
-  //   data = "";
-  // }
   const { date, name, distance, duration, tempo, avg_hr, comments, effort } =
     data;
 

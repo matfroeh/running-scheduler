@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { updateUser, deleteUser } from "../data/user";
 import { toast } from "react-toastify";
 import { useFetchUserProfile } from "@/lib/hooks";
-import { uploadProfilePicture, imageChange } from "../lib/fileHandling";
+import { uploadImage, imageChange } from "../lib/fileHandling";
+import { arrayBufferToBase64 } from "@/utils/arrayBufferToBase64";
+
 
 const Profile = () => {
   const { user, setUser, logOut } = useAuth();
@@ -25,7 +27,8 @@ const Profile = () => {
   };
 
   const setProfilePicture = async () => {
-    await uploadProfilePicture(selectedFile, user, setImageId);
+    const data = await uploadImage(selectedFile, user, "profilePicture");
+    setImageId(data);
     setSelectedFile(null);
   };
 
@@ -58,16 +61,6 @@ const Profile = () => {
     } else {
       toast.error("Error deleting account");
     }
-  };
-
-  const arrayBufferToBase64 = (buffer) => {
-    let binary = "";
-    const bytes = new Uint8Array(buffer);
-    const len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return window.btoa(binary);
   };
 
   return (

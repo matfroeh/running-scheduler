@@ -1,5 +1,5 @@
-import { getTempoAsMinutesSecondsString } from "../utils/processRunningDataHelper.js";
-import { calculateWeeklySummary } from "../utils/calculateWeeklySummary.js";
+import { getTempoAsMinutesSecondsString } from "@/utils/processRunningDataHelper.js";
+import { calculateWeeklySummary } from "@/utils/calculateWeeklySummary.js";
 
 const SummaryCard = ({ scheduleWeek, runningWeek, weekNumber, hideSchedule }) => {
   const weekTitle = `Week ${weekNumber.match(/\d+$/)[0]}`;

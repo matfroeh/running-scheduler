@@ -1,7 +1,4 @@
 const TrainingCard = ({ data, openTrainingCard }) => {
-  // if (Object.keys(data).length === 0) {
-  //   data = "";
-  // }
   const { date, type, distance, description } = data;
 
   let isToday = false;

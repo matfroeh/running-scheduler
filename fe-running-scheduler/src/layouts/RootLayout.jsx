@@ -1,4 +1,4 @@
-import NavBar from "../components/NavBar";
+import NavBar from "@/components/NavBar/NavBar";
 import { Outlet } from "react-router-dom";
 import { useNavigation } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
