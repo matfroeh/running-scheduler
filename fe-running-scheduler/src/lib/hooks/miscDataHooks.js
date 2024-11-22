@@ -1,53 +1,10 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { getImageByIdFromApi } from "../data/image";
-import { updateRunCalendar } from "../data/runs"; // Adjust the import path as necessary
+import { getImageByIdFromApi } from "@/data/image.js";
+import { updateRunCalendar } from "@/data/runs.js"; // Adjust the import path as necessary
 import processGpxData from "@/logic/processGpxData.js";
-import { findDayObjectByDate } from "../utils/processRunningDataHelper.js";
-import { getEquipmentById } from "../data/user.js";
+import { findDayObjectByDate } from "@/utils/processRunningDataHelper.js";
 
-export function useFetchEquipmentDetails(user, equipmentId) {
-  const [formData, setFormData] = useState("");
-  const [image, setImage] = useState();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
-    const fetchEquipment = async () => {
-      const data = await getEquipmentById(user.userId, equipmentId);
-      setFormData(data);
-
-      const imageId = data.image;
-
-      // check if an image is available
-      if (imageId) {
-        const fetchImage = async () => {
-          setLoading(true);
-          try {
-            const data = await getImageByIdFromApi(imageId, signal);
-            setImage(data);
-            // ToDo: Check if this is the correct way to handle this
-          } catch (error) {
-            console.error(error);
-          } finally {
-            setLoading(false);
-          }
-        };
-        fetchImage();
-      }
-    };
-
-    fetchEquipment();
-
-    return () => {
-      controller.abort();
-    };
-  }, [equipmentId, user.userId]);
-
-  return { formData, setFormData, image, loading };
-}
 
 export function useFetchUserProfile(user) {
   const [image, setImage] = useState();

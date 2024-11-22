@@ -11,6 +11,7 @@ const equipmentSchema = Joi.object({
   inUseSince: Joi.date().default(Date.now).required(),
   time: Joi.number().min(0).default(0).required(),
   status: Joi.string().valid("active", "inactive").default("active").required(),
+  description: Joi.string().optional(),
 });
 
 export default equipmentSchema;

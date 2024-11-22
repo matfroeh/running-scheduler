@@ -4,7 +4,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { initialTitle, newTrainingSchedule } from "@/lib/uiConstants.js";
 import { readMultipleFiles } from "@/lib/fileHandling.js";
-import { useProcessGpxData } from "@/lib/hooks.js";
+import { useProcessGpxData } from "@/lib//hooks/miscDataHooks.js";
 import {
   ButtonLoadingState,
   ButtonToggle,
