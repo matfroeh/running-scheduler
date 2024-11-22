@@ -6,8 +6,6 @@ import {
   useActionData,
   useLoaderData,
   useNavigate,
-  // useLocation,
-  // useNavigation,
 } from "react-router-dom";
 import { processFormDataFromScheduler } from "../logic/processFormDataFromScheduler";
 import { createTrainingSchedule } from "../data/schedules";
@@ -20,12 +18,8 @@ import {
 } from "../logic/calendarCycling";
 
 const CalendarView = () => {
-  // ToDo: actionData needs to be exported to backend, but later
-  // console.log("CalendarView loaded");
-
   let data = useActionData();
   const { scheduleCalendars, runCalendars } = useLoaderData();
-
   const [trainingBlockData, setTrainingBlockData] = useState(
     scheduleCalendars.currentCalendar
   );
@@ -41,9 +35,6 @@ const CalendarView = () => {
   const [hideSchedule, setHideSchedule] = useState(false);
 
   const navigate = useNavigate();
-  // const navigation = useNavigation();
-  // const location = useLocation();
-  // const currentPath = location.pathname;
 
   let activeCalendarId = runningData?._id;
 
@@ -81,8 +72,6 @@ const CalendarView = () => {
     }
   };
 
-  // console.log("newScheduleFormSubmitted", newScheduleFormSubmitted);
-
   useEffect(() => {
     if (data) {
       const { trainingBlockJson, runDataTemplate } =
@@ -93,15 +82,6 @@ const CalendarView = () => {
     }
     // navigate(`/auth/calendar/${activeCalendarId}`);
   }, [data]);
-
-  // useEffect(() => {
-  //   navigate(`/auth/calendar/${activeCalendarId}`);
-
-  //   // if (currentPath === "/auth/calendar") {
-  //   //   navigate(`${activeCalendarId}`);
-  //   // } else
-  //   // navigate(`/auth/calendar/${activeCalendarId}`);
-  // }, [runningData, trainingBlockData]);
 
   return (
     <div className="min-w-min flex-grow">
@@ -119,11 +99,7 @@ const CalendarView = () => {
         setNotes={setNotes}
         setHideSchedule={setHideSchedule}
       />
-      {/* {navigation.state === "loading" ? (
-          <div className="flex justify-center mt-32">
-            <LoadingOverlay active={true} spinner text="Loading..." />
-          </div>
-        ) : ( */}
+
       <CalendarBody
         trainingData={trainingBlockData}
         runningData={runningData}
@@ -131,7 +107,7 @@ const CalendarView = () => {
         notes={notes}
         hideSchedule={hideSchedule}
       />
-      {/* )} */}
+
       <Outlet
         context={{
           setNewScheduleFormSubmitted,
@@ -147,21 +123,3 @@ const CalendarView = () => {
 };
 
 export default CalendarView;
-
-// if (data) {
-//   for (const key in data) {
-//     console.log(key, data[key]);
-//   }
-//   const calculatedData = processFormDataFromScheduler(data);
-//   for (const key in calculatedData) {
-//     console.log(key, calculatedData[key]);
-//   }
-// }
-// let trainingBlockData = {};
-
-// if (data) {
-//   trainingBlockData = processFormDataFromScheduler(data);
-//   // for (const key in trainingBlockData) {
-//   //   console.log(key, trainingBlockData[key]);
-//   // }
-// }

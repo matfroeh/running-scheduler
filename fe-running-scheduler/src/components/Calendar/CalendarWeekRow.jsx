@@ -7,21 +7,16 @@ const CalendarWeekRow = ({
   week,
   weekNumber,
   runningDataWeek,
-  // activeCalendarId,
   notes,
   hideSchedule,
 }) => {
   const navigate = useNavigate();
 
   const openRunCard = (data, weekNumber, day) => {
-    // navigate(`/${activeCalendarId}/runs/${weekNumber}/${day}/${data._id}`);
     navigate(`runs/${weekNumber}/${day}/${data._id}`);
-
   };
   const openTrainingCard = (data, weekNumber, day) => {
-    // navigate(`/${activeCalendarId}/schedule/${weekNumber}/${day}/${data._id}`);
     navigate(`schedule/${weekNumber}/${day}/${data._id}`);
-
   };
 
   return (

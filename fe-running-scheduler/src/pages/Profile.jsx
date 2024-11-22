@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateUser, deleteUser } from "../data/user";
 import { toast } from "react-toastify";
-import { useFetchUserProfile } from "@/lib/hooks";
+import { useFetchUserProfile } from "@/lib/hooks/miscDataHooks";
 import { uploadImage, imageChange } from "../lib/fileHandling";
 import { arrayBufferToBase64 } from "@/utils/arrayBufferToBase64";
 

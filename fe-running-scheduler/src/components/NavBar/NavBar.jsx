@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context";
-import { useFetchUserProfile } from "@/lib/hooks";
+import { useFetchUserProfile } from "@/lib/hooks/miscDataHooks";
 import { arrayBufferToBase64 } from "@/utils/arrayBufferToBase64";
 import NavBarDropDownMenu from "./NavBarDropDownMenu";
 import NavBarNavButtons from "./NavBarNavButtons";

@@ -3,8 +3,8 @@ const ButtonHiddenInput = ({imageUrl, onClick, onChange, refForward}) => {
     <div
       className={
         !imageUrl
-          ? "btn btn-sm btn-primary ring-1 justify-self-start"
-          : "btn btn-sm justify-self-start"
+          ? "btn btn-sm w-max btn-primary ring-1 justify-self-start"
+          : "btn btn-sm w-max justify-self-start"
       }
       onClick={onClick}
     >
