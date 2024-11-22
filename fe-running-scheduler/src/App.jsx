@@ -62,7 +62,6 @@ const router = createBrowserRouter([
           },
           {
             path: "calendar/:calendarId?",
-            // path: "calendar",
             element: <CalendarView />,
             loader: calendarLoader,
             action: getFormData,

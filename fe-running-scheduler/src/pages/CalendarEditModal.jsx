@@ -11,13 +11,13 @@ import { toast } from "react-toastify";
 const CalendarEditModal = () => {
   const navigate = useNavigate();
   const {
-    trainingBlockData,
-    runningData,
-    setTrainingBlockData,
-    setRunningData,
+    schedule,
+    runs,
+    setSchedule,
+    setRuns,
   } = useOutletContext();
-  const [title, setTitle] = useState(trainingBlockData.meta.title);
-  const calendarId = trainingBlockData._id;
+  const [title, setTitle] = useState(schedule.meta.title);
+  const calendarId = schedule._id;
 
   const handleChange = (e) => {
     setTitle(e.target.value);
@@ -26,18 +26,18 @@ const CalendarEditModal = () => {
   const update = async () => {
     try {
       const updatedTrainingSchedule = {
-        ...trainingBlockData,
-        meta: { ...trainingBlockData.meta, title },
+        ...schedule,
+        meta: { ...schedule.meta, title },
       };
       const updatedRunningLog = {
-        ...runningData,
-        meta: { ...runningData.meta, title },
+        ...runs,
+        meta: { ...runs.meta, title },
       };
       await updateTrainingSchedule(updatedTrainingSchedule, calendarId);
       await updateRunCalendar(updatedRunningLog, calendarId);
 
-      setTrainingBlockData(updatedTrainingSchedule);
-      setRunningData(updatedRunningLog);
+      setSchedule(updatedTrainingSchedule);
+      setRuns(updatedRunningLog);
 
       toast.success("Title updated successfully!");
       navigate(-1);
@@ -62,8 +62,8 @@ const CalendarEditModal = () => {
       await deleteTrainingSchedule(calendarId);
       await deleteRunCalendar(calendarId);
       navigate("/");
-      setRunningData([]);
-      setTrainingBlockData([]);
+      setRuns([]);
+      setSchedule([]);
       toast.success("Calendar deleted successfully!");
     } catch (error) {
       toast.error(`Error deleting calendar: ${error.message}`);

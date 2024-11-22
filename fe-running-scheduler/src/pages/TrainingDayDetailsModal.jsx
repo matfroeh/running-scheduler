@@ -2,27 +2,22 @@ import { useParams, useOutletContext, useNavigate } from "react-router-dom";
 import { updateTrainingSchedule } from "../data/schedules";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import CardModal from "../components/CardModal";
+import CardModal from "@/components/CardModal";
+import { TypeSelectOptions } from "@/components/RunAndTrainingDetails";
+import formatDate from "@/utils/formatDate";
+
 
 const TrainingDayDetailsModal = () => {
   const { week, day } = useParams();
-  const { trainingBlockData, setTrainingBlockData, newScheduleFormSubmitted } =
+  const { schedule, setSchedule } =
     useOutletContext();
 
-  const trainingDay = trainingBlockData.weeks[week].days[day];
-  const calendarId = trainingBlockData._id;
+  const trainingDay = schedule.weeks[week].days[day];
+  const calendarId = schedule._id;
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({ ...trainingDay });
   const [error, setError] = useState(null);
-
-  const formatDate = (date) => {
-    return new Date(date).toLocaleDateString("en-UK", {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-    });
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,13 +32,13 @@ const TrainingDayDetailsModal = () => {
     if (!handleInputVerification()) return;
 
     try {
-      const updatedTrainingDayData = { ...trainingBlockData };
+      const updatedTrainingDayData = { ...schedule };
       updatedTrainingDayData.weeks[week].days[day] = formData;
 
       // console.log(updatedTrainingDayData.weeks[week].days[day]);
 
-      setTrainingBlockData(updatedTrainingDayData);
-      await updateTrainingSchedule(trainingBlockData, calendarId);
+      setSchedule(updatedTrainingDayData);
+      await updateTrainingSchedule(schedule, calendarId);
       // console.log(response);
       toast.success("Training Day updated successfully");
       navigate("/auth/calendar");
@@ -60,11 +55,11 @@ const TrainingDayDetailsModal = () => {
       );
       if (!confirmDelete) return;
 
-      const updatedTrainingDayData = { ...trainingBlockData };
+      const updatedTrainingDayData = { ...schedule };
       updatedTrainingDayData.weeks[week].days[day] = { date: trainingDay.date };
       // console.log(updatedTrainingDayData.weeks[week].days[day]);
-      setTrainingBlockData(updatedTrainingDayData);
-      await updateTrainingSchedule(trainingBlockData, calendarId);
+      setSchedule(updatedTrainingDayData);
+      await updateTrainingSchedule(schedule, calendarId);
       toast.success("Scheduled Training deleted successfully");
     } catch (error) {
       toast.error(error.message);
@@ -80,49 +75,16 @@ const TrainingDayDetailsModal = () => {
     return true;
   };
 
-  if (newScheduleFormSubmitted) {
-    return (
-      <CardModal>
-        <h2 className="card-title text-xl font-bold">
-          Please save your new schedule first
-        </h2>
-      </CardModal>
-    );
-  }
   return (
     <CardModal>
       <span className="absolute top-2 left-2 ">
         {formatDate(formData.date)}
       </span>
       <h2 className="card-title text-xl font-bold mt-4">
-        <div>
-          <strong>Type: </strong>
-          <select
-            className="select select-bordered w-full max-w-xs mt-2"
-            value={formData.type}
-            name="type"
-            onChange={handleChange}
-          >
-            <option value="" defaultValue="Select a type">
-              Select a type
-            </option>
-            <option value="Easy Run">Easy Run</option>
-            <option value="Long Run">Long Run</option>
-            <option value="Interval Workout">Interval Workout</option>
-            <option value="Steady State">Steady State</option>
-            <option value="Threshold/Tempo Run">Threshold/Tempo Run</option>
-            <option value="Progression Run">Progression Run</option>
-            <option value="Hill Sprints">Hill Sprints</option>
-            <option value="Cross Training">Cross Training</option>
-            <option value="Strength Training">Strength Training</option>
-            <option value="Race Day">Race Day</option>
-            <option value="Time Trial">Time Trial</option>
-            <option value="Fartlek">Fartlek</option>
-            <option value="Recovery Run">Recovery Run</option>
-            <option value="Rest Day">Rest Day</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
+      <TypeSelectOptions
+              type={formData.type}
+              handleChange={handleChange}
+            />
       </h2>
       <div className="flex space-x-2 justify-end">
         <button

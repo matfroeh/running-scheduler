@@ -68,7 +68,6 @@ const CreateTrainingBlockModal = () => {
       setError("Long Run and Workout Day should be on different days.");
       return;
     }
-    // setNewScheduleFormSubmitted(true);
   };
 
   return (
