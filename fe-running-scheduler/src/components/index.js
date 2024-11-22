@@ -7,7 +7,6 @@ import SocialMedia from "./SocialMedia";
 import StartupDelay from "./StartupDelay";
 import ButtonLoadingState from "./ButtonLoadingState";
 import ButtonToggle from "./ButtonToggle";
-import ButtonCalendarNavigate from "./ButtonCalendarNavigate";
 import ButtonHiddenInput from "./ButtonHiddenInput";
 import InputErrorBar from "./InputErrorBar";
 import ButtonSave from "./ButtonSave";
@@ -23,7 +22,6 @@ export {
   StartupDelay,
   ButtonLoadingState,
   ButtonToggle,
-  ButtonCalendarNavigate,
   ButtonHiddenInput,
   InputErrorBar,
   ButtonSave,

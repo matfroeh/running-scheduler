@@ -8,9 +8,9 @@ import { useProcessGpxData } from "@/lib//hooks/miscDataHooks.js";
 import {
   ButtonLoadingState,
   ButtonToggle,
-  ButtonCalendarNavigate,
   ButtonHiddenInput,
 } from "@/components";
+import ButtonCalendarNavigate from "@/components/Calendar/ButtonCalendarNavigate";
 
 const CalendarBar = ({
   title,
