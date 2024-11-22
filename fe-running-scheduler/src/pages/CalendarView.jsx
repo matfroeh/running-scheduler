@@ -14,12 +14,8 @@ const CalendarView = () => {
   const { cyclingProps, schedule, runs, setSchedule, setRuns, loading } =
     useCalendarCycling();
 
-  // console.log("schedule", schedule);
-  // console.log("loading:", loading);
-
   // Form data from CreateTrainingBlock.jsx
   let createScheduleData = useActionData();
-  // console.log("createScheduleData", createScheduleData);
 
   // State passed to CalendarBar to show/hide notes
   const [notes, setNotes] = useState(false);
@@ -47,8 +43,6 @@ const CalendarView = () => {
       navigate("/");
     }
     return () => {
-      console.log("createScheduleData cleanup");
-      
       createScheduleData = null;
     }
   }, [createScheduleData]);
