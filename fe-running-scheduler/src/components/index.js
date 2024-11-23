@@ -11,6 +11,9 @@ import ButtonHiddenInput from "./ButtonHiddenInput";
 import InputErrorBar from "./InputErrorBar";
 import ButtonSave from "./ButtonSave";
 import ButtonDelete from "./ButtonDelete";
+import CookieNote from "./CookieNote";
+import OverflowSpanTooltip from "./OverflowSpanTooltip";
+import Icons from "./Icons";
 
 export {
   Loading,
@@ -26,4 +29,7 @@ export {
   InputErrorBar,
   ButtonSave,
   ButtonDelete,
+  CookieNote,
+  OverflowSpanTooltip,
+  Icons,
 };

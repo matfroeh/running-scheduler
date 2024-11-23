@@ -4,13 +4,11 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import CardModal from "@/components/CardModal";
 import { TypeSelectOptions } from "@/components/RunAndTrainingDetails";
-import formatDate from "@/utils/formatDate";
-
+import { formatDateYYMMDD } from "@/utils/formatDate";
 
 const TrainingDayDetailsModal = () => {
   const { week, day } = useParams();
-  const { schedule, setSchedule } =
-    useOutletContext();
+  const { schedule, setSchedule } = useOutletContext();
 
   const trainingDay = schedule.weeks[week].days[day];
   const calendarId = schedule._id;
@@ -41,7 +39,7 @@ const TrainingDayDetailsModal = () => {
       await updateTrainingSchedule(schedule, calendarId);
       // console.log(response);
       toast.success("Training Day updated successfully");
-      navigate("/auth/calendar");
+      navigate(-1);
     } catch (error) {
       toast.error(error.message);
     }
@@ -78,13 +76,10 @@ const TrainingDayDetailsModal = () => {
   return (
     <CardModal>
       <span className="absolute top-2 left-2 ">
-        {formatDate(formData.date)}
+        {formatDateYYMMDD(formData.date)}
       </span>
       <h2 className="card-title text-xl font-bold mt-4">
-      <TypeSelectOptions
-              type={formData.type}
-              handleChange={handleChange}
-            />
+        <TypeSelectOptions type={formData.type} handleChange={handleChange} />
       </h2>
       <div className="flex space-x-2 justify-end">
         <button

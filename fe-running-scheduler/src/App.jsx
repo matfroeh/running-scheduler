@@ -26,8 +26,7 @@ import { action as getFormData } from "./actions/getFormData";
 import { calendarLoader } from "./loader/calendarLoader";
 import { overviewLoader } from "./loader/overviewLoader";
 import { AuthContextProvider } from "@/context";
-// import { ModalContextProvider } from "./context";
-import CookieConsent from "react-cookie-consent";
+import { CookieNote } from "@/components";
 
 const router = createBrowserRouter([
   {
@@ -58,13 +57,18 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Navigate to="/auth/calendar" replace />,
+            element: <Navigate to={"/auth/calendar"} replace />,
           },
           {
             path: "calendar/:calendarId?",
             element: <CalendarView />,
             loader: calendarLoader,
             action: getFormData,
+            // This is a workaround to prevent revalidation of the loader when the params change
+            // with the upcoming revised data model this will be unnecessary
+            shouldRevalidate: ({ currentParams, nextParams }) => {
+              return false;
+            },
             errorElement: <Error />,
             children: [
               {
@@ -122,18 +126,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <CookieConsent
-        debug={false}
-        location="top"
-        buttonText="Allow functional cookies."
-        expires={7}
-      >
-        <div className="">
-          This website uses functional cookies to enhance the user experience.
-          Particularly, an authentication cookie will be set to verify your
-          credentials and keep you logged in.
-        </div>
-      </CookieConsent>
+      <CookieNote />
       <AuthContextProvider>
         <RouterProvider router={router} />
       </AuthContextProvider>
