@@ -1,16 +1,41 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRoad, faStopwatch, faHeartPulse, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
+import {
+  faRoad,
+  faStopwatch,
+  faHeartPulse,
+  faCalendarDays,
+  faPersonRunning,
+  faBolt,
+  faSquareRootVariable,
+  faMinus,
+  faBullseye,
+  faNoteSticky,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Icons = ({ type }) => {
   switch (type) {
     case "distance":
       return <FontAwesomeIcon icon={faRoad} />;
     case "time":
-      return <FontAwesomeIcon icon={faStopwatch} />;
+      return <FontAwesomeIcon style={{ margin: 2 }} icon={faStopwatch} />;
     case "heartRate":
-      return <FontAwesomeIcon icon={faHeartPulse} />;
+      return <FontAwesomeIcon style={{ margin: 1 }} icon={faHeartPulse} />;
     case "date":
-        return <FontAwesomeIcon icon={faCalendarDays} />;
+      return <FontAwesomeIcon icon={faCalendarDays} />;
+    case "speed":
+      return <FontAwesomeIcon style={{ margin: 2 }} icon={faPersonRunning} />;
+    case "effort":
+      return <FontAwesomeIcon style={{ margin: 2 }} icon={faBolt} />;
+    case "sum":
+      return (
+        <FontAwesomeIcon style={{ margin: 0 }} icon={faSquareRootVariable} />
+      );
+    case "average":
+      return <FontAwesomeIcon style={{ margin: 0 }} icon={faMinus} />;
+    case "goal":
+      return <FontAwesomeIcon style={{ margin: 0 }} icon={faBullseye} />;
+    case "note":
+      return <FontAwesomeIcon style={{ margin: 1 }} icon={faNoteSticky} />;
     default:
       return null;
   }

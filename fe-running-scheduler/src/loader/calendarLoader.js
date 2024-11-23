@@ -3,7 +3,7 @@ import { getAllRuns } from "../data/runs";
 
 export const calendarLoader = async () => {
   try {
-    // console.log("calendarLoader called");
+    console.log("calendarLoader called");
     const scheduleCalendars = await getAllTrainingSchedules();
     const runCalendars = await getAllRuns();
     return {

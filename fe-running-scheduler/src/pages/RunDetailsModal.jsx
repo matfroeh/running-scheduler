@@ -11,13 +11,13 @@ import { CardModal } from "@/components";
 import { TypeSelectOptions } from "@/components/RunAndTrainingDetails";
 import { useAuth } from "@/context";
 import LineChartTimeVelocity from "../components/charts/LineChartTimeVelocity";
-import formatDate from "@/utils/formatDate";
+import { formatDateYYMMDD } from "@/utils/formatDate";
 
 const RunDetailsModal = () => {
   const { week, day } = useParams();
   const { runs, setRuns } = useOutletContext();
   // console.log("runs", runs);
-  
+
   const { user } = useAuth();
   const run = runs.weeks[week].days[day];
   const calendarId = runs._id;
@@ -86,7 +86,7 @@ const RunDetailsModal = () => {
         updateEquipment(user.userId, selectedEquipment._id, updatedEquipment);
       }
       toast.success("Run updated successfully.");
-      navigate("/auth/calendar");
+      navigate(-1);
     } catch (error) {
       toast.error(error.message);
     }
@@ -159,7 +159,7 @@ const RunDetailsModal = () => {
           ) : (
             <div>
               <span>{formData.name ? formData.name + ", " : ""}</span>
-              <span>{formatDate(formData.date)}</span>{" "}
+              <span>{formatDateYYMMDD(formData.date)}</span>{" "}
             </div>
           )}
         </h2>

@@ -1,3 +1,6 @@
+import { formatDate } from "@/utils/formatDate";
+import { Icons } from "@/components";
+
 const TrainingCard = ({ data, openTrainingCard }) => {
   const { date, type, distance, description } = data;
 
@@ -7,30 +10,31 @@ const TrainingCard = ({ data, openTrainingCard }) => {
       new Date(date).toISOString().slice(0, 10) ===
       new Date(Date.now()).toISOString().slice(0, 10));
 
-  const formattedDate = new Intl.DateTimeFormat("en-UK", {
-    month: "numeric",
-    day: "numeric",
-  }).format(Date.parse(date));
+  const formattedDate = formatDate(date, { month: "numeric", day: "numeric" });
+
+  const cardClasses = `card card-compact bg-gray-800 max-w-44 min-w-20 rounded-br-none rounded-bl-none rounded-tr-none ring-2 hover:ring-4 cursor-pointer 
+  ${isToday && "ring-green-500"}`;
 
   return (
-    <div
-      className={
-        isToday
-          ? "ring-green-500  bg-gray-900 card card-compact rounded-br-none rounded-bl-none rounded-tr-none ring-2 w-full hover:ring-4 cursor-pointer"
-          : "bg-gray-800 card  card-compact rounded-br-none rounded-bl-none rounded-tr-none ring-2 w-full hover:ring-4 cursor-pointer"
-      }
-      onClick={openTrainingCard}
-    >
+    <div className={cardClasses} onClick={openTrainingCard}>
       <div className="card-body justify-start gap-0 overflow-clip relative">
         <div className="absolute top-0 right-0 text-white text-xs mt-1 mr-2">
           {formattedDate}
         </div>
-        <div className="flex flex-col mt-1">
-          {type && <div className="card-title text-sm min-w-max">{type}</div>}
-          <div className="flex flex-wrap gap-2">
-            {distance && <div className="text-nowrap">{distance} km</div>}
+        <div className="flex flex-col gap-1 justify-start text-xs">
+          {type && <div className="card-title text-sm mt-1">{type}</div>}
+          <div className="flex flex-wrap text-nowrap gap-1">
+            {distance && (
+              <p className="flex items-center gap-x-1">
+                <Icons type="goal" />
+                {parseFloat(distance).toFixed(1)} km
+              </p>
+            )}
             {description && (
-              <div className="line-clamp-1">{description}</div>
+              <p className="flex items-start mt-0 text-wrap gap-x-1">
+                <Icons type="note" />
+                <span className="line-clamp-3"> {description}</span>
+              </p>
             )}
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { ImageContainer } from "@/components/Equipment";
-import formatDate from "@/utils/formatDate";
+import {formatDateYYMMDD} from "@/utils/formatDate";
 import Icons from "@/components/Icons";
 
 const EquipmentCard = ({ equipment, image, onClick }) => {
@@ -25,7 +25,7 @@ const EquipmentCard = ({ equipment, image, onClick }) => {
             </p>
             <p className="flex items-center gap-x-3">
               <Icons type="date" />
-              {formatDate(equipment.inUseSince)}
+              {formatDateYYMMDD(equipment.inUseSince)}
             </p>
             {equipment.description && <p>{equipment.description}</p>}
             <p

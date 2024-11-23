@@ -1,4 +1,4 @@
-const formatDate = (date) => {
+export const formatDateYYMMDD = (date) => {
   return new Date(date).toLocaleDateString("en-UK", {
     year: "numeric",
     month: "numeric",
@@ -6,4 +6,7 @@ const formatDate = (date) => {
   });
 };
 
-export default formatDate;
+export const formatDate = (dateString, options) => {
+  if (!dateString) return "";
+  return new Intl.DateTimeFormat("en-UK", options).format(new Date(dateString));
+}
