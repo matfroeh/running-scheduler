@@ -56,6 +56,9 @@ const router = createBrowserRouter([
         path: "/auth",
         element: <RootLayout />,
         loader: calendarIndexLoader,
+        shouldRevalidate: () => {
+          return false;
+        },
         children: [
           {
             index: true,

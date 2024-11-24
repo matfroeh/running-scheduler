@@ -58,9 +58,9 @@ export const useCalendarCycling = () => {
       // localStorage.setItem("currentCalendarIndex", currentIndex);
       setSchedule(calendars.scheduleCalendars[currentIndex]);
       setRuns(calendars.runCalendars[currentIndex]);
-      navigate(
-        `/auth/calendar/${calendars.scheduleCalendars[currentIndex]._id}`
-      );
+      // navigate(
+      //   `/auth/calendar/${calendars.scheduleCalendars[currentIndex]._id}`
+      // );
       setLoading(false);
     }
   }, [currentIndex, calendars, navigate]);

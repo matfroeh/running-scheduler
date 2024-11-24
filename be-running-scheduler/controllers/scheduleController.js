@@ -7,15 +7,20 @@ import ErrorResponse from "../utils/ErrorResponse.js";
 // get all training schedules for the logged in user
 export const getAllTrainingSchedules = asyncHandler(async (req, res, next) => {
   const userId = req.userId;
-  const schedules = await Schedule.find( { user: userId });
+  const schedules = await Schedule.find({ user: userId });
   res.status(200).json(schedules);
 });
 
-export const getAllTrainingSchedulesMetaData = asyncHandler(async (req, res, next) => {
-  const userId = req.userId;
-  const schedules = await Schedule.find( { user: userId }).select('meta');
-  res.status(200).json(schedules);
-});
+export const getAllTrainingSchedulesMetaData = asyncHandler(
+  async (req, res, next) => {
+    
+    const userId = req.userId;
+    const schedules = await Schedule.find({ user: userId }).select("meta");
+    // console.log("schedules", schedules);
+    
+    res.status(200).json(schedules);
+  }
+);
 
 export const createTrainingSchedule = asyncHandler(async (req, res, next) => {
   const userId = req.userId;
@@ -23,12 +28,13 @@ export const createTrainingSchedule = asyncHandler(async (req, res, next) => {
   res.status(201).json(schedule);
 });
 
-// This will be not used in the frontend right now
 export const getTrainingScheduleById = asyncHandler(async (req, res, next) => {
-  const { week, day, calendarId } = req.params;
-  const userId = req.userId; 
+  const { calendarId } = req.params;
+  const userId = req.userId;
 
-  const findSchedule = await Schedule.findOne({$and: [{ _id: calendarId }, { user: userId }]});
+  const findSchedule = await Schedule.findOne({
+    $and: [{ _id: calendarId }, { user: userId }],
+  });
 
   if (!findSchedule)
     return next(
@@ -37,9 +43,9 @@ export const getTrainingScheduleById = asyncHandler(async (req, res, next) => {
         404
       )
     );
-  const schedule = findSchedule.get(`weeks.${week}.days.${day}`);
+  // const schedule = findSchedule.get(`weeks.${week}.days.${day}`);
 
-  res.status(200).json(schedule);
+  res.status(200).json(findSchedule);
 });
 
 export const updateTrainingSchedule = asyncHandler(async (req, res, next) => {
@@ -47,7 +53,9 @@ export const updateTrainingSchedule = asyncHandler(async (req, res, next) => {
   const { meta, weeks } = req.body;
   const userId = req.userId;
 
-  const findCalendar = await Schedule.findOne({$and: [{ _id: calendarId }, { user: userId }]});
+  const findCalendar = await Schedule.findOne({
+    $and: [{ _id: calendarId }, { user: userId }],
+  });
   if (!findCalendar)
     return next(
       new ErrorResponse(
@@ -55,11 +63,11 @@ export const updateTrainingSchedule = asyncHandler(async (req, res, next) => {
         404
       )
     );
-    
+
   const result = await Schedule.updateOne(
     { _id: calendarId }, // Match the document by its _id
     // update the whole document
-    { $set: { meta, weeks } } 
+    { $set: { meta, weeks } }
   );
   res.status(201).json(result);
 });
@@ -68,7 +76,9 @@ export const deleteTrainingSchedule = asyncHandler(async (req, res, next) => {
   const { calendarId } = req.params;
   const userId = req.userId;
 
-  const findCalendar = await Schedule.findOne({$and: [{ _id: calendarId }, { user: userId }]});
+  const findCalendar = await Schedule.findOne({
+    $and: [{ _id: calendarId }, { user: userId }],
+  });
   if (!findCalendar)
     return next(
       new ErrorResponse(
@@ -76,6 +86,6 @@ export const deleteTrainingSchedule = asyncHandler(async (req, res, next) => {
         404
       )
     );
-  await Schedule.deleteOne({$and: [{ _id: calendarId }, { user: userId }]});
+  await Schedule.deleteOne({ $and: [{ _id: calendarId }, { user: userId }] });
   res.status(200).json({ success: true });
 });
