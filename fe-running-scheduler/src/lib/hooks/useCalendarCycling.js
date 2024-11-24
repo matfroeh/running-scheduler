@@ -10,7 +10,6 @@ export const useCalendarCycling = () => {
   // State to hold the calendars data (that includes both training schedules and runs)
   const [calendars, setCalendars] = useState(useLoaderData());
   // console.log(calendars);
-  
 
   // Number of calendars, length of runs is the same as the length of schedules
 
@@ -21,6 +20,7 @@ export const useCalendarCycling = () => {
   // States that hold the current (=nearest to today's date) schedule and run data and which is passed to the CalendarBody component to display the data
   const [schedule, setSchedule] = useState(null);
   const [runs, setRuns] = useState(null);
+  console.log(calendars);
 
   const navigate = useNavigate();
 
@@ -44,7 +44,7 @@ export const useCalendarCycling = () => {
   useEffect(() => {
     // Restore index if found in localStorage
     const savedIndex = localStorage.getItem("currentCalendarIndex");
-    if (savedIndex !== null && !isNaN(savedIndex)) {
+    if (savedIndex !== null && !isNaN(savedIndex) && savedIndex < calendars.scheduleCalendars.length) {
       setCurrentIndex(parseInt(savedIndex, 10));
     } else {
       const today = new Date();
@@ -60,6 +60,13 @@ export const useCalendarCycling = () => {
   }, [calendars]);
 
   useEffect(() => {
+    if (
+      calendars.scheduleCalendars.length === 0 ||
+      calendars.runCalendars.length === 0
+    ) {
+      setLoading(false);
+      return;
+    }
     // console.log("UseEffect useCalendarCycling - index");
     if (currentIndex !== null && calendars.scheduleCalendars[currentIndex]) {
       localStorage.setItem("currentCalendarIndex", currentIndex);
