@@ -20,6 +20,22 @@ export const getAllTrainingSchedules = async () => {
   return data;
 };
 
+export const getAllTrainingSchedulesMetaData = async () => {
+  const res = await fetch(`${baseURL}/meta`, {
+    method: "GET",
+    credentials: "include",
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    if (!errorData.error) {
+      throw new Error("An error occurred while fetching the Training Schedules Meta Data");
+    }
+    throw new Error(errorData.error);
+  }
+  const data = await res.json();
+  return data;
+}
+
 export const createTrainingSchedule = async (schedule) => {
   const res = await fetch(baseURL, {
     method: "POST",

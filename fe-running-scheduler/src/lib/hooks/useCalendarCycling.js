@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 
+// ToDo: manually set current index
+
 // This hook is used to cycle through the training schedules and runs in the calendar view
 // It uses the data from the loader and sorts it by date
 // It also sets the current index to the calendar closest to today's date
@@ -20,7 +22,6 @@ export const useCalendarCycling = () => {
   // States that hold the current (=nearest to today's date) schedule and run data and which is passed to the CalendarBody component to display the data
   const [schedule, setSchedule] = useState(null);
   const [runs, setRuns] = useState(null);
-  console.log(calendars);
 
   const navigate = useNavigate();
 
@@ -43,33 +44,18 @@ export const useCalendarCycling = () => {
   // Finding it just in scheduleCalendar is sufficient as the runCalendar has the same structure/order (it has to, otherwise that would mean the data is corrupted)
   useEffect(() => {
     // Restore index if found in localStorage
-    const savedIndex = localStorage.getItem("currentCalendarIndex");
-    if (savedIndex !== null && !isNaN(savedIndex) && savedIndex < calendars.scheduleCalendars.length) {
-      setCurrentIndex(parseInt(savedIndex, 10));
-    } else {
-      const today = new Date();
-      const closestIndex = calendars.scheduleCalendars.findIndex(
-        (item) => new Date(item.date) >= today
-      );
-      setCurrentIndex(
-        closestIndex !== -1
-          ? closestIndex
-          : calendars.scheduleCalendars.length - 1
-      );
-    }
+    // const savedIndex = localStorage.getItem("currentCalendarIndex");
+    // index can be larger than the length of the array if user has switched accounts (index is set to "" when user deletes a calendar)
+    // if (savedIndex !== null && !isNaN(savedIndex) && savedIndex < calendars.scheduleCalendars.length) {
+    //   setCurrentIndex(parseInt(savedIndex, 10));
+    // } else {
+    showCurrentCalendar();
   }, [calendars]);
 
   useEffect(() => {
-    if (
-      calendars.scheduleCalendars.length === 0 ||
-      calendars.runCalendars.length === 0
-    ) {
-      setLoading(false);
-      return;
-    }
     // console.log("UseEffect useCalendarCycling - index");
     if (currentIndex !== null && calendars.scheduleCalendars[currentIndex]) {
-      localStorage.setItem("currentCalendarIndex", currentIndex);
+      // localStorage.setItem("currentCalendarIndex", currentIndex);
       setSchedule(calendars.scheduleCalendars[currentIndex]);
       setRuns(calendars.runCalendars[currentIndex]);
       navigate(
@@ -81,17 +67,21 @@ export const useCalendarCycling = () => {
 
   const showCurrentCalendar = () => {
     const today = new Date();
-    const closestIndex = calendars.scheduleCalendars.findIndex(
-      (item) => new Date(item.date) >= today
-    );
 
+    const closestIndex = calendars.scheduleCalendars.findIndex((item) => {
+      // Condition true if today's date is within a found calendar's start and end date
+      // else: set index to the last calendar
+      return (
+        new Date(item.meta.startDate) <= today &&
+        new Date(item.meta.endDate) >= today
+      );
+    });
     setCurrentIndex(
       closestIndex !== -1
         ? closestIndex
         : calendars.scheduleCalendars.length - 1
     );
   };
-
   const showPreviousCalendar = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
