@@ -1,5 +1,5 @@
 import CalendarView from "./CalendarView";
-import CreateTrainingBlockModal from "./CreateTrainingBlockModal";
+import CreateScheduleModal from "./CreateScheduleModal";
 import EquipmentModal from "./EquipmentModal";
 import Error from "./Error";
 import SignUp from "./SignUp";
@@ -17,7 +17,7 @@ import Datenschutz from "./Datenschutz";
 
 export {
   CalendarView,
-  CreateTrainingBlockModal,
+  CreateScheduleModal,
   EquipmentModal,
   Error,
   SignUp,

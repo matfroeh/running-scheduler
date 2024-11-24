@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import {
   CalendarView,
-  CreateTrainingBlockModal,
+  CreateScheduleModal,
   RunDetailsModal,
   TrainingDayDetailsModal,
   EquipmentModal,
@@ -81,7 +81,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "new-schedule",
-                element: <CreateTrainingBlockModal />,
+                element: <CreateScheduleModal />,
               },
               {
                 path: "edit-schedule",
