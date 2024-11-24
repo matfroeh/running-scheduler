@@ -19,12 +19,13 @@ import {
   CreateEquipment,
   Profile,
   CalendarEditModal,
-  Datenschutz
+  Datenschutz,
 } from "@/pages";
 import { RootLayout, AuthLayout } from "@/layouts";
 import { action as getFormData } from "./actions/getFormData";
 import { calendarLoader } from "./loader/calendarLoader";
 import { overviewLoader } from "./loader/overviewLoader";
+import { calendarIndexLoader } from "./loader/calendarIndexLoader";
 import { AuthContextProvider } from "@/context";
 import { CookieNote } from "@/components";
 
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
       {
         path: "/auth",
         element: <RootLayout />,
+        loader: calendarIndexLoader,
         children: [
           {
             index: true,
@@ -66,7 +68,8 @@ const router = createBrowserRouter([
             action: getFormData,
             // This is a workaround to prevent revalidation of the loader when the params change
             // with the upcoming revised data model this will be unnecessary
-            shouldRevalidate: ({ currentParams, nextParams }) => {
+            // shouldRevalidate: ({ currentParams, nextParams }) => {
+            shouldRevalidate: () => {
               return false;
             },
             errorElement: <Error />,
@@ -120,7 +123,7 @@ const router = createBrowserRouter([
   {
     path: "datenschutz",
     element: <Datenschutz />,
-  }
+  },
 ]);
 
 function App() {

@@ -17,35 +17,33 @@ const CalendarView = () => {
 
   return (
     <div className="min-w-min flex-grow">
-      {!loading && (
-        <>
-          <CalendarBar
-            title={runs?.meta?.title}
-            runs={runs}
-            setRuns={setRuns}
-            cyclingProps={cyclingProps}
-            notes={notes}
-            setNotes={setNotes}
-            setHideSchedule={setHideSchedule}
-          />
-
+      <>
+        <CalendarBar
+          title={runs?.meta?.title}
+          runs={runs}
+          setRuns={setRuns}
+          cyclingProps={cyclingProps}
+          notes={notes}
+          setNotes={setNotes}
+          setHideSchedule={setHideSchedule}
+        />
+        {!loading && (
           <CalendarBody
             schedule={schedule}
             runs={runs}
             notes={notes}
             hideSchedule={hideSchedule}
           />
-
-          <Outlet
-            context={{
-              runs,
-              setRuns,
-              schedule,
-              setSchedule,
-            }}
-          />
-        </>
-      )}
+        )}
+        <Outlet
+          context={{
+            runs,
+            setRuns,
+            schedule,
+            setSchedule,
+          }}
+        />
+      </>
     </div>
   );
 };

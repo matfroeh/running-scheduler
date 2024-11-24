@@ -2,9 +2,18 @@ import Schedule from "../models/Schedule.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 
+// All requests are user-specific
+
+// get all training schedules for the logged in user
 export const getAllTrainingSchedules = asyncHandler(async (req, res, next) => {
   const userId = req.userId;
   const schedules = await Schedule.find( { user: userId });
+  res.status(200).json(schedules);
+});
+
+export const getAllTrainingSchedulesMetaData = asyncHandler(async (req, res, next) => {
+  const userId = req.userId;
+  const schedules = await Schedule.find( { user: userId }).select('meta');
   res.status(200).json(schedules);
 });
 
@@ -14,6 +23,7 @@ export const createTrainingSchedule = asyncHandler(async (req, res, next) => {
   res.status(201).json(schedule);
 });
 
+// This will be not used in the frontend right now
 export const getTrainingScheduleById = asyncHandler(async (req, res, next) => {
   const { week, day, calendarId } = req.params;
   const userId = req.userId; 
