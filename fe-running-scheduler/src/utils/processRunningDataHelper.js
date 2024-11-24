@@ -1,6 +1,9 @@
 export const getTempoAsMinutesSecondsString = (tempo) => {
   const minutes = Math.floor(tempo);
   const seconds = (tempo - minutes) * 60;
+  if (isNaN(minutes) || isNaN(seconds)) {
+    return "";
+  }
   return `${minutes}'${seconds.toFixed(0).padStart(2, "0")}''`;
 };
 
@@ -8,6 +11,12 @@ export const getSecondsAsHoursMinutesSecondsString = (duration) => {
   const hours = Math.floor(duration / 3600);
   const minutes = Math.floor((duration % 3600) / 60);
   const seconds = duration % 60;
+  if (duration === 0) {
+    return "";
+  }
+  if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+    return "";
+  }
   if (hours === 0) {
     return `${minutes.toFixed(0).padStart(2, "0")}:${seconds
       .toFixed(0)
@@ -23,19 +32,22 @@ export const getSecondsAsHoursMinutesSecondsString = (duration) => {
 export const findDayObjectByDate = (date, runningData) => {
   for (const week in runningData.weeks) {
     // console.log(runningData.weeks[week]);
-    
+
     if (week === "meta") continue;
     for (const day in runningData.weeks[week].days) {
       // console.log(runningData.weeks[week]["days"][day]);
       // console.log(date);
-      
-      if (runningData.weeks[week].days[day].date.slice(0, 10) === date.slice(0, 10)) { // Check only leading YYYY-MM-DD
+
+      if (
+        runningData.weeks[week].days[day].date.slice(0, 10) ===
+        date.slice(0, 10)
+      ) {
+        // Check only leading YYYY-MM-DD
         return [week, day];
       }
     }
   }
   return [null, null];
-
 };
 
 //

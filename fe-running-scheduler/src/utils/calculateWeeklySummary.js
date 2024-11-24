@@ -1,7 +1,6 @@
-import { getSecondsAsHoursMinutesSecondsString } from  './processRunningDataHelper.js';
+import { getSecondsAsHoursMinutesSecondsString } from "./processRunningDataHelper.js";
 
 export const calculateWeeklySummary = (scheduleWeek, runningWeek) => {
-
   const totalDistancePlanned = Object.keys(scheduleWeek.days).reduce(
     (acc, day) => {
       if (scheduleWeek.days[day].distance) {

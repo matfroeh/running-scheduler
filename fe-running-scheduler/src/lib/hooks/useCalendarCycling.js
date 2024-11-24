@@ -9,7 +9,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 export const useCalendarCycling = () => {
   // State to hold the calendars data (that includes both training schedules and runs)
   const [calendars, setCalendars] = useState(useLoaderData());
-  console.log(calendars);
+  // console.log(calendars);
   
 
   // Number of calendars, length of runs is the same as the length of schedules
