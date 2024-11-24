@@ -14,18 +14,26 @@ const RootLayout = () => {
   const { calendarIndexList, currentIndex } = useGetCalendarOrder();
   // console.log("RootLayout calendars", calendarIndexList);
   // console.log("RootLayout currentIndex", currentIndex);
-  
+
   // console.log("RootLayout calendars", calendarIndexList[currentIndex]);
 
   const currentCalendarId = calendarIndexList[currentIndex];
-// console.log(location.pathname);
-
-  location.pathname == "/auth/calendar" && currentCalendarId && navigate(`calendar/${currentCalendarId}`);
+  
+  location.pathname == "/auth/calendar" &&
+    currentCalendarId &&
+    navigate(`calendar/${currentCalendarId}`);
 
   return (
     <div className="flex flex-col min-h-screen">
       <NavBar />
-      {isLoading ? <Loading /> : <Outlet context={{calendarIndexList}} />}
+      <button
+        onClick={() =>
+          navigate(`/auth/calendar/${calendarIndexList[1]}`)
+        }
+      >
+        Back
+      </button>
+      {isLoading ? <Loading /> : <Outlet context={{ calendarIndexList }} />}
       {/* <Outlet /> */}
       <Footer />
     </div>
