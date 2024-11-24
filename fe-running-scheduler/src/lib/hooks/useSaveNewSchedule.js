@@ -29,6 +29,8 @@ export const useSaveNewSchedule = (setSchedule, setRuns) => {
         }
       };
       saveNewSchedule();
+      localStorage.removeItem("currentCalendarIndex");
+
       navigate("/");
     }
     return () => {

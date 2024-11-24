@@ -61,6 +61,7 @@ const CalendarEditModal = () => {
     try {
       await deleteTrainingSchedule(calendarId);
       await deleteRunCalendar(calendarId);
+      localStorage.removeItem("currentCalendarIndex");
       navigate("/");
       setRuns([]);
       setSchedule([]);

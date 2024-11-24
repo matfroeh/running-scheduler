@@ -48,3 +48,35 @@ export const verifyUpdateEquipmentInput = (formData, setError) => {
   setError(null);
   return true;
 };
+
+export const verifyCreateScheduleInput = (e, form, selectedDays, setError) => {
+  if (Object.keys(form).some((key) => form[key].trim() === "")) {
+    e.preventDefault();
+    setError("Please fill in all fields.");
+    return;
+  }
+  if (selectedDays.length === 0) {
+    e.preventDefault();
+    setError("Please select at least one running day.");
+    return;
+  }
+  if (form.distance < 1) {
+    e.preventDefault();
+    setError("Distance should be greater than 0.");
+    return;
+  }
+  if (form.weeks < 1) {
+    e.preventDefault();
+    setError("Weeks should be greater than 0.");
+    return;
+  }
+  if (
+    form.longRun === form.workoutDay &&
+    form.longRun !== "none" &&
+    form.workoutDay !== "none"
+  ) {
+    e.preventDefault();
+    setError("Long Run and Workout Day should be on different days.");
+    return;
+  }
+};
