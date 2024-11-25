@@ -80,7 +80,7 @@ const CalendarBar = ({
             <ButtonCalendarNavigate
               text={"Previous"}
               onClick={showPreviousCalendar}
-              disabled={calendarIndex === 0 || calendarSize === 0}
+              disabled={calendarIndex === 0}
             />
             <ButtonCalendarNavigate
               text={"Current"}

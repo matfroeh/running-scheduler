@@ -8,6 +8,7 @@ import { useGetCalendarOrder } from "../lib/hooks/useGetCalendarOrder";
 const RootLayout = () => {
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
+  // console.log(navigation.state);
   
   const navigate = useNavigate();
   const location = useLocation();
