@@ -20,6 +20,25 @@ export const getAllRuns = async () => {
   return data;
 };
 
+export const getRunsById = async (calendarId) => {
+  const res = await fetch(`${baseURL}/${calendarId}`, {
+    method: "GET",
+    credentials: "include",
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    if (!errorData.error) {
+      throw new Error("An error occurred while fetching the running data");
+    }
+    throw new Error(errorData.error);
+  }
+  const data = await res.json();
+
+  // console.log(data);
+
+  return data;
+}
+
 export const getRunByParams = async (calendarId, week, day, runId) => {
   const res = await fetch(`${baseURL}/${calendarId}/${week}/${day}/${runId}`, {
     method: "GET",

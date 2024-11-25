@@ -1,4 +1,4 @@
-import { useCalendarCycling } from "@/lib/hooks/useCalendarCycling";
 import { useSaveNewSchedule } from "@/lib/hooks/useSaveNewSchedule";
+import { useCalendarLoading } from "@/lib/hooks/useCalendarLoading";
 
-export { useCalendarCycling, useSaveNewSchedule };
+export { useCalendarLoading, useSaveNewSchedule };

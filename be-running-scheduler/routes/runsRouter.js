@@ -11,7 +11,6 @@ import verifyTokenMiddleware from "../middleware/verifyTokenMiddleware.js";
 import runsSchema from "../joi/runsSchema.js";
 import validateJOI from "../middleware/validateJOI.js";
 
-
 const runsRouter = Router();
 
 runsRouter
@@ -19,12 +18,10 @@ runsRouter
   .get(verifyTokenMiddleware, getAllRunningLogs)
   .post(validateJOI(runsSchema), verifyTokenMiddleware, createRunningLog);
 runsRouter
-  .route("/:calendarId/:week/:day/:runId")
-  .get(verifyTokenMiddleware, getRunningLogById);
-runsRouter
   .route("/:calendarId")
+  .get(verifyTokenMiddleware, getRunningLogById)
   .put(validateJOI(runsSchema), verifyTokenMiddleware, updateRunningLog)
   .delete(verifyTokenMiddleware, deleteRunningLog);
-  // .get(findInComments);
+// .get(findInComments);
 
 export default runsRouter;

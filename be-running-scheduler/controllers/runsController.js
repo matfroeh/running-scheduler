@@ -15,7 +15,7 @@ export const createRunningLog = asyncHandler(async (req, res, next) => {
 });
 
 export const getRunningLogById = asyncHandler(async (req, res, next) => {
-  const { week, day, calendarId } = req.params;
+  const { calendarId } = req.params;
   const userId = req.userId;
   const findCalendar = await Runs.findOne({
     $and: [{ _id: calendarId }, { user: userId }],
@@ -25,15 +25,15 @@ export const getRunningLogById = asyncHandler(async (req, res, next) => {
     return next(
       new ErrorResponse(`Running Log not found with id of ${calendarId}`, 404)
     );
-  const run = findCalendar.get(`weeks.${week}.days.${day}`);
+  // const run = findCalendar.get(`weeks.${week}.days.${day}`);
 
-  res.status(200).json(run);
+  res.status(200).json(findCalendar);
 });
 
 export const updateRunningLog = asyncHandler(async (req, res, next) => {
   const { calendarId } = req.params;
   const { meta, weeks } = req.body;
-  
+
   const userId = req.userId;
 
   const findCalendar = await Runs.findOne({
@@ -67,14 +67,12 @@ export const deleteRunningLog = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true });
 });
 
-
 // The output will be just the document in which the searchParam is found, so that is not very helpful
 // export const findInComments = asyncHandler(async (req, res, next) => {
 //   // const { calendarId } = req.params;
 //   // const userId = req.userId;
 //   const { searchParam } = req.body;
 //   console.log("searchParam:", searchParam);
-  
 
 //   const find = await Runs.find({ $text: { $search: searchParam } });
 //   if (!find) return next(new ErrorResponse("Search query not found", 404));

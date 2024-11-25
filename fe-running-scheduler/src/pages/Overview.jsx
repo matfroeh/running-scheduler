@@ -66,7 +66,7 @@ const Overview = () => {
 
   if (loadedRuns.length === 0) {
     return (
-      <div className="flex justify-center items-center mt-20">
+      <div className="flex justify-center items-start mt-20 h-screen">
         <div className="flex text-xl">
           Create your first Schedule and upload running data to create the
           Overview

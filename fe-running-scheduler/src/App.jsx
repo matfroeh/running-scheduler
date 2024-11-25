@@ -23,7 +23,6 @@ import {
 } from "@/pages";
 import { RootLayout, AuthLayout } from "@/layouts";
 import { action as getFormData } from "./actions/getFormData";
-import { calendarLoader } from "./loader/calendarLoader";
 import { overviewLoader } from "./loader/overviewLoader";
 import { calendarIndexLoader } from "./loader/calendarIndexLoader";
 import { AuthContextProvider } from "@/context";
@@ -35,7 +34,7 @@ const router = createBrowserRouter([
     element: <Welcome />,
     children: [
       {
-        path: "/login",
+        path: "login",
         element: <Login />,
       },
       {
@@ -49,29 +48,31 @@ const router = createBrowserRouter([
     element: <NotFound />,
   },
   {
-    path: "auth",
+    path: "/auth",
     element: <AuthLayout />,
     children: [
       {
         path: "/auth",
         element: <RootLayout />,
         loader: calendarIndexLoader,
+        shouldRevalidate: () => {
+          return false;
+        },
         children: [
           {
             index: true,
-            element: <Navigate to={"/auth/calendar"} replace />,
+            element: <Navigate to={"calendar"} replace />,
           },
           {
             path: "calendar/:calendarId?",
             element: <CalendarView />,
-            loader: calendarLoader,
             action: getFormData,
             // This is a workaround to prevent revalidation of the loader when the params change
             // with the upcoming revised data model this will be unnecessary
             // shouldRevalidate: ({ currentParams, nextParams }) => {
-            shouldRevalidate: () => {
-              return false;
-            },
+            // shouldRevalidate: () => {
+            //   return false;
+            // },
             errorElement: <Error />,
             children: [
               {
