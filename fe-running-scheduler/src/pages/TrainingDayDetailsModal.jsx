@@ -49,7 +49,7 @@ const TrainingDayDetailsModal = () => {
     try {
       // alert with a confirmation box
       const confirmDelete = window.confirm(
-        "Are you sure you want to delete this run?"
+        "Are you sure you want to delete this scheduled training?"
       );
       if (!confirmDelete) return;
 
@@ -59,6 +59,7 @@ const TrainingDayDetailsModal = () => {
       setSchedule(updatedTrainingDayData);
       await updateTrainingSchedule(schedule, calendarId);
       toast.success("Scheduled Training deleted successfully");
+      navigate(-1);
     } catch (error) {
       toast.error(error.message);
     }

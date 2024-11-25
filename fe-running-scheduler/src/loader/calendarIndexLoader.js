@@ -7,7 +7,6 @@ import { getAllTrainingSchedulesMetaData } from "../data/schedules";
 export const calendarIndexLoader = async () => {
 
   try {
-    console.log("calendarIndexLoader called");
     const calendarsMetaData = await getAllTrainingSchedulesMetaData();
     console.log(calendarsMetaData);
     

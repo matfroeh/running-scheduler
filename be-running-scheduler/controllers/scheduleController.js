@@ -13,7 +13,6 @@ export const getAllTrainingSchedules = asyncHandler(async (req, res, next) => {
 
 export const getAllTrainingSchedulesMetaData = asyncHandler(
   async (req, res, next) => {
-    
     const userId = req.userId;
     const schedules = await Schedule.find({ user: userId }).select("meta");
     // console.log("schedules", schedules);
@@ -30,6 +29,8 @@ export const createTrainingSchedule = asyncHandler(async (req, res, next) => {
 
 export const getTrainingScheduleById = asyncHandler(async (req, res, next) => {
   const { calendarId } = req.params;
+  // console.log("Request params", req.params);
+  
   const userId = req.userId;
 
   const findSchedule = await Schedule.findOne({

@@ -106,6 +106,7 @@ const RunDetailsModal = () => {
       setRuns(updatedRunningData);
       await updateRunCalendar(runs, calendarId);
       toast.success("Run deleted successfully.");
+      navigate(-1);
     } catch (error) {
       toast.error(error.message);
     }

@@ -20,7 +20,7 @@ const CalendarBar = ({
     showPreviousCalendar,
     showCurrentCalendar,
     showNextCalendar,
-    currentIndex,
+    calendarIndex,
     calendarSize,
   },
   setNotes,
@@ -80,7 +80,7 @@ const CalendarBar = ({
             <ButtonCalendarNavigate
               text={"Previous"}
               onClick={showPreviousCalendar}
-              disabled={currentIndex === 0}
+              disabled={calendarIndex === 0}
             />
             <ButtonCalendarNavigate
               text={"Current"}
@@ -89,7 +89,7 @@ const CalendarBar = ({
             <ButtonCalendarNavigate
               text={"Next"}
               onClick={showNextCalendar}
-              disabled={currentIndex === calendarSize - 1}
+              disabled={calendarIndex === calendarSize - 1}
             />
           </div>
 
