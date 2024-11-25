@@ -8,7 +8,7 @@ export const useCalendarLoading = () => {
   // carries the information about the order of the calendars fetched by the RootLayout's calendarIndexLoader and of the currentIndex, which is the index of the calendar that encloses today's date
   const { calendarIndexList, currentIndex } = useOutletContext();
   const { calendarId } = useParams();
-//   console.log("CalendarView useParams", calendarId);
+  //   console.log("CalendarView useParams", calendarId);
 
   const navigate = useNavigate();
 
@@ -20,11 +20,12 @@ export const useCalendarLoading = () => {
 
   useEffect(() => {
     if (!calendarId) {
-    //   console.log("useEffect canceled", calendarId);
+      // setLoading(false);
+      //   console.log("useEffect canceled", calendarId);
       return;
     }
     async function fetchData() {
-    //   console.log("useEffect fetching", calendarId);
+      //   console.log("useEffect fetching", calendarId);
       const schedule = await getTrainingScheduleById(calendarId);
       const runs = await getRunsById(calendarId);
       setSchedule(schedule);
@@ -35,12 +36,16 @@ export const useCalendarLoading = () => {
   }, [calendarId]);
 
   const showCurrentCalendar = () => {
-    setCalendarIndex(currentIndex);
-    navigate(`/auth/calendar/${calendarIndexList[currentIndex]}`);
+    if (calendarIndex !== currentIndex) {
+      setLoading(true);
+      setCalendarIndex(currentIndex);
+      navigate(`/auth/calendar/${calendarIndexList[currentIndex]}`);
+    }
   };
 
   const showPreviousCalendar = () => {
     if (calendarIndex > 0) {
+      setLoading(true);
       setCalendarIndex(calendarIndex - 1);
       navigate(`/auth/calendar/${calendarIndexList[calendarIndex - 1]}`);
     }
@@ -48,6 +53,7 @@ export const useCalendarLoading = () => {
 
   const showNextCalendar = () => {
     if (calendarIndex < calendarIndexList.length - 1) {
+      setLoading(true);
       setCalendarIndex(calendarIndex + 1);
       navigate(`/auth/calendar/${calendarIndexList[calendarIndex + 1]}`);
     }
