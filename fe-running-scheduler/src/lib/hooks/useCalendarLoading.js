@@ -66,6 +66,8 @@ export const useCalendarLoading = () => {
     }
   }, [calendarIndex, calendarIndexList, navigate]);
 
+  
+
   return {
     loading,
     schedule,
