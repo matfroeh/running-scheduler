@@ -1,13 +1,16 @@
-import { useState } from "react";
 import { CalendarBar, CalendarBody } from "@/components/Calendar";
 import { Outlet } from "react-router-dom";
-import { useCalendarLoading, useSaveNewSchedule } from "@/lib/hooks";
+import {
+  useCalendarLoading,
+  useSaveNewSchedule,
+  useCalendarViewToggles,
+} from "@/lib/hooks";
 import { Loading } from "@/components";
 
 const CalendarView = () => {
-  // State passed to CalendarBar and CalendarBody to show/hide notes and schedule
-  const [notes, setNotes] = useState(false);
-  const [hideSchedule, setHideSchedule] = useState(false);
+  // Custom hook for toggling the notes and schedule in the calendar view
+  const { notes, hideSchedule, toggleNotes, toggleSchedule } =
+    useCalendarViewToggles();
 
   // Custom hook for loading the schedule and runs; handling the cycling through the calendars based on the information on the order of the calendars fetched by the RootLayout's calendarIndexLoader
   const { loading, schedule, runs, setSchedule, setRuns, cyclingProps } =
@@ -24,9 +27,8 @@ const CalendarView = () => {
           runs={runs}
           setRuns={setRuns}
           cyclingProps={cyclingProps}
-          notes={notes}
-          setNotes={setNotes}
-          setHideSchedule={setHideSchedule}
+          toggleNotes={toggleNotes}
+          toggleSchedule={toggleSchedule}
         />
         {loading && <Loading />}
         {!loading && schedule && (

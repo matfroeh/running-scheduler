@@ -10,12 +10,18 @@ export const useCalendarLoading = () => {
   // carries the information about the order of the calendars fetched by the RootLayout's calendarIndexLoader and of the currentIndex, which is the index of the calendar that encloses today's date
   const { calendarIndexList, currentIndex } = useOutletContext();
   const { calendarId } = useParams();
-  //   console.log("CalendarView useParams", calendarId);
-
+  
   const navigate = useNavigate();
-
+  
   const [loading, setLoading] = useState(true);
-  const [calendarIndex, setCalendarIndex] = useState(calendarIndexList.indexOf(calendarId) || 0);
+  const [calendarIndex, setCalendarIndex] = useState(
+    (calendarIndexList.indexOf(calendarId) !== -1) ? calendarIndexList.indexOf(calendarId) : calendarIndex);
+  
+  
+  console.log("CalendarView useParams", calendarId);
+  console.log("indexOf:", calendarIndexList.indexOf(calendarId));
+  
+  console.log("calendarIndex", calendarIndex);
 
   const [schedule, setSchedule] = useState(null);
   const [runs, setRuns] = useState(null);
@@ -43,7 +49,7 @@ export const useCalendarLoading = () => {
 
   const showCurrentCalendar = useCallback(() => {
     console.log("showCurrentCalendar");
-    
+
     if (calendarIndex === currentIndex) {
       return;
     }
@@ -53,6 +59,7 @@ export const useCalendarLoading = () => {
   }, [calendarIndex, currentIndex, calendarIndexList, navigate]);
 
   const showPreviousCalendar = useCallback(() => {
+    console.log("showPreviousCalendar");
     if (calendarIndex > 0) {
       setLoading(true);
       setCalendarIndex(calendarIndex - 1);
@@ -61,6 +68,8 @@ export const useCalendarLoading = () => {
   }, [calendarIndex, calendarIndexList, navigate]);
 
   const showNextCalendar = useCallback(() => {
+    console.log("showNextCalendar");
+    
     if (calendarIndex < calendarIndexList.length - 1) {
       setLoading(true);
       setCalendarIndex(calendarIndex + 1);

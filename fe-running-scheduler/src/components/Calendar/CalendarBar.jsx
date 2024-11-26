@@ -23,9 +23,8 @@ const CalendarBar = ({
     calendarIndex,
     calendarSize,
   },
-  setNotes,
-  notes,
-  setHideSchedule,
+  toggleNotes,
+  toggleSchedule,
 }) => {
   const [fileContents, setFileContents] = useState([]); // Array to hold multiple file contents
   const [isLoading, setIsLoading] = useState(false);
@@ -60,13 +59,13 @@ const CalendarBar = ({
     navigate("new-schedule");
   };
 
-  const toggleNotes = () => {
-    setNotes(!notes);
-  };
+  // const toggleNotes = () => {
+  //   setNotes(!notes);
+  // };
 
-  const toggleSchedule = () => {
-    setHideSchedule((prev) => !prev);
-  };
+  // const toggleSchedule = () => {
+  //   setHideSchedule((prev) => !prev);
+  // };
 
   const handleCalendarEdit = () => {
     navigate(`edit-schedule`);
