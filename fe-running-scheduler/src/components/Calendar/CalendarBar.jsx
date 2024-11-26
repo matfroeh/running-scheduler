@@ -48,7 +48,6 @@ const CalendarBar = ({
   };
 
   return (
-    <>
       <div className="flex flex-auto flex-wrap navbar sticky top-0 z-10 bg-base-100">
         <div className="flex flex-1 navbar-start">
           <div className="">
@@ -125,7 +124,6 @@ const CalendarBar = ({
           </span>
         </div>
       </div>
-    </>
   );
 };
 
