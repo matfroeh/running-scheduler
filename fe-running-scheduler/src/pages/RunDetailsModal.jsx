@@ -211,52 +211,26 @@ const RunDetailsModal = () => {
               <span>{formData.type || ""}</span>
             </div>
           )}
-          <div>
-            {isEditMode ? (
-              <>
-                <strong>Activity Time (seconds): </strong>
-                <input
-                  type="number"
-                  name="duration"
-                  value={formData.duration || ""}
-                  onChange={handleChange}
-                  className="input input-bordered w-full mt-2"
-                />
-              </>
-            ) : (
-              <>
-                <strong>Activity Time: </strong>
-                <span>
-                  {formData.duration
-                    ? getSecondsAsHoursMinutesSecondsString(formData.duration)
-                    : null}
-                </span>
-              </>
-            )}
-          </div>
-          <div>
-            {isEditMode ? (
-              <>
-                <strong>Total Time (seconds): </strong>
-                <input
-                  type="number"
-                  name="totalTime"
-                  value={formData.totalTime || ""}
-                  onChange={handleChange}
-                  className="input input-bordered w-full mt-2"
-                />
-              </>
-            ) : (
-              <>
-                <strong>Total Time: </strong>
-                <span>
-                  {formData.totalTime
-                    ? getSecondsAsHoursMinutesSecondsString(formData.totalTime)
-                    : null}
-                </span>
-              </>
-            )}
-          </div>
+          {!isEditMode && (
+            <div>
+              <strong>Activity Time: </strong>
+              <span>
+                {formData.duration
+                  ? getSecondsAsHoursMinutesSecondsString(formData.duration)
+                  : null}
+              </span>
+            </div>
+          )}
+          {!isEditMode && (
+            <div>
+              <strong>Total Time: </strong>
+              <span>
+                {formData.totalTime
+                  ? getSecondsAsHoursMinutesSecondsString(formData.totalTime)
+                  : null}
+              </span>
+            </div>
+          )}
           <div>
             <strong>Effort: </strong>
             {isEditMode ? (
@@ -343,15 +317,19 @@ const RunDetailsModal = () => {
             )}
           </div>
         </div>
-        {run?.timeArray?.length > 0 && run?.velocityArray?.length > 0 && (
-          <LineChartTimeVelocity
-            xLabel={run.timeArray}
-            yFunction={run.velocityArray}
-            yLabel="Tempo (min/km)"
-            yAxisReversed={true}
-            color={"#00CDB7"}
-          />
-        )}
+        <div className="">
+          {!isEditMode &&
+            run?.timeArray?.length > 0 &&
+            run?.velocityArray?.length > 0 && (
+              <LineChartTimeVelocity
+                xLabel={run.timeArray}
+                yFunction={run.velocityArray}
+                yLabel="Tempo (min/km)"
+                yAxisReversed={true}
+                color={"#00CDB7"}
+              />
+            )}
+        </div>
 
         <div className="mt-4">
           <h3 className="text-lg font-semibold">Notes: </h3>
