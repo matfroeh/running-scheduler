@@ -14,6 +14,8 @@ import ButtonDelete from "./ButtonDelete";
 import CookieNote from "./CookieNote";
 import OverflowSpanTooltip from "./OverflowSpanTooltip";
 import Icons from "./Icons";
+import ButtonScrollTop from "./ButtonScrollTop";
+import ButtonScrollToRef from "./ButtonScrollToRef";
 
 export {
   Loading,
@@ -32,4 +34,6 @@ export {
   CookieNote,
   OverflowSpanTooltip,
   Icons,
+  ButtonScrollTop,
+  ButtonScrollToRef,
 };
