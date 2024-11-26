@@ -15,14 +15,8 @@ export const useCalendarLoading = () => {
   
   const [loading, setLoading] = useState(true);
   const [calendarIndex, setCalendarIndex] = useState(
-    (calendarIndexList.indexOf(calendarId) !== -1) ? calendarIndexList.indexOf(calendarId) : calendarIndex);
+    (calendarIndexList.indexOf(calendarId) !== -1) ? calendarIndexList.indexOf(calendarId) : currentIndex);
   
-  
-  console.log("CalendarView useParams", calendarId);
-  console.log("indexOf:", calendarIndexList.indexOf(calendarId));
-  
-  console.log("calendarIndex", calendarIndex);
-
   const [schedule, setSchedule] = useState(null);
   const [runs, setRuns] = useState(null);
 
@@ -48,8 +42,6 @@ export const useCalendarLoading = () => {
   }, [calendarId]);
 
   const showCurrentCalendar = useCallback(() => {
-    console.log("showCurrentCalendar");
-
     if (calendarIndex === currentIndex) {
       return;
     }
@@ -59,7 +51,6 @@ export const useCalendarLoading = () => {
   }, [calendarIndex, currentIndex, calendarIndexList, navigate]);
 
   const showPreviousCalendar = useCallback(() => {
-    console.log("showPreviousCalendar");
     if (calendarIndex > 0) {
       setLoading(true);
       setCalendarIndex(calendarIndex - 1);
@@ -68,8 +59,6 @@ export const useCalendarLoading = () => {
   }, [calendarIndex, calendarIndexList, navigate]);
 
   const showNextCalendar = useCallback(() => {
-    console.log("showNextCalendar");
-    
     if (calendarIndex < calendarIndexList.length - 1) {
       setLoading(true);
       setCalendarIndex(calendarIndex + 1);
