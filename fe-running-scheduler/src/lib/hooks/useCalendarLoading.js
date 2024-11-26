@@ -20,7 +20,7 @@ export const useCalendarLoading = () => {
 
   useEffect(() => {
     if (!calendarId) {
-    //   console.log("useEffect canceled", calendarId);
+      setLoading(false);
       return;
     }
     async function fetchData() {
@@ -35,12 +35,17 @@ export const useCalendarLoading = () => {
   }, [calendarId]);
 
   const showCurrentCalendar = () => {
+    if (calendarIndex === currentIndex) {
+      return;
+    }
+    setLoading(true);
     setCalendarIndex(currentIndex);
     navigate(`/auth/calendar/${calendarIndexList[currentIndex]}`);
   };
 
   const showPreviousCalendar = () => {
     if (calendarIndex > 0) {
+      setLoading(true);
       setCalendarIndex(calendarIndex - 1);
       navigate(`/auth/calendar/${calendarIndexList[calendarIndex - 1]}`);
     }
@@ -48,6 +53,7 @@ export const useCalendarLoading = () => {
 
   const showNextCalendar = () => {
     if (calendarIndex < calendarIndexList.length - 1) {
+      setLoading(true);
       setCalendarIndex(calendarIndex + 1);
       navigate(`/auth/calendar/${calendarIndexList[calendarIndex + 1]}`);
     }

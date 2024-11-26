@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CalendarBar, CalendarBody } from "@/components/Calendar";
 import { Outlet } from "react-router-dom";
 import { useCalendarLoading, useSaveNewSchedule } from "@/lib/hooks";
+import { Loading } from "@/components";
 
 const CalendarView = () => {
   // State passed to CalendarBar and CalendarBody to show/hide notes and schedule
@@ -27,7 +28,8 @@ const CalendarView = () => {
           setNotes={setNotes}
           setHideSchedule={setHideSchedule}
         />
-        {!loading && (
+        {loading && <Loading />}
+        {!loading && schedule && (
           <CalendarBody
             schedule={schedule}
             runs={runs}
