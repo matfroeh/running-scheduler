@@ -6,11 +6,7 @@ import { readMultipleFiles } from "@/lib/fileHandling.js";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-
-export const useProcessGpxData = (
-  runningData,
-  setRunningData,  
-) => {
+export const useProcessGpxData = (runningData, setRunningData) => {
   const [fileContents, setFileContents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -51,7 +47,12 @@ export const useProcessGpxData = (
             // console.log(response);
             if (response) {
               setRunningData(updatedRunningData);
-              toast.success("New run(s) added successfully");
+              toast.success(
+                `New run from ${newRunningData.date.slice(
+                  0,
+                  10
+                )} added successfully`
+              );
               // Single uploaded file: directly go to run details modal
               if (fileContents.length === 1) {
                 navigate(`runs/${week}/${day}/new`);

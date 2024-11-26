@@ -13,7 +13,7 @@ import ButtonCalendarNavigate from "@/components/Calendar/ButtonCalendarNavigate
 const CalendarBar = ({
   title,
   runs,
-  setRuns,
+  handleSetRuns,
   cyclingProps: {
     showPreviousCalendar,
     showCurrentCalendar,
@@ -30,7 +30,7 @@ const CalendarBar = ({
   // This hook processes the gpx data and sets the new running data
   const { handleGpxFileChange, isLoading } = useProcessGpxData(
     runs,
-    setRuns,
+    handleSetRuns,
   );
 
   // This passes the click on the normal button to the hidden input field button

@@ -13,8 +13,8 @@ const CalendarEditModal = () => {
   const {
     schedule,
     runs,
-    setSchedule,
-    setRuns,
+    handleSetSchedule,
+    handleSetRuns,
   } = useOutletContext();
   const [title, setTitle] = useState(schedule.meta.title);
   const calendarId = schedule._id;
@@ -36,8 +36,8 @@ const CalendarEditModal = () => {
       await updateTrainingSchedule(updatedTrainingSchedule, calendarId);
       await updateRunCalendar(updatedRunningLog, calendarId);
 
-      setSchedule(updatedTrainingSchedule);
-      setRuns(updatedRunningLog);
+      handleSetSchedule(updatedTrainingSchedule);
+      handleSetRuns(updatedRunningLog);
 
       toast.success("Title updated successfully!");
       navigate(-1);
@@ -63,8 +63,8 @@ const CalendarEditModal = () => {
       await deleteRunCalendar(calendarId);
       localStorage.removeItem("currentCalendarIndex");
       navigate("/");
-      setRuns([]);
-      setSchedule([]);
+      handleSetRuns([]);
+      handleSetSchedule([]);
       toast.success("Calendar deleted successfully!");
     } catch (error) {
       toast.error(`Error deleting calendar: ${error.message}`);
