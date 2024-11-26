@@ -6,6 +6,8 @@ import { Loading, Footer } from "@/components";
 import { useGetCalendarOrder } from "../lib/hooks/useGetCalendarOrder";
 
 const RootLayout = () => {
+  console.log("RootLayout");
+  
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
   // console.log(navigation.state);
