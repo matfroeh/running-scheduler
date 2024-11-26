@@ -30,8 +30,9 @@ const CalendarBar = ({
   // This hook processes the gpx data and sets the new running data
   const { handleGpxFileChange, isLoading } = useProcessGpxData(
     runs,
-    handleSetRuns,
+    handleSetRuns
   );
+  // console.log("CalendarBar loading", loading);
 
   // This passes the click on the normal button to the hidden input field button
   const handleGpxInputClick = () => {
@@ -54,16 +55,17 @@ const CalendarBar = ({
             <ButtonCalendarNavigate
               text={"Previous"}
               onClick={showPreviousCalendar}
-              disabled={calendarIndex === 0}
+              disabled={calendarIndex === 0 || !runs}
             />
             <ButtonCalendarNavigate
               text={"Current"}
               onClick={showCurrentCalendar}
+              disabled={!runs}
             />
             <ButtonCalendarNavigate
               text={"Next"}
               onClick={showNextCalendar}
-              disabled={calendarIndex === calendarSize - 1}
+              disabled={calendarIndex === calendarSize - 1 || !runs}
             />
           </div>
 
@@ -93,7 +95,9 @@ const CalendarBar = ({
                 >
                   {title}
                 </span>
-              ) : (
+              ) : // <span className="rounded-md p-1">{INITIAL_TITLE}</span>
+              null}
+              {calendarSize === 0 && (
                 <span className="rounded-md p-1">{INITIAL_TITLE}</span>
               )}
 
