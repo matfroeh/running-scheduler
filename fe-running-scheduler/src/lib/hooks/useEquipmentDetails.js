@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 import { deleteEquipmentFromUserList, updateEquipment } from "@/data/user";
@@ -11,7 +11,7 @@ import { getImageByIdFromApi } from "@/data/image.js";
 export const useEquipmentDetails = () => {
   const { equipmentId } = useParams();
   const { user } = useAuth();
-  const { setEquipmentList } = useOutletContext();
+  const { handleSetEquipmentList } = useOutletContext();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({});
@@ -64,7 +64,7 @@ export const useEquipmentDetails = () => {
     try {
       const updatedData = { ...formData, image: imageId || formData.image };
       await updateEquipment(user.userId, equipmentId, updatedData);
-      setEquipmentList((prev) =>
+      handleSetEquipmentList((prev) =>
         prev.map((item) => (item._id === equipmentId ? updatedData : item))
       );
       toast.success("Equipment updated successfully");
@@ -78,22 +78,41 @@ export const useEquipmentDetails = () => {
     if (!window.confirm("Are you sure you want to delete this equipment?"))
       return;
     await deleteEquipmentFromUserList(user.userId, equipmentId);
-    setEquipmentList((prev) => prev.filter((item) => item._id !== equipmentId));
+    handleSetEquipmentList((prev) => prev.filter((item) => item._id !== equipmentId));
     toast.success("Deleted successfully");
     navigate(-1);
   };
 
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  }, [formData]);
+
+  const handleImageChange = useCallback(async (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
+    setSelectedFile(file);
+  }, []);
+
   return {
     formData,
-    setFormData,
+    handleChange,
     error,
     handleUpdate,
     handleDelete,
     loading,
     imageProps: {
       imageUrl,
-      setSelectedFile,
-      setImageUrl,
+      handleImageChange,
+      // setSelectedFile,
+      // setImageUrl,
       imgInputRef,
       imageId,
       image,

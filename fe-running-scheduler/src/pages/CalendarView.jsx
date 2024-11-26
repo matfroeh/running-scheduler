@@ -13,11 +13,11 @@ const CalendarView = () => {
     useCalendarViewToggles();
 
   // Custom hook for loading the schedule and runs; handling the cycling through the calendars based on the information on the order of the calendars fetched by the RootLayout's calendarIndexLoader
-  const { loading, schedule, runs, setSchedule, setRuns, cyclingProps } =
+  const { loading, schedule, runs, handleSetSchedule, handleSetRuns, cyclingProps } =
     useCalendarLoading();
 
   // Custom hook for handling saving the newly created schedule
-  useSaveNewSchedule(setSchedule, setRuns);
+  useSaveNewSchedule(handleSetSchedule, handleSetRuns);
 
   return (
     <div className="min-w-min flex-grow">
@@ -25,7 +25,7 @@ const CalendarView = () => {
         <CalendarBar
           title={runs?.meta?.title}
           runs={runs}
-          setRuns={setRuns}
+          handleSetRuns={handleSetRuns}
           cyclingProps={cyclingProps}
           toggleNotes={toggleNotes}
           toggleSchedule={toggleSchedule}
@@ -42,9 +42,9 @@ const CalendarView = () => {
         <Outlet
           context={{
             runs,
-            setRuns,
+            handleSetRuns,
             schedule,
-            setSchedule,
+            handleSetSchedule,
           }}
         />
       </>

@@ -8,7 +8,7 @@ import { formatDateYYMMDD } from "@/utils/formatDate";
 
 const TrainingDayDetailsModal = () => {
   const { week, day } = useParams();
-  const { schedule, setSchedule } = useOutletContext();
+  const { schedule, handleSetSchedule } = useOutletContext();
 
   const trainingDay = schedule.weeks[week].days[day];
   const calendarId = schedule._id;
@@ -35,7 +35,7 @@ const TrainingDayDetailsModal = () => {
 
       // console.log(updatedTrainingDayData.weeks[week].days[day]);
 
-      setSchedule(updatedTrainingDayData);
+      handleSetSchedule(updatedTrainingDayData);
       await updateTrainingSchedule(schedule, calendarId);
       // console.log(response);
       toast.success("Training Day updated successfully");
@@ -56,7 +56,7 @@ const TrainingDayDetailsModal = () => {
       const updatedTrainingDayData = { ...schedule };
       updatedTrainingDayData.weeks[week].days[day] = { date: trainingDay.date };
       // console.log(updatedTrainingDayData.weeks[week].days[day]);
-      setSchedule(updatedTrainingDayData);
+      handleSetSchedule(updatedTrainingDayData);
       await updateTrainingSchedule(schedule, calendarId);
       toast.success("Scheduled Training deleted successfully");
       navigate(-1);

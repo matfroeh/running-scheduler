@@ -1,16 +1,16 @@
 import { ButtonHiddenInput, ImagePreviewGroup } from "@/components/Equipment";
-import { imageChange } from "@/lib/fileHandling";
 
 const ImageUploader = ({
   imageUrl,
   imgInputRef,
   imageId,
   handleImageUpload,
-  setImageUrl,
-  setSelectedFile,
+  handleImageChange,
+  // setImageUrl,
+  // setSelectedFile,
 }) => {
-  const handleImageChange = async (e) => {
-    await imageChange(e, setImageUrl, setSelectedFile);
+  const imageChange = async (e) => {
+    await handleImageChange(e);
   };
 
   return (
@@ -19,7 +19,7 @@ const ImageUploader = ({
         <ButtonHiddenInput
           imageUrl={imageUrl}
           onClick={() => imgInputRef.current.click()}
-          onChange={handleImageChange}
+          onChange={imageChange}
           refForward={imgInputRef}
         />
       )}

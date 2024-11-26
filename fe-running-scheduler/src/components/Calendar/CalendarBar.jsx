@@ -1,10 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
-import { useState } from "react";
-import { toast } from "react-toastify";
 import { INITIAL_TITLE, NEW_TRAINING_SCHEDULE } from "@/lib/uiConstants.js";
-import { readMultipleFiles } from "@/lib/fileHandling.js";
-import { useProcessGpxData } from "@/lib//hooks/miscDataHooks.js";
+// import { readMultipleFiles } from "@/lib/fileHandling.js";
+import { useProcessGpxData } from "@/lib//hooks";
 import {
   ButtonLoadingState,
   ButtonToggle,
@@ -15,7 +13,7 @@ import ButtonCalendarNavigate from "@/components/Calendar/ButtonCalendarNavigate
 const CalendarBar = ({
   title,
   runs,
-  setRuns,
+  handleSetRuns,
   cyclingProps: {
     showPreviousCalendar,
     showCurrentCalendar,
@@ -26,28 +24,13 @@ const CalendarBar = ({
   toggleNotes,
   toggleSchedule,
 }) => {
-  const [fileContents, setFileContents] = useState([]); // Array to hold multiple file contents
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const gpxInputRef = useRef(null);
 
-  // This function reads the content of multiple files and sets them to the state
-  const handleGpxFileChange = (event) => {
-    const readers = readMultipleFiles(event);
-
-    // Wait until all files are read and set the results to fileContents
-    Promise.all(readers).then((contents) => setFileContents(contents));
-  };
-
   // This hook processes the gpx data and sets the new running data
-  useProcessGpxData(
+  const { handleGpxFileChange, isLoading } = useProcessGpxData(
     runs,
-    setRuns,
-    fileContents,
-    setFileContents,
-    setIsLoading,
-    toast,
-    navigate
+    handleSetRuns,
   );
 
   // This passes the click on the normal button to the hidden input field button
@@ -58,14 +41,6 @@ const CalendarBar = ({
   const openCreateTrainingBlockModal = () => {
     navigate("new-schedule");
   };
-
-  // const toggleNotes = () => {
-  //   setNotes(!notes);
-  // };
-
-  // const toggleSchedule = () => {
-  //   setHideSchedule((prev) => !prev);
-  // };
 
   const handleCalendarEdit = () => {
     navigate(`edit-schedule`);

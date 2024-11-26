@@ -6,7 +6,7 @@ import { useEquipmentDetails } from "@/lib/hooks/useEquipmentDetails";
 const EquipmentDetails = () => {
   const {
     formData,
-    setFormData,
+    handleChange,
     error,
     handleDelete,
     handleUpdate,
@@ -27,7 +27,7 @@ const EquipmentDetails = () => {
       <InputErrorBar error={error} />
       <ImageUploader {...imageProps} />
       <div className="flex flex-wrap gap-4">
-        <FormEquipmentStats formData={formData} setFormData={setFormData} />
+        <FormEquipmentStats formData={formData} onChange={handleChange} />
       </div>
     </CardModal>
   );

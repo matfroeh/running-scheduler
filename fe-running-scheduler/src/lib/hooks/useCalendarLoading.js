@@ -10,13 +10,16 @@ export const useCalendarLoading = () => {
   // carries the information about the order of the calendars fetched by the RootLayout's calendarIndexLoader and of the currentIndex, which is the index of the calendar that encloses today's date
   const { calendarIndexList, currentIndex } = useOutletContext();
   const { calendarId } = useParams();
-  
+
   const navigate = useNavigate();
-  
+
   const [loading, setLoading] = useState(true);
   const [calendarIndex, setCalendarIndex] = useState(
-    (calendarIndexList.indexOf(calendarId) !== -1) ? calendarIndexList.indexOf(calendarId) : currentIndex);
-  
+    calendarIndexList.indexOf(calendarId) !== -1
+      ? calendarIndexList.indexOf(calendarId)
+      : currentIndex
+  );
+
   const [schedule, setSchedule] = useState(null);
   const [runs, setRuns] = useState(null);
 
@@ -66,12 +69,20 @@ export const useCalendarLoading = () => {
     }
   }, [calendarIndex, calendarIndexList, navigate]);
 
+  const handleSetRuns = useCallback((newRuns) => {
+    setRuns(newRuns);
+  }, []);
+
+  const handleSetSchedule = useCallback((newSchedule) => {
+    setSchedule(newSchedule);
+  }, []);
+
   return {
     loading,
     schedule,
-    setSchedule,
+    handleSetSchedule,
     runs,
-    setRuns,
+    handleSetRuns,
     cyclingProps: {
       showCurrentCalendar,
       showPreviousCalendar,

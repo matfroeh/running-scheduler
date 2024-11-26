@@ -15,7 +15,7 @@ import { formatDateYYMMDD } from "@/utils/formatDate";
 
 const RunDetailsModal = () => {
   const { week, day } = useParams();
-  const { runs, setRuns } = useOutletContext();
+  const { runs, handleSetRuns } = useOutletContext();
   // console.log("runs", runs);
 
   const { user } = useAuth();
@@ -72,7 +72,7 @@ const RunDetailsModal = () => {
       const updatedRunningData = { ...runs };
       updatedRunningData.weeks[week].days[day] = formData;
 
-      setRuns(updatedRunningData);
+      handleSetRuns(updatedRunningData);
       await updateRunCalendar(runs, calendarId);
 
       // update the equipment distance if still exists in the list (as active equipment)
@@ -103,7 +103,7 @@ const RunDetailsModal = () => {
       const updatedRunningData = { ...runs };
       updatedRunningData.weeks[week].days[day] = { date: run.date };
       // console.log(updatedRunningData.weeks[week].days[day]);
-      setRuns(updatedRunningData);
+      handleSetRuns(updatedRunningData);
       await updateRunCalendar(runs, calendarId);
       toast.success("Run deleted successfully.");
       navigate(-1);
