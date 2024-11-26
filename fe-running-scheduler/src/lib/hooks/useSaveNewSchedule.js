@@ -5,7 +5,7 @@ import { createTrainingSchedule } from "@/data/schedules";
 import { createRun } from "@/data/runs";
 import { toast } from "react-toastify";
 
-export const useSaveNewSchedule = (setSchedule, setRuns) => {
+export const useSaveNewSchedule = (handleSetSchedule, handleSetRuns) => {
   // Form data from CreateTrainingBlock.jsx
   let createScheduleData = useActionData();
 
@@ -21,8 +21,8 @@ export const useSaveNewSchedule = (setSchedule, setRuns) => {
           const schedule = await createTrainingSchedule(newSchedule);
           const runs = await createRun(newRuns, schedule._id);
 
-          setSchedule(schedule);
-          setRuns(runs);
+          handleSetSchedule(schedule);
+          handleSetRuns(runs);
           toast.success("Schedule saved successfully!");
         } catch (error) {
           toast.error(`Error saving schedule: ${error.message}`);

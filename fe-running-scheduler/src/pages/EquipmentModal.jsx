@@ -6,7 +6,7 @@ import { Loading } from "@/components";
 const EquipmentModal = () => {
   const {
     equipmentList,
-    setEquipmentList,
+    handleSetEquipmentList,
     loading,
     images,
     openEquipmentDetails,
@@ -36,7 +36,7 @@ const EquipmentModal = () => {
           ))}
         </div>
       </div>
-      <Outlet context={{ setEquipmentList }} />
+      <Outlet context={{ handleSetEquipmentList }} />
     </>
   );
 };

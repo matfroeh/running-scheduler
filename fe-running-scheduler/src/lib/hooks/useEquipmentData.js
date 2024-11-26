@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { getEquipmentListFromUser } from "@/data/user";
 import { getImageByIdFromApi } from "@/data/image";
@@ -21,6 +21,10 @@ export const useEquipmentData = () => {
     };
 
     fetchEquipmentList();
+  }, []);
+
+  const handleSetEquipmentList = useCallback((newList) => {
+    setEquipmentList(newList);
   }, []);
 
   useEffect(() => {
@@ -57,7 +61,7 @@ export const useEquipmentData = () => {
 
   return {
     equipmentList,
-    setEquipmentList,
+    handleSetEquipmentList,
     images,
     loading,
     openEquipmentDetails,

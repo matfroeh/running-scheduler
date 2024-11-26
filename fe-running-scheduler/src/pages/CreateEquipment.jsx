@@ -7,7 +7,7 @@ import ImageUploader from "@/components/Equipment/ImageUploader";
 const CreateEquipment = () => {
   const {
     formData,
-    setFormData,
+    handleChange,
     error,
     handleCreate,
     handleImageUpload,
@@ -23,7 +23,7 @@ const CreateEquipment = () => {
       <InputErrorBar error={error} />
       <ImageUploader {...imageProps} handleImageUpload={handleImageUpload} />
       <div className="flex flex-wrap gap-4">
-        <FormEquipmentStats formData={formData} setFormData={setFormData} />
+        <FormEquipmentStats formData={formData} onChange={handleChange} />
       </div>
     </CardModal>
   );

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useAuth } from "@/context";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -26,7 +26,7 @@ export const useEquipmentForm = () => {
 
   const imgInputRef = useRef(null);
   const { user } = useAuth();
-  const { setEquipmentList } = useOutletContext();
+  const { handleSetEquipmentList } = useOutletContext();
   const navigate = useNavigate();
 
   const handleCreate = async () => {
@@ -35,7 +35,7 @@ export const useEquipmentForm = () => {
       const newEquipment = { ...formData, image: imageId };
       const addedEquipment = await createEquipment(user.userId, newEquipment);
       if (addedEquipment.error) throw new Error(addedEquipment.error);
-      setEquipmentList((prev) => [...prev, addedEquipment]);
+      handleSetEquipmentList((prev) => [...prev, addedEquipment]);
       toast.success("Equipment successfully created");
       navigate(-1);
     } catch (error) {
@@ -53,9 +53,17 @@ export const useEquipmentForm = () => {
     setSelectedFile(null);
   };
 
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  }, [formData]);
+
   return {
     formData,
-    setFormData,
+    handleChange,
     error,
     handleCreate,
     handleImageUpload,
