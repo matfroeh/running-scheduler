@@ -31,11 +31,11 @@ const NavBar = () => {
     : "/profilePlaceHolder.webp";
 
   return (
-    <div className="navbar z-50">
+    <div className="navbar z-50 mb-1">
       <div className="navbar-start">
         <Link to="calendar" className="btn btn-ghost text-base md:text-lg">{appName}</Link>
       </div>
-      <div className="navbar-center">
+      <div className="ml-8 navbar-center">
         <NavBarNavButtons />
       </div>
       <div className="navbar-end">
