@@ -16,6 +16,7 @@ import OverflowSpanTooltip from "./OverflowSpanTooltip";
 import Icons from "./Icons";
 import ButtonScrollTop from "./ButtonScrollTop";
 import ButtonScrollToRef from "./ButtonScrollToRef";
+import CarouselComponent from "../components/CarouselComponent";
 
 export {
   Loading,
@@ -36,4 +37,5 @@ export {
   Icons,
   ButtonScrollTop,
   ButtonScrollToRef,
+  CarouselComponent,
 };
