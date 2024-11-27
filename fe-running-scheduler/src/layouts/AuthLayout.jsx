@@ -11,7 +11,7 @@ const AuthLayout = () => {
     <div className="container mx-auto zoomable">
       <ToastContainer
         position="bottom-right"
-        autoClose={1500}
+        autoClose={2500}
         theme="colored"
       />
       {auth ? <Outlet /> : <Navigate to="/login" />}
