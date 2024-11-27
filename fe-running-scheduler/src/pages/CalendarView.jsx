@@ -25,6 +25,8 @@ const CalendarView = () => {
   // Custom hook for handling saving the newly created schedule
   useSaveNewSchedule(handleSetSchedule, handleSetRuns);
 
+  const isCalendarListEmpty = cyclingProps.calendarSize === 0;
+
   return (
     <div className="min-w-min flex-grow">
       <>
@@ -37,6 +39,7 @@ const CalendarView = () => {
           toggleSchedule={toggleSchedule}
         />
         {loading && <Loading />}
+        {!isCalendarListEmpty && !schedule && <Loading />}
         {!loading && schedule && (
           <CalendarBody
             schedule={schedule}

@@ -4,7 +4,7 @@ import RunCard from "./RunCard";
 import { useNavigate } from "react-router-dom";
 
 const CalendarWeekRow = ({
-  week,
+  scheduleDataWeek,
   weekNumber,
   runningDataWeek,
   notes,
@@ -12,28 +12,28 @@ const CalendarWeekRow = ({
 }) => {
   const navigate = useNavigate();
 
-  const openRunCard = (data, weekNumber, day) => {
-    navigate(`runs/${weekNumber}/${day}/${data._id}`);
+  const openRunCard = (id, weekNumber, day) => {
+    navigate(`runs/${weekNumber}/${day}/${id}`);
   };
-  const openTrainingCard = (data, weekNumber, day) => {
-    navigate(`schedule/${weekNumber}/${day}/${data._id}`);
+  const openTrainingCard = (id, weekNumber, day) => {
+    navigate(`schedule/${weekNumber}/${day}/${id}`);
   };
 
   return (
     <>
       {!hideSchedule &&
-        Object.entries(week.days).map(([day, data]) => {
+        Object.entries(scheduleDataWeek.days).map(([day, data]) => {
           return (
             <TrainingCard
               key={day}
               data={data}
-              openTrainingCard={() => openTrainingCard(data, weekNumber, day)}
+              openTrainingCard={() => openTrainingCard(data._id, weekNumber, day)}
             />
           );
         })}
       {!hideSchedule && (
         <SummaryCard
-          scheduleWeek={week}
+          scheduleWeek={scheduleDataWeek}
           runningWeek={runningDataWeek}
           weekNumber={weekNumber}
           hideSchedule={hideSchedule}
@@ -44,7 +44,7 @@ const CalendarWeekRow = ({
           <RunCard
             key={day}
             data={data}
-            openRunCard={() => openRunCard(data, weekNumber, day)}
+            openRunCard={() => openRunCard(data._id, weekNumber, day)}
             notes={notes}
             hideSchedule={hideSchedule}
           />
@@ -52,7 +52,7 @@ const CalendarWeekRow = ({
       })}
       {hideSchedule && (
         <SummaryCard
-          scheduleWeek={week}
+          scheduleWeek={scheduleDataWeek}
           runningWeek={runningDataWeek}
           weekNumber={weekNumber}
           hideSchedule={hideSchedule}
