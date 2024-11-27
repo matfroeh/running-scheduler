@@ -19,9 +19,55 @@ const CalendarWeekRow = ({
     navigate(`schedule/${weekNumber}/${day}/${id}`);
   };
 
+  const runDataByDay = (day) => {
+    return runningDataWeek.days[day];
+  };
+
   return (
     <>
-      {!hideSchedule &&
+      {Object.entries(scheduleDataWeek.days).map(([day, data]) => {
+        return (
+          <div key={day} className="flex flex-col justify-between">
+            {!hideSchedule && (
+              <>
+                <TrainingCard
+                  key={data._id}
+                  data={data}
+                  openTrainingCard={() =>
+                    openTrainingCard(data._id, weekNumber, day)
+                  }
+                />
+                <div
+                  key={`${weekNumber}, daySpacer`}
+                  className="border-y-4 border-base-200"
+                ></div>
+              </>
+            )}
+            <RunCard
+              key={runDataByDay(day)._id}
+              data={runDataByDay(day)}
+              openRunCard={() =>
+                openRunCard(runDataByDay(day)._id, weekNumber, day)
+              }
+              notes={notes}
+              hideSchedule={hideSchedule}
+            />
+          </div>
+        );
+      })}
+      <div>
+        <SummaryCard
+          scheduleWeek={scheduleDataWeek}
+          runningWeek={runningDataWeek}
+          weekNumber={weekNumber}
+          hideSchedule={hideSchedule}
+        />
+      </div>
+      <div
+        key={`${weekNumber}, weekSpacer`}
+        className="col-span-8 border border-base-300"
+      ></div>
+      {/* {!hideSchedule &&
         Object.entries(scheduleDataWeek.days).map(([day, data]) => {
           return (
             <TrainingCard
@@ -57,9 +103,7 @@ const CalendarWeekRow = ({
           weekNumber={weekNumber}
           hideSchedule={hideSchedule}
         />
-      )}
-
-      <div className="col-span-8 border-y-8 border-base-300"></div>
+      )} */}
     </>
   );
 };

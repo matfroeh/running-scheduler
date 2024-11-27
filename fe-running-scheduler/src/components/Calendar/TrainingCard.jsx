@@ -12,17 +12,19 @@ const TrainingCard = ({ data, openTrainingCard }) => {
 
   const formattedDate = formatDate(date, { month: "numeric", day: "numeric" });
 
-  const cardClasses = `card card-compact bg-gray-800 max-w-44 min-w-20 rounded-br-none rounded-bl-none rounded-tr-none ring-2 hover:ring-4 cursor-pointer 
-  ${isToday && "ring-green-500"}`;
-
+  const isRestDay = type === "Rest Day";
+  // const cardClasses = `card card-compact mx-0.5 mt-0.5 bg-gray-800 max-w-44 min-w-20 rounded-br-none rounded-bl-none rounded-tr-none ring-1 hover:ring-2 cursor-pointer 
+  // ${isToday && "ring-green-500"}`;
+  const cardClasses = `card card-compact mx-0.5 mt-0.5 bg-gray-800 max-w-44 min-w-20 rounded-br-none rounded-bl-none rounded-tr-none ring-1 hover:ring-2 cursor-pointer ${!isRestDay && "h-full"} overflow-clip  ${isToday && "ring-green-500"}`;
+  
   return (
     <div className={cardClasses} onClick={openTrainingCard}>
-      <div className="card-body justify-start gap-0 overflow-clip relative">
-        <div className="absolute top-0 right-0 text-white text-xs mt-1 mr-2">
+      <div className="flex flex-col justify-start overflow-clip">
+        <div className="absolute top-0 right-0.5 text-white text-xs">
           {formattedDate}
         </div>
-        <div className="flex flex-col gap-1 justify-start text-xs">
-          {type && <div className="card-title text-sm mt-1">{type}</div>}
+        <div className="mx-2 mt-3 mb-1 flex flex-col gap-0 justify-start text-xs">
+          {type && <div className="card-title text-xs md:text-sm mt-1">{type}</div>}
           <div className="flex flex-wrap text-nowrap gap-1">
             {distance && (
               <p className="flex items-center gap-x-1">
@@ -31,7 +33,7 @@ const TrainingCard = ({ data, openTrainingCard }) => {
               </p>
             )}
             {description && (
-              <p className="flex items-start mt-0 text-wrap gap-x-1">
+              <p className="flex items-start text-wrap gap-x-1">
                 <Icons type="note" />
                 <span className="line-clamp-3"> {description}</span>
               </p>

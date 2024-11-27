@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/context";
 import { useFetchUserProfile } from "@/lib/hooks/miscDataHooks";
 import { arrayBufferToBase64 } from "@/utils/arrayBufferToBase64";
@@ -31,9 +31,9 @@ const NavBar = () => {
     : "/profilePlaceHolder.webp";
 
   return (
-    <div className="navbar w-full z-50 min-w-min">
+    <div className="navbar z-50">
       <div className="navbar-start">
-        <a className="btn btn-ghost text-xl">{appName}</a>
+        <Link to="calendar" className="btn btn-ghost text-base md:text-lg">{appName}</Link>
       </div>
       <div className="navbar-center">
         <NavBarNavButtons />

@@ -2,7 +2,7 @@ const WeekDaysBar = () => {
   const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   const weekDaysBar = daysOfWeek.map((day) => (
-    <div key={day} className="text-left">
+    <div key={day} className="text-left text-xs md:text-sm ml-3">
       {day}
     </div>
   ));
@@ -10,8 +10,6 @@ const WeekDaysBar = () => {
   return (
     <>
       {weekDaysBar}
-      <div className="text-center">Summary</div>
-      <div className="col-span-8 border border-base-300"></div>
     </>
   );
 };

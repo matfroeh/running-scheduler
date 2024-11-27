@@ -4,7 +4,7 @@ const daySchema = Joi.object({
   _id: Joi.string().optional(),
   date: Joi.date().required(),
   type: Joi.string().optional(),
-  distance: Joi.number().allow("").optional(),
+  distance: Joi.number().allow("").allow(null).optional(),
   // description can be an empty string,
   description: Joi.string().allow("").optional(),
 });

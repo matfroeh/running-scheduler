@@ -4,13 +4,14 @@ import { useNavigate, useLocation, useNavigation } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { Loading, Footer } from "@/components";
 import { useGetCalendarOrder } from "../lib/hooks/useGetCalendarOrder";
+import { ToastContainer } from "react-toastify";
 
 const RootLayout = () => {
-  // console.log("RootLayout");  
+  // console.log("RootLayout");
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
   // console.log(navigation.state);
-  
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -26,7 +27,12 @@ const RootLayout = () => {
     navigate(`calendar/${currentCalendarId}`);
 
   return (
-    <div className="flex flex-col min-h-screen min-w-fit">
+    <div className="container flex flex-col min-h-screen zoomable mx-4 md:mx-auto">
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2500}
+        theme="colored"
+      />
       <NavBar />
       {isLoading ? (
         <Loading />

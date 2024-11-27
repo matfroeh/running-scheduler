@@ -1,7 +1,10 @@
 const CardContainer = ({ isToday, openRunCard, children }) => {
+  // const baseClass =
+  //   "mx-0.5 max-w-44 min-w-20 card card-compact rounded-tr-none rounded-br-none rounded-tl-none " +
+  //   "bg-gray-900 ring-1 hover:ring-2 cursor-pointer";
   const baseClass =
-    "max-w-44 min-w-20 card card-compact rounded-tr-none rounded-br-none rounded-tl-none " +
-    "bg-gray-900 ring-2 hover:ring-4 cursor-pointer";
+  "mx-0.5 max-w-44 min-w-20 card card-compact rounded-tr-none rounded-br-none rounded-tl-none " +
+  "bg-gray-900 ring-1 hover:ring-2 cursor-pointer h-full overflow-clip";
   const todayClass = isToday ? "ring-green-500" : "";
 
   return (

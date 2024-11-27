@@ -48,9 +48,9 @@ const CalendarBar = ({
   };
 
   return (
-    <div className="flex flex-auto flex-wrap navbar sticky top-0 z-10 bg-base-100">
-      <div className="flex flex-1 navbar-start">
-        <div className="">
+    <div className="flex justify-between items-center text-xs md:text-sm sticky top-0 z-10 bg-base-100 mb-2">
+      <div className="flex items-center">
+        <div className="flex">
           <ButtonCalendarNavigate
             text={"Previous"}
             onClick={showPreviousCalendar}
@@ -84,9 +84,9 @@ const CalendarBar = ({
         </div>
       </div>
 
-      <div className="flex flex-1 navbar-center">
-        <div className="flex flex-1  w-1/2 justify-around ">
-          <div className="flex">
+      <div className="">
+        <div className="">
+          <div className="flex items-center">
             {title ? (
               <span
                 onClick={handleCalendarEdit}
@@ -120,8 +120,8 @@ const CalendarBar = ({
           </div>
         </div>
       </div>
-      <div className="flex flex-1 navbar-end">
-        <span className="flex ">
+      <div className="">
+        <span className="flex">
           <ButtonToggle text={"Show Notes"} onClick={toggleNotes} />
           <ButtonToggle text={"Hide Schedule"} onClick={toggleSchedule} />
         </span>

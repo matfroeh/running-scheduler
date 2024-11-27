@@ -16,7 +16,7 @@ const TypeSelectOptions = ({ type, handleChange }) => {
         <option value="Workout Day">Workout Day</option>
         <option value="Interval Workout">Interval Workout</option>
         <option value="Steady State">Steady State</option>
-        <option value="Threshold/Tempo Run">Threshold/Tempo Run</option>
+        <option value="Threshold / Tempo Run">Threshold / Tempo Run</option>
         <option value="Progression Run">Progression Run</option>
         <option value="Hill Sprints">Hill Sprints</option>
         <option value="Strides">Strides</option>
