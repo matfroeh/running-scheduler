@@ -25,7 +25,7 @@ const Overview = () => {
   );
 
   return (
-    <div className="container mx-auto">
+    <div className="flex flex-col items-center">
       <OverviewControls
         selectedMode={selectedMode}
         handleSelectOne={() => setSelectedMode("one")}

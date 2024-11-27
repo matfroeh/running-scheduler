@@ -22,9 +22,12 @@ import {
   Datenschutz,
 } from "@/pages";
 import { RootLayout, AuthLayout } from "@/layouts";
-import { action as getFormData } from "./actions/getFormData";
-import { overviewLoader } from "./loader/overviewLoader";
-import { calendarIndexLoader } from "./loader/calendarIndexLoader";
+import { action as getFormData } from "@/actions/getFormData";
+import {
+  calendarIndexLoader,
+  // calendarByIdLoader,
+  overviewLoader,
+} from "@/loader";
 import { AuthContextProvider } from "@/context";
 import { CookieNote } from "@/components";
 
@@ -66,13 +69,13 @@ const router = createBrowserRouter([
           {
             path: "calendar/:calendarId?",
             element: <CalendarView />,
-            action: getFormData,
-            // This is a workaround to prevent revalidation of the loader when the params change
-            // with the upcoming revised data model this will be unnecessary
-            // shouldRevalidate: ({ currentParams, nextParams }) => {
-            // shouldRevalidate: () => {
-            //   return false;
+            // loader:  ({params}) => {
+            //   return calendarByIdLoader(params.calendarId);
             // },
+            // shouldRevalidate: () => {
+            //   return true;
+            // },
+            action: getFormData,
             errorElement: <Error />,
             children: [
               {

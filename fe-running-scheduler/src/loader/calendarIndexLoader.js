@@ -8,7 +8,7 @@ export const calendarIndexLoader = async () => {
 
   try {
     const calendarsMetaData = await getAllTrainingSchedulesMetaData();
-    console.log(calendarsMetaData);
+    // console.log(calendarsMetaData);
     
     return calendarsMetaData;
   } catch (error) {

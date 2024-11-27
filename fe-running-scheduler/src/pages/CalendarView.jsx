@@ -13,8 +13,14 @@ const CalendarView = () => {
     useCalendarViewToggles();
 
   // Custom hook for loading the schedule and runs; handling the cycling through the calendars based on the information on the order of the calendars fetched by the RootLayout's calendarIndexLoader
-  const { loading, schedule, runs, handleSetSchedule, handleSetRuns, cyclingProps } =
-    useCalendarLoading();
+  const {
+    loading,
+    schedule,
+    runs,
+    handleSetSchedule,
+    handleSetRuns,
+    cyclingProps,
+  } = useCalendarLoading();
 
   // Custom hook for handling saving the newly created schedule
   useSaveNewSchedule(handleSetSchedule, handleSetRuns);
