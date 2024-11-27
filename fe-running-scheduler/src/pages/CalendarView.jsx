@@ -28,7 +28,7 @@ const CalendarView = () => {
   const isCalendarListEmpty = cyclingProps.calendarSize === 0;
 
   return (
-    <div className="min-w-min flex-grow">
+    <div className="flex-grow min-w-[680px]">
       <>
         <CalendarBar
           title={runs?.meta?.title}

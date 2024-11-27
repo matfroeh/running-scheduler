@@ -1,22 +1,16 @@
 // WelcomePage.jsx
-import { Link, Outlet, useNavigation, Navigate } from "react-router-dom";
-// import LoadingOverlay from "react-loading-overlay-ts";
-import { Loading, Footer, StartupDelay } from "@/components";
+import { Link, Outlet, Navigate } from "react-router-dom";
+import { Footer, StartupDelay } from "@/components";
 import { useAuth } from "@/context";
+import { ToastContainer } from "react-toastify";
 
 const WelcomePage = () => {
   const { auth } = useAuth();
-  const navigation = useNavigation();
 
   if (auth) return <Navigate to={location.state?.next || "/auth"} />;
 
   return (
-    <>
-      {navigation.state === "loading" && <Loading />}
-      {/* <div className="flex justify-center text-nowrap h-full w-full mt-14">
-          <LoadingOverlay active={true} spinner text="Loading..." />
-        </div>
-      )} */}
+    <div className="container mx-auto">
       <div className="flex flex-col items-center justify-center min-h-screen bg-base-200 text-center">
         <div className="hero flex flex-col divide-y-4 gap-4 bg-base-100 shadow-lg p-10 rounded-lg">
           <h1 className="text-5xl font-bold">Welcome to Running Journal</h1>
@@ -65,7 +59,12 @@ const WelcomePage = () => {
         <Outlet />
       </div>
       <Footer />
-    </>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2500}
+        theme="colored"
+      />
+    </div>
   );
 };
 

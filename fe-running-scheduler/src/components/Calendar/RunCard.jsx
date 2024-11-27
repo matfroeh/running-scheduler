@@ -13,12 +13,15 @@ const RunCard = ({ data, openRunCard, notes, hideSchedule }) => {
     day: "numeric",
   }).format(Date.parse(date));
 
+  // If there is no name, then there is also no data of a run to display
+  if (!name) return null;
+
   return (
     <CardContainer isToday={isToday} openRunCard={openRunCard}>
       <CardBody formattedDate={formattedDate} hideSchedule={hideSchedule}>
         <div
-          className={`card-title text-nowrap overflow-clip text-sm ${
-            hideSchedule ? "mt-2" : "-mt-3"
+          className={`card-title text-xs md:text-sm ${
+            hideSchedule ? "mt-1" : "-mt-2"
           }`}
         >
           {name}

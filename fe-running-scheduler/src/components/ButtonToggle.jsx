@@ -1,7 +1,7 @@
 const ButtonToggle = ({text, onClick}) => {
   return (
     <label className="label cursor-pointer">
-    <span className="label-text text-base text-nowrap">
+    <span className="label-text text-xs md:text-sm text-nowrap">
       {text}
     </span>
     <input

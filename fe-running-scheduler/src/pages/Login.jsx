@@ -26,7 +26,12 @@ const Login = () => {
       toast.success(`Successfully logged in!`);
       navigate("/auth");
     } catch (error) {
-      toast.error(error.message);
+      console.log(error);
+      if (error.message === "Failed to fetch") {
+        toast.error("Server is down. Please try again later.");
+      } else {
+        toast.error(error.message);
+      }
     } finally {
       setLoading(false);
     }
