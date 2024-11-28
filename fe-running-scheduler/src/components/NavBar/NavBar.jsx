@@ -41,12 +41,16 @@ const NavBar = () => {
           handleLogOut={handleLogOut}
         />
       </div>
-      <div className="navbar-center md:navbar-start">
-        <Link to="calendar" className="btn btn-ghost text-base md:text-lg">
-          {appName}
+      <div className="hidden md:block md:navbar-start md:ml-0">
+        <Link
+          to="calendar"
+          className="btn font-extrabold text-lg text-cyan-200 md:text-xl bg-cover bg-center"
+          style={{ backgroundImage: 'url("/navbar-btn-bg.png")' }}
+        >
+          <span className="text-outline">{appName}</span>
         </Link>
       </div>
-      <div className="ml-8 md:navbar-center">
+      <div className="ml-12 md:navbar-center">
         <NavBarNavButtons />
       </div>
       <div className="hidden md:inline-flex md:navbar-end">
@@ -58,6 +62,15 @@ const NavBar = () => {
           handleLogOut={handleLogOut}
           openLeftSide={true}
         />
+      </div>
+      <div className="navbar-end md:hidden">
+        <Link
+          to="calendar"
+          className="btn btn-sm font-extrabold text-cyan-200 bg-cover bg-center"
+          style={{ backgroundImage: 'url("/navbar-btn-bg.png")' }}
+        >
+          <span className="text-outline">{appName}</span>
+        </Link>
       </div>
     </div>
   );

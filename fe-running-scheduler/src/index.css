@@ -18,6 +18,10 @@
     text-decoration-thickness: 3px;
   }
 
+  .text-outline {
+    -webkit-text-stroke: 1px black;
+  }
+
   @media (max-width: 300px) {
     .zoomable {
       zoom: 0.8; 
