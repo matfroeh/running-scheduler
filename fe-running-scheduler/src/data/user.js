@@ -71,8 +71,6 @@ export const deleteEquipmentFromUserList = async (userId, equipmentId) => {
 };
 
 export const deleteUser = async (userId) => {
-  console.log("deleteUser", userId);
-  
   const response = await fetch(`${baseURL}/${userId}`, {
     method: "DELETE",
     credentials: "include",

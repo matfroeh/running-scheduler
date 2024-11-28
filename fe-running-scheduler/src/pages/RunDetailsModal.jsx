@@ -7,7 +7,7 @@ import {
   getSecondsAsHoursMinutesSecondsString,
 } from "../utils/processRunningDataHelper.js";
 import { updateEquipment, getEquipmentListFromUser } from "../data/user.js";
-import { CardModal } from "@/components";
+import { CardModal, ButtonLoadingState } from "@/components";
 import { TypeSelectOptions } from "@/components/RunAndTrainingDetails";
 import { useAuth } from "@/context";
 import LineChartTimeVelocity from "../components/charts/LineChartTimeVelocity";
@@ -28,6 +28,7 @@ const RunDetailsModal = () => {
   const [equipmentChanged, setEquipmentChanged] = useState(false);
   const [equipmentList, setEquipmentList] = useState([]);
   const [error, setError] = useState(null);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const activeEquipmentList = equipmentList.filter(
     (item) => item.status === "active"
@@ -69,6 +70,7 @@ const RunDetailsModal = () => {
     if (handleInputVerification() === false) return;
 
     try {
+      setIsUpdating(true);
       const updatedRunningData = { ...runs };
       updatedRunningData.weeks[week].days[day] = formData;
 
@@ -88,7 +90,10 @@ const RunDetailsModal = () => {
       toast.success("Run updated successfully.");
       navigate(-1);
     } catch (error) {
+      setIsUpdating(false);
       toast.error(error.message);
+    } finally {
+      setIsUpdating(false);
     }
   };
 
@@ -164,24 +169,35 @@ const RunDetailsModal = () => {
             </div>
           )}
         </h2>
-        <div className="flex space-x-2 justify-end">
-          <button
-            className="btn btn-sm btn-neutral hover:btn-error"
-            onClick={handleDelete}
-          >
-            Delete
-          </button>
-          <button className="btn btn-sm btn-primary" onClick={toggleEditMode}>
-            {isEditMode ? "Cancel" : "Edit"}
-          </button>
-          {isEditMode && (
-            <>
-              <button className="btn btn-sm btn-success ml-2" onClick={update}>
-                Save
-              </button>
-            </>
-          )}
-        </div>
+        {!isUpdating && (
+          <div className="flex space-x-2 justify-end">
+            <button
+              className="btn btn-sm btn-neutral hover:btn-error"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+            <button className="btn btn-sm btn-primary" onClick={toggleEditMode}>
+              {isEditMode ? "Cancel" : "Edit"}
+            </button>
+            {isEditMode && (
+              <>
+                <button
+                  className="btn btn-sm btn-success ml-2"
+                  onClick={update}
+                >
+                  Save
+                </button>
+              </>
+            )}
+          </div>
+        )}
+        {isUpdating && (
+          <div className="flex space-x-2 justify-end">
+            <ButtonLoadingState text={"Updating..."} />
+          </div>
+        )}
+
         {isEditMode && error && (
           <p className="text-red-500 text-sm flex justify-end mt-4">{error}</p>
         )}

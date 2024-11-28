@@ -3,7 +3,7 @@ import { useAuth } from "@/context";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { createEquipment } from "@/data/user";
-import {  uploadImage } from "@/lib/fileHandling";
+import { uploadImage } from "@/lib/fileHandling";
 import { verifyCreateEquipmentInput } from "@/lib/inputVerification";
 import dayjs from "dayjs";
 
@@ -12,7 +12,7 @@ export const useEquipmentForm = () => {
     name: "",
     status: "active",
     type: "",
-    brand: "",  
+    brand: "",
     model: "",
     distance: 0,
     time: 0,
@@ -53,13 +53,26 @@ export const useEquipmentForm = () => {
     setSelectedFile(null);
   };
 
-  const handleChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  }, [formData]);
+  const handleChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    },
+    [formData]
+  );
+
+  const handleImageChange = useCallback(async (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
+    setSelectedFile(file);
+  }, []);
 
   return {
     formData,
@@ -69,10 +82,9 @@ export const useEquipmentForm = () => {
     handleImageUpload,
     imageProps: {
       imageUrl,
-      setSelectedFile,
-      setImageUrl,
       imgInputRef,
       imageId,
+      handleImageChange,
     },
   };
 };

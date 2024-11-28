@@ -8,7 +8,7 @@ const ButtonHiddenInput = ({imageUrl, onClick, onChange, refForward}) => {
       }
       onClick={onClick}
     >
-      Select An Image
+      Select New Image
       <input
         ref={refForward}
         type="file"

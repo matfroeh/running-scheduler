@@ -16,7 +16,7 @@ export const getImageByIdFromApi = async (imageId, signal) => {
 
 // ToDo: There is some issues when using axios to post image data and verifyTokenMiddleware, using fetch for now
 export const postImageToApi = async (formData, signal) => {
-  const response = await fetch(`${API_URL}/uploads`, {
+  const response = await fetch(baseURL, {
     method: "POST",
     credentials: "include",
     body: formData,
@@ -26,3 +26,13 @@ export const postImageToApi = async (formData, signal) => {
   const data = await response.json();
   return data;
 }
+
+export const deleteImageById = async (imageId) => {
+  const response = await fetch(`${baseURL}/${imageId}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+
+  const data = await response.json();
+  return data;
+};

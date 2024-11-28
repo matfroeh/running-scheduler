@@ -34,9 +34,8 @@ export const getImageById = asyncHandler(async (req, res, next) => {
 
 export const deleteImage = asyncHandler(async (req, res, next) => {
   const { imageId } = req.params;
-  const image = await Image.findById({ _id: imageId });
+  const image = await Image.deleteOne({ _id: imageId });
 
   if (!image) return next(new ErrorResponse("Image not found", 404));
-  await image.remove();
   res.status(200).json("Image deleted successfully");
 });
