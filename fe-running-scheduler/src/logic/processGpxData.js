@@ -181,6 +181,9 @@ const getHeartRate = (trackPoints) => {
     "gpxdata:hr",
     "gpxtpx:TrackPointExtension",
     "gpxtpx:hr",
+    "heartrate",
+    "ns3:TrackPointExtension",
+    "ns3:hr",
   ];
   const heartRates = [];
 //   let usedFirstTag = null;
