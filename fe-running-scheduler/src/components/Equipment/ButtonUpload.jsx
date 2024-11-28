@@ -1,8 +1,8 @@
-const ButtonUpload = ({ imageId, onClick }) => {
+const ButtonUpload = ({ imageUrl, onClick }) => {
   return (
     <button
       className={
-        !imageId ? "btn btn-primary btn-sm ring-1 justify-self-start" : "hidden"
+        imageUrl ? "btn btn-primary btn-sm ring-1 justify-self-start" : "hidden"
       }
       onClick={onClick}
     >

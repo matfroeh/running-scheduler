@@ -2,7 +2,7 @@ import { useParams, useOutletContext, useNavigate } from "react-router-dom";
 import { updateTrainingSchedule } from "../data/schedules";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import CardModal from "@/components/CardModal";
+import { CardModal, ButtonLoadingState } from "@/components";
 import { TypeSelectOptions } from "@/components/RunAndTrainingDetails";
 import { formatDateYYMMDD } from "@/utils/formatDate";
 
@@ -16,6 +16,7 @@ const TrainingDayDetailsModal = () => {
 
   const [formData, setFormData] = useState({ ...trainingDay });
   const [error, setError] = useState(null);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,8 +29,8 @@ const TrainingDayDetailsModal = () => {
 
   const update = async () => {
     if (!handleInputVerification()) return;
-
     try {
+      setIsUpdating(true);
       const updatedTrainingDayData = { ...schedule };
       updatedTrainingDayData.weeks[week].days[day] = formData;
 
@@ -42,6 +43,9 @@ const TrainingDayDetailsModal = () => {
       navigate(-1);
     } catch (error) {
       toast.error(error.message);
+      setIsUpdating(false);
+    } finally {
+      setIsUpdating(false);
     }
   };
 
@@ -82,17 +86,24 @@ const TrainingDayDetailsModal = () => {
       <h2 className="card-title text-xl font-bold mt-4">
         <TypeSelectOptions type={formData.type} handleChange={handleChange} />
       </h2>
-      <div className="flex space-x-2 justify-end">
-        <button
-          className="btn btn-sm btn-neutral hover:btn-error"
-          onClick={handleDelete}
-        >
-          Delete
-        </button>
-        <button className="btn btn-sm btn-success ml-2" onClick={update}>
-          Save
-        </button>
-      </div>
+      {!isUpdating && (
+        <div className="flex space-x-2 justify-end">
+          <button
+            className="btn btn-sm btn-neutral hover:btn-error"
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
+          <button className="btn btn-sm btn-success ml-2" onClick={update}>
+            Save
+          </button>
+        </div>
+      )}
+      {isUpdating && (
+        <div className="flex space-x-2 justify-end">
+          <ButtonLoadingState text={"Updating..."} />
+        </div>
+      )}
       {error && (
         <p className="text-red-500 text-sm flex justify-end mt-4">{error}</p>
       )}

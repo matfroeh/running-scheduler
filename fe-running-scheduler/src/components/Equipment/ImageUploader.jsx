@@ -6,8 +6,6 @@ const ImageUploader = ({
   imageId,
   handleImageUpload,
   handleImageChange,
-  // setImageUrl,
-  // setSelectedFile,
 }) => {
   const imageChange = async (e) => {
     await handleImageChange(e);
@@ -15,14 +13,20 @@ const ImageUploader = ({
 
   return (
     <div className="flex flex-col">
-      {!imageId && (
+      {/* {!imageId && (
         <ButtonHiddenInput
           imageUrl={imageUrl}
           onClick={() => imgInputRef.current.click()}
           onChange={imageChange}
           refForward={imgInputRef}
         />
-      )}
+      )} */}
+      <ButtonHiddenInput
+        imageUrl={imageUrl}
+        onClick={() => imgInputRef.current.click()}
+        onChange={imageChange}
+        refForward={imgInputRef}
+      />
       {imageUrl && (
         <ImagePreviewGroup
           imageId={imageId}

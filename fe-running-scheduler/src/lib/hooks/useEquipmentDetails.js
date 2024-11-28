@@ -6,9 +6,9 @@ import { useAuth } from "@/context";
 import { uploadImage } from "@/lib/fileHandling";
 import { verifyUpdateEquipmentInput } from "@/lib/inputVerification";
 import { getEquipmentById } from "@/data/user.js";
-import { getImageByIdFromApi } from "@/data/image.js";
+import { getImageByIdFromApi, deleteImageById } from "@/data/image.js";
 
-export const useEquipmentDetails = () => {
+export const useEquipmentDetails = (handleSetLoading) => {
   const { equipmentId } = useParams();
   const { user } = useAuth();
   const { handleSetEquipmentList } = useOutletContext();
@@ -20,7 +20,6 @@ export const useEquipmentDetails = () => {
   const [imageId, setImageId] = useState("");
   const [error, setError] = useState(null);
   const [image, setImage] = useState();
-  const [loading, setLoading] = useState(true);
 
   const imgInputRef = useRef(null);
 
@@ -29,29 +28,32 @@ export const useEquipmentDetails = () => {
     const signal = controller.signal;
 
     const loadDetails = async () => {
-      //   const data = await fetchEquipmentDetails(user, equipmentId);
-      //   setFormData(data);
-      const data = await getEquipmentById(user.userId, equipmentId);
-      setFormData(data);
+      try {
+        const data = await getEquipmentById(user.userId, equipmentId);
+        setFormData(data);
 
-      const imageId = data.image;
+        const imageId = data.image;
 
-      if (imageId) {
-        const fetchImage = async () => {
-          setLoading(true);
-          try {
-            const data = await getImageByIdFromApi(imageId, signal);
-            setImage(data);
-            // ToDo: Check if this is the correct way to handle this
-          } catch (error) {
-            console.error(error);
-          } finally {
-            setLoading(false);
-          }
-        };
-        fetchImage();
+        if (imageId) {
+          setImageId(imageId);
+          const fetchImage = async () => {
+            try {
+              const data = await getImageByIdFromApi(imageId, signal);
+              setImage(data);
+            } catch (error) {
+              console.error(error);
+            }
+          };
+          fetchImage();
+        }
+      } catch (error) {
+        console.error(error);
+        handleSetLoading(false);
+      } finally {
+        handleSetLoading(false);
       }
     };
+
     loadDetails();
 
     return () => {
@@ -78,18 +80,33 @@ export const useEquipmentDetails = () => {
     if (!window.confirm("Are you sure you want to delete this equipment?"))
       return;
     await deleteEquipmentFromUserList(user.userId, equipmentId);
-    handleSetEquipmentList((prev) => prev.filter((item) => item._id !== equipmentId));
+
+    if (imageId) {
+      await deleteImageById(imageId);
+    }
+    handleSetEquipmentList((prev) =>
+      prev.filter((item) => item._id !== equipmentId)
+    );
     toast.success("Deleted successfully");
     navigate(-1);
   };
 
-  const handleChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  }, [formData]);
+  const handleChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    },
+    [formData]
+  );
+
+  const handleDeleteOldImage = useCallback(async (imageId) => {
+    if (imageId) {
+      await deleteImageById(imageId);
+    }
+  }, []);
 
   const handleImageChange = useCallback(async (e) => {
     const file = e.target.files[0];
@@ -107,12 +124,9 @@ export const useEquipmentDetails = () => {
     error,
     handleUpdate,
     handleDelete,
-    loading,
     imageProps: {
       imageUrl,
       handleImageChange,
-      // setSelectedFile,
-      // setImageUrl,
       imgInputRef,
       imageId,
       image,
@@ -122,6 +136,9 @@ export const useEquipmentDetails = () => {
           return;
         }
         const data = await uploadImage(selectedFile, user, formData.name);
+        if (imageId && data) {
+          await handleDeleteOldImage(imageId);
+        }
         setImageId(data);
       },
     },
