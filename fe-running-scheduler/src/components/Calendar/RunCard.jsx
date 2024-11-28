@@ -14,7 +14,7 @@ const RunCard = ({ data, openRunCard, notes, hideSchedule }) => {
   }).format(Date.parse(date));
 
   // If there is no name, then there is also no data of a run to display
-  if (!name) return null;
+  // if (!name) return null;
 
   return (
     <CardContainer isToday={isToday} openRunCard={openRunCard}>
