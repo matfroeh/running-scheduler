@@ -1,6 +1,6 @@
-const NavBarDropDownMenu = ({imageUrl, user, openProfileModal, openEquipmentModal, handleLogOut}) => {
+const NavBarDropDownMenu = ({imageUrl, user, openProfileModal, openEquipmentModal, handleLogOut, openLeftSide=false}) => {
   return (
-    <div className="dropdown dropdown-end">
+    <div className={`dropdown ${openLeftSide? "dropdown-left" : "dropdown-bottom"}`}>
     <div
       tabIndex={0}
       role="button"

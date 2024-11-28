@@ -15,7 +15,7 @@ const WelcomePage = () => {
         {/* Startup Delay Info */}
         <StartupDelay />
         <div className="hero flex flex-col divide-y-4 gap-4 bg-base-100 shadow-lg p-10 rounded-lg">
-          <h1 className="text-5xl font-bold">Welcome to Running Journal</h1>
+          <h1 className="text-4xl font-bold">Welcome to Running Journal</h1>
           <p className="text-lg">
             Plan, track, and achieve your running goals.
           </p>
@@ -29,16 +29,17 @@ const WelcomePage = () => {
           </Link>
         </div>
         <div className="my-10 p-5 w-full md:w-3/4 lg:w-2/3 bg-base-300 rounded-lg shadow-md">
-          <ul className="list-none space-y-3 text-lg">
+          <ul className="list-none space-y-3 text-base">
             <li>📅 Schedule whole training cycles</li>
             <li>🏃 Upload .gpx data easily and track your runs</li>
+            <li>📝 Add details to your runs (Perceived Effort, Equipment, Notes)</li>
             <li>📈 Monitor your progress over time</li>
           </ul>
         </div>
 
         {/* // Screenshot container*/}
-        <h2 className="text-3xl font-semibold mt-2">Explore the App</h2>
-        <div className="my-10 bg-base-200 rounded-lg shadow-md mx-6">
+        <h2 className="text-3xl font-bold mt-2">Explore the App</h2>
+        <div className="my-10 bg-base-200 rounded-lg shadow-md mx-6 w-3/5">
           <CarouselComponent />
         </div>
 

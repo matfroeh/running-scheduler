@@ -5,7 +5,7 @@ const CardBody = ({ children, formattedDate, hideSchedule }) => (
         {formattedDate}
       </div>
     )}
-    <div className="mx-2 mt-3 mb-1 flex flex-col gap-0 justify-start text-xs">
+    <div className="mx-3 mt-3 mb-2 flex flex-col gap-0 justify-start text-xs">
       {children}
     </div>
   </div>

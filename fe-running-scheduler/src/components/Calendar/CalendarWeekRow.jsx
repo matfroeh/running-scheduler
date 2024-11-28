@@ -27,7 +27,7 @@ const CalendarWeekRow = ({
     <>
       {Object.entries(scheduleDataWeek.days).map(([day, data]) => {
         return (
-          <div key={day} className="flex flex-col justify-between">
+          <div key={day} className="flex flex-col justify-start">
             {!hideSchedule && (
               <>
                 <TrainingCard
@@ -39,7 +39,7 @@ const CalendarWeekRow = ({
                 />
                 <div
                   key={`${weekNumber}, daySpacer`}
-                  className="border-y-4 border-base-200"
+                  className="border-y-4 ml-2 border-base-200"
                 ></div>
               </>
             )}
