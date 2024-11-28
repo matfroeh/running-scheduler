@@ -48,7 +48,7 @@ const CalendarBar = ({
   };
 
   return (
-    <div className="flex justify-between items-center text-xs md:text-sm sticky top-0 z-10 bg-base-100 mb-2">
+    <div className="flex justify-start md:justify-between flex-wrap items-center text-xs md:text-sm sticky top-0 z-10 bg-base-100 mb-2">
       <div className="flex items-center">
         <div className="flex">
           <ButtonCalendarNavigate

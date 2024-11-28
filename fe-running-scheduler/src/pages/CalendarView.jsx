@@ -28,16 +28,17 @@ const CalendarView = () => {
   const isCalendarListEmpty = cyclingProps.calendarSize === 0;
 
   return (
-    <div className="flex-grow">
-      <>
-        <CalendarBar
-          title={runs?.meta?.title}
-          runs={runs}
-          handleSetRuns={handleSetRuns}
-          cyclingProps={cyclingProps}
-          toggleNotes={toggleNotes}
-          toggleSchedule={toggleSchedule}
-        />
+    // <div className="flex-grow min-w-[680px] max-w-[1400px]">
+    <>
+      <CalendarBar
+        title={runs?.meta?.title}
+        runs={runs}
+        handleSetRuns={handleSetRuns}
+        cyclingProps={cyclingProps}
+        toggleNotes={toggleNotes}
+        toggleSchedule={toggleSchedule}
+      />
+      <div className="flex-grow min-w-[680px] max-w-[1400px]">
         {loading && <Loading />}
         {!isCalendarListEmpty && !schedule && <Loading />}
         {!loading && schedule && (
@@ -56,8 +57,8 @@ const CalendarView = () => {
             handleSetSchedule,
           }}
         />
-      </>
-    </div>
+      </div>
+    </>
   );
 };
 
