@@ -14,6 +14,7 @@ import CreateEquipment from "./CreateEquipment";
 import Profile from "./Profile";
 import CalendarEditModal from "./CalendarEditModal";
 import Datenschutz from "./Datenschutz";
+import Impressum from "./Impressum";
 
 export {
   CalendarView,
@@ -32,4 +33,5 @@ export {
   Profile,
   CalendarEditModal,
   Datenschutz,
+  Impressum,
 };

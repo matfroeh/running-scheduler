@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 // const slides = ["#slide1", "#slide2", "#slide3"];
 const slides = Array.from({ length: 10 }, (_, i) => `#slide${i + 1}`);
@@ -19,12 +19,23 @@ const description = [
 const CarouselComponent = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const sliderInterval = useRef();
+
   useEffect(() => {
-    const interval = setInterval(() => {
+    sliderInterval.current = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
     }, 10000);
-    return () => clearInterval(interval);
+    return () => clearInterval(sliderInterval.current);
   }, []);
+
+  const handleManualSlide = (indexToSet) => {
+    setCurrentIndex(indexToSet);
+    clearInterval(sliderInterval.current);
+    // Continue the automatic slide after 10 seconds
+    sliderInterval.current = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+    }, 10000);
+  };
 
   return (
     <div className="carousel">
@@ -49,17 +60,17 @@ const CarouselComponent = () => {
               href={`#slide${
                 ((index - 1 + slides.length) % slides.length) + 1
               }`}
-              className="btn btn-circle"
+              className="btn btn-circle btn-accent"
               onClick={() =>
-                setCurrentIndex((index - 1 + slides.length) % slides.length)
+                handleManualSlide((index - 1 + slides.length) % slides.length)
               }
             >
               ❮
             </a>
             <a
               href={`#slide${((index + 1) % slides.length) + 1}`}
-              className="btn btn-circle"
-              onClick={() => setCurrentIndex((index + 1) % slides.length)}
+              className="btn btn-circle btn-accent"
+              onClick={() => handleManualSlide((index + 1) % slides.length)}
             >
               ❯
             </a>

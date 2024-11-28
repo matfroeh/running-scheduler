@@ -12,19 +12,20 @@ const TrainingCard = ({ data, openTrainingCard }) => {
 
   const formattedDate = formatDate(date, { month: "numeric", day: "numeric" });
 
-  const isRestDay = type === "Rest Day";
-  // const cardClasses = `card card-compact mx-0.5 mt-0.5 bg-gray-800 max-w-44 min-w-20 rounded-br-none rounded-bl-none rounded-tr-none ring-1 hover:ring-2 cursor-pointer 
-  // ${isToday && "ring-green-500"}`;
-  const cardClasses = `card card-compact mx-0.5 mt-0.5 bg-gray-800 max-w-44 min-w-20 rounded-br-none rounded-bl-none rounded-tr-none ring-1 hover:ring-2 cursor-pointer ${!isRestDay && "h-full"} overflow-clip  ${isToday && "ring-green-500"}`;
-  
+  const cardClasses = `card card-compact mx-0.5 bg-gray-800 max-w-40 min-w-20 min-h-20 rounded-br-none rounded-bl-none rounded-tr-none ring-1 hover:ring-2 cursor-pointer overflow-clip  ${
+    isToday && "ring-green-500"
+  }`;
+
   return (
     <div className={cardClasses} onClick={openTrainingCard}>
       <div className="flex flex-col justify-start overflow-clip">
         <div className="absolute top-0 right-0.5 text-white text-xs">
           {formattedDate}
         </div>
-        <div className="mx-2 mt-3 mb-1 flex flex-col gap-0 justify-start text-xs">
-          {type && <div className="card-title text-xs md:text-sm mt-1">{type}</div>}
+        <div className="mx-3 mt-3 mb-1 flex flex-col gap-0 justify-start text-xs">
+          {type && (
+            <div className="card-title text-xs md:text-sm mt-1">{type}</div>
+          )}
           <div className="flex flex-wrap text-nowrap gap-1">
             {distance && (
               <p className="flex items-center gap-x-1">

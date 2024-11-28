@@ -11,7 +11,7 @@ const CardDetails = ({ data, hideSchedule }) => {
   const hideScheduleClass = hideSchedule ? "line-clamp-6" : "line-clamp-2";
 
   return (
-    <div className="flex flex-wrap text-nowrap gap-1">
+    <div className="flex flex-col lg:flex-wrap lg:flex-row text-nowrap gap-1 my-0.5">
       {distance && (
         <p className="flex items-center gap-x-1">
           <Icons type="distance" />

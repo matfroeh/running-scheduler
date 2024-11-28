@@ -32,19 +32,31 @@ const NavBar = () => {
 
   return (
     <div className="navbar z-50 mb-1">
-      <div className="navbar-start">
-        <Link to="calendar" className="btn btn-ghost text-base md:text-lg">{appName}</Link>
-      </div>
-      <div className="ml-8 navbar-center">
-        <NavBarNavButtons />
-      </div>
-      <div className="navbar-end">
+      <div className="md:hidden">
         <NavBarDropDownMenu
           imageUrl={imageUrl}
           user={user}
           openProfileModal={openProfileModal}
           openEquipmentModal={openEquipmentModal}
           handleLogOut={handleLogOut}
+        />
+      </div>
+      <div className="navbar-center md:navbar-start">
+        <Link to="calendar" className="btn btn-ghost text-base md:text-lg">
+          {appName}
+        </Link>
+      </div>
+      <div className="ml-8 md:navbar-center">
+        <NavBarNavButtons />
+      </div>
+      <div className="hidden md:inline-flex md:navbar-end">
+        <NavBarDropDownMenu
+          imageUrl={imageUrl}
+          user={user}
+          openProfileModal={openProfileModal}
+          openEquipmentModal={openEquipmentModal}
+          handleLogOut={handleLogOut}
+          openLeftSide={true}
         />
       </div>
     </div>

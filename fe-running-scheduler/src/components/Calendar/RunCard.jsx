@@ -21,7 +21,7 @@ const RunCard = ({ data, openRunCard, notes, hideSchedule }) => {
       <CardBody formattedDate={formattedDate} hideSchedule={hideSchedule}>
         <div
           className={`card-title text-xs md:text-sm ${
-            hideSchedule ? "mt-1" : "-mt-2"
+            hideSchedule ? "mt-1" : "-mt-1"
           }`}
         >
           {name}

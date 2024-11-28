@@ -18,27 +18,27 @@
     text-decoration-thickness: 3px;
   }
 
-  /* @media (max-width: 300px) {
-    .zoomable {
-      zoom: 0.4; 
-  }
-  }
-  @media (min-width: 300px) {
-    .zoomable {
-      zoom: 0.55; 
-  }
-  }
-  @media (min-width: 500px) {
+  @media (max-width: 300px) {
     .zoomable {
       zoom: 0.8; 
   }
   }
+  @media (min-width: 300px) {
+    .zoomable {
+      zoom: 0.8; 
+  }
+  }
+  @media (min-width: 500px) {
+    .zoomable {
+      zoom: 0.9; 
+  }
+  }
   @media (min-width: 800px) {
     .zoomable {
-      zoom: 0.95; 
+      zoom: 1; 
     }
   }
-  @media (min-width: 1000px) {
+  /* @media (min-width: 1000px) {
     .zoomable {
       zoom: 1; 
     }

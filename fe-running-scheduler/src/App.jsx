@@ -20,6 +20,7 @@ import {
   Profile,
   CalendarEditModal,
   Datenschutz,
+  Impressum,
 } from "@/pages";
 import { RootLayout, AuthLayout } from "@/layouts";
 import { action as getFormData } from "@/actions/getFormData";
@@ -127,6 +128,10 @@ const router = createBrowserRouter([
   {
     path: "datenschutz",
     element: <Datenschutz />,
+  },
+  {
+    path: "impressum",
+    element: <Impressum />,
   },
 ]);
 
