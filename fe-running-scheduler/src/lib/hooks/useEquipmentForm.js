@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useAuth } from "@/context";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -23,7 +23,6 @@ export const useEquipmentForm = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
 
-  const imgInputRef = useRef(null);
   const { user } = useAuth();
   const { handleSetEquipmentList } = useOutletContext();
   const navigate = useNavigate();
@@ -50,12 +49,7 @@ export const useEquipmentForm = () => {
   };
 
   const handleImageUpload = async () => {
-    // if (!formData.name) {
-    //   setError("Please specify a name for the equipment first.");
-    //   return;
-    // }
     const data = await uploadImage(selectedFile, user, formData.name);
-    // setImageId(data);
     setSelectedFile(null);
     return data;
   };
@@ -86,10 +80,7 @@ export const useEquipmentForm = () => {
     handleChange,
     error,
     handleCreate,
-    imageProps: {
-      imageUrl,
-      imgInputRef,
-      handleImageChange,
-    },
+    imageUrl,
+    handleImageChange,
   };
 };

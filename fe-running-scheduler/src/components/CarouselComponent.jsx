@@ -47,33 +47,35 @@ const CarouselComponent = () => {
             currentIndex === index ? "block" : "hidden"
           }`}
         >
-          <h2 className="text-center text-2xl font-bold mb-4">
+          <h2 className="text-center text-xl font-bold mb-4">
             {description[index]}
           </h2>
-          <img
-            src={`/slidesWelcomePage/${index + 1}.png`}
-            className="w-full"
-            alt={`Slide ${index + 1}`}
-          />
-          <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <a
-              href={`#slide${
-                ((index - 1 + slides.length) % slides.length) + 1
-              }`}
-              className="btn btn-circle btn-accent"
-              onClick={() =>
-                handleManualSlide((index - 1 + slides.length) % slides.length)
-              }
-            >
-              ❮
-            </a>
-            <a
-              href={`#slide${((index + 1) % slides.length) + 1}`}
-              className="btn btn-circle btn-accent"
-              onClick={() => handleManualSlide((index + 1) % slides.length)}
-            >
-              ❯
-            </a>
+          <div className="relative">
+            <img
+              src={`/slidesWelcomePage/${index + 1}.png`}
+              className="w-full h-f"
+              alt={`Slide ${index + 1}`}
+            />
+            <div className="absolute flex justify-between transform -translate-y-1/2 left-0 right-0 top-1/4 opacity-50">
+              <a
+                href={`#slide${
+                  ((index - 1 + slides.length) % slides.length) + 1
+                }`}
+                className="btn btn-xs md:btn-sm lg:btn-md btn-circle btn-accent"
+                onClick={() =>
+                  handleManualSlide((index - 1 + slides.length) % slides.length)
+                }
+              >
+                ❮
+              </a>
+              <a
+                href={`#slide${((index + 1) % slides.length) + 1}`}
+                className="btn btn-xs md:btn-sm lg:btn-md btn-circle btn-accent"
+                onClick={() => handleManualSlide((index + 1) % slides.length)}
+              >
+                ❯
+              </a>
+            </div>
           </div>
         </div>
       ))}

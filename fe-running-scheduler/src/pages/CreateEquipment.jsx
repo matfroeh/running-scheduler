@@ -1,8 +1,10 @@
 import { CardModal, InputErrorBar } from "@/components";
-import { ButtonSubmit } from "@/components/Equipment";
 import { useEquipmentForm } from "@/lib/hooks/useEquipmentForm";
-import FormEquipmentStats from "@/components/Equipment/FormEquipmentStats";
-import ImageUploader from "@/components/Equipment/ImageUploader";
+import {
+  FormEquipmentStats,
+  ButtonSubmit,
+  ImageViewAndInputGroup,
+} from "@/components/Equipment";
 
 const CreateEquipment = () => {
   const {
@@ -10,7 +12,8 @@ const CreateEquipment = () => {
     handleChange,
     error,
     handleCreate,
-    imageProps,
+    imageUrl,
+    handleImageChange,
   } = useEquipmentForm();
 
   return (
@@ -19,8 +22,12 @@ const CreateEquipment = () => {
       <div className="flex space-x-2 justify-end">
         <ButtonSubmit onClick={handleCreate} />
       </div>
+      <ImageViewAndInputGroup
+        image={null}
+        imageUrl={imageUrl}
+        handleImageChange={handleImageChange}
+      />
       <InputErrorBar error={error} />
-      <ImageUploader {...imageProps} />
       <div className="flex flex-wrap gap-4">
         <FormEquipmentStats formData={formData} onChange={handleChange} />
       </div>
