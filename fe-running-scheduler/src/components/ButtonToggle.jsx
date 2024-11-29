@@ -6,7 +6,7 @@ const ButtonToggle = ({text, onClick}) => {
     </span>
     <input
       type="checkbox"
-      className="toggle toggle-accent mx-2"
+      className="toggle toggle-xs sm:toggle-md toggle-accent mx-2"
       onClick={onClick}
     />
   </label>

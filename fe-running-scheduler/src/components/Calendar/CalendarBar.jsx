@@ -48,7 +48,7 @@ const CalendarBar = ({
   };
 
   return (
-    <div className="flex justify-start md:justify-between flex-wrap items-center text-xs md:text-sm sticky top-0 z-10 bg-base-100 mb-2">
+    <div className="flex justify-around md:justify-between flex-wrap gap-y-4 items-center text-xs md:text-sm sticky top-0 z-10 bg-base-100 mb-2">
       <div className="flex items-center">
         <div className="flex">
           <ButtonCalendarNavigate
@@ -105,7 +105,7 @@ const CalendarBar = ({
 
             <div className="group relative">
               <button
-                className="btn btn-sm btn-circle mx-4 hover:ring-1 ring-accent"
+                className="btn btn-xs sm:btn-sm btn-circle mx-4 hover:ring-1 ring-accent"
                 onClick={openCreateTrainingBlockModal}
               >
                 +
