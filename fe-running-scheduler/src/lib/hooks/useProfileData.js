@@ -45,6 +45,8 @@ export const useProfileData = () => {
       if (newImageId) updatedUserData.profilePicture = newImageId;
 
       const updatedUser = await updateUser(user.userId, updatedUserData);
+      if (updatedUser.error) throw new Error("Error updating user" + updatedUser.error);
+
       setUser(updatedUser);
       toast.success("Successfully updated profile");
       navigate(-1);

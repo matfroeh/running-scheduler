@@ -32,13 +32,27 @@ const WelcomePage = () => {
           <ul className="list-none space-y-3 text-base">
             <li>📅 Schedule whole training cycles</li>
             <li>🏃 Upload .gpx data easily and track your runs</li>
-            <li>📝 Add details to your runs (Perceived Effort, Equipment, Notes)</li>
+            <li>
+              📝 Add details to your runs (Perceived effort, equipment, notes)
+            </li>
             <li>📈 Monitor your progress over time</li>
           </ul>
         </div>
 
+        {/* Demo User Info */}
+        <div className="mt-2 mb-6 p-2 w-full md:w-3/4 lg:w-2/3 bg-info rounded-lg text-info-content shadow-md">
+          <p className="text-lg font-semibold">Try the Demo Account</p>
+          <p>Log in with the following credentials to explore the App with live data (restricted access)</p>
+          <p>
+            Email: <strong>demo@user.com</strong>
+          </p>
+          <p>
+            Password: <strong>demouser</strong>
+          </p>
+        </div>
+
         {/* // Screenshot container*/}
-        <h2 className="text-2xl font-bold">Explore the App</h2>
+        <h2 className="text-2xl mt-2 font-bold">Explore the App</h2>
         <div className="my-10 bg-base-200 rounded-lg shadow-md mx-6 w-3/5">
           <CarouselComponent />
         </div>
@@ -59,22 +73,6 @@ const WelcomePage = () => {
 };
 
 export default WelcomePage;
-
-{
-  /* Demo User Info */
-}
-{
-  /* <div className="my-5 p-4 w-full md:w-3/4 lg:w-2/3 bg-info rounded-lg text-info-content shadow-md">
-  <p className="text-lg font-semibold">Try a Demo Account</p>
-  <p>Log in with the following credentials to explore:</p>
-  <p>
-    Email: <strong>demo@user.com</strong>
-  </p>
-  <p>
-    Password: <strong>demouser</strong>
-  </p>
-</div> */
-}
 
 // <div className="my-10 bg-base-200 rounded-lg shadow-md p-5">
 //   {/* <div className="grid grid-cols-2 xl:grid-cols-3 gap-8"> */}

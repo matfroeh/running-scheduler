@@ -101,9 +101,6 @@ export const updateRunCalendar = async (run, calendarId, signal) => {
     throw new Error(errorData.error);
   }
   const data = await res.json();
-
-  // console.log(data);
-
   return data;
 };
 

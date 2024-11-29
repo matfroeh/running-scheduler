@@ -25,13 +25,13 @@ export const getEquipmentById = asyncHandler(async (req, res, next) => {
   res.status(200).json(equipment);
 });
 
+// The return values are a bit inconsistent w.r. to the other request handlings but by this way these are the same as the ones in the authController.me function and this will avoid confusion in the frontend
 export const updateUser = asyncHandler(async (req, res, next) => {
-  const { userId } = req.params;
-  // console.log("request params", req.params);
+  const { userId, userRole } = req.params;
+
   const user = await User.findOne({
     _id: userId,
   });
-  // console.log("user found", user);
 
   if (!user)
     return next(new ErrorResponse(`User not found with id of ${userId}`, 404));
@@ -39,9 +39,14 @@ export const updateUser = asyncHandler(async (req, res, next) => {
   const updated = await User.findOneAndUpdate({ _id: userId }, req.body, {
     new: true,
     runValidators: true,
-  });
+  })
+    .select("-password")
+    .populate("equipmentList");
+  const { userName, email, equipmentList, profilePicture } = updated;
 
-  res.status(200).json(updated);
+  res
+    .status(200)
+    .json({userId, userName, email, userRole, equipmentList, profilePicture});
 });
 
 // modified it, so it will not only create the equipment, but also add the equipment to the user list
@@ -135,7 +140,7 @@ export const deleteEquipmentFromUserList = asyncHandler(
 export const deleteUser = asyncHandler(async (req, res, next) => {
   const { userId } = req.params;
   console.log("request received to delete user with id: ", userId);
-  
+
   const user = await User.findOne({ _id: userId });
   if (!user)
     return next(new ErrorResponse(`User not found with id of ${userId}`, 404));

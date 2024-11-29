@@ -71,10 +71,11 @@ export const useEquipmentDetails = (handleSetLoading) => {
         if (!newImageId) throw new Error("Error uploading image");
         handleDeleteOldImage(imageId);
       }
-
       // if no image change or image upload failed, use old image id
       const updatedData = { ...formData, image: newImageId || formData.image };
-      await updateEquipment(user.userId, equipmentId, updatedData);
+      const res = await updateEquipment(user.userId, equipmentId, updatedData);
+      
+      if (res.error) throw new Error(res.error);
       handleSetEquipmentList((prev) =>
         prev.map((item) => (item._id === equipmentId ? updatedData : item))
       );
