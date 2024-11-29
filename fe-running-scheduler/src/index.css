@@ -42,7 +42,7 @@
   }
   @media (min-width: 300px) {
     .zoomable {
-      zoom: 0.8; 
+      zoom: 0.9; 
   }
   }
   @media (min-width: 500px) {

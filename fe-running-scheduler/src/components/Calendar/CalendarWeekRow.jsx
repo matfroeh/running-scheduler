@@ -3,6 +3,16 @@ import SummaryCard from "./SummaryCard";
 import RunCard from "./RunCard";
 import { useNavigate } from "react-router-dom";
 
+const daysOfWeekMap = {
+  day1: "Mon",
+  day2: "Tue",
+  day3: "Wed",
+  day4: "Thu",
+  day5: "Fri",
+  day6: "Sat",
+  day0: "Sun",
+};
+
 const CalendarWeekRow = ({
   scheduleDataWeek,
   weekNumber,
@@ -28,6 +38,12 @@ const CalendarWeekRow = ({
       {Object.entries(scheduleDataWeek.days).map(([day, data]) => {
         return (
           <div key={day} className="flex flex-col justify-start">
+            <div
+              key={daysOfWeekMap[day]}
+              className="text-left text-xs md:text-sm ml-3 mb-0.5"
+            >
+              {daysOfWeekMap[day]}
+            </div>
             {!hideSchedule && (
               <>
                 <TrainingCard
@@ -56,54 +72,20 @@ const CalendarWeekRow = ({
         );
       })}
       <div>
-        <SummaryCard
-          scheduleWeek={scheduleDataWeek}
-          runningWeek={runningDataWeek}
-          weekNumber={weekNumber}
-          hideSchedule={hideSchedule}
-        />
+        <div className="text-left text-xs md:text-sm mb-0.5 ml-3">Summary</div>
+        <div>
+          <SummaryCard
+            scheduleWeek={scheduleDataWeek}
+            runningWeek={runningDataWeek}
+            weekNumber={weekNumber}
+            hideSchedule={hideSchedule}
+          />
+        </div>
       </div>
       <div
         key={`${weekNumber}, weekSpacer`}
-        className="col-span-8 border border-base-300"
+        className="col-span-4 md:col-span-8 border-4 md:border border-base-300"
       ></div>
-      {/* {!hideSchedule &&
-        Object.entries(scheduleDataWeek.days).map(([day, data]) => {
-          return (
-            <TrainingCard
-              key={day}
-              data={data}
-              openTrainingCard={() => openTrainingCard(data._id, weekNumber, day)}
-            />
-          );
-        })}
-      {!hideSchedule && (
-        <SummaryCard
-          scheduleWeek={scheduleDataWeek}
-          runningWeek={runningDataWeek}
-          weekNumber={weekNumber}
-          hideSchedule={hideSchedule}
-        />
-      )}
-      {Object.entries(runningDataWeek.days).map(([day, data]) => {
-        return (
-          <RunCard
-            key={day}
-            data={data}
-            openRunCard={() => openRunCard(data._id, weekNumber, day)}
-            notes={notes}
-            hideSchedule={hideSchedule}
-          />
-        );
-      })}
-      {hideSchedule && (
-        <SummaryCard
-          scheduleWeek={scheduleDataWeek}
-          runningWeek={runningDataWeek}
-          weekNumber={weekNumber}
-          hideSchedule={hideSchedule}
-        />
-      )} */}
     </>
   );
 };

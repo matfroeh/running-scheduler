@@ -5,7 +5,7 @@ const ButtonCalendarNavigate = ({
 }) => {
   return (
     <button
-      className="btn btn-sm text-xs md:text-sm"
+      className="btn btn-xs sm:btn-sm text-xs md:text-sm"
       onClick={onClick}
       disabled={disabled ? true : false}
     >

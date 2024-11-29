@@ -50,7 +50,7 @@ const NavBar = () => {
           <span className="text-outline">{appName}</span>
         </Link>
       </div>
-      <div className="ml-12 md:navbar-center">
+      <div className="ml-4 sm:ml-12 md:ml-12 md:navbar-center">
         <NavBarNavButtons />
       </div>
       <div className="hidden md:inline-flex md:navbar-end">
@@ -63,10 +63,10 @@ const NavBar = () => {
           openLeftSide={true}
         />
       </div>
-      <div className="navbar-end md:hidden">
+      <div className="navbar-end mr-6 md:mr-0 md:hidden">
         <Link
           to="calendar"
-          className="btn btn-sm font-extrabold text-cyan-200 bg-cover bg-center"
+          className="btn btn-xs sm:btn-sm font-extrabold text-cyan-200 bg-cover bg-center"
           style={{ backgroundImage: 'url("/navbar-btn-bg.png")' }}
         >
           <span className="text-outline">{appName}</span>
