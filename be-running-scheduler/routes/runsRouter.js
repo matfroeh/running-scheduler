@@ -10,8 +10,13 @@ import {
 import verifyTokenMiddleware from "../middleware/verifyTokenMiddleware.js";
 import runsSchema from "../joi/runsSchema.js";
 import validateJOI from "../middleware/validateJOI.js";
+import demoProtectionMiddleware from "../middleware/demoProtectionMiddleWare.js";
+
 
 const runsRouter = Router();
+
+// Apply multiple middlewares to all routes
+// runsRouter.use([authMiddleware, demoProtectionMiddleware]);
 
 runsRouter
   .route("/")

@@ -38,7 +38,7 @@ const WelcomePage = () => {
         </div>
 
         {/* // Screenshot container*/}
-        <h2 className="text-3xl font-bold mt-2">Explore the App</h2>
+        <h2 className="text-2xl font-bold">Explore the App</h2>
         <div className="my-10 bg-base-200 rounded-lg shadow-md mx-6 w-3/5">
           <CarouselComponent />
         </div>

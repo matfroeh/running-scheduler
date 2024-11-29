@@ -1,6 +1,6 @@
 import { arrayBufferToBase64 } from "@/utils/arrayBufferToBase64";
 
-const ImageContainer = ({ imageUrl, image }) => {
+const ImageContainer = ( {imageUrl, image, placeholder = "/shoe-colorful-placeholder.png"} ) => {  
   return (
     <>
       {!imageUrl && image && (
@@ -9,7 +9,21 @@ const ImageContainer = ({ imageUrl, image }) => {
             image.img.data.data
           )}`}
           alt={image.name}
-          className="rounded-lg w-32 h-32 object-scale-down"
+          className="rounded-lg object-scale-down max-h-36"
+        />
+      )}
+      {imageUrl && (
+        <img
+          src={imageUrl}
+          alt={"New Equipment Image"}
+          className="rounded-lg object-scale-down max-h-36"
+        />
+      )}
+      {!image && !imageUrl && (
+        <img
+          src={placeholder}
+          alt="Equipment placeholder picture"
+          className="rounded-lg object-scale-down max-h-36"
         />
       )}
     </>

@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useAuth } from "@/context";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -22,18 +22,23 @@ export const useEquipmentForm = () => {
   const [error, setError] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-  const [imageId, setImageId] = useState(null);
 
-  const imgInputRef = useRef(null);
   const { user } = useAuth();
   const { handleSetEquipmentList } = useOutletContext();
   const navigate = useNavigate();
 
   const handleCreate = async () => {
     if (!verifyCreateEquipmentInput(formData, setError)) return;
+
+    let imageId = null;
     try {
+      if(selectedFile) {
+        imageId = await handleImageUpload();
+        if (!imageId) throw new Error("Error uploading image");
+      }
       const newEquipment = { ...formData, image: imageId };
       const addedEquipment = await createEquipment(user.userId, newEquipment);
+      
       if (addedEquipment.error) throw new Error(addedEquipment.error);
       handleSetEquipmentList((prev) => [...prev, addedEquipment]);
       toast.success("Equipment successfully created");
@@ -44,13 +49,9 @@ export const useEquipmentForm = () => {
   };
 
   const handleImageUpload = async () => {
-    if (!formData.name) {
-      setError("Please specify a name for the equipment first.");
-      return;
-    }
     const data = await uploadImage(selectedFile, user, formData.name);
-    setImageId(data);
     setSelectedFile(null);
+    return data;
   };
 
   const handleChange = useCallback(
@@ -79,12 +80,7 @@ export const useEquipmentForm = () => {
     handleChange,
     error,
     handleCreate,
-    handleImageUpload,
-    imageProps: {
-      imageUrl,
-      imgInputRef,
-      imageId,
-      handleImageChange,
-    },
+    imageUrl,
+    handleImageChange,
   };
 };
