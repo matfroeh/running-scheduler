@@ -1,5 +1,5 @@
 import { useAuth } from "@/context";
-import { useState, useRef, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateUser, deleteUser } from "@/data/user";
 import { toast } from "react-toastify";
@@ -9,7 +9,6 @@ import { deleteImageById } from "@/data/image.js";
 
 export const useProfileData = () => {
   const { user, setUser, logOut } = useAuth();
-  const imgInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const { image } = useFetchUserProfile(user);
@@ -24,10 +23,6 @@ export const useProfileData = () => {
     reader.readAsDataURL(file);
     setSelectedFile(file);
   }, []);
-
-  const handleImageInputClick = () => {
-    imgInputRef.current.click();
-  };
 
   const handleImageUpload = async () => {
     const data = await uploadImage(selectedFile, user, "profilePicture");
@@ -88,18 +83,10 @@ export const useProfileData = () => {
 
   return {
     user,
-    setUser,
-    logOut,
-    imgInputRef,
-    selectedFile,
-    setSelectedFile,
-    imageUrl,
-    setImageUrl,
-    image,
-    navigate,
-    handleImageChange,
-    handleImageInputClick,
     handleUpdate,
     deleteAccount,
+    imageUrl,
+    image,
+    handleImageChange,
   };
 };
