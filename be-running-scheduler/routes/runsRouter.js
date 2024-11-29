@@ -15,18 +15,19 @@ import demoProtectionMiddleware from "../middleware/demoProtectionMiddleware.js"
 
 const runsRouter = Router();
 
-// Apply multiple middlewares to all routes
-// runsRouter.use([verifyTokenMiddleware, demoProtectionMiddleware]);
+// Apply verifyToken and demoProtection middlewares to all routes.
+// Only GET requests are allowed for demo users.
+runsRouter.use([verifyTokenMiddleware, demoProtectionMiddleware]);
 
 runsRouter
   .route("/")
-  .get(verifyTokenMiddleware, getAllRunningLogs)
-  .post(validateJOI(runsSchema), verifyTokenMiddleware, createRunningLog);
+  .get(getAllRunningLogs)
+  .post(validateJOI(runsSchema), createRunningLog);
 runsRouter
   .route("/:calendarId")
-  .get(verifyTokenMiddleware, getRunningLogById)
-  .put(validateJOI(runsSchema), verifyTokenMiddleware, updateRunningLog)
-  .delete(verifyTokenMiddleware, deleteRunningLog);
+  .get(getRunningLogById)
+  .put(validateJOI(runsSchema), updateRunningLog)
+  .delete(deleteRunningLog);
 // .get(findInComments);
 
 export default runsRouter;
