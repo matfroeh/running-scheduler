@@ -10,7 +10,6 @@ const CreateEquipment = () => {
     handleChange,
     error,
     handleCreate,
-    handleImageUpload,
     imageProps,
   } = useEquipmentForm();
 
@@ -21,7 +20,7 @@ const CreateEquipment = () => {
         <ButtonSubmit onClick={handleCreate} />
       </div>
       <InputErrorBar error={error} />
-      <ImageUploader {...imageProps} handleImageUpload={handleImageUpload} />
+      <ImageUploader {...imageProps} />
       <div className="flex flex-wrap gap-4">
         <FormEquipmentStats formData={formData} onChange={handleChange} />
       </div>

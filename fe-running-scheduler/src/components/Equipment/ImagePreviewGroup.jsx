@@ -1,11 +1,11 @@
-import ButtonUpload  from './ButtonUpload'
+// import ButtonUpload  from './ButtonUpload'
 
-const ImagePreviewGroup = ({setImage, imageUrl}) => {
+const ImagePreviewGroup = ({ imageUrl}) => {
   return (
     <div className="flex flex-col justify-start mt-4">
-    <div>
+    {/* <div>
       <ButtonUpload imageUrl={imageUrl} onClick={setImage} />
-    </div>
+    </div> */}
     <img
       src={imageUrl}
       alt="Equipment picture"

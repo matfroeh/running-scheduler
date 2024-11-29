@@ -9,7 +9,7 @@ const userSchema = new Schema({
     required: [true, "Password is required"],
     select: false,
   },
-  role: { type: String, enum: ["user", "admin"], default: "user" }, // admin needs to be set directly via database management for now
+  role: { type: String, enum: ["user", "admin", "demo"], default: "user" }, // admin needs to be set directly via database management for now
   equipmentList: [{ type: Schema.Types.ObjectId, ref: "Equipment" }],
   profilePicture: { type: Schema.Types.ObjectId, ref: "Image" },
   

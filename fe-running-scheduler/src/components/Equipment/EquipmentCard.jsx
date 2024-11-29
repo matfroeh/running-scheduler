@@ -1,5 +1,5 @@
 import { ImageContainer } from "@/components/Equipment";
-import {formatDateYYMMDD} from "@/utils/formatDate";
+import { formatDateYYMMDD } from "@/utils/formatDate";
 import Icons from "@/components/Icons";
 
 const EquipmentCard = ({ equipment, image, onClick }) => {
@@ -10,8 +10,8 @@ const EquipmentCard = ({ equipment, image, onClick }) => {
     >
       <div className="card-body">
         <h2 className="card-title mb-2">{equipment.name}</h2>
-        <div className="flex flex-row gap-10 justify-start">
-          <div>
+        <div className="flex flex-row gap-10 sm:gap-4 justify-start">
+          <div className="min-w-28 max-w-52 object-scale-down">
             <ImageContainer imageUrl={null} image={image} />
           </div>
           <div className="flex flex-col">

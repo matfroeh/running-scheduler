@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 import { deleteEquipmentFromUserList, updateEquipment } from "@/data/user";
@@ -20,8 +20,6 @@ export const useEquipmentDetails = (handleSetLoading) => {
   const [imageId, setImageId] = useState("");
   const [error, setError] = useState(null);
   const [image, setImage] = useState();
-
-  const imgInputRef = useRef(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -63,8 +61,19 @@ export const useEquipmentDetails = (handleSetLoading) => {
 
   const handleUpdate = async () => {
     if (!verifyUpdateEquipmentInput(formData, setError)) return;
+
+    let newImageId = null;
+
     try {
-      const updatedData = { ...formData, image: imageId || formData.image };
+      // upload new image, get new image id, and delete old image (ToDo: avoid in future by simply updating image)
+      if(selectedFile) {
+        newImageId = await handleImageUpload();
+        if (!newImageId) throw new Error("Error uploading image");
+        handleDeleteOldImage(imageId);
+      }
+
+      // if no image change or image upload failed, use old image id
+      const updatedData = { ...formData, image: newImageId || formData.image };
       await updateEquipment(user.userId, equipmentId, updatedData);
       handleSetEquipmentList((prev) =>
         prev.map((item) => (item._id === equipmentId ? updatedData : item))
@@ -118,29 +127,21 @@ export const useEquipmentDetails = (handleSetLoading) => {
     setSelectedFile(file);
   }, []);
 
+  // returns the image id
+  const handleImageUpload = async () => {
+    const data = await uploadImage(selectedFile, user, formData.name);
+    setSelectedFile(null);
+    return data;
+  };
+
   return {
     formData,
     handleChange,
     error,
     handleUpdate,
     handleDelete,
-    imageProps: {
-      imageUrl,
-      handleImageChange,
-      imgInputRef,
-      imageId,
-      image,
-      handleImageUpload: async () => {
-        if (!formData.name) {
-          setError("Please specify a name first.");
-          return;
-        }
-        const data = await uploadImage(selectedFile, user, formData.name);
-        if (imageId && data) {
-          await handleDeleteOldImage(imageId);
-        }
-        setImageId(data);
-      },
-    },
+    handleImageChange,
+    imageUrl,
+    image,
   };
 };

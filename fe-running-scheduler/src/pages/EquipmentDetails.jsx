@@ -5,8 +5,10 @@ import {
   InputErrorBar,
   Loading,
 } from "@/components";
-import { FormEquipmentStats, ImageContainer } from "@/components/Equipment/";
-import ImageUploader from "@/components/Equipment/ImageUploader";
+import {
+  FormEquipmentStats,
+  ImageViewAndInputGroup,
+} from "@/components/Equipment/";
 import { useEquipmentDetails } from "@/lib/hooks/useEquipmentDetails";
 import { useState } from "react";
 
@@ -23,7 +25,9 @@ const EquipmentDetails = () => {
     error,
     handleDelete,
     handleUpdate,
-    imageProps,
+    handleImageChange,
+    imageUrl,
+    image,
   } = useEquipmentDetails(handleSetLoading);
 
   return (
@@ -37,9 +41,12 @@ const EquipmentDetails = () => {
             <ButtonDelete onClick={handleDelete} />
             <ButtonSave onClick={handleUpdate} />
           </div>
-          <ImageContainer {...imageProps} />
+          <ImageViewAndInputGroup
+            image={image}
+            imageUrl={imageUrl}
+            handleImageChange={handleImageChange}
+          />
           <InputErrorBar error={error} />
-          <ImageUploader {...imageProps}/>
           <div className="flex flex-wrap gap-4">
             <FormEquipmentStats formData={formData} onChange={handleChange} />
           </div>

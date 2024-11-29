@@ -30,14 +30,18 @@ export const useEquipmentData = () => {
   useEffect(() => {
     const fetchImages = async () => {
       const newImages = {};
-      await Promise.all(
-        equipmentList.map(async (equipment) => {
-          if (equipment.image) {
-            const data = await getImageByIdFromApi(equipment.image);
-            newImages[equipment._id] = data;
-          }
-        })
-      );
+      try {
+        await Promise.allSettled(
+          equipmentList.map(async (equipment) => {
+            if (equipment.image) {
+              const data = await getImageByIdFromApi(equipment.image);
+              newImages[equipment._id] = data;
+            }
+          })
+        );
+      } catch (error) {
+        console.error(error);
+      }
       setImages(newImages);
     };
 

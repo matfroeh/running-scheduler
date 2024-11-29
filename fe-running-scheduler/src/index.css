@@ -18,6 +18,14 @@
     text-decoration-thickness: 3px;
   }
 
+  .hover-overlay {
+    @apply absolute top-0 left-0 w-full h-full bg-gray-800 opacity-0 transition-opacity ease-in-out;
+  }
+  
+  .hover-overlay:hover {
+    @apply opacity-75;
+  }
+
   .text-outline {
     -webkit-text-stroke: 1px black;
   }

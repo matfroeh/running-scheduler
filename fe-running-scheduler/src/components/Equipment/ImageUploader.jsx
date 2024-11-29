@@ -3,8 +3,6 @@ import { ButtonHiddenInput, ImagePreviewGroup } from "@/components/Equipment";
 const ImageUploader = ({
   imageUrl,
   imgInputRef,
-  imageId,
-  handleImageUpload,
   handleImageChange,
 }) => {
   const imageChange = async (e) => {
@@ -27,13 +25,11 @@ const ImageUploader = ({
         onChange={imageChange}
         refForward={imgInputRef}
       />
-      {imageUrl && (
+      {/* {imageUrl && (
         <ImagePreviewGroup
-          imageId={imageId}
-          setImage={handleImageUpload}
           imageUrl={imageUrl}
         />
-      )}
+      )} */}
     </div>
   );
 };

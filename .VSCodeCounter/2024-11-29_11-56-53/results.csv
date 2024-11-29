@@ -1,0 +1,188 @@
+"filename", "language", "JSON", "JavaScript", "CSS", "JavaScript JSX", "Markdown", "HTML", "comment", "blank", "total"
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\README.md", "Markdown", 0, 0, 0, 0, 24, 0, 0, 14, 38
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\controllers\authController.js", "JavaScript", 0, 110, 0, 0, 0, 0, 29, 22, 161
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\controllers\imageController.js", "JavaScript", 0, 33, 0, 0, 0, 0, 0, 9, 42
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\controllers\journalController.js", "JavaScript", 0, 62, 0, 0, 0, 0, 1, 9, 72
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\controllers\performedController.js", "JavaScript", 0, 2, 0, 0, 0, 0, 0, 1, 3
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\controllers\runsController.js", "JavaScript", 0, 55, 0, 0, 0, 0, 41, 20, 116
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\controllers\scheduleController.js", "JavaScript", 0, 71, 0, 0, 0, 0, 6, 16, 93
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\controllers\scheduledController.js", "JavaScript", 0, 25, 0, 0, 0, 0, 1, 5, 31
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\controllers\userController.js", "JavaScript", 0, 116, 0, 0, 0, 0, 8, 19, 143
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\db\index.js", "JavaScript", 0, 8, 0, 0, 0, 0, 0, 2, 10
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\index.js", "JavaScript", 0, 41, 0, 0, 0, 0, 14, 12, 67
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\joi\equipmentSchema.js", "JavaScript", 0, 15, 0, 0, 0, 0, 0, 3, 18
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\joi\imageSchema.js", "JavaScript", 0, 10, 0, 0, 0, 0, 0, 3, 13
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\joi\runsSchema.js", "JavaScript", 0, 39, 0, 0, 0, 0, 0, 5, 44
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\joi\schedulesSchema.js", "JavaScript", 0, 29, 0, 0, 0, 0, 1, 5, 35
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\joi\userSchema.js", "JavaScript", 0, 10, 0, 0, 0, 0, 0, 2, 12
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\middleware\demoProtectionMiddleware.js", "JavaScript", 0, 13, 0, 0, 0, 0, 3, 4, 20
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\middleware\errorHandler.js", "JavaScript", 0, 5, 0, 0, 0, 0, 0, 2, 7
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\middleware\index.js", "JavaScript", 0, 4, 0, 0, 0, 0, 0, 1, 5
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\middleware\validateJOI.js", "JavaScript", 0, 6, 0, 0, 0, 0, 0, 3, 9
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\middleware\verifyTokenMiddleware.js", "JavaScript", 0, 24, 0, 0, 0, 0, 7, 9, 40
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\models\Equipment.js", "JavaScript", 0, 16, 0, 0, 0, 0, 1, 3, 20
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\models\Image.js", "JavaScript", 0, 22, 0, 0, 0, 0, 0, 3, 25
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\models\Journal.js", "JavaScript", 0, 90, 0, 0, 0, 0, 0, 5, 95
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\models\Runs.js", "JavaScript", 0, 96, 0, 0, 0, 0, 10, 9, 115
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\models\Schedule.js", "JavaScript", 0, 58, 0, 0, 0, 0, 67, 10, 135
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\models\User.js", "JavaScript", 0, 16, 0, 0, 0, 0, 0, 4, 20
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\models\index.js", "JavaScript", 0, 7, 0, 0, 0, 0, 0, 1, 8
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\models\subSchemas\index.js", "JavaScript", 0, 3, 0, 0, 0, 0, 0, 1, 4
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\models\subSchemas\performedSchema.js", "JavaScript", 0, 49, 0, 0, 0, 0, 7, 2, 58
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\models\subSchemas\scheduledSchema.js", "JavaScript", 0, 23, 0, 0, 0, 0, 0, 3, 26
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\package-lock.json", "JSON", 2497, 0, 0, 0, 0, 0, 0, 1, 2498
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\package.json", "JSON", 30, 0, 0, 0, 0, 0, 0, 1, 31
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\routes\authRouter.js", "JavaScript", 0, 11, 0, 0, 0, 0, 0, 3, 14
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\routes\imageRouter.js", "JavaScript", 0, 26, 0, 0, 0, 0, 4, 5, 35
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\routes\index.js", "JavaScript", 0, 18, 0, 0, 0, 0, 0, 2, 20
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\routes\journalRouter.js", "JavaScript", 0, 13, 0, 0, 0, 0, 0, 4, 17
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\routes\performedRouter.js", "JavaScript", 0, 5, 0, 0, 0, 0, 0, 3, 8
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\routes\runsRouter.js", "JavaScript", 0, 23, 0, 0, 0, 0, 4, 6, 33
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\routes\scheduleRouter.js", "JavaScript", 0, 34, 0, 0, 0, 0, 3, 5, 42
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\routes\scheduledRouter.js", "JavaScript", 0, 11, 0, 0, 0, 0, 0, 4, 15
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\routes\userRouter.js", "JavaScript", 0, 26, 0, 0, 0, 0, 2, 4, 32
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\utils\ErrorResponse.js", "JavaScript", 0, 7, 0, 0, 0, 0, 0, 2, 9
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\utils\asyncHandler.js", "JavaScript", 0, 2, 0, 0, 0, 0, 0, 2, 4
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\utils\index.js", "JavaScript", 0, 3, 0, 0, 0, 0, 0, 1, 4
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\be-running-scheduler\utils\resizeImage.js", "JavaScript", 0, 6, 0, 0, 0, 0, 0, 2, 8
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\README.md", "Markdown", 0, 0, 0, 0, 5, 0, 0, 4, 9
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\eslint.config.js", "JavaScript", 0, 38, 0, 0, 0, 0, 0, 2, 40
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\index.html", "HTML", 0, 0, 0, 0, 0, 13, 0, 1, 14
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\package-lock.json", "JSON", 7170, 0, 0, 0, 0, 0, 0, 1, 7171
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\package.json", "JSON", 49, 0, 0, 0, 0, 0, 0, 1, 50
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\postcss.config.js", "JavaScript", 0, 6, 0, 0, 0, 0, 0, 1, 7
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\App.jsx", "JavaScript JSX", 0, 0, 0, 139, 0, 0, 7, 4, 150
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\actions\getFormData.js", "JavaScript", 0, 5, 0, 0, 0, 0, 0, 1, 6
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\ButtonDelete.jsx", "JavaScript JSX", 0, 0, 0, 11, 0, 0, 0, 2, 13
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\ButtonHiddenInput.jsx", "JavaScript JSX", 0, 0, 0, 20, 0, 0, 0, 2, 22
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\ButtonLoadingState.jsx", "JavaScript JSX", 0, 0, 0, 16, 0, 0, 0, 3, 19
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\ButtonSave.jsx", "JavaScript JSX", 0, 0, 0, 12, 0, 0, 0, 1, 13
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\ButtonScrollToRef.jsx", "JavaScript JSX", 0, 0, 0, 31, 0, 0, 2, 7, 40
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\ButtonScrollTop.jsx", "JavaScript JSX", 0, 0, 0, 27, 0, 0, 2, 6, 35
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\ButtonToggle.jsx", "JavaScript JSX", 0, 0, 0, 15, 0, 0, 0, 1, 16
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Calendar\ButtonCalendarNavigate.jsx", "JavaScript JSX", 0, 0, 0, 16, 0, 0, 0, 2, 18
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Calendar\Calendar.jsx", "JavaScript JSX", 0, 0, 0, 10, 0, 0, 0, 3, 13
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Calendar\CalendarBar.jsx", "JavaScript JSX", 0, 0, 0, 119, 0, 0, 4, 11, 134
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Calendar\CalendarBody.jsx", "JavaScript JSX", 0, 0, 0, 26, 0, 0, 0, 4, 30
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Calendar\CalendarWeekRow.jsx", "JavaScript JSX", 0, 0, 0, 69, 0, 0, 37, 6, 112
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Calendar\CardBody.jsx", "JavaScript JSX", 0, 0, 0, 13, 0, 0, 0, 2, 15
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Calendar\CardContainer.jsx", "JavaScript JSX", 0, 0, 0, 12, 0, 0, 3, 3, 18
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Calendar\CardDetails.jsx", "JavaScript JSX", 0, 0, 0, 50, 0, 0, 0, 5, 55
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Calendar\RunCard.jsx", "JavaScript JSX", 0, 0, 0, 31, 0, 0, 2, 7, 40
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Calendar\SummaryCard.jsx", "JavaScript JSX", 0, 0, 0, 60, 0, 0, 1, 6, 67
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Calendar\TrainingCard.jsx", "JavaScript JSX", 0, 0, 0, 43, 0, 0, 0, 7, 50
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Calendar\WeekDaysBar.jsx", "JavaScript JSX", 0, 0, 0, 14, 0, 0, 0, 4, 18
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Calendar\index.js", "JavaScript", 0, 7, 0, 0, 0, 0, 0, 1, 8
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\CardElementCloseButton.jsx", "JavaScript JSX", 0, 0, 0, 27, 0, 0, 0, 2, 29
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\CardModal.jsx", "JavaScript JSX", 0, 0, 0, 34, 0, 0, 0, 3, 37
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\CarouselComponent.jsx", "JavaScript JSX", 0, 0, 0, 74, 0, 0, 2, 9, 85
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\CookieNote.jsx", "JavaScript JSX", 0, 0, 0, 18, 0, 0, 0, 3, 21
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\CreateSchedule\CreateScheduleControls.jsx", "JavaScript JSX", 0, 0, 0, 26, 0, 0, 0, 5, 31
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\CreateSchedule\CreateScheduleForm.jsx", "JavaScript JSX", 0, 0, 0, 204, 0, 0, 0, 4, 208
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\CreateSchedule\index.js", "JavaScript", 0, 3, 0, 0, 0, 0, 0, 1, 4
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Equipment\ButtonHiddenInput.jsx", "JavaScript JSX", 0, 0, 0, 22, 0, 0, 0, 2, 24
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Equipment\ButtonSubmit.jsx", "JavaScript JSX", 0, 0, 0, 12, 0, 0, 0, 2, 14
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Equipment\ButtonUpload.jsx", "JavaScript JSX", 0, 0, 0, 13, 0, 0, 0, 2, 15
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Equipment\EquipmentCard.jsx", "JavaScript JSX", 0, 0, 0, 43, 0, 0, 0, 3, 46
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Equipment\FormEquipmentStats.jsx", "JavaScript JSX", 0, 0, 0, 106, 0, 0, 0, 5, 111
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Equipment\ImageContainer.jsx", "JavaScript JSX", 0, 0, 0, 24, 0, 0, 0, 3, 27
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Equipment\ImagePreviewGroup.jsx", "JavaScript JSX", 0, 0, 0, 12, 0, 0, 4, 2, 18
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Equipment\ImageUploader.jsx", "JavaScript JSX", 0, 0, 0, 26, 0, 0, 8, 4, 38
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Equipment\index.js", "JavaScript", 0, 18, 0, 0, 0, 0, 0, 2, 20
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Footer.jsx", "JavaScript JSX", 0, 0, 0, 42, 0, 0, 0, 2, 44
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Icons.jsx", "JavaScript JSX", 0, 0, 0, 42, 0, 0, 0, 3, 45
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\InputErrorBar.jsx", "JavaScript JSX", 0, 0, 0, 10, 0, 0, 0, 2, 12
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Loading.jsx", "JavaScript JSX", 0, 0, 0, 23, 0, 0, 0, 1, 24
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Modal.jsx", "JavaScript JSX", 0, 0, 0, 18, 0, 0, 0, 3, 21
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\NavBar\NavBar.jsx", "JavaScript JSX", 0, 0, 0, 71, 0, 0, 1, 8, 80
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\NavBar\NavBarDropDownMenu.jsx", "JavaScript JSX", 0, 0, 0, 37, 0, 0, 0, 1, 38
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\NavBar\NavBarNavButtons.jsx", "JavaScript JSX", 0, 0, 0, 14, 0, 0, 0, 3, 17
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\OverflowSpanTooltip.jsx", "JavaScript JSX", 0, 0, 0, 13, 0, 0, 0, 2, 15
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Overview\ChartSection.jsx", "JavaScript JSX", 0, 0, 0, 44, 0, 0, 2, 5, 51
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Overview\OverviewBlock.jsx", "JavaScript JSX", 0, 0, 0, 74, 0, 0, 0, 5, 79
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\Overview\OverviewControls.jsx", "JavaScript JSX", 0, 0, 0, 17, 0, 0, 0, 2, 19
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\RunAndTrainingDetails\TypeSelectOptions.jsx", "JavaScript JSX", 0, 0, 0, 35, 0, 0, 0, 2, 37
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\RunAndTrainingDetails\index.js", "JavaScript", 0, 2, 0, 0, 0, 0, 0, 1, 3
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\SocialMedia.jsx", "JavaScript JSX", 0, 0, 0, 19, 0, 0, 1, 1, 21
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\StartupDelay.jsx", "JavaScript JSX", 0, 0, 0, 12, 0, 0, 0, 1, 13
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\charts\LineChart.jsx", "JavaScript JSX", 0, 0, 0, 34, 0, 0, 5, 4, 43
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\charts\LineChartTimeVelocity.jsx", "JavaScript JSX", 0, 0, 0, 38, 0, 0, 4, 4, 46
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\components\index.js", "JavaScript", 0, 40, 0, 0, 0, 0, 0, 2, 42
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\context\AuthContext.jsx", "JavaScript JSX", 0, 0, 0, 8, 0, 0, 0, 3, 11
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\context\AuthContextProvider.jsx", "JavaScript JSX", 0, 0, 0, 44, 0, 0, 6, 11, 61
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\context\ModalContext.jsx", "JavaScript JSX", 0, 0, 0, 8, 0, 0, 0, 3, 11
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\context\ModalContextProvider.jsx", "JavaScript JSX", 0, 0, 0, 21, 0, 0, 0, 5, 26
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\context\index.js", "JavaScript", 0, 5, 0, 0, 0, 0, 0, 1, 6
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\data\auth.js", "JavaScript", 0, 68, 0, 0, 0, 0, 0, 6, 74
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\data\image.js", "JavaScript", 0, 30, 0, 0, 0, 0, 1, 8, 39
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\data\runs.js", "JavaScript", 0, 106, 0, 0, 0, 0, 5, 16, 127
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\data\schedules.js", "JavaScript", 0, 103, 0, 0, 0, 0, 1, 9, 113
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\data\user.js", "JavaScript", 0, 72, 0, 0, 0, 0, 0, 8, 80
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\index.css", "CSS", 0, 0, 37, 0, 0, 0, 8, 5, 50
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\layouts\AuthLayout.jsx", "JavaScript JSX", 0, 0, 0, 7, 0, 0, 2, 6, 15
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\layouts\RootLayout.jsx", "JavaScript JSX", 0, 0, 0, 35, 0, 0, 8, 8, 51
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\layouts\index.js", "JavaScript", 0, 3, 0, 0, 0, 0, 0, 1, 4
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\lib\fileHandling.js", "JavaScript", 0, 37, 0, 0, 0, 0, 1, 7, 45
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\lib\hooks\index.js", "JavaScript", 0, 5, 0, 0, 0, 0, 0, 1, 6
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\lib\hooks\miscDataHooks.js", "JavaScript", 0, 35, 0, 0, 0, 0, 69, 13, 117
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\lib\hooks\useCalendarLoading.js", "JavaScript", 0, 77, 0, 0, 0, 0, 4, 14, 95
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\lib\hooks\useCalendarViewToggles.js", "JavaScript", 0, 12, 0, 0, 0, 0, 1, 5, 18
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\lib\hooks\useCreateScheduleForm.js", "JavaScript", 0, 45, 0, 0, 0, 0, 0, 7, 52
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\lib\hooks\useEquipmentData.js", "JavaScript", 0, 65, 0, 0, 0, 0, 0, 10, 75
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\lib\hooks\useEquipmentDetails.js", "JavaScript", 0, 130, 0, 0, 0, 0, 0, 17, 147
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\lib\hooks\useEquipmentForm.js", "JavaScript", 0, 81, 0, 0, 0, 0, 5, 10, 96
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\lib\hooks\useGetCalendarOrder.js", "JavaScript", 0, 19, 0, 0, 0, 0, 3, 7, 29
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\lib\hooks\useProcessGpxData.js", "JavaScript", 0, 75, 0, 0, 0, 0, 6, 11, 92
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\lib\hooks\useSaveNewSchedule.js", "JavaScript", 0, 33, 0, 0, 0, 0, 1, 7, 41
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\lib\inputVerification.js", "JavaScript", 0, 79, 0, 0, 0, 0, 0, 4, 83
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\lib\logicConstants.js", "JavaScript", 0, 2, 0, 0, 0, 0, 0, 0, 2
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\lib\uiConstants.js", "JavaScript", 0, 3, 0, 0, 0, 0, 0, 0, 3
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\loader\calendarIndexLoader.js", "JavaScript", 0, 10, 0, 0, 0, 0, 4, 5, 19
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\loader\index.js", "JavaScript", 0, 3, 0, 0, 0, 0, 0, 2, 5
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\loader\overviewLoader.js", "JavaScript", 0, 14, 0, 0, 0, 0, 0, 3, 17
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\logic\processFormDataFromScheduler.js", "JavaScript", 0, 185, 0, 0, 0, 0, 34, 29, 248
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\logic\processGpxData.js", "JavaScript", 0, 173, 0, 0, 0, 0, 31, 39, 243
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\main.jsx", "JavaScript JSX", 0, 0, 0, 9, 0, 0, 0, 2, 11
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\CalendarEditModal.jsx", "JavaScript JSX", 0, 0, 0, 95, 0, 0, 0, 11, 106
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\CalendarView.jsx", "JavaScript JSX", 0, 0, 0, 55, 0, 0, 4, 7, 66
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\CreateEquipment.jsx", "JavaScript JSX", 0, 0, 0, 28, 0, 0, 0, 3, 31
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\CreateScheduleModal.jsx", "JavaScript JSX", 0, 0, 0, 36, 0, 0, 0, 4, 40
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\Datenschutz.jsx", "JavaScript JSX", 0, 0, 0, 183, 0, 0, 32, 20, 235
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\EquipmentDetails.jsx", "JavaScript JSX", 0, 0, 0, 51, 0, 0, 0, 6, 57
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\EquipmentModal.jsx", "JavaScript JSX", 0, 0, 0, 40, 0, 0, 0, 4, 44
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\Error.jsx", "JavaScript JSX", 0, 0, 0, 26, 0, 0, 0, 4, 30
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\Impressum.jsx", "JavaScript JSX", 0, 0, 0, 36, 0, 0, 0, 3, 39
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\Login.jsx", "JavaScript JSX", 0, 0, 0, 139, 0, 0, 0, 8, 147
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\NotFound.jsx", "JavaScript JSX", 0, 0, 0, 13, 0, 0, 0, 2, 15
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\Overview.jsx", "JavaScript JSX", 0, 0, 0, 51, 0, 0, 0, 7, 58
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\Profile.jsx", "JavaScript JSX", 0, 0, 0, 134, 0, 0, 8, 13, 155
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\RunDetailsModal.jsx", "JavaScript JSX", 0, 0, 0, 326, 0, 0, 25, 22, 373
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\SignUp.jsx", "JavaScript JSX", 0, 0, 0, 166, 0, 0, 0, 8, 174
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\TrainingDayDetailsModal.jsx", "JavaScript JSX", 0, 0, 0, 120, 0, 0, 5, 13, 138
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\Welcome.jsx", "JavaScript JSX", 0, 0, 0, 53, 0, 0, 94, 9, 156
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\pages\index.js", "JavaScript", 0, 36, 0, 0, 0, 0, 0, 2, 38
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\svg\animated.jsx", "JavaScript JSX", 0, 0, 0, 11, 0, 0, 0, 1, 12
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\unused\JsonFileHandler.jsx", "JavaScript JSX", 0, 0, 0, 52, 0, 0, 13, 10, 75
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\unused\LineChartAllWeeksDistanceTime.jsx", "JavaScript JSX", 0, 0, 0, 55, 0, 0, 2, 5, 62
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\unused\LineChartAllWeeksPaceHeartRate.jsx", "JavaScript JSX", 0, 0, 0, 53, 0, 0, 6, 5, 64
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\unused\LineChartDistanceTime.jsx", "JavaScript JSX", 0, 0, 0, 55, 0, 0, 2, 5, 62
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\unused\LineChartPaceHeartRate.jsx", "JavaScript JSX", 0, 0, 0, 52, 0, 0, 6, 5, 63
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\unused\authLoader.js", "JavaScript", 0, 12, 0, 0, 0, 0, 2, 4, 18
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\unused\calendarByIdLoader.js", "JavaScript", 0, 16, 0, 0, 0, 0, 0, 2, 18
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\unused\calendarCycling.js", "JavaScript", 0, 107, 0, 0, 0, 0, 1, 7, 115
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\unused\calendarLoader.js", "JavaScript", 0, 19, 0, 0, 0, 0, 0, 1, 20
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\unused\getCurrentPreviousNextCalendars.js", "JavaScript", 0, 80, 0, 0, 0, 0, 4, 11, 95
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\unused\handleGpxUpload.js", "JavaScript", 0, 131, 0, 0, 0, 0, 36, 33, 200
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\unused\useCalendarCycling.js", "JavaScript", 0, 70, 0, 0, 0, 0, 27, 15, 112
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\utils\arrayBufferToBase64.js", "JavaScript", 0, 9, 0, 0, 0, 0, 5, 2, 16
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\utils\calculateSummariesForOverview.js", "JavaScript", 0, 53, 0, 0, 0, 0, 0, 7, 60
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\utils\calculateWeeklySummary.js", "JavaScript", 0, 66, 0, 0, 0, 0, 0, 8, 74
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\utils\cn.js", "JavaScript", 0, 6, 0, 0, 0, 0, 0, 2, 8
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\utils\formatDate.js", "JavaScript", 0, 11, 0, 0, 0, 0, 0, 2, 13
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\utils\getOverviewData.js", "JavaScript", 0, 167, 0, 0, 0, 0, 15, 20, 202
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\utils\normalizeToArray.js", "JavaScript", 0, 4, 0, 0, 0, 0, 0, 2, 6
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\utils\parseGpxData.js", "JavaScript", 0, 16, 0, 0, 0, 0, 1, 6, 23
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\src\utils\processRunningDataHelper.js", "JavaScript", 0, 41, 0, 0, 0, 0, 17, 6, 64
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\tailwind.config.js", "JavaScript", 0, 11, 0, 0, 0, 0, 1, 2, 14
+"c:\Daten\workspaces\workspaceWD\FinalProject\running-scheduler\fe-running-scheduler\vite.config.js", "JavaScript", 0, 14, 0, 0, 0, 0, 1, 3, 18
+"Total", "-", 9746, 3701, 37, 3880, 29, 13, 791, 1047, 19244

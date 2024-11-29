@@ -6,6 +6,7 @@ import ImagePreviewGroup from "./ImagePreviewGroup";
 import ImageUploader from "./ImageUploader";
 import ImageContainer from "./ImageContainer";
 import EquipmentCard from "./EquipmentCard";
+import ImageViewAndInputGroup from "./ImageViewAndInputGroup";
 
 export {
   FormEquipmentStats,
@@ -16,4 +17,5 @@ export {
   ImageUploader,
   ImageContainer,
   EquipmentCard,
+  ImageViewAndInputGroup,
 };
