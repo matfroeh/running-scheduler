@@ -7,34 +7,34 @@ const Footer = ({ className }) => {
         className
       )}
     >
-      <div>
-        <p className="mt-2">
+      <div className="flex">
+        <div className="mt-2">
           <a href="/impressum" className="text-blue-400 underline">
             Impressum / Legal Notice
           </a>
-          <div className="flex">
-            <p className="mt-2">
+          <div className="flex flex-wrap">
+            <div className="mt-2">
               <a href="/datenschutz" className="text-blue-400 underline">
                 Datenschutzerklärung
               </a>{" "}
-            </p>
+            </div>
             <p className="mt-2 mx-2">/</p>
-            <p className="mt-2">
+            <div className="mt-2">
               <a
                 href="https://www.freeprivacypolicy.com/live/3003514e-7840-4368-b3df-29d008ecbf4b"
                 className="text-blue-400 underline"
               >
                 Privacy Policy
               </a>
-            </p>
+            </div>
           </div>
-        </p>
+        </div>
       </div>
       <div className="flex">
-        <p className="mt-4">
+        <div className="mt-4">
           © {new Date().getFullYear()} Matthias Fröhlich. Alle Rechte
           vorbehalten.
-        </p>
+        </div>
       </div>
     </footer>
   );

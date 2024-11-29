@@ -28,7 +28,7 @@ const NavBar = () => {
     ? `data:${image.img.contentType};base64,${arrayBufferToBase64(
         image.img.data.data
       )}`
-    : "/profilePlaceHolder.webp";
+    : "/shoe-colorful-placeholder.png";
 
   return (
     <div className="navbar z-50 mb-1">

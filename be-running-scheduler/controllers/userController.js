@@ -27,9 +27,11 @@ export const getEquipmentById = asyncHandler(async (req, res, next) => {
 
 export const updateUser = asyncHandler(async (req, res, next) => {
   const { userId } = req.params;
+  // console.log("request params", req.params);
   const user = await User.findOne({
     _id: userId,
   });
+  // console.log("user found", user);
 
   if (!user)
     return next(new ErrorResponse(`User not found with id of ${userId}`, 404));
