@@ -16,7 +16,7 @@ import demoProtectionMiddleware from "../middleware/demoProtectionMiddleware.js"
 const runsRouter = Router();
 
 // Apply multiple middlewares to all routes
-// runsRouter.use([authMiddleware, demoProtectionMiddleware]);
+// runsRouter.use([verifyTokenMiddleware, demoProtectionMiddleware]);
 
 runsRouter
   .route("/")
