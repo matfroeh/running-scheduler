@@ -10,7 +10,7 @@ import {
 import verifyTokenMiddleware from "../middleware/verifyTokenMiddleware.js";
 import runsSchema from "../joi/runsSchema.js";
 import validateJOI from "../middleware/validateJOI.js";
-import demoProtectionMiddleware from "../middleware/demoProtectionMiddleWare.js";
+import demoProtectionMiddleware from "../middleware/demoProtectionMiddleware.js";
 
 
 const runsRouter = Router();
