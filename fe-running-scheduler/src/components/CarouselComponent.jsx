@@ -18,13 +18,14 @@ const description = [
 
 const CarouselComponent = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [zoomed, setZoomed] = useState(false);
 
   const sliderInterval = useRef();
 
   useEffect(() => {
     sliderInterval.current = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 10000);
+    }, 6000);
     return () => clearInterval(sliderInterval.current);
   }, []);
 
@@ -35,6 +36,10 @@ const CarouselComponent = () => {
     sliderInterval.current = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
     }, 10000);
+  };
+
+  const handleImageZoom = () => {
+    setZoomed((prev) => !prev);
   };
 
   return (
@@ -53,9 +58,22 @@ const CarouselComponent = () => {
           <div className="relative">
             <img
               src={`/slidesWelcomePage/${index + 1}.png`}
-              className="w-full h-f"
+              className="w-full rounded-lg shadow-md cursor-zoom-in"
               alt={`Slide ${index + 1}`}
+              onClick={handleImageZoom}
             />
+            {zoomed && (
+              <div
+                className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 z-50"
+                onClick={handleImageZoom}
+              >
+                <img
+                  src={`/slidesWelcomePage/${index + 1}.png`}
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-zoom-out"
+                  alt={`Slide ${index + 1}`}
+                />
+              </div>
+            )}
             <div className="absolute flex justify-between transform -translate-y-1/2 left-0 right-0 top-1/4 opacity-50">
               <a
                 href={`#slide${

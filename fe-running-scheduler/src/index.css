@@ -18,6 +18,11 @@
     text-decoration-thickness: 3px;
   }
 
+  .enlarged {
+    transform: scale(1.5);
+    transition: transform 0.5s ease;   
+  }
+
   .hover-overlay {
     @apply absolute top-0 left-0 w-full h-full bg-gray-800 opacity-0 transition-opacity ease-in-out;
   }
