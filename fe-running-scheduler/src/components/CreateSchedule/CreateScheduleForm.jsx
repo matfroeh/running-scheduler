@@ -7,7 +7,7 @@ const CreateScheduleForm = ({
 }) => {
   return (
     <>
-      <div className="col-span-2 w-4/5">
+      <div className="w-4/5">
         <label className="flex items-center gap-4">
           Title:
           <input
@@ -32,14 +32,14 @@ const CreateScheduleForm = ({
           />
         </label>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="">
         <div className="ml-2 dropdown dropdown-hover">
           <div tabIndex={0} role="button" className="btn w-full">
             Select Running Days
           </div>
           <ul
             tabIndex={0}
-            className="dropdown-content menu bg-base-200 rounded-box z-[1] w-52 p-2 shadow"
+            className="dropdown-content menu menu-xs bg-base-200 rounded-box z-[1] w-52 p-2 shadow"
           >
             <li>
               <div className="form-control">
@@ -142,63 +142,67 @@ const CreateScheduleForm = ({
           </ul>
         </div>
       </div>
-      <div className="">
-        <label className="flex items-center gap-4">
-          Weeks:
-          <input
-            type="number"
-            name="weeks"
-            className="grow input input-bordered text-center focus:ring-2 "
-            value={form.weeks}
-            onChange={(e) => handleChange(e)}
-          />
-        </label>
-      </div>
-      <div className="flex items-center gap-4">
-        <label className="ml-4">Long Run:</label>
-        <select
-          className="ml-2 bg-base-200 rounded-md p-1"
-          name="longRun"
-          onChange={(e) => handleChange(e)}
-        >
-          <option value="none">None</option>
-          {selectedDays.map((day) => (
-            <option key={day} value={day}>
-              {day.charAt(0).toUpperCase() + day.slice(1)}
-            </option>
-          ))}
-          ;
-        </select>
+      <div className="flex flex-wrap gap-4">
+        <div className="">
+          <label className="flex items-center gap-4">
+            Weeks:
+            <input
+              type="number"
+              name="weeks"
+              className="grow input input-bordered text-center focus:ring-2 "
+              value={form.weeks}
+              onChange={(e) => handleChange(e)}
+            />
+          </label>
+        </div>
+        <div>
+          <label className="flex items-center gap-4">
+            Weekly Distance (km):
+            <input
+              type="number"
+              name="distance"
+              className="input-bordered text-center input focus:outline-none focus:ring-2 "
+              value={form.distance}
+              onChange={(e) => handleChange(e)}
+            />
+          </label>
+        </div>
       </div>
 
-      <div>
-        <label className="flex items-center gap-4">
-          Weekly Distance (km):
-          <input
-            type="number"
-            name="distance"
-            className="input-bordered text-center input focus:outline-none focus:ring-2 "
-            value={form.distance}
+      <div className="flex flex-wrap gap-4">
+        <div className="flex items-center gap-4">
+          <label className="">Workout Day:</label>
+          <select
+            className="ml-2 bg-base-200 rounded-md p-1"
+            name="workoutDay"
             onChange={(e) => handleChange(e)}
-          />
-        </label>
-      </div>
+          >
+            <option value="none">None</option>
+            {selectedDays.map((day) => (
+              <option key={day} value={day}>
+                {day.charAt(0).toUpperCase() + day.slice(1)}
+              </option>
+            ))}
+            ;
+          </select>
+        </div>
 
-      <div className="flex items-center gap-4">
-        <label className="ml-4">Workout Day:</label>
-        <select
-          className="ml-2 bg-base-200 rounded-md p-1"
-          name="workoutDay"
-          onChange={(e) => handleChange(e)}
-        >
-          <option value="none">None</option>
-          {selectedDays.map((day) => (
-            <option key={day} value={day}>
-              {day.charAt(0).toUpperCase() + day.slice(1)}
-            </option>
-          ))}
-          ;
-        </select>
+        <div className="flex items-center gap-4">
+          <label className="">Long Run:</label>
+          <select
+            className="ml-2 bg-base-200 rounded-md p-1"
+            name="longRun"
+            onChange={(e) => handleChange(e)}
+          >
+            <option value="none">None</option>
+            {selectedDays.map((day) => (
+              <option key={day} value={day}>
+                {day.charAt(0).toUpperCase() + day.slice(1)}
+              </option>
+            ))}
+            ;
+          </select>
+        </div>
       </div>
     </>
   );
