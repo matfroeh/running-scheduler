@@ -2,9 +2,9 @@ import { useState, useCallback } from "react";
 import { useAuth } from "@/context";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { createEquipment } from "@/data/user";
-import { uploadImage } from "@/lib/fileHandling";
-import { verifyCreateEquipmentInput } from "@/lib/inputVerification";
+import { createEquipment } from "@/data";
+import { uploadImage } from "@/lib/utils";
+import { verifyCreateEquipmentInput } from "@/lib";
 import dayjs from "dayjs";
 
 export const useEquipmentForm = () => {

@@ -1,11 +1,10 @@
 import { useAuth } from "@/context";
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { updateUser, deleteUser } from "@/data/user";
-import { toast } from "react-toastify";
+import { updateUser, deleteUser, deleteImageById } from "@/data";
 import { useFetchUserProfile } from "@/lib/hooks";
-import { uploadImage } from "@/lib/fileHandling";
-import { deleteImageById } from "@/data/image.js";
+import { uploadImage } from "@/lib/utils";
+import { toast } from "react-toastify";
 
 export const useProfileData = () => {
   const { user, setUser, logOut } = useAuth();

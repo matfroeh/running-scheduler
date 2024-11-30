@@ -1,12 +1,17 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
-import { deleteEquipmentFromUserList, updateEquipment } from "@/data/user";
+import {
+  deleteEquipmentFromUserList,
+  updateEquipment,
+  getEquipmentById,
+  getImageByIdFromApi,
+  deleteImageById,
+} from "@/data";
 import { useAuth } from "@/context";
-import { uploadImage } from "@/lib/fileHandling";
-import { verifyUpdateEquipmentInput } from "@/lib/inputVerification";
-import { getEquipmentById } from "@/data/user.js";
-import { getImageByIdFromApi, deleteImageById } from "@/data/image.js";
+// ToDo: needs to put somewhere else in the folder structure
+import { uploadImage } from "@/lib/utils";
+import { verifyUpdateEquipmentInput } from "@/lib";
 
 export const useEquipmentDetails = (handleSetLoading) => {
   const { equipmentId } = useParams();
@@ -66,7 +71,7 @@ export const useEquipmentDetails = (handleSetLoading) => {
 
     try {
       // upload new image, get new image id, and delete old image (ToDo: avoid in future by simply updating image)
-      if(selectedFile) {
+      if (selectedFile) {
         newImageId = await handleImageUpload();
         if (!newImageId) throw new Error("Error uploading image");
         handleDeleteOldImage(imageId);
@@ -74,7 +79,7 @@ export const useEquipmentDetails = (handleSetLoading) => {
       // if no image change or image upload failed, use old image id
       const updatedData = { ...formData, image: newImageId || formData.image };
       const res = await updateEquipment(user.userId, equipmentId, updatedData);
-      
+
       if (res.error) throw new Error(res.error);
       handleSetEquipmentList((prev) =>
         prev.map((item) => (item._id === equipmentId ? updatedData : item))

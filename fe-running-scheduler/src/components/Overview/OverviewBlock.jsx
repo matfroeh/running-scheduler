@@ -5,7 +5,7 @@ import {
   getAveragePace,
   getAverageHeartBeat,
   getAverageEffort,
-} from "@/utils/getOverviewData.js";
+} from "@/lib";
 
 const OverviewBlock = ({ block, selectedBlock, selectedMode, selectBlock }) => {
   const isSelected =

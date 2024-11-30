@@ -1,9 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { getEquipmentListFromUser } from "@/data/user";
-import { getImageByIdFromApi } from "@/data/image";
+import { getEquipmentListFromUser, getImageByIdFromApi } from "@/data";
 import { useAuth } from "@/context";
-import { ACTIVE, INACTIVE } from "@/lib/logicConstants";
+import { ACTIVE, INACTIVE } from "@/lib/constants";
 
 export const useEquipmentData = () => {
   const { user, setUser } = useAuth();

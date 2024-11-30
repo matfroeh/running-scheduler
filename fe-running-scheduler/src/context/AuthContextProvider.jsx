@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 // import Cookies from "universal-cookie";
-import { checkAuth, logout } from "../data/auth";
+import { checkAuth, logout } from "@/data";
 import { AuthContext } from "./AuthContext";
 import { toast } from "react-toastify";
 

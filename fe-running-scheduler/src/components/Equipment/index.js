@@ -1,13 +1,14 @@
-import FormEquipmentStats from "./FormEquipmentStats";
-import ButtonSubmit from "./ButtonSubmit";
-import ImageContainer from "./ImageContainer";
+// @index('./**/*.jsx', f => `export * from '${f.path}'`)
+import CreateEquipment from "./CreateEquipment";
 import EquipmentCard from "./EquipmentCard";
-import ImageViewAndInputGroup from "./ImageViewAndInputGroup";
+import EquipmentDetails from "./EquipmentDetails";
+import EquipmentModal from "./EquipmentModal";
+import FormEquipmentStats from "./FormEquipmentStats";
 
 export {
-  FormEquipmentStats,
-  ButtonSubmit,
-  ImageContainer,
+  CreateEquipment,
   EquipmentCard,
-  ImageViewAndInputGroup,
+  EquipmentDetails,
+  EquipmentModal,
+  FormEquipmentStats,
 };
