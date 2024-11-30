@@ -1,5 +1,5 @@
 import { Scheduled } from "../models/subSchemas/index.js";
-import { asyncHandler, ErrorResponse } from "../utils/index.js";
+import { asyncHandler, ErrorResponse } from "../../utils/index.js";
 
 // ToDo: all need to be adapted to tokenVerification
 

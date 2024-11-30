@@ -28,7 +28,7 @@ const ButtonScrollToRef = ({ forwardRef, className }) => {
           "fixed p-3 bg-primary text-white rounded-full shadow-lg hover:bg-accent transition-colors",
           className
         )}
-        aria-label="Scroll to down to reference"
+        aria-label="Scroll down to reference"
       >
         <FaArrowDown size={20} />
       </button>

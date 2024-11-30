@@ -79,7 +79,7 @@ const CarouselComponent = () => {
                 href={`#slide${
                   ((index - 1 + slides.length) % slides.length) + 1
                 }`}
-                className="btn btn-xs md:btn-sm lg:btn-md btn-circle btn-accent"
+                className="btn btn-sm lg:btn-md btn-circle btn-accent"
                 onClick={() =>
                   handleManualSlide((index - 1 + slides.length) % slides.length)
                 }
@@ -88,7 +88,7 @@ const CarouselComponent = () => {
               </a>
               <a
                 href={`#slide${((index + 1) % slides.length) + 1}`}
-                className="btn btn-xs md:btn-sm lg:btn-md btn-circle btn-accent"
+                className="btn btn-sm lg:btn-md btn-circle btn-accent"
                 onClick={() => handleManualSlide((index + 1) % slides.length)}
               >
                 ❯
