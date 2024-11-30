@@ -1,4 +1,4 @@
-import { getAllRuns } from "../data/runs";
+import { getAllRuns } from "@/data";
 
 export const overviewLoader = async () => {
   try {

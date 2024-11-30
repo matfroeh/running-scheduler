@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { verifyCreateScheduleInput } from "@/lib/inputVerification";
+import { verifyCreateScheduleInput } from "@/lib";
 
 export const useCreateScheduleForm = () => {
   const [form, setForm] = useState({

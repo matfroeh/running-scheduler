@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
-import { getTrainingScheduleById } from "@/data/schedules";
-import { getRunsById } from "@/data/runs";
+import { getTrainingScheduleById, getRunsById } from "@/data";
 
 // This hook is used to load the schedule and runs data for the calendar view and to handle the cycling through the calendars
 export const useCalendarLoading = () => {

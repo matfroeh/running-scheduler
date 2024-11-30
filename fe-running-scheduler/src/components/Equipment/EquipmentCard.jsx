@@ -1,6 +1,5 @@
-import { ImageContainer } from "@/components/Equipment";
-import { formatDateYYMMDD } from "@/utils/formatDate";
-import Icons from "@/components/Icons";
+import { ImageContainer, Icons } from "@/components/generic";
+import { formatDateYYMMDD } from "@/lib/utils";
 
 const EquipmentCard = ({ equipment, image, onClick }) => {
   return (

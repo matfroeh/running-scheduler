@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { getImageByIdFromApi } from "@/data/image.js";
+import { getImageByIdFromApi } from "@/data";
 // import { updateRunCalendar } from "@/data/runs.js"; // Adjust the import path as necessary
 // import processGpxData from "@/logic/processGpxData.js";
 // import { findDayObjectByDate } from "@/utils/processRunningDataHelper.js";

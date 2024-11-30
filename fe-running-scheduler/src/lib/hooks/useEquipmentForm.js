@@ -2,9 +2,9 @@ import { useState, useCallback } from "react";
 import { useAuth } from "@/context";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { createEquipment } from "@/data/user";
-import { uploadImage } from "@/lib/fileHandling";
-import { verifyCreateEquipmentInput } from "@/lib/inputVerification";
+import { createEquipment } from "@/data";
+import { uploadImage } from "@/lib/utils";
+import { verifyCreateEquipmentInput } from "@/lib";
 import dayjs from "dayjs";
 
 export const useEquipmentForm = () => {
@@ -22,6 +22,7 @@ export const useEquipmentForm = () => {
   const [error, setError] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const { user } = useAuth();
   const { handleSetEquipmentList } = useOutletContext();
@@ -32,6 +33,8 @@ export const useEquipmentForm = () => {
 
     let imageId = null;
     try {
+      setIsUpdating(true);
+      
       if(selectedFile) {
         imageId = await handleImageUpload();
         if (!imageId) throw new Error("Error uploading image");
@@ -45,7 +48,11 @@ export const useEquipmentForm = () => {
       navigate(-1);
     } catch (error) {
       toast.error(`Error creating equipment: ${error.message}`);
+      setIsUpdating(false);
+    } finally {
+      setIsUpdating(false);
     }
+
   };
 
   const handleImageUpload = async () => {
@@ -82,5 +89,6 @@ export const useEquipmentForm = () => {
     handleCreate,
     imageUrl,
     handleImageChange,
+    isUpdating,
   };
 };

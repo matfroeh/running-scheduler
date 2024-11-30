@@ -1,4 +1,4 @@
-import { getAllTrainingSchedulesMetaData } from "../data/schedules";
+import { getAllTrainingSchedulesMetaData } from "@/data";
 
 
 // This loader will be used to only load the the meta data startDate and endDate of the training schedules

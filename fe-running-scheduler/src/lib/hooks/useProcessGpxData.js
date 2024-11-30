@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import processGpxData from "@/logic/processGpxData.js";
-import { findDayObjectByDate } from "@/utils/processRunningDataHelper.js";
-import { updateRunCalendar } from "@/data/runs.js";
-import { readMultipleFiles } from "@/lib/fileHandling.js";
+import { processGpxData } from "@/lib";
+import { findDayObjectByDate, readMultipleFiles } from "@/lib/utils";
+import { updateRunCalendar } from "@/data";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 

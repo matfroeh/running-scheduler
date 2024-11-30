@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useActionData, useNavigate } from "react-router-dom";
-import { processFormDataFromScheduler } from "@/logic/processFormDataFromScheduler";
-import { createTrainingSchedule } from "@/data/schedules";
-import { createRun } from "@/data/runs";
+import { processFormDataFromScheduler } from "@/lib";
+import { createTrainingSchedule, createRun } from "@/data";
 import { toast } from "react-toastify";
 
 export const useSaveNewSchedule = (handleSetSchedule, handleSetRuns) => {

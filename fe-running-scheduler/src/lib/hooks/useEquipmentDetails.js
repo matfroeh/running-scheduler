@@ -1,12 +1,17 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
-import { deleteEquipmentFromUserList, updateEquipment } from "@/data/user";
+import {
+  deleteEquipmentFromUserList,
+  updateEquipment,
+  getEquipmentById,
+  getImageByIdFromApi,
+  deleteImageById,
+} from "@/data";
 import { useAuth } from "@/context";
-import { uploadImage } from "@/lib/fileHandling";
-import { verifyUpdateEquipmentInput } from "@/lib/inputVerification";
-import { getEquipmentById } from "@/data/user.js";
-import { getImageByIdFromApi, deleteImageById } from "@/data/image.js";
+// ToDo: needs to put somewhere else in the folder structure
+import { uploadImage } from "@/lib/utils";
+import { verifyUpdateEquipmentInput } from "@/lib";
 
 export const useEquipmentDetails = (handleSetLoading) => {
   const { equipmentId } = useParams();
@@ -20,6 +25,7 @@ export const useEquipmentDetails = (handleSetLoading) => {
   const [imageId, setImageId] = useState("");
   const [error, setError] = useState(null);
   const [image, setImage] = useState();
+  const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -65,8 +71,10 @@ export const useEquipmentDetails = (handleSetLoading) => {
     let newImageId = null;
 
     try {
+      setIsUpdating(true);
+
       // upload new image, get new image id, and delete old image (ToDo: avoid in future by simply updating image)
-      if(selectedFile) {
+      if (selectedFile) {
         newImageId = await handleImageUpload();
         if (!newImageId) throw new Error("Error uploading image");
         handleDeleteOldImage(imageId);
@@ -74,7 +82,7 @@ export const useEquipmentDetails = (handleSetLoading) => {
       // if no image change or image upload failed, use old image id
       const updatedData = { ...formData, image: newImageId || formData.image };
       const res = await updateEquipment(user.userId, equipmentId, updatedData);
-      
+
       if (res.error) throw new Error(res.error);
       handleSetEquipmentList((prev) =>
         prev.map((item) => (item._id === equipmentId ? updatedData : item))
@@ -83,22 +91,34 @@ export const useEquipmentDetails = (handleSetLoading) => {
       navigate(-1);
     } catch (error) {
       toast.error(`Error: ${error.message}`);
+      setIsUpdating(false);
+    } finally {
+      setIsUpdating(false);
     }
   };
 
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this equipment?"))
       return;
-    await deleteEquipmentFromUserList(user.userId, equipmentId);
 
-    if (imageId) {
-      await deleteImageById(imageId);
+    try {
+      setIsUpdating(true);
+      await deleteEquipmentFromUserList(user.userId, equipmentId);
+
+      if (imageId) {
+        await deleteImageById(imageId);
+      }
+      handleSetEquipmentList((prev) =>
+        prev.filter((item) => item._id !== equipmentId)
+      );
+      toast.success("Deleted successfully");
+      navigate(-1);
+    } catch (error) {
+      toast.error(`Error deleting equipment: ${error.message}`);
+      setIsUpdating(false);
+    } finally {
+      setIsUpdating(false);
     }
-    handleSetEquipmentList((prev) =>
-      prev.filter((item) => item._id !== equipmentId)
-    );
-    toast.success("Deleted successfully");
-    navigate(-1);
   };
 
   const handleChange = useCallback(
@@ -144,5 +164,6 @@ export const useEquipmentDetails = (handleSetLoading) => {
     handleImageChange,
     imageUrl,
     image,
+    isUpdating,
   };
 };

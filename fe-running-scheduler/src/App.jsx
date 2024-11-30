@@ -4,33 +4,31 @@ import {
   Navigate,
 } from "react-router-dom";
 import {
+  Welcome,
+  Login,
+  SignUp,
+  NotFound,
+  Error,
+  Datenschutz,
+  Impressum,
+  CookieNote,
+  RootLayout,
+  AuthLayout,
+  Profile,
+  Overview,
   CalendarView,
+  CalendarEditModal,
   CreateScheduleModal,
   RunDetailsModal,
   TrainingDayDetailsModal,
   EquipmentModal,
-  Error,
-  NotFound,
-  Login,
-  SignUp,
-  Welcome,
-  Overview,
   EquipmentDetails,
   CreateEquipment,
-  Profile,
-  CalendarEditModal,
-  Datenschutz,
-  Impressum,
-} from "@/pages";
-import { RootLayout, AuthLayout } from "@/layouts";
-import { action as getFormData } from "@/actions/getFormData";
-import {
-  calendarIndexLoader,
-  // calendarByIdLoader,
-  overviewLoader,
-} from "@/loader";
+} from "@/components/pages";
+
+import { action as getFormData } from "@/actions";
+import { calendarIndexLoader, overviewLoader } from "@/loader";
 import { AuthContextProvider } from "@/context";
-import { CookieNote } from "@/components";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +57,7 @@ const router = createBrowserRouter([
         path: "/auth",
         element: <RootLayout />,
         loader: calendarIndexLoader,
+        // This is momentarily necessary, because the way of providing a loading feedback upon loading CalendarView and Overview will cause constant reloading of the data.
         shouldRevalidate: () => {
           return false;
         },
@@ -70,12 +69,6 @@ const router = createBrowserRouter([
           {
             path: "calendar/:calendarId?",
             element: <CalendarView />,
-            // loader:  ({params}) => {
-            //   return calendarByIdLoader(params.calendarId);
-            // },
-            // shouldRevalidate: () => {
-            //   return true;
-            // },
             action: getFormData,
             errorElement: <Error />,
             children: [
