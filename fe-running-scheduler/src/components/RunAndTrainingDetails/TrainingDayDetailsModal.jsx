@@ -57,6 +57,8 @@ const TrainingDayDetailsModal = () => {
       );
       if (!confirmDelete) return;
 
+      setIsUpdating(true);
+
       const updatedTrainingDayData = { ...schedule };
       updatedTrainingDayData.weeks[week].days[day] = { date: trainingDay.date };
       // console.log(updatedTrainingDayData.weeks[week].days[day]);
@@ -66,6 +68,9 @@ const TrainingDayDetailsModal = () => {
       navigate(-1);
     } catch (error) {
       toast.error(error.message);
+      setIsUpdating(false);
+    } finally {
+      setIsUpdating(false);
     }
   };
 

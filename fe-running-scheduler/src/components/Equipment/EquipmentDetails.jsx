@@ -5,6 +5,7 @@ import {
   InputErrorBar,
   Loading,
   ImageViewAndInputGroup,
+  ButtonLoadingState,
 } from "@/components/generic";
 import { FormEquipmentStats } from "@/components/Equipment/";
 import { useEquipmentDetails } from "@/lib/hooks";
@@ -26,6 +27,7 @@ const EquipmentDetails = () => {
     handleImageChange,
     imageUrl,
     image,
+    isUpdating,
   } = useEquipmentDetails(handleSetLoading);
 
   return (
@@ -36,8 +38,14 @@ const EquipmentDetails = () => {
         <>
           <h2 className="card-title text-xl">{formData.name} - Details</h2>
           <div className="flex space-x-2 justify-end">
-            <ButtonDelete onClick={handleDelete} />
-            <ButtonSave onClick={handleUpdate} />
+            {!isUpdating ? (
+              <>
+                <ButtonDelete onClick={handleDelete} />
+                <ButtonSave onClick={handleUpdate} />
+              </>
+            ) : (
+              <ButtonLoadingState text={"Updating..."} />
+            )}
           </div>
           <ImageViewAndInputGroup
             image={image}

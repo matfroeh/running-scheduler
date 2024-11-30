@@ -3,6 +3,7 @@ import {
   InputErrorBar,
   ImageViewAndInputGroup,
   ButtonSubmit,
+  ButtonLoadingState,
 } from "@/components/generic";
 import { useEquipmentForm } from "@/lib/hooks";
 import { FormEquipmentStats } from "@/components/Equipment";
@@ -15,13 +16,18 @@ const CreateEquipment = () => {
     handleCreate,
     imageUrl,
     handleImageChange,
+    isUpdating,
   } = useEquipmentForm();
 
   return (
     <CardModal>
       <h2 className="card-title text-xl">Add New Equipment</h2>
       <div className="flex space-x-2 justify-end">
-        <ButtonSubmit onClick={handleCreate} />
+        {!isUpdating ? (
+          <ButtonSubmit onClick={handleCreate} />
+        ) : (
+          <ButtonLoadingState text={"Creating..."} />
+        )}
       </div>
       <ImageViewAndInputGroup
         image={null}

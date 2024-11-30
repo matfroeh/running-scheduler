@@ -25,6 +25,7 @@ export const useEquipmentDetails = (handleSetLoading) => {
   const [imageId, setImageId] = useState("");
   const [error, setError] = useState(null);
   const [image, setImage] = useState();
+  const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -70,6 +71,8 @@ export const useEquipmentDetails = (handleSetLoading) => {
     let newImageId = null;
 
     try {
+      setIsUpdating(true);
+
       // upload new image, get new image id, and delete old image (ToDo: avoid in future by simply updating image)
       if (selectedFile) {
         newImageId = await handleImageUpload();
@@ -88,22 +91,34 @@ export const useEquipmentDetails = (handleSetLoading) => {
       navigate(-1);
     } catch (error) {
       toast.error(`Error: ${error.message}`);
+      setIsUpdating(false);
+    } finally {
+      setIsUpdating(false);
     }
   };
 
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this equipment?"))
       return;
-    await deleteEquipmentFromUserList(user.userId, equipmentId);
 
-    if (imageId) {
-      await deleteImageById(imageId);
+    try {
+      setIsUpdating(true);
+      await deleteEquipmentFromUserList(user.userId, equipmentId);
+
+      if (imageId) {
+        await deleteImageById(imageId);
+      }
+      handleSetEquipmentList((prev) =>
+        prev.filter((item) => item._id !== equipmentId)
+      );
+      toast.success("Deleted successfully");
+      navigate(-1);
+    } catch (error) {
+      toast.error(`Error deleting equipment: ${error.message}`);
+      setIsUpdating(false);
+    } finally {
+      setIsUpdating(false);
     }
-    handleSetEquipmentList((prev) =>
-      prev.filter((item) => item._id !== equipmentId)
-    );
-    toast.success("Deleted successfully");
-    navigate(-1);
   };
 
   const handleChange = useCallback(
@@ -149,5 +164,6 @@ export const useEquipmentDetails = (handleSetLoading) => {
     handleImageChange,
     imageUrl,
     image,
+    isUpdating,
   };
 };

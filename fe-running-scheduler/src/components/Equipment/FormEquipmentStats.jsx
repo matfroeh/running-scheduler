@@ -66,7 +66,7 @@ const FormEquipmentStats = ({ formData, onChange }) => {
       <div>
         <div>(Starting)-Distance: </div>
         <input
-          type="text"
+          type="number"
           name="distance"
           value={formData.distance}
           onChange={onChange}
@@ -76,7 +76,7 @@ const FormEquipmentStats = ({ formData, onChange }) => {
       <div>
         <div>Usage time until now (hours): </div>
         <input
-          type="text"
+          type="number"
           name="time"
           value={formData.time}
           onChange={onChange}

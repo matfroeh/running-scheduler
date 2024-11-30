@@ -12,6 +12,7 @@ import { TypeSelectOptions } from "@/components/RunAndTrainingDetails";
 import { useAuth } from "@/context";
 import { LineChartTimeVelocity } from "@/components/charts";
 import { formatDateYYMMDD } from "@/lib/utils";
+import { verifyRunDetailsInput } from "@/lib";
 
 const RunDetailsModal = () => {
   const { week, day } = useParams();
@@ -105,6 +106,8 @@ const RunDetailsModal = () => {
       );
       if (!confirmDelete) return;
 
+      setIsUpdating(true);
+
       const updatedRunningData = { ...runs };
       updatedRunningData.weeks[week].days[day] = { date: run.date };
       // console.log(updatedRunningData.weeks[week].days[day]);
@@ -114,37 +117,15 @@ const RunDetailsModal = () => {
       navigate(-1);
     } catch (error) {
       toast.error(error.message);
+      setIsUpdating(false);
+    } finally {
+      setIsUpdating(false);
     }
   };
 
   const handleInputVerification = () => {
-    if (!formData.name) {
-      setError("Please specify a name.");
-      return false;
-    }
-    // COMMENTED OUT BECAUSE WE ALLOW TO SET, FOR EXAMPLE, STRENGTH TRAINING DAYS WITH NO DISTANCE
-    // if (
-    //   !formData.distance ||
-    //   isNaN(formData.distance) ||
-    //   formData.distance <= 0
-    // ) {
-    //   setError("Distance must be a number greater than 0.");
-    //   return false;
-    // }
-    // if (
-    //   !formData.duration ||
-    //   isNaN(formData.duration) ||
-    //   formData.duration <= 0
-    // ) {
-    //   setError("Duration must be a number greater than 0.");
-    //   return false;
-    // }
-    // if (!formData.avg_hr || isNaN(formData.avg_hr) || formData.avg_hr <= 0) {
-    //   setError("Average heart rate must be a number greater than 0.");
-    //   return false;
-    // }
-    setError(null);
-    return true;
+    const isValid = verifyRunDetailsInput(formData, setError);
+    return isValid;
   };
 
   return (
