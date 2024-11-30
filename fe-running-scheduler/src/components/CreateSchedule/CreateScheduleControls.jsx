@@ -11,14 +11,14 @@ const CreateScheduleControls = ({ error, handleSubmit }) => {
 
       <button
         type="button"
-        className="px-4 py-2 rounded-lg mr-2 hover:bg-base-100 transition-colors"
+        className="btn btn-neutral mr-8"
         onClick={() => navigate(-1)}
       >
         Cancel
       </button>
       <button
         type="submit"
-        className="w-1/3 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+        className="btn btn-primary"
         onClick={(e) => handleSubmit(e)}
       >
         Create Schedule

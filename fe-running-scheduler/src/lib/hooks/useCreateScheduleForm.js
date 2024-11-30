@@ -6,7 +6,7 @@ export const useCreateScheduleForm = () => {
     title: "",
     weeks: "",
     date: "",
-    distance: 0,
+    distance: "",
     longRun: "none",
     workoutDay: "none",
   });
