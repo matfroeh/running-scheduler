@@ -35,6 +35,17 @@ const CalendarWeekRow = ({
 
   return (
     <>
+      <div className="ml-0.5 md:hidden">
+        <div className="text-left text-xs md:text-sm ml-3 mb-0.5">Summary</div>
+        <div>
+          <SummaryCard
+            scheduleWeek={scheduleDataWeek}
+            runningWeek={runningDataWeek}
+            weekNumber={weekNumber}
+            hideSchedule={hideSchedule}
+          />
+        </div>
+      </div>
       {Object.entries(scheduleDataWeek.days).map(([day, data]) => {
         return (
           <div key={day} className="flex flex-col justify-start">
@@ -71,8 +82,8 @@ const CalendarWeekRow = ({
           </div>
         );
       })}
-      <div>
-        <div className="text-left text-xs md:text-sm mb-0.5 ml-3">Summary</div>
+      <div className="hidden md:block mr-0.5">
+        <div className="text-left text-xs md:text-sm ml-3 mb-0.5">Summary</div>
         <div>
           <SummaryCard
             scheduleWeek={scheduleDataWeek}
@@ -84,7 +95,7 @@ const CalendarWeekRow = ({
       </div>
       <div
         key={`${weekNumber}, weekSpacer`}
-        className="col-span-4 md:col-span-8 border-4 md:border border-base-300"
+        className="col-span-4 md:col-span-8 border-y-8 md:border-y-2 border-base-300"
       ></div>
     </>
   );

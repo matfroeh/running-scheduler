@@ -27,10 +27,7 @@ import {
 } from "@/components/pages";
 
 import { action as getFormData } from "@/actions";
-import {
-  calendarIndexLoader,
-  overviewLoader,
-} from "@/loader";
+import { calendarIndexLoader, overviewLoader } from "@/loader";
 import { AuthContextProvider } from "@/context";
 
 const router = createBrowserRouter([
@@ -60,6 +57,7 @@ const router = createBrowserRouter([
         path: "/auth",
         element: <RootLayout />,
         loader: calendarIndexLoader,
+        // This is momentarily necessary, because the way of providing a loading feedback upon loading CalendarView and Overview will cause constant reloading of the data.
         shouldRevalidate: () => {
           return false;
         },

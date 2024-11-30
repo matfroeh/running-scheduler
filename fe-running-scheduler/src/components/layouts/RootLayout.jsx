@@ -8,10 +8,8 @@ import { useGetCalendarOrder } from "@/lib/hooks";
 import { ToastContainer } from "react-toastify";
 
 const RootLayout = () => {
-  // console.log("RootLayout");
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
-  // console.log(navigation.state);
 
   const navigate = useNavigate();
   const location = useLocation();
