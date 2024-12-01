@@ -1,5 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getTrainingScheduleById, getRunsById } from "@/data";
 
 // This hook is used to load the schedule and runs data for the calendar view and to handle the cycling through the calendars
@@ -11,50 +12,90 @@ export const useCalendarLoading = () => {
   const { calendarId } = useParams();
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [calendarIndex, setCalendarIndex] = useState(
     calendarIndexList.indexOf(calendarId) !== -1
       ? calendarIndexList.indexOf(calendarId)
       : currentIndex
   );
 
-  const [schedule, setSchedule] = useState(null);
-  const [runs, setRuns] = useState(null);
+  // Changing to using react-query to fetch the data
+  const {
+    data: schedule,
+    isLoading: scheduleLoading,
+    error: scheduleError,
+  } = useQuery({
+    queryKey: ["trainingSchedule", calendarId],
+    queryFn: () => getTrainingScheduleById(calendarId),
+    enabled: !!calendarId, // Only fetch when calendarId is available
+  });
 
-  useEffect(() => {
-    if (!calendarId) {
-      setLoading(false);
-      return;
-    }
-    async function fetchData() {
-      //   console.log("useEffect fetching", calendarId);
-      const schedule = await getTrainingScheduleById(calendarId);
-      const runs = await getRunsById(calendarId);
-      setSchedule(schedule);
-      setRuns(runs);
-    }
-    fetchData();
-    setLoading(false);
+  const {
+    data: runs,
+    isLoading: runsLoading,
+    error: runsError,
+  } = useQuery({
+    queryKey: ["runs", calendarId],
+    queryFn: () => getRunsById(calendarId),
+    enabled: !!calendarId,
+  });
 
-    return () => {
-      setSchedule(null);
-      setRuns(null);
-    };
-  }, [calendarId]);
+  // Apply loading states for the calendar and runs
+  const isLoading = scheduleLoading || runsLoading;
+  const errors = scheduleError || runsError;
 
+
+  // Old way of fetching the data
+  //
+  // const [schedule, setSchedule] = useState(null);
+  // const [runs, setRuns] = useState(null);
+  //
+  // useEffect(() => {
+  //   if (!calendarId) {
+  //     setLoading(false);
+  //     return;
+  //   }
+  //   async function fetchData() {
+  //     //   console.log("useEffect fetching", calendarId);
+  //     const schedule = await getTrainingScheduleById(calendarId);
+  //     const runs = await getRunsById(calendarId);
+  //     setSchedule(schedule);
+  //     setRuns(runs);
+  //   }
+  //   fetchData();
+  //   setLoading(false);
+
+  //   return () => {
+  //     setSchedule(null);
+  //     setRuns(null);
+  //   };
+  // }, [calendarId]);
+
+  // Old setters with useState, useEffect
+  // const handleSetRuns = useCallback((newRuns) => {
+  //   setRuns(newRuns);
+  // }, []);
+
+  // const handleSetSchedule = useCallback((newSchedule) => {
+  //   setSchedule(newSchedule);
+  // }, []);
+
+
+  // setLoading not necessary anymore as with react-query the loading state works as expected
   const showCurrentCalendar = useCallback(() => {
     if (calendarIndex === currentIndex) {
       return;
     }
-    setLoading(true);
+    // setLoading(true);
     setCalendarIndex(currentIndex);
     navigate(`/auth/calendar/${calendarIndexList[currentIndex]}`);
   }, [calendarIndex, currentIndex, calendarIndexList, navigate]);
 
   const showPreviousCalendar = useCallback(() => {
     if (calendarIndex > 0) {
-      setLoading(true);
+      // setLoading(true);
       setCalendarIndex(calendarIndex - 1);
       navigate(`/auth/calendar/${calendarIndexList[calendarIndex - 1]}`);
     }
@@ -62,32 +103,42 @@ export const useCalendarLoading = () => {
 
   const showNextCalendar = useCallback(() => {
     if (calendarIndex < calendarIndexList.length - 1) {
-      setLoading(true);
+      // setLoading(true);
       setCalendarIndex(calendarIndex + 1);
       navigate(`/auth/calendar/${calendarIndexList[calendarIndex + 1]}`);
     }
   }, [calendarIndex, calendarIndexList, navigate]);
 
-  const handleSetRuns = useCallback((newRuns) => {
-    setRuns(newRuns);
-  }, []);
 
-  const handleSetSchedule = useCallback((newSchedule) => {
-    setSchedule(newSchedule);
-  }, []);
+  // Setter functions using react-query
+  const handleSetSchedule = useCallback(
+    (newSchedule) => {
+      queryClient.setQueryData(["trainingSchedule", calendarId], newSchedule);
+    },
+    [queryClient, calendarId]
+  );
+
+  const handleSetRuns = useCallback(
+    (newRuns) => {
+      queryClient.setQueryData(["runs", calendarId], newRuns);
+    },
+    [queryClient, calendarId]
+  );
 
   return {
-    loading,
+    loading: isLoading,
     schedule,
     handleSetSchedule,
     runs,
     handleSetRuns,
+    errors,
     cyclingProps: {
       showCurrentCalendar,
       showPreviousCalendar,
       showNextCalendar,
       calendarIndex,
       calendarSize: calendarIndexList.length,
+      currentIndex,
     },
   };
 };

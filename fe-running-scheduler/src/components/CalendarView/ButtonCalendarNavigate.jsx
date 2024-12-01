@@ -1,11 +1,9 @@
-const ButtonCalendarNavigate = ({
-  text,
-  onClick,
-  disabled,
-}) => {
+import { cn } from "@/lib/utils";
+
+const ButtonCalendarNavigate = ({ text, onClick, disabled, className }) => {
   return (
     <button
-      className="btn btn-xs sm:btn-sm text-xs md:text-sm"
+      className={cn("btn btn-xs sm:btn-sm text-xs md:text-sm", className)}
       onClick={onClick}
       disabled={disabled ? true : false}
     >

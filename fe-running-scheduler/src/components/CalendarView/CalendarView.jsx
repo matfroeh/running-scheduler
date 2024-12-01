@@ -6,6 +6,7 @@ import {
   useCalendarViewToggles,
 } from "@/lib/hooks";
 import { Loading } from "@/components/generic";
+import { ErrorPage } from "@/components/misc";
 
 const CalendarView = () => {
   // Custom hook for toggling the notes and schedule in the calendar view
@@ -17,6 +18,7 @@ const CalendarView = () => {
     loading,
     schedule,
     runs,
+    errors,
     handleSetSchedule,
     handleSetRuns,
     cyclingProps,
@@ -25,7 +27,9 @@ const CalendarView = () => {
   // Custom hook for handling saving the newly created schedule
   useSaveNewSchedule(handleSetSchedule, handleSetRuns);
 
-  const isCalendarListEmpty = cyclingProps.calendarSize === 0;
+  if (errors) {
+    return <ErrorPage />;
+  }
 
   return (
     <>
@@ -37,11 +41,9 @@ const CalendarView = () => {
         toggleNotes={toggleNotes}
         toggleSchedule={toggleSchedule}
       />
-      {/* <div className="flex-grow min-w-[680px] max-w-[1400px]"> */}
       <div className="flex-grow min-w-[320px]">
-
         {loading && <Loading />}
-        {!isCalendarListEmpty && !schedule && <Loading />}
+        {/* {!isCalendarListEmpty && !schedule && <Loading />} */}
         {!loading && schedule && (
           <CalendarBody
             schedule={schedule}
@@ -50,6 +52,7 @@ const CalendarView = () => {
             hideSchedule={hideSchedule}
           />
         )}
+
         <Outlet
           context={{
             runs,
