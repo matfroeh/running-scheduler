@@ -19,6 +19,7 @@ const CalendarBar = ({
     showNextCalendar,
     calendarIndex,
     calendarSize,
+    currentIndex,
   },
   toggleNotes,
   toggleSchedule,
@@ -59,6 +60,7 @@ const CalendarBar = ({
             text={"Current"}
             onClick={showCurrentCalendar}
             disabled={!runs}
+            className={(calendarIndex === currentIndex) && "border-info hover:border-info cursor-default"}
           />
           <ButtonCalendarNavigate
             text={"Next"}

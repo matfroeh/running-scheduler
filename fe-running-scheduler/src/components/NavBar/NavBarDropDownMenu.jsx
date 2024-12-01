@@ -1,8 +1,8 @@
 const NavBarDropDownMenu = ({imageUrl, user, openProfileModal, openEquipmentModal, handleLogOut, openLeftSide=false}) => {
   return (
-    <details className={`dropdown ${openLeftSide? "dropdown-left" : "dropdown-bottom"}`}>
-    <summary
-      // tabIndex={0}
+    <div className={`dropdown ${openLeftSide? "dropdown-left" : "dropdown-bottom"}`}>
+    <div
+      tabIndex={0}
       role="button"
       className="btn btn-ghost btn-circle avatar"
     >
@@ -13,7 +13,7 @@ const NavBarDropDownMenu = ({imageUrl, user, openProfileModal, openEquipmentModa
           alt="profile"
         />
       </div>
-    </summary>
+    </div>
     <ul
       tabIndex={0}
       className="menu menu-lg md:menu-md dropdown-content bg-base-300 rounded-box z-[50] mt-3 w-52 p-2 shadow"
@@ -31,7 +31,7 @@ const NavBarDropDownMenu = ({imageUrl, user, openProfileModal, openEquipmentModa
         <a onClick={handleLogOut}>Logout</a>
       </li>
     </ul>
-  </details>
+  </div>
   )
 }
 

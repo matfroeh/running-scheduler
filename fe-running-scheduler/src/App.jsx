@@ -3,6 +3,7 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Welcome,
   Login,
@@ -25,15 +26,18 @@ import {
   EquipmentDetails,
   CreateEquipment,
 } from "@/components/pages";
-
 import { action as getFormData } from "@/actions";
 import { calendarIndexLoader, overviewLoader } from "@/loader";
 import { AuthContextProvider } from "@/context";
+
+// For handling data fetching
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Welcome />,
+    errorElement: <Error />,
     children: [
       {
         path: "login",
@@ -52,6 +56,7 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     element: <AuthLayout />,
+    errorElement: <Error />,
     children: [
       {
         path: "/auth",
@@ -61,6 +66,7 @@ const router = createBrowserRouter([
         shouldRevalidate: () => {
           return false;
         },
+        errorElement: <Error />,
         children: [
           {
             index: true,
@@ -99,6 +105,7 @@ const router = createBrowserRouter([
           {
             path: "equipment",
             element: <EquipmentModal />,
+            errorElement: <Error />,
             children: [
               {
                 path: ":equipmentId",
@@ -113,6 +120,7 @@ const router = createBrowserRouter([
           {
             path: "profile",
             element: <Profile />,
+            errorElement: <Error />,
           },
         ],
       },
@@ -133,7 +141,9 @@ function App() {
     <>
       <CookieNote />
       <AuthContextProvider>
-        <RouterProvider router={router} />
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
       </AuthContextProvider>
     </>
   );

@@ -5,25 +5,39 @@ const baseURL = `${API_URL}/user`;
 
 
 export const getEquipmentListFromUser = async (userId) => {
-  const response = await fetch(`${baseURL}/${userId}`, {
+  const res = await fetch(`${baseURL}/${userId}`, {
     method: "GET",
     credentials: "include",
   });
-  const data = await response.json();
+  if (!res.ok) {
+    const errorData = await res.json();
+    if (!errorData.error) {
+      throw new Error("An error occurred while fetching the equipment list");
+    }
+    throw new Error(errorData.error);
+  }
+  const data = await res.json();
   return data;
 };
 
 export const getEquipmentById = async (userId, equipmentId) => {
-  const response = await fetch(`${baseURL}/${userId}/${equipmentId}`, {
+  const res = await fetch(`${baseURL}/${userId}/${equipmentId}`, {
     method: "GET",
     credentials: "include",
   });
-  const data = await response.json();
+  if (!res.ok) {
+    const errorData = await res.json();
+    if (!errorData.error) {
+      throw new Error("An error occurred while fetching the equipment data");
+    }
+    throw new Error(errorData.error);
+  }
+  const data = await res.json();
   return data;
 }
 
 export const updateUser = async (userId, user) => {
-  const response = await fetch(`${baseURL}/${userId}`, {
+  const res = await fetch(`${baseURL}/${userId}`, {
     method: "PUT",
     credentials: "include",
     headers: {
@@ -31,12 +45,19 @@ export const updateUser = async (userId, user) => {
     },
     body: JSON.stringify(user),
   });
-  const data = await response.json();
+  if (!res.ok) {
+    const errorData = await res.json();
+    if (!errorData.error) {
+      throw new Error("An error occurred while updating the user data");
+    }
+    throw new Error(errorData.error);
+  }
+  const data = await res.json();
   return data;
 };
 
 export const createEquipment = async (userId, equipment) => {
-  const response = await fetch(`${baseURL}/${userId}`, {
+  const res = await fetch(`${baseURL}/${userId}`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -44,12 +65,19 @@ export const createEquipment = async (userId, equipment) => {
     },
     body: JSON.stringify(equipment),
   });
-  const data = await response.json();
+  if (!res.ok) {
+    const errorData = await res.json();
+    if (!errorData.error) {
+      throw new Error("An error occurred while creating the equipment");
+    }
+    throw new Error(errorData.error);
+  }
+  const data = await res.json();
   return data;
 };
 
 export const updateEquipment = async (userId, equipmentId, equipment) => {
-  const response = await fetch(`${baseURL}/${userId}/${equipmentId}`, {
+  const res = await fetch(`${baseURL}/${userId}/${equipmentId}`, {
     method: "PUT",
     credentials: "include",
     headers: {
@@ -57,24 +85,45 @@ export const updateEquipment = async (userId, equipmentId, equipment) => {
     },
     body: JSON.stringify(equipment),
   });
-  const data = await response.json();
+  if (!res.ok) {
+    const errorData = await res.json();
+    if (!errorData.error) {
+      throw new Error("An error occurred while updating the equipment data");
+    }
+    throw new Error(errorData.error);
+  }
+  const data = await res.json();
   return data;
 };
 
 export const deleteEquipmentFromUserList = async (userId, equipmentId) => {
-  const response = await fetch(`${baseURL}/${userId}/${equipmentId}`, {
+  const res = await fetch(`${baseURL}/${userId}/${equipmentId}`, {
     method: "DELETE",
     credentials: "include",
   });
-  const data = await response.json();
+  if (!res.ok) {
+    const errorData = await res.json();
+    if (!errorData.error) {
+      throw new Error("An error occurred while deleting the equipment");
+    }
+    throw new Error(errorData.error);
+  }
+  const data = await res.json();
   return data;
 };
 
 export const deleteUser = async (userId) => {
-  const response = await fetch(`${baseURL}/${userId}`, {
+  const res = await fetch(`${baseURL}/${userId}`, {
     method: "DELETE",
     credentials: "include",
   });
-  const data = await response.json();
+  if (!res.ok) {
+    const errorData = await res.json();
+    if (!errorData.error) {
+      throw new Error("An error occurred while deleting the user");
+    }
+    throw new Error(errorData.error);
+  }
+  const data = await res.json();
   return data;
 };

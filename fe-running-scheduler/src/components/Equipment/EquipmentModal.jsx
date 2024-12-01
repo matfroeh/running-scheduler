@@ -2,17 +2,25 @@ import { Link, Outlet } from "react-router-dom";
 import { useEquipmentData } from "@/lib/hooks";
 import { EquipmentCard } from "@/components/Equipment";
 import { Loading } from "@/components/generic";
+import { ErrorPage } from "@/components/misc";
 
+
+// Not a modal anymore, but a page
 const EquipmentModal = () => {
   const {
     equipmentList,
     handleSetEquipmentList,
     loading,
+    errors,
     images,
     openEquipmentDetails,
   } = useEquipmentData();
 
   if (loading) return <Loading />;
+
+  if (errors) {
+    return <ErrorPage />;
+  }
 
   return (
     <>
