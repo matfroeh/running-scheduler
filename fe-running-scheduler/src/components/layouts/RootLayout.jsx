@@ -26,7 +26,7 @@ const RootLayout = () => {
     navigate(`calendar/${currentCalendarId}`);
 
   return (
-    <div className="container flex flex-col min-h-screen zoomable mx-auto min-w-[320px] max-w-[1400px]">
+    <div className="container flex flex-col min-h-screen zoomable mx-auto min-w-[320px] max-w-[1300px]">
       <ToastContainer position="top-right" autoClose={3500} theme="colored" />
       <NavBar />
       {isLoading ? (

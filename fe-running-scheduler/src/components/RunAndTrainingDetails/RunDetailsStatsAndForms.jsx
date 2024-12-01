@@ -121,7 +121,7 @@ const RunDetailsStatsAndForms = ({
           )}
         </div>
       </div>
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col justify-center max-w-[570px]">
         {!isEditMode &&
           run?.timeArray?.length > 0 &&
           run?.velocityArray?.length > 0 && (
