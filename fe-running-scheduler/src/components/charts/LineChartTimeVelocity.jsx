@@ -2,7 +2,13 @@ import { Line } from "react-chartjs-2";
 import "chart.js/auto";
 
 // adjusted for displaying the time-velocity diagram in the run details modals
-const LineChartTimeVelocity = ({ xLabel, yFunction, yLabel, yAxisReversed, color }) => {
+const LineChartTimeVelocity = ({
+  xLabel,
+  yFunction,
+  yLabel,
+  yAxisReversed,
+  color,
+}) => {
   const data = {
     labels: xLabel,
     datasets: [
@@ -36,7 +42,7 @@ const LineChartTimeVelocity = ({ xLabel, yFunction, yLabel, yAxisReversed, color
   };
 
   return (
-    <div className="w-full">
+    <div className="flex flex-col items-center justify-center">
       <Line data={data} options={options} />
     </div>
   );

@@ -1,4 +1,12 @@
 const NavBarDropDownMenu = ({imageUrl, user, openProfileModal, openEquipmentModal, handleLogOut, openLeftSide=false}) => {
+
+  const handleMenuClick = () => {
+    const elem = document.activeElement;
+    if (elem) {
+      elem?.blur();
+    }
+  };
+
   return (
     <div className={`dropdown ${openLeftSide? "dropdown-left" : "dropdown-bottom"}`}>
     <div
@@ -21,13 +29,13 @@ const NavBarDropDownMenu = ({imageUrl, user, openProfileModal, openEquipmentModa
       <li>
         <h2 className="text-lg font-bold">{user?.userName}</h2>
       </li>
-      <li>
+      <li onClick={handleMenuClick}>
         <a onClick={openProfileModal}>Profile</a>
       </li>
-      <li>
+      <li onClick={handleMenuClick}>
         <a onClick={openEquipmentModal}>Equipment</a>
       </li>
-      <li>
+      <li onClick={handleMenuClick} >
         <a onClick={handleLogOut}>Logout</a>
       </li>
     </ul>
