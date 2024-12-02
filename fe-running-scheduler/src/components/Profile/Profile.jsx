@@ -15,7 +15,7 @@ const Profile = () => {
 
   const [openPasswordModal, setOpenPasswordModal] = useState(false);
 
-  const handleSetPasswordModal = (value) => {
+  const handleSetPasswordModalOpen = (value) => {
     setOpenPasswordModal(value);
   };
 
@@ -53,7 +53,7 @@ const Profile = () => {
           </button>
         </div>
       </div>
-      <Modal isOpen={openPasswordModal} setOpen={handleSetPasswordModal}>
+      <Modal isOpen={openPasswordModal} setOpen={handleSetPasswordModalOpen}>
         <h2 className="card-title text-xl">Change Password</h2>
         <ChangePwForm />
       </Modal>

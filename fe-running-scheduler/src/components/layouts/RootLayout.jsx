@@ -16,7 +16,7 @@ const RootLayout = () => {
 
   // Custom hook to get the current calendar index and the list of calendar ids
   // that will be used for cycling through the calendars
-  const { calendarIndexList, currentIndex } = useGetCalendarOrder();
+  const { calendarIndexList, currentIndex, calendarTitleList } = useGetCalendarOrder();
   const currentCalendarId = calendarIndexList[currentIndex];
 
   // Serves as a re-direct to the calendar view displaying the current calendar
@@ -32,7 +32,7 @@ const RootLayout = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <Outlet context={{ calendarIndexList, currentIndex }} />
+        <Outlet context={{ calendarIndexList, currentIndex, calendarTitleList }} />
       )}
       {/* <Outlet context={{ calendarIndexList, currentIndex }} /> */}
       <Footer />
