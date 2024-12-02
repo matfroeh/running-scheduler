@@ -26,7 +26,7 @@ userRouter.use([verifyTokenMiddleware, demoProtectionMiddleware]);
 userRouter
   .route("/:userId")
   .get(getEquipmentListFromUser)
-  .put(updateUser) // we will use put to set the image_id in the user table
+  .put(updateUser) // used to set the image_id in the user table
   .post(validateJOI(equipmentSchema), createEquipment) // create user equipment and add to user equipment list
   .delete(deleteUser); // delete user
 userRouter

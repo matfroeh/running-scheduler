@@ -1,5 +1,7 @@
-import { CardModal, ImageViewAndInputGroup } from "@/components/generic";
+import { CardModal, Modal, ImageViewAndInputGroup } from "@/components/generic";
 import { useProfileData } from "@/lib/hooks";
+import { useState } from "react";
+import { ChangePwForm } from "@/components/Profile";
 
 const Profile = () => {
   const {
@@ -10,6 +12,12 @@ const Profile = () => {
     image,
     handleImageChange,
   } = useProfileData();
+
+  const [openPasswordModal, setOpenPasswordModal] = useState(false);
+
+  const handleSetPasswordModal = (value) => {
+    setOpenPasswordModal(value);
+  };
 
   return (
     <CardModal>
@@ -30,12 +38,25 @@ const Profile = () => {
           handleImageChange={handleImageChange}
         />
       </div>
-      <div className="grid grid-cols-2 content-start min-h-48">
-        <div className="flex flex-col  gap-2">
+      <div className="content-start min-h-48">
+        <div className="flex flex-col  gap-4">
           <p>Username: {user.userName}</p>
           <p>Email: {user.email}</p>
         </div>
+
+        <div className="mt-20">
+          <button
+            className="btn btn-sm w-max btn-primary"
+            onClick={() => setOpenPasswordModal(true)}
+          >
+            Change Password
+          </button>
+        </div>
       </div>
+      <Modal isOpen={openPasswordModal} setOpen={handleSetPasswordModal}>
+        <h2 className="card-title text-xl">Change Password</h2>
+        <ChangePwForm />
+      </Modal>
       <div className="flex justify-end">
         <button className="btn btn-sm w-max btn-error" onClick={deleteAccount}>
           Delete Account
@@ -46,12 +67,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-{
-  /* <button className="btn btn-sm w-max btn-primary">
-Change Username/Email
-</button>
-<button className="btn btn-sm w-max btn-primary">
-Change Password
-</button> */
-}

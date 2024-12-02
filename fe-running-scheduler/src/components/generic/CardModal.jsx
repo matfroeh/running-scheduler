@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { CardElementCloseButton } from "@/components/generic";
 
-const CardModal = ({ children }) => {
+const CardModal = ({ children, open = true }) => {
   const navigate = useNavigate();
+
+
   return (
     <div
-      className="modal modal-open bg-black bg-opacity-70 flex justify-center items-center z-50"
+      className={`modal bg-black bg-opacity-70 flex justify-center items-center z-50` + (open ? " modal-open" : " modal-closed")}
       onClick={() => navigate(-1)}
     >
       <div
