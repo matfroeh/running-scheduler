@@ -110,3 +110,12 @@ export const verifyRunDetailsInput = (formData, setError) => {
   setError(null);
   return true;
 };
+
+export const verifyScheduleDetailsInput = (formData, setError) => {
+  if (!formData.type) {
+    setError("Please select a type.");
+    return false;
+  }
+  setError(null);
+  return true;
+};
