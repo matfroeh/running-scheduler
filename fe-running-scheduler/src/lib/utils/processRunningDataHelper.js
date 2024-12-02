@@ -50,6 +50,25 @@ export const findDayObjectByDate = (date, runningData) => {
   return [null, null];
 };
 
+// Checks if the calendar (schedule or runs object) contains today's date
+// params: schedule: object:{meta: object:{startDate: string, endDate: string}}
+export const calendarContainsTodaysDate = (schedule) => {
+  const today = new Date();
+  const calendarStartDate = new Date(schedule.meta.startDate);
+  const calendarEndDate = new Date(schedule.meta.endDate);
+  return today >= calendarStartDate && today <= calendarEndDate;
+};
+
+// Finds in which week of the calendar the date of today is
+// returns: "week#" if today is in the calendar or null
+export const weekNumberOfToday = (schedule) => {
+  let week = null;
+  if (calendarContainsTodaysDate(schedule)) {
+    week = findDayObjectByDate(new Date().toISOString(), schedule)[0];
+  }
+  return week;
+};
+
 //
 // export const findDayObjectByDate = (date, runningData) => {
 //   Object.entries(runningData).map(([week, data]) => {
