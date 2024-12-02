@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 import { FaArrowDown } from "react-icons/fa"; // FontAwesome arrow icon
 
-const ButtonScrollToRef = ({ forwardRef, className }) => {
+const ButtonScrollToRef = ({ forwardRef, className, blockOption = "start" }) => {
   const [visible, setVisible] = useState(true);
 
   // Handle scroll visibility
@@ -17,7 +17,7 @@ const ButtonScrollToRef = ({ forwardRef, className }) => {
 
   // Scroll to top function
   const scrollToRef = () => {
-    forwardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    forwardRef.current?.scrollIntoView({ behavior: "smooth", block: blockOption });
   };
 
   return (
