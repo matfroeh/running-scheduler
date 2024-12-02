@@ -1,7 +1,12 @@
 import { useState } from "react";
 
-const JsonFileHandler = ( {scheduleCalendars, runCalendars} ) => {
+const JsonFileHandler = ({ schedule, runs, calendarTitle }) => {
   const [importedJson, setImportedJson] = useState(null);
+
+  const combinedCalendars = {
+    schedule: schedule,
+    runs: runs,
+  };
 
   // Function to export a JSON object to a file
   const exportJson = (jsonObject, fileName = "data.json") => {
@@ -35,24 +40,13 @@ const JsonFileHandler = ( {scheduleCalendars, runCalendars} ) => {
   };
 
   return (
-    <div className="flex gap-4">
-
-      <div>
-
-      
-        <button className="btn"
-          onClick={() =>
-            exportJson(scheduleCalendars, "trainingSchedules.json")
-          }
+    <div className="flex flex-col justify-center gap-4">
+      <div className="flex justify-center">
+        <button
+          className="btn"
+          onClick={() => exportJson(combinedCalendars, "calendars.json")}
         >
-          Export Training Schedules as JSON
-        </button>
-        <button className="btn"
-          onClick={() =>
-            exportJson(runCalendars, "runningLogs.json")
-          }
-        >
-          Export Running Logs as JSON
+          {`Export \u0022${calendarTitle}\u0022 as JSON`}
         </button>
       </div>
 

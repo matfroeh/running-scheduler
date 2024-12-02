@@ -8,6 +8,9 @@ import EquipmentSelector from "./EquipmentSelector";
 import RunDetailsTitle from "./RunDetailsTitle";
 import RunDetailsStatsAndForms from "./RunDetailsStatsAndForms";
 import NotesField from "./NotesField";
+import TrainingDayDetailsButtonGroup from "./TrainingDayDetailsButtonGroup";
+import TrainingDayDetailsForm from "./TrainingDayDetailsForm";
+import TrainingDayDetailsTitle from "./TrainingDayDetailsTitle";
 
 export {
   RunDetailsModal,
@@ -19,4 +22,7 @@ export {
   RunDetailsTitle,
   RunDetailsStatsAndForms,
   NotesField,
+  TrainingDayDetailsButtonGroup,
+  TrainingDayDetailsForm,
+  TrainingDayDetailsTitle,
 };

@@ -19,6 +19,7 @@ const CalendarWeekRow = ({
   runningDataWeek,
   notes,
   hideSchedule,
+  forwardRef,
 }) => {
   const navigate = useNavigate();
 
@@ -95,6 +96,7 @@ const CalendarWeekRow = ({
       </div>
       <div
         key={`${weekNumber}, weekSpacer`}
+        ref={forwardRef}
         className="col-span-4 md:col-span-8 border-y-8 md:border-y-2 border-base-300"
       ></div>
     </>

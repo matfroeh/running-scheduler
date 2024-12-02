@@ -86,27 +86,36 @@ export const verifyRunDetailsInput = (formData, setError) => {
     setError("Please specify a name.");
     return false;
   }
-  // COMMENTED OUT BECAUSE WE ALLOW TO SET, FOR EXAMPLE, STRENGTH TRAINING DAYS WITH NO DISTANCE
-  // if (
-  //   !formData.distance ||
-  //   isNaN(formData.distance) ||
-  //   formData.distance <= 0
-  // ) {
-  //   setError("Distance must be a number greater than 0.");
-  //   return false;
-  // }
-  // if (
-  //   !formData.duration ||
-  //   isNaN(formData.duration) ||
-  //   formData.duration <= 0
-  // ) {
-  //   setError("Duration must be a number greater than 0.");
-  //   return false;
-  // }
-  // if (!formData.avg_hr || isNaN(formData.avg_hr) || formData.avg_hr <= 0) {
-  //   setError("Average heart rate must be a number greater than 0.");
-  //   return false;
-  // }
+  if (formData.distance < 0) {
+    setError("Distance must be a positive number.");
+    return false;
+  }
+  if (formData.avg_hr < 0) {
+    setError("Average heart rate must be a positive number.");
+    return false;
+  }
+  if (formData.avg_hr == 0) {
+    setError("Average heart rate must be greater than zero.");
+    return false;
+  }
+  if (formData.effort == 0) {
+    setError("Effort must be greater than zero.");
+    return false;
+  }
+
+  setError(null);
+  return true;
+};
+
+export const verifyScheduleDetailsInput = (formData, setError) => {
+  if (!formData.type) {
+    setError("Please select a type.");
+    return false;
+  }
+  if (formData.distance < 0) {
+    setError("Distance must be a positive number.");
+    return false;
+  }
   setError(null);
   return true;
 };
