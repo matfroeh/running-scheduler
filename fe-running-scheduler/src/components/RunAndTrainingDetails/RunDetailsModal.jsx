@@ -25,19 +25,21 @@ const RunDetailsModal = () => {
   return (
     <>
       <CardModal>
-        <RunDetailsTitle
-          isEditMode={isEditMode}
-          name={formData.name}
-          date={formData.date}
-          handleChange={handleChange}
-        />
-        <RunDetailsButtonGroup
-          isUpdating={isUpdating}
-          handleDelete={handleDelete}
-          toggleEditMode={toggleEditMode}
-          isEditMode={isEditMode}
-          update={update}
-        />
+        <div className="flex justify-between flex-wrap gap-y-2 mt-4">
+          <RunDetailsTitle
+            isEditMode={isEditMode}
+            name={formData.name}
+            date={formData.date}
+            handleChange={handleChange}
+          />
+          <RunDetailsButtonGroup
+            isUpdating={isUpdating}
+            handleDelete={handleDelete}
+            toggleEditMode={toggleEditMode}
+            isEditMode={isEditMode}
+            update={update}
+          />
+        </div>
 
         {isEditMode && error && <InputErrorBar error={error} />}
 

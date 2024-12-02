@@ -7,7 +7,7 @@ const TrainingDayDetailsTitle = ({formData, handleChange}) => {
       <span className="absolute top-2 left-2 ">
         {formatDateYYMMDD(formData.date)}
       </span>
-      <h2 className="card-title text-xl font-bold mt-4">
+      <h2 className="card-title text-sm md:text-base lg:text-xl font-bold mt-4">
         <TypeSelectOptions type={formData.type} handleChange={handleChange} />
       </h2>
     </>

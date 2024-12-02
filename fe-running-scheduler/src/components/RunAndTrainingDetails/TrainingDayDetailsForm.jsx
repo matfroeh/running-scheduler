@@ -14,7 +14,7 @@ const TrainingDayDetailsForm = ({formData, handleChange}) => {
         </div>
       </div>
       <div className="mt-4">
-        <h3 className="text-lg font-semibold">Description: </h3>
+        <h3 className="lg:text-lg font-semibold">Description: </h3>
         <textarea
           placeholder="Add your Workout protocol here"
           rows={4}

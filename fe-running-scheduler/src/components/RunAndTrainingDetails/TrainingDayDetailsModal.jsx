@@ -12,15 +12,17 @@ const TrainingDayDetailsModal = () => {
 
   return (
     <CardModal>
-      <TrainingDayDetailsTitle
-        formData={formData}
-        handleChange={handleChange}
-      />
-      <TrainingDayDetailsButtonGroup
-        isUpdating={isUpdating}
-        handleDelete={handleDelete}
-        update={update}
-      />
+      <div className="flex justify-between flex-wrap gap-y-4 mt-4">
+        <TrainingDayDetailsTitle
+          formData={formData}
+          handleChange={handleChange}
+        />
+        <TrainingDayDetailsButtonGroup
+          isUpdating={isUpdating}
+          handleDelete={handleDelete}
+          update={update}
+        />
+      </div>
       <InputErrorBar error={error} />
       <TrainingDayDetailsForm formData={formData} handleChange={handleChange} />
     </CardModal>
