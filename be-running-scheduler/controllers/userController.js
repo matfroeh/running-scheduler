@@ -53,6 +53,7 @@ export const updateUser = asyncHandler(async (req, res, next) => {
 export const createEquipment = asyncHandler(async (req, res, next) => {
   const { userId } = req.params;
   const user = await User.findOne({ _id: userId });
+  
   if (!user)
     return next(new ErrorResponse(`User not found with id of ${userId}`, 404));
   const equipment = await Equipment.create({ ...req.body, owner: userId });

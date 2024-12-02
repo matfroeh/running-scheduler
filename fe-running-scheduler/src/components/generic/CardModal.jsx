@@ -10,7 +10,7 @@ const CardModal = ({ children }) => {
     >
       <div
         // className="card container max-h-screen xl:max-w-[50%] modal-window p-4 bg-base-100 rounded-lg border shadow-lg"
-        className="card container mr-2 max-h-screen lg:max-w-[800px] modal-window p-0 bg-base-100 rounded-lg border shadow-lg"
+        className="card container max-h-screen lg:max-w-[800px] modal-window p-0 bg-base-100 rounded-lg border shadow-lg"
 
         onClick={(e) => e.stopPropagation()}
       >

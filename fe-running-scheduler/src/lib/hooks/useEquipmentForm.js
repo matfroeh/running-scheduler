@@ -4,7 +4,7 @@ import { useOutletContext, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { createEquipment } from "@/data";
 import { uploadImage } from "@/lib/utils";
-import { verifyCreateEquipmentInput } from "@/lib";
+import { verifyEquipmentInput } from "@/lib";
 import dayjs from "dayjs";
 
 export const useEquipmentForm = () => {
@@ -29,7 +29,7 @@ export const useEquipmentForm = () => {
   const navigate = useNavigate();
 
   const handleCreate = async () => {
-    if (!verifyCreateEquipmentInput(formData, setError)) return;
+    if (!verifyEquipmentInput(formData, setError)) return;
 
     let imageId = null;
     try {
