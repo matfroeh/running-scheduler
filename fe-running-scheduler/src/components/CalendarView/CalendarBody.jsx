@@ -38,7 +38,7 @@ const CalendarBody = ({ schedule, runs, notes, hideSchedule }) => {
         <ButtonScrollToRef
           forwardRef={weekRef}
           blockOption="end"
-          className="top-28 z-50 right-6"
+          className="top-40 z-50 right-6"
         />
       )}
       <ButtonScrollTop className="right-6" yScrollValue={1200} />
