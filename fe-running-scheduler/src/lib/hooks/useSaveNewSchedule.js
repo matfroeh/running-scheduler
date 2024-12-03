@@ -42,8 +42,8 @@ export const useSaveNewSchedule = (handleSetSchedule, handleSetRuns) => {
       // and to set the url to the new calendar
       navigate("/");
     }
-    return () => {
-      createScheduleData = null;
-    };
+    // return () => {
+    //   createScheduleData = null;
+    // };
   }, [createScheduleData]);
 };
