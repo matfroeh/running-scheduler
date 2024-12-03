@@ -25,6 +25,9 @@ const CalendarView = () => {
     cyclingProps,
   } = useCalendarLoading();
 
+  // console.log("schedule", schedule);
+  // console.log("runs", runs);
+  
   // Custom hook for handling saving the newly created schedule
   useSaveNewSchedule(handleSetSchedule, handleSetRuns);
 

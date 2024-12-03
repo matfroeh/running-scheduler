@@ -88,7 +88,7 @@ const CalendarBar = ({
           )}
         </div>
       </div>
-      <details className="dropdown bg-base-200 rounded-box">
+      {/* <details className="dropdown bg-base-200 rounded-box">
         <summary className="btn btn-xs btn-outline">Calendars</summary>
         <ul
           tabIndex={0}
@@ -100,7 +100,7 @@ const CalendarBar = ({
             </li>
           ))}
         </ul>
-      </details>
+      </details> */}
       <div className="">
         <div className="">
           <div className="flex items-center">

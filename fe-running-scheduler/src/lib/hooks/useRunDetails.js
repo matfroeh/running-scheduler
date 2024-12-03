@@ -25,10 +25,12 @@ export const useRunDetails = () => {
   const [error, setError] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
 
+  // show only active equipment
   const activeEquipmentList = equipmentList.filter(
     (item) => item.status === "active"
   );
 
+  // set Equipment as selectedEquipment if it exists in the activeEquipmentList
   const selectedEquipment = activeEquipmentList.find(
     (item) => item.name === formData.equipment
   );
@@ -53,6 +55,7 @@ export const useRunDetails = () => {
     });
   };
 
+  // detects changes in equipment to decide whether distance/time needs to be added to the equipment selected; used in the onChange of the Equipment Select field
   const handleSetEquipmentChanged = (value) => {
     setEquipmentChanged(value);
   };
@@ -75,7 +78,7 @@ export const useRunDetails = () => {
       handleSetRuns(updatedRunningData);
       await updateRunCalendar(runs, calendarId);
 
-      // update the equipment distance if still exists in the list (as active equipment)
+      // update the equipment distance if it still exists as an active equipment in the equipmentList & only if the equipment has changed
       if (selectedEquipment && equipmentChanged) {
         const distanceToAdd = formData.distance || 0;
         const durationToAdd = formData.duration || 0;
@@ -88,7 +91,6 @@ export const useRunDetails = () => {
       toast.success("Run updated successfully.");
       navigate(-1);
     } catch (error) {
-      setIsUpdating(false);
       toast.error(error.message);
     } finally {
       setIsUpdating(false);
@@ -114,7 +116,6 @@ export const useRunDetails = () => {
       navigate(-1);
     } catch (error) {
       toast.error(error.message);
-      setIsUpdating(false);
     } finally {
       setIsUpdating(false);
     }

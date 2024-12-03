@@ -27,7 +27,7 @@ const RootLayout = () => {
 
   return (
     <div className="container flex flex-col min-h-screen zoomable mx-auto min-w-[320px] max-w-[1300px]">
-      <ToastContainer position="top-right" autoClose={3500} theme="colored" />
+      <ToastContainer position="top-right" autoClose={3000} theme="colored" />
       <NavBar />
       {isLoading ? (
         <Loading />
