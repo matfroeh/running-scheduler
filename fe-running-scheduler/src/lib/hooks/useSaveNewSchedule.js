@@ -14,11 +14,15 @@ export const useSaveNewSchedule = (handleSetSchedule, handleSetRuns) => {
   const saveNewSchedule = async () => {
     const { newSchedule, newRuns } =
       processFormDataFromScheduler(createScheduleData);
-    const schedule = await createTrainingSchedule(newSchedule);
-    const runs = await createRun(newRuns, schedule._id);
-
-    handleSetSchedule(schedule);
-    handleSetRuns(runs);
+    console.log("processedFormData:", newSchedule, newRuns);
+    if (newSchedule && newRuns) {
+      const schedule = await createTrainingSchedule(newSchedule);
+      const runs = await createRun(newRuns, schedule._id);
+      console.log("createdData:", schedule, runs);
+      handleSetRuns(runs);
+      handleSetSchedule(schedule);
+    }
+    else throw new Error("Error processing form data");
   };
 
   const createNewCalendarMutation = useMutation({
