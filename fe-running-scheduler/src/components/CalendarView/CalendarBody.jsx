@@ -1,25 +1,15 @@
 import { useRef } from "react";
 import CalendarWeekRow from "./CalendarWeekRow";
 import { ButtonScrollTop, ButtonScrollToRef } from "../generic";
-import { findDayObjectByDate } from "@/lib/utils";
+import { weekNumberOfToday } from "@/lib/utils";
+
 const CalendarBody = ({ schedule, runs, notes, hideSchedule }) => {
+  // Ref for the week of today forwarded to the CalendarWeekRow component for fast scrolling to today
   const weekRef = useRef(null);
 
-  const calendarContainsTodaysDate = () => {
-    const today = new Date();
-    const calendarStartDate = new Date(schedule.meta.startDate);
-    const calendarEndDate = new Date(schedule.meta.endDate);
-    return today >= calendarStartDate && today <= calendarEndDate;
-  };
-
-  const currentWeek = () => {
-    if (calendarContainsTodaysDate()) {
-      return findDayObjectByDate(new Date().toISOString(), schedule)[0];
-    } else return null;
-  };
-
-  const week = currentWeek();
-  // console.log("week", week);
+  // Finds in which week of the calendar the date of today is for use as a scroll useRef target
+  // returns: "week#" if today is in the calendar or null
+  const weekObjectContainingToday = weekNumberOfToday(schedule);
 
   return (
     <div className="grid grid-cols-4 md:grid-cols-8 gap-y-2 gap-x-0.5 md:gap-2">
@@ -37,12 +27,14 @@ const CalendarBody = ({ schedule, runs, notes, hideSchedule }) => {
                 runningDataWeek={runs.weeks[weekNumber]}
                 notes={notes}
                 hideSchedule={hideSchedule}
-                forwardRef={weekNumber === week ? weekRef : null}
+                forwardRef={
+                  weekNumber === weekObjectContainingToday ? weekRef : null
+                }
               />
             );
           })
         : null}
-      {calendarContainsTodaysDate() && (
+      {weekObjectContainingToday && (
         <ButtonScrollToRef
           forwardRef={weekRef}
           blockOption="end"

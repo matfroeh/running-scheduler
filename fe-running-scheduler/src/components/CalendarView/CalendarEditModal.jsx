@@ -7,20 +7,28 @@ import {
   deleteTrainingSchedule,
 } from "@/data";
 import { useOutletContext, useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import { toast } from "react-toastify";
 
 const CalendarEditModal = () => {
   const navigate = useNavigate();
   const { schedule, runs, handleSetSchedule, handleSetRuns } =
     useOutletContext();
-  const [title, setTitle] = useState(schedule.meta.title);
-  const calendarId = schedule._id;
+  const [title, setTitle] = useState(schedule?.meta?.title);
+  const calendarId = schedule?._id;
+
+  const queryClient = useQueryClient();
 
   const handleChange = (e) => {
     setTitle(e.target.value);
   };
 
   const update = async () => {
+    if (!title) {
+      toast.error("Title cannot be empty!");
+      return;
+    }
     try {
       const updatedTrainingSchedule = {
         ...schedule,
@@ -43,29 +51,47 @@ const CalendarEditModal = () => {
     }
   };
 
-  const handleDelete = async () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete the complete Training and Running Journal?"
-    );
-    if (!confirmDelete) return;
-    else {
+  const deleteCalendarMutation = useMutation({
+    mutationFn: async () => {
       const confirmDelete = window.confirm(
-        "Please confirm that you want to delete the complete Training and Running Journal. This action cannot be undone."
+        "Are you sure you want to delete the complete Training and Running Journal?"
       );
       if (!confirmDelete) return;
-    }
+      else {
+        const confirmDelete = window.confirm(
+          "Please confirm that you want to delete the complete Training and Running Journal. This action cannot be undone."
+        );
+        if (!confirmDelete) return;
+      }
 
-    try {
-      await deleteTrainingSchedule(calendarId);
-      await deleteRunCalendar(calendarId);
-      localStorage.removeItem("currentCalendarIndex");
-      navigate("/");
-      handleSetRuns([]);
-      handleSetSchedule([]);
-      toast.success("Calendar deleted successfully!");
-    } catch (error) {
+      try {
+        await deleteTrainingSchedule(calendarId);
+        await deleteRunCalendar(calendarId);
+        handleSetRuns(null);
+        handleSetSchedule(null);
+        toast.success("Calendar deleted successfully!");
+        // navigate("/");
+      } catch (error) {
+        toast.error(`Error deleting calendar: ${error.message}`);
+      }
+    },
+    onError: (error) => {
       toast.error(`Error deleting calendar: ${error.message}`);
-    }
+    },
+    onSuccess: async () => {
+      // invalidateQueries is not working to update the cache as useQuery will only be called when there is a valid calendarId
+      // new try with removeQueries (calendarId is needed, because the combination of both is the key)
+      // it works as expected
+      queryClient.removeQueries(["trainingSchedule", calendarId]);
+      queryClient.removeQueries(["runs", calendarId]);
+
+      // navigate to root as url needs to be updated, else it would remain on the deleted calendarId
+      navigate("/");
+    },
+  });
+
+  const handleDelete = async () => {
+    deleteCalendarMutation.mutate();
   };
 
   return (
@@ -100,3 +126,28 @@ const CalendarEditModal = () => {
 };
 
 export default CalendarEditModal;
+
+// old code without useQueryClient
+// const handleDelete = async () => {
+//   const confirmDelete = window.confirm(
+//     "Are you sure you want to delete the complete Training and Running Journal?"
+//   );
+//   if (!confirmDelete) return;
+//   else {
+//     const confirmDelete = window.confirm(
+//       "Please confirm that you want to delete the complete Training and Running Journal. This action cannot be undone."
+//     );
+//     if (!confirmDelete) return;
+//   }
+
+//   try {
+//     await deleteTrainingSchedule(calendarId);
+//     await deleteRunCalendar(calendarId);
+//     navigate("/");
+//     handleSetRuns([]);
+//     handleSetSchedule([]);
+//     toast.success("Calendar deleted successfully!");
+//   } catch (error) {
+//     toast.error(`Error deleting calendar: ${error.message}`);
+//   }
+// };

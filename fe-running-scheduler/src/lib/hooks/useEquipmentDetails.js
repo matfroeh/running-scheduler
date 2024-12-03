@@ -11,7 +11,7 @@ import {
 import { useAuth } from "@/context";
 // ToDo: needs to put somewhere else in the folder structure
 import { uploadImage } from "@/lib/utils";
-import { verifyUpdateEquipmentInput } from "@/lib";
+import { verifyEquipmentInput } from "@/lib";
 
 export const useEquipmentDetails = (handleSetLoading) => {
   const { equipmentId } = useParams();
@@ -66,7 +66,7 @@ export const useEquipmentDetails = (handleSetLoading) => {
   }, [user, equipmentId]);
 
   const handleUpdate = async () => {
-    if (!verifyUpdateEquipmentInput(formData, setError)) return;
+    if (!verifyEquipmentInput(formData, setError)) return;
 
     let newImageId = null;
 

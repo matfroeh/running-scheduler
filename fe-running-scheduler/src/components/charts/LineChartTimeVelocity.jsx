@@ -30,8 +30,8 @@ const LineChartTimeVelocity = ({
     scales: {
       y1: {
         reverse: yAxisReversed,
-        min: 3,
-        max: 8,
+        // min: 3,
+        max: 10,
         // stepSize: 0.5,
         ticks: {
           beginAtZero: true,

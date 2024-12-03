@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { useRef } from "react";
 import { INITIAL_TITLE, NEW_TRAINING_SCHEDULE } from "@/lib/constants";
 import { useProcessGpxData } from "@/lib/hooks";
@@ -24,6 +24,7 @@ const CalendarBar = ({
   toggleNotes,
   toggleSchedule,
 }) => {
+  const { calendarTitleList } = useOutletContext();
   const navigate = useNavigate();
   const gpxInputRef = useRef(null);
 
@@ -60,7 +61,10 @@ const CalendarBar = ({
             text={"Current"}
             onClick={showCurrentCalendar}
             disabled={!runs}
-            className={(calendarIndex === currentIndex) && "border-info hover:border-info cursor-default"}
+            className={
+              calendarIndex === currentIndex &&
+              "border-info hover:border-info cursor-default"
+            }
           />
           <ButtonCalendarNavigate
             text={"Next"}
@@ -84,7 +88,19 @@ const CalendarBar = ({
           )}
         </div>
       </div>
-
+      {/* <details className="dropdown bg-base-200 rounded-box">
+        <summary className="btn btn-xs btn-outline">Calendars</summary>
+        <ul
+          tabIndex={0}
+          className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+        >
+          {calendarTitleList.map((title, index) => (
+            <li key={index}>
+              <a>{title}</a>
+            </li>
+          ))}
+        </ul>
+      </details> */}
       <div className="">
         <div className="">
           <div className="flex items-center">

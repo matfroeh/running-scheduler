@@ -22,6 +22,7 @@ export const useSaveNewSchedule = (handleSetSchedule, handleSetRuns) => {
 
           handleSetSchedule(schedule);
           handleSetRuns(runs);
+
           toast.success("Schedule saved successfully!");
         } catch (error) {
           toast.error(`Error saving schedule: ${error.message}`);
@@ -30,6 +31,8 @@ export const useSaveNewSchedule = (handleSetSchedule, handleSetRuns) => {
       saveNewSchedule();
       localStorage.removeItem("currentCalendarIndex");
 
+      // ToDo: useQuery for CalendarOrder; right now we need to navigate to the root to refresh the calendar order
+      // and to set the url to the new calendar
       navigate("/");
     }
     return () => {

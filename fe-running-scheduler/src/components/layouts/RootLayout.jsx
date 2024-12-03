@@ -16,7 +16,7 @@ const RootLayout = () => {
 
   // Custom hook to get the current calendar index and the list of calendar ids
   // that will be used for cycling through the calendars
-  const { calendarIndexList, currentIndex } = useGetCalendarOrder();
+  const { calendarIndexList, currentIndex, calendarTitleList } = useGetCalendarOrder();
   const currentCalendarId = calendarIndexList[currentIndex];
 
   // Serves as a re-direct to the calendar view displaying the current calendar
@@ -27,12 +27,12 @@ const RootLayout = () => {
 
   return (
     <div className="container flex flex-col min-h-screen zoomable mx-auto min-w-[320px] max-w-[1300px]">
-      <ToastContainer position="top-right" autoClose={3500} theme="colored" />
+      <ToastContainer position="top-right" autoClose={3000} theme="colored" />
       <NavBar />
       {isLoading ? (
         <Loading />
       ) : (
-        <Outlet context={{ calendarIndexList, currentIndex }} />
+        <Outlet context={{ calendarIndexList, currentIndex, calendarTitleList }} />
       )}
       {/* <Outlet context={{ calendarIndexList, currentIndex }} /> */}
       <Footer />

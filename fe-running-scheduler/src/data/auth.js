@@ -71,3 +71,22 @@ export const logout = async () => {
   }
   return await res.json();
 };
+
+export const changePassword = async (formData) => {
+  const res = await fetch(`${baseURL}/me`, {
+    method: "PUT",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    if (!errorData.error) {
+      throw new Error("An error occurred while changing password");
+    }
+    throw new Error(errorData.error);
+  }
+  return await res.json();
+}

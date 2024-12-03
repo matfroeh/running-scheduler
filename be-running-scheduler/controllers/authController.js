@@ -148,8 +148,11 @@ export const changePassword = asyncHandler(async (req, res, next) => {
 
   const user = await User.findById(userId).select("+password");
   if (!user) throw new ErrorResponse("Invalid credentials", 401);
+// console.log('user', user);
 
   const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
+  // console.log('isPasswordValid', isPasswordValid);
+  
   if (!isPasswordValid) throw new ErrorResponse("Invalid credentials", 401);
 
   const hashedPassword = await bcrypt.hash(newPassword, 10);

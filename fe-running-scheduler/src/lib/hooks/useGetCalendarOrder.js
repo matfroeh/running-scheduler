@@ -24,5 +24,7 @@ calendars.sort((a, b) => new Date(a.meta.startDate) - new Date(b.meta.startDate)
   const calendarIndexList = calendars.map((calendar) => calendar._id);
   currentIndex = getCurrentCalendarIndex();
 
-  return { calendarIndexList, currentIndex };
+  const calendarTitleList = calendars.map((calendar) => calendar.meta.title);
+
+  return { calendarIndexList, currentIndex, calendarTitleList };
 };

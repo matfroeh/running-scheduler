@@ -56,7 +56,7 @@ export const updateUser = async (userId, user) => {
   return data;
 };
 
-export const createEquipment = async (userId, equipment) => {
+export const createEquipment = async (userId, equipment) => {  
   const res = await fetch(`${baseURL}/${userId}`, {
     method: "POST",
     credentials: "include",
@@ -77,6 +77,8 @@ export const createEquipment = async (userId, equipment) => {
 };
 
 export const updateEquipment = async (userId, equipmentId, equipment) => {
+  console.log(JSON.stringify(equipment));
+
   const res = await fetch(`${baseURL}/${userId}/${equipmentId}`, {
     method: "PUT",
     credentials: "include",

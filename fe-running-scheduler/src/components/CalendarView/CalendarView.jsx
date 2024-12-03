@@ -6,7 +6,8 @@ import {
   useCalendarViewToggles,
 } from "@/lib/hooks";
 import { Loading } from "@/components/generic";
-import { ErrorPage, JsonFileHandler } from "@/components/misc";
+import { ErrorPage } from "@/components/misc";
+// import { JsonFileHandler } from "@/components/misc";
 
 const CalendarView = () => {
   // Custom hook for toggling the notes and schedule in the calendar view
@@ -24,6 +25,9 @@ const CalendarView = () => {
     cyclingProps,
   } = useCalendarLoading();
 
+  // console.log("schedule", schedule);
+  // console.log("runs", runs);
+  
   // Custom hook for handling saving the newly created schedule
   useSaveNewSchedule(handleSetSchedule, handleSetRuns);
 
@@ -61,11 +65,11 @@ const CalendarView = () => {
             handleSetSchedule,
           }}
         />
-        <JsonFileHandler
+        {/* <JsonFileHandler
           schedule={schedule}
           runs={runs}
           calendarTitle={runs?.meta?.title}
-        />
+        /> */}
       </div>
     </>
   );
