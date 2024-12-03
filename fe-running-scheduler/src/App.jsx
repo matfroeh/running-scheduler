@@ -30,6 +30,7 @@ import { action as getFormData } from "@/actions";
 import { calendarIndexLoader, overviewLoader } from "@/loader";
 import { AuthContextProvider } from "@/context";
 
+
 // For handling data fetching
 const queryClient = new QueryClient();
 
@@ -99,7 +100,7 @@ const router = createBrowserRouter([
           {
             path: "overview",
             element: <Overview />,
-            loader: overviewLoader,
+            loader: overviewLoader(queryClient),
             errorElement: <Error />,
           },
           {
