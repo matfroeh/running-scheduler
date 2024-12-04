@@ -52,12 +52,12 @@ export const useEditCalendar = () => {
 
   const deleteCalendar = async () => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete the complete Training and Running Journal?"
+      `Are you sure you want to delete the Calendar ${title}?`
     );
     if (!confirmDelete) return;
     else {
       const confirmDelete = window.confirm(
-        "Please confirm that you want to delete the complete Training and Running Journal. This action cannot be undone."
+        `Please confirm that you want to delete the complete Calendar ${title} including the running and schedule data contained therein. This action cannot be undone.`
       );
       if (!confirmDelete) return;
     }
