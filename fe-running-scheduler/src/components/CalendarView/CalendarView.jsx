@@ -23,13 +23,14 @@ const CalendarView = () => {
     handleSetSchedule,
     handleSetRuns,
     cyclingProps,
+    handleAddCalendarToMetaDataList,
   } = useCalendarLoading();
 
   // console.log("schedule", schedule);
   // console.log("runs", runs);
   
   // Custom hook for handling saving the newly created schedule
-  useSaveNewSchedule(handleSetSchedule, handleSetRuns);
+  useSaveNewSchedule(handleSetSchedule, handleSetRuns, handleAddCalendarToMetaDataList);
 
   if (errors) {
     return <ErrorPage />;

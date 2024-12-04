@@ -5,7 +5,7 @@ import { createTrainingSchedule, createRun } from "@/data";
 import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export const useSaveNewSchedule = (handleSetSchedule, handleSetRuns) => {
+export const useSaveNewSchedule = (handleSetSchedule, handleSetRuns, handleAddCalendarToMetaDataList) => {
   // Form data from CreateTrainingBlock.jsx
   let createScheduleData = useActionData();
   const queryClient = useQueryClient();
@@ -14,13 +14,15 @@ export const useSaveNewSchedule = (handleSetSchedule, handleSetRuns) => {
   const saveNewSchedule = async () => {
     const { newSchedule, newRuns } =
       processFormDataFromScheduler(createScheduleData);
-    console.log("processedFormData:", newSchedule, newRuns);
+    // console.log("processedFormData:", newSchedule, newRuns);
     if (newSchedule && newRuns) {
       const schedule = await createTrainingSchedule(newSchedule);
       const runs = await createRun(newRuns, schedule._id);
-      console.log("createdData:", schedule, runs);
+      // console.log("createdData:", schedule, runs);
       handleSetRuns(runs);
       handleSetSchedule(schedule);
+      const newCalendarMetaData = { _id: schedule._id, meta: schedule.meta };
+      handleAddCalendarToMetaDataList(newCalendarMetaData);
     } else throw new Error("Error processing form data");
   };
 
