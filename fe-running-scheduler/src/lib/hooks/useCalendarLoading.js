@@ -8,7 +8,7 @@ export const useCalendarLoading = () => {
   // console.log("useCalendarLoading");
 
   // carries the information about the order of the calendars fetched by the RootLayout's calendarIndexLoader and of the currentIndex, which is the index of the calendar that encloses today's date
-  const { calendarIndexList, currentIndex } = useOutletContext();
+  const { calendarIndexList, currentIndex, handleAddCalendarToMetaDataList } = useOutletContext();
   const { calendarId } = useParams();
 
   const navigate = useNavigate();
@@ -107,6 +107,7 @@ export const useCalendarLoading = () => {
       calendarSize: calendarIndexList.length,
       currentIndex,
     },
+    handleAddCalendarToMetaDataList,
   };
 };
 
