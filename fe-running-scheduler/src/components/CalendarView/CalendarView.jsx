@@ -8,6 +8,7 @@ import {
 import { Loading } from "@/components/generic";
 import { ErrorPage } from "@/components/misc";
 // import { JsonFileHandler } from "@/components/misc";
+// import { convertToNewModel } from "@/lib/utils/convertToNewModel";
 
 const CalendarView = () => {
   // Custom hook for toggling the notes and schedule in the calendar view
@@ -31,6 +32,12 @@ const CalendarView = () => {
   
   // Custom hook for handling saving the newly created schedule
   useSaveNewSchedule(handleSetSchedule, handleSetRuns, handleAddCalendarToMetaDataList);
+
+  // if (runs) {
+  //   const newModel = convertToNewModel(runs, schedule);
+  //   console.log("newModel", newModel);
+  // }
+
 
   if (errors) {
     return <ErrorPage />;

@@ -8,6 +8,7 @@ import {
 } from "@/components/Overview";
 import { useQuery } from "@tanstack/react-query";
 import { getAllRunsQuery } from "@/loader/overviewLoader";
+// import { runDataCollector } from "@/lib";
 
 const Overview = () => {
   // see loader/overviewLoader.js for the query.
@@ -15,6 +16,18 @@ const Overview = () => {
   // To showcase this: edit the distance of a run and then switch to the overview page. The changes will be reflected immediately without a visible reload.
 
   const { data: loadedRuns } = useQuery(getAllRunsQuery());
+
+  // console.log("loaded Runs:", loadedRuns);
+
+  // const runDataCollected = runDataCollector(
+  //   new Date("2024-01-01"),
+  //   new Date("2024-01-03"),
+  //   loadedRuns
+  // );
+
+  // console.log("collected:", runDataCollected);
+  
+  
 
   const overviewData = getOverviewData(loadedRuns);
   const [selectedBlock, setSelectedBlock] = useState(

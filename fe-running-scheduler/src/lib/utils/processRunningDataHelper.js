@@ -33,7 +33,6 @@ export const findDayObjectByDate = (date, runningData) => {
   for (const week in runningData.weeks) {
     // console.log(runningData.weeks[week]);
 
-    if (week === "meta") continue;
     for (const day in runningData.weeks[week].days) {
       // console.log(runningData.weeks[week]["days"][day]);
       // console.log(date);
@@ -69,6 +68,28 @@ export const weekNumberOfToday = (schedule) => {
   return week;
 };
 
+// params: date: string/Date, runningData: object:{week: object:{day: object}}
+// finds the day object in the runningData object by a date
+// fixes the issue that a return value of [null, null] is not very useful
+export const findDayObjectByDateAdaptedReturnValue = (date, runningData) => {
+  for (const week in runningData.weeks) {
+    // console.log(runningData.weeks[week]);
+
+    for (const day in runningData.weeks[week].days) {
+      // console.log(runningData.weeks[week]["days"][day]);
+      // console.log(date);
+
+      if (
+        runningData.weeks[week].days[day].date.slice(0, 10) ===
+        date.slice(0, 10)
+      ) {
+        // Check only leading YYYY-MM-DD
+        return [week, day];
+      }
+    }
+  }
+  return false;
+};
 //
 // export const findDayObjectByDate = (date, runningData) => {
 //   Object.entries(runningData).map(([week, data]) => {

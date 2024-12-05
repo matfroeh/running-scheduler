@@ -11,7 +11,9 @@ export const processGpxData = (file) => {
     const trackArray = parsedGpx.gpx.trk;
 
     // Total distance and speed
-    let totalDistance = 0;
+    
+    // ToDo: not used right now, activityDistance is used instead
+    // let totalDistance = 0;
     let totalTime = 0;
     // Distance and Time "active" i.e. excluding pauses
     let activityDistance = 0;
@@ -48,7 +50,8 @@ export const processGpxData = (file) => {
             };
             const segmentDistance = haversine(prevCoords, currentCoords);
 
-            totalDistance += segmentDistance;
+            // ToDo: not used right now, activityDistance is used instead
+            // totalDistance += segmentDistance;
 
             // Calculate time difference in seconds
             const prevTime = new Date(prevPoint.time._text).getTime();
@@ -105,11 +108,11 @@ export const processGpxData = (file) => {
 
     processedData.duration = activityTime; // duration in seconds
     processedData.totalTime = totalTime; // duration in seconds
-    processedData.distance = parseFloat(totalDistance / 1000).toFixed(2); // convert meters to kilometers
+    processedData.distance = parseFloat(activityDistance / 1000).toFixed(2); // convert meters to kilometers
 
     processedData.speed = (activityDistance / activityTime) * 3.6; // convert m/s to km/h
     processedData.tempo = parseFloat(
-      activityTime / 60 / processedData.distance
+      activityTime / 60 / activityDistance
     ).toFixed(2); // convert seconds per kilometer to minutes per kilometer
 
     // Set average heart rate
