@@ -24,36 +24,66 @@ export const calculateWeeklySummary = (scheduleWeek, runningWeek) => {
     }
     return acc;
   }, 0);
+  
+  // distance weighted average heart rate
+  // const getAvgHr = () => {
+  //   let avg_hr = Object.keys(runningWeek.days).reduce(
+  //     (acc, day) => {
+  //       if (parseInt(runningWeek.days[day].avg_hr)) {
+  //         acc.days += 1;
+  //         acc.hr +=
+  //           parseInt(runningWeek.days[day].avg_hr) *
+  //           parseInt(runningWeek.days[day].distance);
+  //       }
+  //       return acc;
+  //     },
+  //     { days: 0, hr: 0 }
+  //   );
+  //   if (avg_hr.days > 0) {
+  //     return avg_hr.hr / totalDistanceRun;
+  //   }
+  //   return null;
+  // };
 
+  // time weighted average heart rate
   const getAvgHr = () => {
     let avg_hr = Object.keys(runningWeek.days).reduce(
       (acc, day) => {
         if (parseInt(runningWeek.days[day].avg_hr)) {
           acc.days += 1;
-          acc.hr += parseInt(runningWeek.days[day].avg_hr);
+          acc.hr +=
+            parseInt(runningWeek.days[day].avg_hr) *
+            parseInt(runningWeek.days[day].duration);
         }
         return acc;
       },
       { days: 0, hr: 0 }
     );
     if (avg_hr.days > 0) {
-      return avg_hr.hr / avg_hr.days;
+      return avg_hr.hr / totalTime;
+      // return avg_hr.hr / avg_hr.days;
     }
-    return 0;
+    return null;
   };
 
+  // time weighted average effort
   const getEffort = () => {
     let totalEffort = Object.keys(runningWeek.days).reduce(
       (acc, day) => {
         if (runningWeek.days[day].effort) {
           acc.days += 1;
-          acc.effort += parseInt(runningWeek.days[day].effort);
+          acc.effort +=
+            parseInt(runningWeek.days[day].effort) *
+            parseInt(runningWeek.days[day].duration);
         }
         return acc;
       },
       { days: 0, effort: 0 }
     );
-    if (totalEffort.days > 0) return totalEffort.effort / totalEffort.days;
+    if (totalEffort.days > 0) {
+      return totalEffort.effort / totalTime;
+      // return totalEffort.effort / totalEffort.days
+    };
   };
 
   const totalTimeFormatted = getSecondsAsHoursMinutesSecondsString(totalTime);
