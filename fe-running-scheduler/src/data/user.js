@@ -77,7 +77,7 @@ export const createEquipment = async (userId, equipment) => {
 };
 
 export const updateEquipment = async (userId, equipmentId, equipment) => {
-  console.log(JSON.stringify(equipment));
+  // console.log(JSON.stringify(equipment));
 
   const res = await fetch(`${baseURL}/${userId}/${equipmentId}`, {
     method: "PUT",

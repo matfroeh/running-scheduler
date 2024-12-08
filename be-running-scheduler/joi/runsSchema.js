@@ -15,7 +15,7 @@ const daySchema = Joi.object({
   effort: Joi.number().optional().allow(null).allow(""),
   avg_hr: Joi.number().allow(null).allow("").optional(),
   comments: Joi.string().allow("").optional(),
-  equipment: Joi.string().optional(),
+  equipment: Joi.string().allow("").optional(),
 });
 
 const weekSchema = Joi.object({

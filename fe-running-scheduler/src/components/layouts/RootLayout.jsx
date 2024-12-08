@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { useGetCalendarOrder } from "@/lib/hooks";
 import { ToastContainer } from "react-toastify";
 
+// RootLayout is the main layout component that wraps the entire application
 const RootLayout = () => {
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";

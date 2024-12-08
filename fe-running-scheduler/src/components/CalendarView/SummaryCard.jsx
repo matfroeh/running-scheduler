@@ -1,11 +1,13 @@
 import { getTempoAsMinutesSecondsString } from "@/lib/utils";
 import { calculateWeeklySummary } from "@/lib";
 import { Icons } from "@/components/generic";
+import { SummaryGoalStats } from "@/components/CalendarView";
 
 const SummaryCard = ({
   scheduleWeek,
   runningWeek,
   weekNumber,
+  hideSchedule,
 }) => {
   const weekTitle = `Week ${weekNumber.match(/\d+$/)[0]}`;
   const {
@@ -28,13 +30,10 @@ const SummaryCard = ({
       <div className="flex flex-col justify-start overflow-clip">
         <div className="mx-4 mt-4 mb-2 flex flex-col gap-0 justify-start text-xs">
           <h2 className="card-title -mt-1 text-xs md:text-sm">{weekTitle}</h2>
-          <div className="divide-y-4 divide-cyan-500">
-            <p className="flex items-center text-nowrap gap-x-1 mb-2">
-              <Icons type="goal" />
-              {renderValue(totalDistancePlanned, " km")}
-            </p>
-            <p></p>
-          </div>
+          <SummaryGoalStats
+            value={renderValue(totalDistancePlanned, " km")}
+            hideSchedule={hideSchedule}
+          />
           <div className="flex flex-col text-nowrap gap-1 pt-4">
             <p className="flex items-center gap-x-1">
               <Icons type="distance" />
