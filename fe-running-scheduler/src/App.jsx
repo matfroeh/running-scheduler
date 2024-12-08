@@ -9,7 +9,7 @@ import {
   Login,
   SignUp,
   NotFound,
-  Error,
+  ErrorPage,
   Datenschutz,
   Impressum,
   CookieNote,
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Welcome />,
-    errorElement: <Error />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "login",
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     element: <AuthLayout />,
-    errorElement: <Error />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/auth",
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
         shouldRevalidate: () => {
           return false;
         },
-        errorElement: <Error />,
+        errorElement: <ErrorPage />,
         children: [
           {
             index: true,
@@ -77,7 +77,7 @@ const router = createBrowserRouter([
             path: "calendar/:calendarId?",
             element: <CalendarView />,
             action: getFormData,
-            errorElement: <Error />,
+            errorElement: <ErrorPage />,
             children: [
               {
                 path: "runs/:week/:day/:runId",
@@ -101,12 +101,12 @@ const router = createBrowserRouter([
             path: "overview",
             element: <Overview />,
             loader: overviewLoader(queryClient),
-            errorElement: <Error />,
+            errorElement: <ErrorPage />,
           },
           {
             path: "equipment",
             element: <EquipmentModal />,
-            errorElement: <Error />,
+            errorElement: <ErrorPage />,
             children: [
               {
                 path: ":equipmentId",
@@ -121,7 +121,7 @@ const router = createBrowserRouter([
           {
             path: "profile",
             element: <Profile />,
-            errorElement: <Error />,
+            errorElement: <ErrorPage />,
           },
         ],
       },
@@ -130,10 +130,12 @@ const router = createBrowserRouter([
   {
     path: "datenschutz",
     element: <Datenschutz />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "impressum",
     element: <Impressum />,
+    errorElement: <ErrorPage />,
   },
 ]);
 

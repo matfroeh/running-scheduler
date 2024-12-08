@@ -17,14 +17,15 @@ const Overview = () => {
 
   const { data: loadedRuns } = useQuery(getAllRunsQuery());
 
-  // console.log("loaded Runs:", loadedRuns);
+  // console.log("loadedRuns", loadedRuns);
+  
 
+  // // just for testing now, will be later useful for a date range picker
   // const runDataCollected = runDataCollector(
   //   new Date("2024-01-01"),
-  //   new Date("2024-01-03"),
+  //   new Date("2024-12-06"),
   //   loadedRuns
   // );
-
   // console.log("collected:", runDataCollected);
   
   

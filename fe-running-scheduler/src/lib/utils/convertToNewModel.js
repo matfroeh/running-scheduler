@@ -54,4 +54,3 @@ export const dayOfWeekMap = {
   6: "Sunday",
 };
 
-console.log(dayOfWeekMap[0]);

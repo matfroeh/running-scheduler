@@ -14,23 +14,6 @@ export const calculateSummariesForOverview = (runningWeek) => {
     return acc;
   }, 0);
 
-  // const getAvgHr = () => {
-  //   let avg_hr = Object.keys(runningWeek.days).reduce(
-  //     (acc, day) => {
-  //       if (parseInt(runningWeek.days[day].avg_hr)) {
-  //         acc.days += 1;
-  //         acc.hr += parseInt(runningWeek.days[day].avg_hr);
-  //       }
-  //       return acc;
-  //     },
-  //     { days: 0, hr: 0 }
-  //   );
-  //   if (avg_hr.days > 0) {
-  //     return avg_hr.hr / avg_hr.days;
-  //   }
-  //   return null;
-  // };
-
     // time weighted average heart rate
     const getAvgHr = () => {
       let avg_hr = Object.keys(runningWeek.days).reduce(
@@ -51,20 +34,6 @@ export const calculateSummariesForOverview = (runningWeek) => {
       }
       return null;
     };
-
-  // const getEffort = () => {
-  //   let totalEffort = Object.keys(runningWeek.days).reduce(
-  //     (acc, day) => {
-  //       if (runningWeek.days[day].effort) {
-  //         acc.days += 1;
-  //         acc.effort += parseInt(runningWeek.days[day].effort);
-  //       }
-  //       return acc;
-  //     },
-  //     { days: 0, effort: 0 }
-  //   );
-  //   if (totalEffort.days > 0) return totalEffort.effort / totalEffort.days;
-  // };
 
     // time weighted average effort
     const getEffort = () => {

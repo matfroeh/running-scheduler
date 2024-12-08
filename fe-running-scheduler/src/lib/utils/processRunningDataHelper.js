@@ -90,14 +90,7 @@ export const findDayObjectByDateAdaptedReturnValue = (date, runningData) => {
   }
   return false;
 };
-//
-// export const findDayObjectByDate = (date, runningData) => {
-//   Object.entries(runningData).map(([week, data]) => {
-//     if (week === "meta") return;
-//     Object.entries(data).map(([day, data]) => {
-//       if (data.date === date) {
-//         return { "week": week, "day": day };
-//       }
-//     });
-//   });
-// };
+
+export function useFindDayObjectByDate(date, runningCalendarList) {
+  return (index) => findDayObjectByDateAdaptedReturnValue(date, runningCalendarList[index]);
+}

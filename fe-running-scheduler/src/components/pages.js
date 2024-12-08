@@ -1,6 +1,6 @@
 // Re-Export of all components used in the react-router setup
 import { Welcome, Login, SignUp } from "./Welcome";
-import { NotFound, Error, Datenschutz, Impressum, CookieNote } from "./misc";
+import { NotFound, Error, ErrorPage, Datenschutz, Impressum, CookieNote } from "./misc";
 import { RootLayout, AuthLayout } from "./layouts";
 import { Profile } from "./Profile";
 import { Overview } from "./Overview";
@@ -21,6 +21,7 @@ export {
   SignUp,
   NotFound,
   Error,
+  ErrorPage,
   Datenschutz,
   Impressum,
   CookieNote,
