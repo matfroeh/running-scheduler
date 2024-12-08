@@ -112,7 +112,7 @@ export const processGpxData = (file) => {
 
     processedData.speed = (activityDistance / activityTime) * 3.6; // convert m/s to km/h
     processedData.tempo = parseFloat(
-      activityTime / 60 / activityDistance
+      activityTime / 60 / processedData.distance
     ).toFixed(2); // convert seconds per kilometer to minutes per kilometer
 
     // Set average heart rate
