@@ -11,6 +11,7 @@ import CardDetails from './CardDetails';
 import SummaryCard from './SummaryCard';
 import TrainingCard from './TrainingCard';
 import WeekDaysBar from './WeekDaysBar';
+import SummaryGoalStats from './SummaryGoalStats';
 
 export {
     ButtonCalendarNavigate,
@@ -26,4 +27,5 @@ export {
     SummaryCard,
     TrainingCard,
     WeekDaysBar,
+    SummaryGoalStats
     };

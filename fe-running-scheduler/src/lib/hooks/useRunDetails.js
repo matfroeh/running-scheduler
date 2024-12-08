@@ -83,7 +83,7 @@ export const useRunDetails = () => {
         const distanceToAdd = formData.distance || 0;
         const durationToAdd = formData.duration || 0;
         const updatedEquipment = { ...selectedEquipment };
-        updatedEquipment.distance += parseFloat(distanceToAdd);
+        updatedEquipment.distance += Math.round((parseFloat(distanceToAdd) * 100)) / 100;
         updatedEquipment.time += Math.round((durationToAdd / 3600) * 100) / 100;
 
         updateEquipment(user.userId, selectedEquipment._id, updatedEquipment);
