@@ -39,7 +39,7 @@ export const runDataCollector = (
   startDate: string | Date,
   endDate: string | Date,
   runningCalendarList: RunningCalendar[]
-) => {
+): RunDay[] => {
   startDate = new Date(startDate).toISOString();
   endDate = new Date(endDate).toISOString();
   let runData: RunDay[] = [];
@@ -85,9 +85,12 @@ export const getDatesBetween = (
   let dates: string[] = [];
   let currentDate = new Date(startDate).toISOString();
   while (currentDate <= endDate) {
+    console.log("currentDate", currentDate);
     dates.push(currentDate);
     currentDate = addDays(currentDate, 1).toISOString();
   }
+  // add the end date
+  dates.push(endDate);
   return dates;
 };
 
