@@ -40,8 +40,8 @@ export const getAverageHeartBeat = (block) => {
   let totalHeartBeat = 0;
   let numberOfWeeksWithData = 0;
   block.weeks.map((week) => {
-    if (week.avg_hr && !isNaN(week.avg_hr)) {      
-      numberOfWeeksWithData += 1;      
+    if (week.avg_hr && !isNaN(week.avg_hr)) {
+      numberOfWeeksWithData += 1;
       totalHeartBeat += week.avg_hr;
     }
   });
@@ -71,9 +71,10 @@ export const getAverageEffort = (block) => {
   let totalEffort = 0;
   let numberOfWeeksWithData = 0;
   block.weeks.map((week) => {
-    if (week.avgEffort !== 0 && !isNaN(week.avgEffort)) {
+    if (week.avgEffort) {
       numberOfWeeksWithData += 1;
       totalEffort += week.avgEffort;
+      // debugger;
     }
   });
   return numberOfWeeksWithData !== 0
@@ -81,7 +82,7 @@ export const getAverageEffort = (block) => {
     : "--";
 };
 
-export const getTotalTime = (block) => {
+export const getTotalTimeFromBlock = (block) => {
   let totalTime = 0;
   block.weeks.map((week) => {
     totalTime += parseFloat(week.totalTime);
@@ -126,7 +127,7 @@ export const getWeeklyPace = (block) => {
     weeklyPace.push(parseFloat(week.avgPace));
   });
   // console.log(weeklyPace);
-  
+
   return weeklyPace;
 };
 

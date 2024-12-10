@@ -8,27 +8,25 @@ import {
 } from "@/components/Overview";
 import { useQuery } from "@tanstack/react-query";
 import { getAllRunsQuery } from "@/loader/overviewLoader";
-// import { runDataCollector } from "@/lib";
+// import { runDataCollector, getSummaryFromRunDataArray } from "@/lib";
 
 const Overview = () => {
   // see loader/overviewLoader.js for the query.
   // This combines the react-router loader with the react-query caching and works very nicely together.
   // To showcase this: edit the distance of a run and then switch to the overview page. The changes will be reflected immediately without a visible reload.
-
   const { data: loadedRuns } = useQuery(getAllRunsQuery());
 
-  // console.log("loadedRuns", loadedRuns);
-  
-
-  // // just for testing now, will be later useful for a date range picker
+  // just for testing now, will be later used for a date range picker and for revising the overview data calculation
   // const runDataCollected = runDataCollector(
-  //   new Date("2024-01-01"),
-  //   new Date("2024-12-06"),
+  //   new Date("2024-07-15"),
+  //   new Date("2024-05-06"),
   //   loadedRuns
   // );
   // console.log("collected:", runDataCollected);
-  
-  
+
+  // const avgRunData = getSummaryFromRunDataArray(runDataCollected);
+  // console.log("avgRunData", avgRunData);
+  // end of testing
 
   const overviewData = getOverviewData(loadedRuns);
   const [selectedBlock, setSelectedBlock] = useState(

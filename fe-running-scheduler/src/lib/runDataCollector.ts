@@ -2,7 +2,7 @@ import { useFindDayObjectByDate } from "@/lib/utils";
 
 type RunDay = {
   _id: string;
-  date: string | Date;
+  date: string;
   name: string;
   distance: number;
   type: string;
@@ -39,7 +39,7 @@ export const runDataCollector = (
   startDate: string | Date,
   endDate: string | Date,
   runningCalendarList: RunningCalendar[]
-) => {
+): RunDay[] => {
   startDate = new Date(startDate).toISOString();
   endDate = new Date(endDate).toISOString();
   let runData: RunDay[] = [];
@@ -83,11 +83,19 @@ export const getDatesBetween = (
   endDate: string
 ): string[] => {
   let dates: string[] = [];
+
+  // if the start date is after the end date, return an empty array
+  if (startDate > endDate) {
+    return dates;
+  }
+
   let currentDate = new Date(startDate).toISOString();
   while (currentDate <= endDate) {
     dates.push(currentDate);
     currentDate = addDays(currentDate, 1).toISOString();
   }
+  // add the end date
+  dates.push(endDate);
   return dates;
 };
 
