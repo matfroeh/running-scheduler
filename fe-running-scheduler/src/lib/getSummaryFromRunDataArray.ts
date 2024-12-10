@@ -74,7 +74,6 @@ export const getTotalTime = (runData: RunData[]): number => {
 
 // time weighted average heart rate
 export const avgHeartRate = (runData: RunData[]): number | null => {
-  const totalTime = getTotalTime(runData);
   let avg_hr = runData.reduce(
     (acc, entry, index) => {
       if (runData[index].avg_hr) {
@@ -93,7 +92,6 @@ export const avgHeartRate = (runData: RunData[]): number | null => {
 
 // time weighted average effort
 export const getAvgEffort = (runData: RunData[]): number | null => {
-  const totalTime = getTotalTime(runData);
   let totalEffort = runData.reduce(
     (acc, entry, index) => {
       if (runData[index].effort) {
@@ -121,6 +119,7 @@ export const getNumberOfWeeks = (
   startDate: string,
   endDate: string
 ): number => {
-  const datesBetween = getDatesBetween(startDate, endDate);
+  startDate;
+  const datesBetween = getDatesBetween(new Date(startDate), new Date(endDate));
   return datesBetween.length / 7;
 };

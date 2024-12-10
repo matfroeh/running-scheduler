@@ -5,6 +5,7 @@ import {
   OverviewControls,
   OverviewBlock,
   ChartSection,
+  MonthlyStats,
 } from "@/components/Overview";
 import { useQuery } from "@tanstack/react-query";
 import { getAllRunsQuery } from "@/loader/overviewLoader";
@@ -50,6 +51,7 @@ const Overview = () => {
 
   return (
     <div className="flex flex-col items-center">
+      {/* <MonthlyStats runningCalendarList={loadedRuns} /> */}
       <OverviewControls
         selectedMode={selectedMode}
         handleSelectOne={() => setSelectedMode("one")}

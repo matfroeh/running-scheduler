@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export const getTempoAsMinutesSecondsString = (tempo) => {
   const minutes = Math.floor(tempo);
   const seconds = (tempo - minutes) * 60;
@@ -73,17 +75,12 @@ export const weekNumberOfToday = (schedule) => {
 // fixes the issue that a return value of [null, null] is not very useful
 export const findDayObjectByDateAdaptedReturnValue = (date, runningData) => {
   for (const week in runningData.weeks) {
-    // console.log(runningData.weeks[week]);
-
     for (const day in runningData.weeks[week].days) {
-      // console.log(runningData.weeks[week]["days"][day]);
-      // console.log(date);
-
+      // Check only leading YYYY-MM-DD
       if (
-        runningData.weeks[week].days[day].date.slice(0, 10) ===
-        date.slice(0, 10)
+        dayjs(runningData.weeks[week].days[day].date).format("YYYY-MM-DD") ===
+        dayjs(date).format("YYYY-MM-DD")
       ) {
-        // Check only leading YYYY-MM-DD
         return [week, day];
       }
     }
@@ -92,5 +89,6 @@ export const findDayObjectByDateAdaptedReturnValue = (date, runningData) => {
 };
 
 export function useFindDayObjectByDate(date, runningCalendarList) {
-  return (index) => findDayObjectByDateAdaptedReturnValue(date, runningCalendarList[index]);
+  return (index) =>
+    findDayObjectByDateAdaptedReturnValue(date, runningCalendarList[index]);
 }

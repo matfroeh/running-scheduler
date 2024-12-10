@@ -40,12 +40,14 @@ export const runDataCollector = (
   endDate: string | Date,
   runningCalendarList: RunningCalendar[]
 ): RunDay[] => {
-  startDate = new Date(startDate).toISOString();
-  endDate = new Date(endDate).toISOString();
+  startDate = new Date(startDate);
+  endDate = new Date(endDate);
   let runData: RunDay[] = [];
+  console.log("start date", startDate);
+  console.log("end date", endDate);
 
   const datesToCheck = getDatesBetween(startDate, endDate);
-  // console.log("dates to check", datesToCheck);
+  console.log("dates to check", datesToCheck);
 
   datesToCheck.forEach((date) => {
     // console.log("date", date);
@@ -68,38 +70,28 @@ export const runDataCollector = (
   return runData;
 };
 
-export const containsRun = (
-  runningCalendar: RunningCalendar,
-  date: string
-): boolean => {
-  return (
-    runningCalendar.meta.startDate <= date &&
-    runningCalendar.meta.endDate >= date
-  );
-};
-
 export const getDatesBetween = (
-  startDate: string,
-  endDate: string
-): string[] => {
-  let dates: string[] = [];
+  startDate: Date | string,
+  endDate: Date | string
+): Date[] => {
+  let dates: Date[] = [];
 
   // if the start date is after the end date, return an empty array
   if (startDate > endDate) {
     return dates;
   }
 
-  let currentDate = new Date(startDate).toISOString();
+  let currentDate = new Date(startDate);
   while (currentDate <= endDate) {
     dates.push(currentDate);
-    currentDate = addDays(currentDate, 1).toISOString();
+    currentDate = addDays(currentDate, 1);
   }
   // add the end date
-  dates.push(endDate);
+  // dates.push(endDate);
   return dates;
 };
 
-export const addDays = (date: string, days: number): Date => {
+export const addDays = (date: Date, days: number): Date => {
   let result = new Date(date);
   result.setDate(result.getDate() + days);
   return result;
