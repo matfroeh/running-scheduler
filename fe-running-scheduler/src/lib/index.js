@@ -6,4 +6,4 @@ export * from "./inputVerification";
 export * from "./processFormDataFromScheduler";
 export * from "./processGpxData";
 export * from "./runDataCollector";
-export * from "./getAvgFromRunDataArray";
+export * from "./getSummaryFromRunDataArray";

@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import {
   getTotalDistance,
-  getTotalTime,
+  getTotalTimeFromBlock,
   getAveragePace,
   getAverageHeartBeat,
   getAverageEffort,
@@ -42,7 +42,7 @@ const OverviewBlock = ({ block, selectedBlock, selectedMode, selectBlock }) => {
             />
             <StatItem
               title="Total Time"
-              value={getTotalTime(block)}
+              value={getTotalTimeFromBlock(block)}
               desc="hh:mm:ss"
             />
             <StatItem

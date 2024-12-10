@@ -61,7 +61,8 @@ export const calculateWeeklySummary = (scheduleWeek, runningWeek) => {
     );
     if (totalEffort.days > 0) {
       return totalEffort.effort / totalTime;
-    };
+    }
+    return null;
   };
 
   const totalTimeFormatted = getSecondsAsHoursMinutesSecondsString(totalTime);

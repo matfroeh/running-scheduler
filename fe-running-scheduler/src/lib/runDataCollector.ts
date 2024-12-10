@@ -2,7 +2,7 @@ import { useFindDayObjectByDate } from "@/lib/utils";
 
 type RunDay = {
   _id: string;
-  date: string | Date;
+  date: string;
   name: string;
   distance: number;
   type: string;
@@ -83,9 +83,14 @@ export const getDatesBetween = (
   endDate: string
 ): string[] => {
   let dates: string[] = [];
+
+  // if the start date is after the end date, return an empty array
+  if (startDate > endDate) {
+    return dates;
+  }
+
   let currentDate = new Date(startDate).toISOString();
   while (currentDate <= endDate) {
-    console.log("currentDate", currentDate);
     dates.push(currentDate);
     currentDate = addDays(currentDate, 1).toISOString();
   }
