@@ -6,69 +6,64 @@ import {
 } from "@/lib/utils";
 import dayjs from "dayjs";
 
-const MonthlyStats = ({
+const YearlyStats = ({
     runningCalendarList,
 }: {
     runningCalendarList: RunningCalendar[];
 }) => {
     const today = new Date();
-    const monthName = dayjs(today).format("MMMM");
-    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-    const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-    console.log("firstDay", firstDay);
-    console.log("lastDay", lastDay);
+    const yearNumber = dayjs(today).format("YYYY");
+    const firstDay = new Date(today.getFullYear(), 0, 1);
+    const lastDay = new Date(today.getFullYear(), 11, 31);
 
-    const runDataThisMonth = runDataCollector(
+    const runDataThisYear = runDataCollector(
         firstDay,
         lastDay,
         runningCalendarList
     );
 
-    console.log("runDataThisMonth", runDataThisMonth);
+    console.log("runDataThisYear", runDataThisYear);
 
-    const summaryThisMonth = getSummaryFromRunDataArray(runDataThisMonth);
+    const summaryThisYear = getSummaryFromRunDataArray(runDataThisYear);
 
-    // console.log("summaryThisMonth", summaryThisMonth);
+    console.log("summaryThisYear", summaryThisYear);
 
     const renderValue = (value: number | string | null, suffix = "") =>
         value ? `${value}${suffix}` : "-";
 
     return (
         <div className="p-4 text-nowrap">
-            <h2 className="text-lg font-semibold">{monthName}</h2>
+            <h2 className="text-lg font-semibold">{yearNumber}</h2>
             <p>
-                {renderValue(Math.round(summaryThisMonth.totalDistance), " km")}
+                {renderValue(Math.round(summaryThisYear.totalDistance), " km")}
             </p>
             <p>
                 {renderValue(
                     getSecondsAsHoursMinutesSecondsString(
-                        summaryThisMonth.totalTime
+                        summaryThisYear.totalTime
+                    )
+                )}
+            </p>
+            <p>
+                {renderValue(Math.round(summaryThisYear.weeklyDistance), " km")}
+            </p>
+            <p>
+                {renderValue(
+                    getSecondsAsHoursMinutesSecondsString(
+                        summaryThisYear.weeklyTime
                     )
                 )}
             </p>
             <p>
                 {renderValue(
-                    Math.round(summaryThisMonth.weeklyDistance),
-                    " km"
-                )}
-            </p>
-            <p>
-                {renderValue(
-                    getSecondsAsHoursMinutesSecondsString(
-                        summaryThisMonth.weeklyTime
-                    )
-                )}
-            </p>
-            <p>
-                {renderValue(
-                    getTempoAsMinutesSecondsString(summaryThisMonth.avgTempo),
+                    getTempoAsMinutesSecondsString(summaryThisYear.avgTempo),
                     " /km"
                 )}
             </p>
             <p>
                 {renderValue(
                     Math.round(
-                        summaryThisMonth.avg_hr ? summaryThisMonth.avg_hr : 0
+                        summaryThisYear.avg_hr ? summaryThisYear.avg_hr : 0
                     ),
                     " bpm"
                 )}
@@ -76,8 +71,8 @@ const MonthlyStats = ({
             <p>
                 {renderValue(
                     Math.round(
-                        summaryThisMonth.avgEffort
-                            ? summaryThisMonth.avgEffort
+                        summaryThisYear.avgEffort
+                            ? summaryThisYear.avgEffort
                             : 0 * 10
                     ) / 10,
                     "/10"
@@ -85,11 +80,11 @@ const MonthlyStats = ({
             </p>
             <p>
                 {renderValue(
-                    Math.round(summaryThisMonth.numberOfWeeks * 10) / 10
+                    Math.round(summaryThisYear.numberOfWeeks * 10) / 10
                 )}
             </p>
         </div>
     );
 };
 
-export default MonthlyStats;
+export default YearlyStats;
