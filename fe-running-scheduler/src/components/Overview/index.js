@@ -1,7 +1,22 @@
 // @index('./**/*.jsx', f => `export * from '${f.path}'`)
-import ChartSection from './ChartSection'
-import Overview from './Overview'
-import OverviewBlock from './OverviewBlock'
-import OverviewControls from './OverviewControls'
+import ChartSection from "./ChartSection";
+import Overview from "./Overview";
+import OverviewBlock from "./OverviewBlock";
+import OverviewControls from "./OverviewControls";
+import MonthlyStats from "./MonthlyStats";
+import ByCalendarTab from "./ByCalendarTab";
+import ByMonthAndYearTab from "./ByMonthAndYearTab";
+import YearlyStats from "./YearlyStats";
+import StatNamesBox from "./StatNamesBox";
 
-export { ChartSection, Overview, OverviewBlock, OverviewControls }
+export {
+    ChartSection,
+    Overview,
+    OverviewBlock,
+    OverviewControls,
+    MonthlyStats,
+    ByCalendarTab,
+    ByMonthAndYearTab,
+    YearlyStats,
+    StatNamesBox,
+};
