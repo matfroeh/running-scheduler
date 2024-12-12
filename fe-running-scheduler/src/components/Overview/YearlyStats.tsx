@@ -71,9 +71,9 @@ const YearlyStats = ({
             <p>
                 {renderValue(
                     Math.round(
-                        summaryThisYear.avgEffort
+                        (summaryThisYear.avgEffort
                             ? summaryThisYear.avgEffort
-                            : 0 * 10
+                            : 0) * 10
                     ) / 10,
                     "/10"
                 )}
