@@ -76,9 +76,9 @@ const MonthlyStats = ({
             <p>
                 {renderValue(
                     Math.round(
-                        summaryThisMonth.avgEffort
+                        (summaryThisMonth.avgEffort
                             ? summaryThisMonth.avgEffort
-                            : 0 * 10
+                            : 0) * 10
                     ) / 10,
                     "/10"
                 )}
