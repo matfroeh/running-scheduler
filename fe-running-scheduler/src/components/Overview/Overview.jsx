@@ -1,4 +1,8 @@
-import { ByCalendarTab, ByMonthAndYearTab } from "@/components/Overview";
+import {
+    ByCalendarTab,
+    ByMonthAndYearTab,
+    ByDateRangeTab,
+} from "@/components/Overview";
 import { useQuery } from "@tanstack/react-query";
 import { getAllRunsQuery } from "@/loader/overviewLoader";
 // import { runDataCollector, getSummaryFromRunDataArray } from "@/lib";
@@ -33,16 +37,25 @@ const Overview = () => {
     }
 
     return (
-        <div role="tablist" className="tabs tabs-lifted">
+        <div role="tablist" className="tabs tabs-lifted mt-8">
             <input
                 type="radio"
                 name="overview_tabs"
                 role="tab"
-                className="flex items-center tab text-nowrap text-base font-semibold bg-base-100"
+                className="tab text-nowrap text-base font-semibold bg-base-100"
                 defaultChecked
-                aria-label="Show By Calendar"
+                aria-label="By Calendar"
             />
             <ByCalendarTab loadedRuns={loadedRuns} />
+
+            <input
+                type="radio"
+                name="overview_tabs"
+                role="tab"
+                className="tab text-nowrap text-base font-semibold bg-base-100"
+                aria-label="By Date Range"
+            />
+            <ByDateRangeTab loadedRuns={loadedRuns} />
 
             <input
                 type="radio"

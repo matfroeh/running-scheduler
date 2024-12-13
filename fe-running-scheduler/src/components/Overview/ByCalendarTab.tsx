@@ -38,7 +38,7 @@ const ByCalendarTab = ({ loadedRuns }: ByCalendarTabProps) => {
     return (
         <div
             role="tabpanel"
-            className="tab-content bg-base-200 border-accent rounded-box p-6"
+            className="tab-content bg-base-200 border-accent  rounded-r-2xl p-6"
         >
             <div className="flex flex-col items-center">
                 <OverviewControls
@@ -71,7 +71,7 @@ const ByCalendarTab = ({ loadedRuns }: ByCalendarTabProps) => {
                 </div>
                 <ButtonScrollToRef
                     forwardRef={chartRef}
-                    className="top-20 right-6 lg:hidden"
+                    className="top-30 right-6 lg:hidden"
                 />
                 <ButtonScrollTop />
             </div>
