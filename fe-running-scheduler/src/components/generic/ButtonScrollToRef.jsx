@@ -3,37 +3,44 @@ import { cn } from "@/lib/utils";
 
 import { FaArrowDown } from "react-icons/fa"; // FontAwesome arrow icon
 
-const ButtonScrollToRef = ({ forwardRef, className, blockOption = "start" }) => {
-  const [visible, setVisible] = useState(true);
+const ButtonScrollToRef = ({
+    forwardRef,
+    className,
+    blockOption = "start",
+}) => {
+    const [visible, setVisible] = useState(true);
 
-  // Handle scroll visibility
-  useEffect(() => {
-    const toggleVisibility = () => {
-      setVisible(window.scrollY < 400); // Show when scrolled 200px down
+    // Handle scroll visibility
+    useEffect(() => {
+        const toggleVisibility = () => {
+            setVisible(window.scrollY < 400); // Show when scrolled 200px down
+        };
+        window.addEventListener("scroll", toggleVisibility);
+        return () => window.removeEventListener("scroll", toggleVisibility);
+    }, []);
+
+    // Scroll to top function
+    const scrollToRef = () => {
+        forwardRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: blockOption,
+        });
     };
-    window.addEventListener("scroll", toggleVisibility);
-    return () => window.removeEventListener("scroll", toggleVisibility);
-  }, []);
 
-  // Scroll to top function
-  const scrollToRef = () => {
-    forwardRef.current?.scrollIntoView({ behavior: "smooth", block: blockOption });
-  };
-
-  return (
-    visible && (
-      <button
-        onClick={scrollToRef}
-        className={cn(
-          "fixed p-3 bg-primary text-white rounded-full shadow-lg hover:bg-accent transition-colors",
-          className
-        )}
-        aria-label="Scroll down to reference"
-      >
-        <FaArrowDown size={20} />
-      </button>
-    )
-  );
+    return (
+        visible && (
+            <button
+                onClick={scrollToRef}
+                className={cn(
+                    "fixed p-3 bg-primary text-white rounded-full shadow-lg hover:bg-accent transition-colors z-10",
+                    className
+                )}
+                aria-label="Scroll down to reference"
+            >
+                <FaArrowDown size={20} />
+            </button>
+        )
+    );
 };
 
 export default ButtonScrollToRef;

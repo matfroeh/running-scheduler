@@ -6,6 +6,7 @@ import OverviewControls from "./OverviewControls";
 import MonthlyStats from "./MonthlyStats";
 import ByCalendarTab from "./ByCalendarTab";
 import ByMonthAndYearTab from "./ByMonthAndYearTab";
+import ByDateRangeTab from "./ByDateRangeTab";
 import YearlyStats from "./YearlyStats";
 import StatNamesBox from "./StatNamesBox";
 
@@ -17,6 +18,7 @@ export {
     MonthlyStats,
     ByCalendarTab,
     ByMonthAndYearTab,
+    ByDateRangeTab,
     YearlyStats,
     StatNamesBox,
 };

@@ -4,11 +4,11 @@
 
 @layer utilities {
     .placeholder-italic::placeholder {
-      font-style: italic;
+        font-style: italic;
     }
-  }
+}
 
-  .active {
+.active {
     /* background-color: base;    */
     /* style for active link background */
     /* color: blue; */
@@ -16,46 +16,51 @@
     text-decoration-color: oklch(var(--a));
     text-underline-offset: 10px;
     text-decoration-thickness: 3px;
-  }
+}
 
-  .enlarged {
+.enlarged {
     transform: scale(1.5);
-    transition: transform 0.5s ease;   
-  }
+    transition: transform 0.5s ease;
+}
 
-  .hover-overlay {
+.tab {
+    border-color: oklch(var(--a)) !important;
+    font-size: 0.775rem;
+    --tab-border-color: oklch(var(--a));
+}
+.hover-overlay {
     @apply absolute top-0 left-0 w-full h-full bg-gray-800 opacity-0 transition-opacity ease-in-out;
-  }
-  
-  .hover-overlay:hover {
+}
+
+.hover-overlay:hover {
     @apply opacity-75;
-  }
+}
 
-  .text-outline {
+.text-outline {
     -webkit-text-stroke: 1px black;
-  }
+}
 
-  @media (max-width: 300px) {
+@media (max-width: 300px) {
     .zoomable {
-      zoom: 0.8; 
-  }
-  }
-  @media (min-width: 300px) {
-    .zoomable {
-      zoom: 0.9; 
-  }
-  }
-  @media (min-width: 500px) {
-    .zoomable {
-      zoom: 0.9; 
-  }
-  }
-  @media (min-width: 800px) {
-    .zoomable {
-      zoom: 1; 
+        zoom: 0.8;
     }
-  }
-  /* @media (min-width: 1000px) {
+}
+@media (min-width: 300px) {
+    .zoomable {
+        zoom: 0.9;
+    }
+}
+@media (min-width: 500px) {
+    .zoomable {
+        zoom: 0.9;
+    }
+}
+@media (min-width: 800px) {
+    .zoomable {
+        zoom: 1;
+    }
+}
+/* @media (min-width: 1000px) {
     .zoomable {
       zoom: 1; 
     }
