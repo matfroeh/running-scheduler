@@ -1,41 +1,43 @@
-import { InputErrorBar } from "@/components/generic";
-import { useState } from "react";
+import {
+    DateRangePicker,
+    StatNamesBox,
+    SummaryStats,
+} from "@/components/Overview";
+import { runDataCollector, getSummaryFromRunDataArray } from "@/lib";
+import { RunningCalendar } from "@/types";
+import { formatDate } from "@/lib/utils";
+import { useDateRangePicker } from "@/lib/hooks";
 
-const ByDateRangeTab = () => {
-    const [error, setError] = useState("Nothing to show yet");
+const ByDateRangeTab = ({ loadedRuns }: { loadedRuns: RunningCalendar[] }) => {
+    const { error, dates, handleChange } = useDateRangePicker();
+
+    const runData = runDataCollector(
+        dates.startDate,
+        dates.endDate,
+        loadedRuns
+    );
+    const summary = getSummaryFromRunDataArray(runData);
 
     return (
         <div
             role="tabpanel"
             className="tab-content text-sm lg:text-base bg-base-200 border-accent rounded-r-2xl p-4 min-h-[75vh]"
         >
-            <div className="flex flex-col">
-                <div className="flex md:justify-center items-center flex-wrap gap-4">
-                    <div className="gap-2">
-                        <label className="" htmlFor="start-date">
-                            From:
-                        </label>
-                        <input
-                            type="date"
-                            id="start-date"
-                            name="start-date"
-                            className="input input-sm md:input-md input-bordered ml-4"
-                        />
-                    </div>
-                    <div className="gap-2">
-                        <label htmlFor="end-date">To:</label>
-                        <input
-                            type="date"
-                            id="end-date"
-                            name="end-date"
-                            className="input input-sm md:input-md input-bordered ml-4"
-                        />
-                    </div>
-                    <button className="btn btn-sm md:btn-md btn-primary">
-                        Select
-                    </button>
-                </div>
-                <InputErrorBar error={error} />
+            <div className="mt-4">
+                <DateRangePicker
+                    dates={dates}
+                    handleChange={handleChange}
+                    error={error}
+                />
+            </div>
+            <div className="mt-4 md:mt-12 flex flex-row justify-center divide-x-2 space-x-8 md:space-x-16 divide-accent p-4 items-center">
+                <StatNamesBox />
+                <SummaryStats
+                    summaryData={summary}
+                    summaryTitle={`${formatDate(
+                        dates.startDate
+                    )} - ${formatDate(dates.endDate)}`}
+                />
             </div>
         </div>
     );
