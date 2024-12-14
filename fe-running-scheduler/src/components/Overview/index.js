@@ -9,6 +9,8 @@ import ByMonthAndYearTab from "./ByMonthAndYearTab";
 import ByDateRangeTab from "./ByDateRangeTab";
 import YearlyStats from "./YearlyStats";
 import StatNamesBox from "./StatNamesBox";
+import DateRangePicker from "./DateRangePicker";
+import SummaryStats from "./SummaryStats";
 
 export {
     ChartSection,
@@ -21,4 +23,6 @@ export {
     ByDateRangeTab,
     YearlyStats,
     StatNamesBox,
+    DateRangePicker,
+    SummaryStats,
 };
