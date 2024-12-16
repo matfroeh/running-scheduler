@@ -95,7 +95,7 @@ export const useEditCalendar = () => {
             queryClient.removeQueries(["runs", calendarId]);
 
             // navigate to root as url needs to be updated, else it would remain on the deleted calendarId
-            navigate("../");
+            navigate("/");
         },
     });
 
