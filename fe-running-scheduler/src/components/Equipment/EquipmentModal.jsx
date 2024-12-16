@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router";
 import { useEquipmentData } from "@/lib/hooks";
 import { EquipmentCard } from "@/components/Equipment";
 import { Loading } from "@/components/generic";

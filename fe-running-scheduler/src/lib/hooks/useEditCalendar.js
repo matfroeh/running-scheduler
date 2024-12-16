@@ -6,7 +6,7 @@ import {
     updateTrainingSchedule,
     deleteTrainingSchedule,
 } from "@/data";
-import { useOutletContext, useNavigate } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 

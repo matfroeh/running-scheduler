@@ -3,7 +3,7 @@ import { processGpxData } from "@/lib";
 import { findDayObjectByDate, readMultipleFiles } from "@/lib/utils";
 import { updateRunCalendar } from "@/data";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 export const useProcessGpxData = (runningData, setRunningData) => {
   const [fileContents, setFileContents] = useState([]);

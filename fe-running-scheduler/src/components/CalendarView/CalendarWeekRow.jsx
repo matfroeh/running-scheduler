@@ -1,7 +1,7 @@
 import TrainingCard from "./TrainingCard";
 import SummaryCard from "./SummaryCard";
 import RunCard from "./RunCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 const daysOfWeekMap = {
   day1: "Mon",

@@ -1,4 +1,4 @@
-import { Link, Outlet, Navigate } from "react-router-dom";
+import { Link, Outlet, Navigate } from "react-router";
 import { StartupDelay, CarouselComponent } from "@/components/Welcome";
 import { Footer } from "@/components/Footer";
 import { useAuth } from "@/context";

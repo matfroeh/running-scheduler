@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router";
 
 // ToDo: manually set current index
 

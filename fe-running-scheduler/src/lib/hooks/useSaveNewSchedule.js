@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useActionData, useNavigate } from "react-router-dom";
+import { useActionData, useNavigate } from "react-router";
 import { processFormDataFromScheduler } from "@/lib";
 import { createTrainingSchedule, createRun } from "@/data";
 import { toast } from "react-toastify";

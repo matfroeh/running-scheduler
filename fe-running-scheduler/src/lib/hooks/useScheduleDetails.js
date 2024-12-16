@@ -1,4 +1,4 @@
-import { useParams, useOutletContext, useNavigate } from "react-router-dom";
+import { useParams, useOutletContext, useNavigate } from "react-router";
 import { updateTrainingSchedule } from "@/data";
 import { useState } from "react";
 import { toast } from "react-toastify";

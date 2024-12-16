@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router";
 import { toast } from "react-toastify";
 import { signUp } from "@/data";
 import { useAuth } from "@/context";

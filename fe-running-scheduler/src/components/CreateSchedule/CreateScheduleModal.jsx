@@ -1,4 +1,4 @@
-import { Form } from "react-router-dom";
+import { Form } from "react-router";
 import { CardModal } from "@/components/generic";
 import { useCreateScheduleForm } from "@/lib/hooks";
 import {

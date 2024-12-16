@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { login } from "@/data";
 import { useAuth } from "@/context";

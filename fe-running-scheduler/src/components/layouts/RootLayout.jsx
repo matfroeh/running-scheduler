@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom";
-import { useNavigate, useLocation, useNavigation } from "react-router-dom";
+import { Outlet } from "react-router";
+import { useNavigate, useLocation, useNavigation } from "react-router";
 import "react-toastify/dist/ReactToastify.css";
 import { NavBar } from "@/components/NavBar";
 import { Loading } from "@/components/generic";

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useParams, useNavigate, useOutletContext } from "react-router-dom";
+import { useParams, useNavigate, useOutletContext } from "react-router";
 import { toast } from "react-toastify";
 import {
   deleteEquipmentFromUserList,

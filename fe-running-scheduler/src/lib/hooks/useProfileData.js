@@ -1,6 +1,6 @@
 import { useAuth } from "@/context";
 import { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { updateUser, deleteUser, deleteImageById } from "@/data";
 import { useFetchUserProfile } from "@/lib/hooks";
 import { uploadImage } from "@/lib/utils";

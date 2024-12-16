@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useRef } from "react";
 import { INITIAL_TITLE, NEW_TRAINING_SCHEDULE } from "@/lib/constants";
 import { useProcessGpxData } from "@/lib/hooks";

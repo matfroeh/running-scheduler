@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getTrainingScheduleById, getRunsById } from "@/data";
 
