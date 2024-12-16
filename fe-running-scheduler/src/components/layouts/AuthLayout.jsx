@@ -2,11 +2,11 @@ import { useAuth } from "@/context";
 import { Outlet, Navigate } from "react-router-dom";
 
 const AuthLayout = () => {
-  const { auth } = useAuth();
+    const { auth } = useAuth();
 
-  // console.log("AuthLayout.jsx");
+    // console.log("AuthLayout.jsx");
 
-  return <>{auth ? <Outlet /> : <Navigate to="/login" />}</>;
+    return <>{auth ? <Outlet /> : <Navigate to="../login" />}</>;
 };
 
 export default AuthLayout;
