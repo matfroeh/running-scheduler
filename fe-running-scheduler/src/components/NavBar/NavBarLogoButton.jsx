@@ -4,7 +4,7 @@ import { appName } from "@/lib/constants";
 const NavBarLogoButton = () => {
     return (
         <Link
-            to="../calendar"
+            to="/auth/calendar"
             className="btn font-extrabold text-cyan-200 bg-cover bg-center"
             style={{ backgroundImage: 'url("/navbar-btn-bg.png")' }}
         >

@@ -12,6 +12,7 @@ import {
     CookieNote,
     RootLayout,
     AuthLayout,
+    StartPageLayout,
     Profile,
     Overview,
     CalendarView,
@@ -26,23 +27,28 @@ import {
 import { action as getFormData } from "@/actions";
 import { calendarIndexLoader, overviewLoader } from "@/loader";
 import { AuthContextProvider } from "@/context";
-
 // For handling data fetching
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Welcome />,
+        element: <StartPageLayout />,
         errorElement: <ErrorPage />,
         children: [
             {
-                path: "login",
-                element: <Login />,
-            },
-            {
-                path: "signup",
-                element: <SignUp />,
+                path: "/",
+                element: <Welcome />,
+                children: [
+                    {
+                        path: "login",
+                        element: <Login />,
+                    },
+                    {
+                        path: "signup",
+                        element: <SignUp />,
+                    },
+                ],
             },
         ],
     },

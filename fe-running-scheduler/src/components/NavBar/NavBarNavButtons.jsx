@@ -4,19 +4,19 @@ const NavBarNavButtons = () => {
     return (
         <>
             <NavLink
-                to="../equipment"
+                to="/auth/equipment"
                 className="btn btn-xs md:btn-sm btn-ghost"
             >
                 Equipment
             </NavLink>
             <NavLink
-                to="../overview"
+                to="/auth/overview"
                 className="btn btn-xs md:btn-sm btn-ghost"
             >
                 Overview
             </NavLink>
             <NavLink
-                to="../calendar"
+                to="/auth/calendar"
                 className="btn btn-xs md:btn-sm btn-ghost"
             >
                 Calendar

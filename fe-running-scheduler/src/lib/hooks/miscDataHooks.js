@@ -5,45 +5,48 @@ import { getImageByIdFromApi } from "@/data";
 // import processGpxData from "@/logic/processGpxData.js";
 // import { findDayObjectByDate } from "@/utils/processRunningDataHelper.js";
 
-
 export function useFetchUserProfile(user) {
-  const [image, setImage] = useState();
-  const [loading, setLoading] = useState(true);
+    const [image, setImage] = useState();
+    // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
+    useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
 
-    if (!user?.profilePicture) {
-      // check for profile picture
-      return;
-    }
-    const fetchImage = async () => {
-      setLoading(true);
-      try {
-        const data = await getImageByIdFromApi(user.profilePicture, signal);
-        setImage(data);
-        // ToDo: Check if this is the correct way to handle this
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchImage();
+        if (!user?.profilePicture) {
+            // check for profile picture
+            return;
+        }
+        const fetchImage = async () => {
+            // setLoading(true);
+            try {
+                const data = await getImageByIdFromApi(
+                    user.profilePicture,
+                    signal
+                );
+                setImage(data);
+                // ToDo: Check if this is the correct way to handle this
+            } catch (error) {
+                console.error(error);
+            }
+            // finally {
+            // setLoading(false);
+            // }
+        };
+        fetchImage();
 
-    return () => {
-      controller.abort();
-    };
-  }, [user]);
+        return () => {
+            controller.abort();
+        };
+    }, [user]);
 
-  return { image, loading };
+    return { image };
 }
 
 export function useCurrentPath() {
-  const location = useLocation();
-  const currentPath = location.pathname;
-  return { currentPath };
+    const location = useLocation();
+    const currentPath = location.pathname;
+    return { currentPath };
 }
 
 // export function useProcessGpxData(
