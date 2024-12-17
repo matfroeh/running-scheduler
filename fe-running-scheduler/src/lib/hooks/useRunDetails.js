@@ -4,7 +4,7 @@ import {
   getEquipmentListFromUser,
   updateRunCalendar,
 } from "@/data";
-import { useParams, useOutletContext, useNavigate } from "react-router-dom";
+import { useParams, useOutletContext, useNavigate } from "react-router";
 import { useAuth } from "@/context";
 import { verifyRunDetailsInput } from "@/lib";
 import { toast } from "react-toastify";

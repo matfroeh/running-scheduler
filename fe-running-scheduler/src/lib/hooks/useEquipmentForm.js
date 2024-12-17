@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { useAuth } from "@/context";
-import { useOutletContext, useNavigate } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { createEquipment } from "@/data";
 import { uploadImage, dateToDatePickerFormat } from "@/lib/utils";

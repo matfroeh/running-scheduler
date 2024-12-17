@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useAuth } from "@/context";
 import { useFetchUserProfile } from "@/lib/hooks";
 import { arrayBufferToBase64 } from "@/lib/utils";

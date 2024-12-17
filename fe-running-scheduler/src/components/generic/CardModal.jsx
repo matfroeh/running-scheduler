@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { CardElementCloseButton } from "@/components/generic";
 
 const CardModal = ({ children, open = true }) => {

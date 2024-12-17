@@ -1,5 +1,5 @@
 import { CalendarBar, CalendarBody } from "@/components/CalendarView";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import {
   useCalendarLoading,
   useSaveNewSchedule,
