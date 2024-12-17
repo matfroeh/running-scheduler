@@ -6,6 +6,7 @@ import { Loading } from "@/components/generic";
 import { Footer } from "@/components/Footer";
 import { useGetCalendarOrder } from "@/lib/hooks";
 import { ToastContainer } from "react-toastify";
+import { bodyGradient } from "@/components/misc/tailwind-classes";
 
 // RootLayout is the main layout component that wraps the entire application
 const RootLayout = () => {
@@ -41,18 +42,20 @@ const RootLayout = () => {
                 theme="colored"
             />
             <NavBar />
-            {isLoading ? (
-                <Loading />
-            ) : (
-                <Outlet
-                    context={{
-                        calendarIndexList,
-                        currentIndex,
-                        calendarTitleList,
-                        handleAddCalendarToMetaDataList,
-                    }}
-                />
-            )}
+            <div className={bodyGradient}>
+                {isLoading ? (
+                    <Loading />
+                ) : (
+                    <Outlet
+                        context={{
+                            calendarIndexList,
+                            currentIndex,
+                            calendarTitleList,
+                            handleAddCalendarToMetaDataList,
+                        }}
+                    />
+                )}
+            </div>
             {/* <Outlet context={{ calendarIndexList, currentIndex }} /> */}
             <Footer />
         </div>

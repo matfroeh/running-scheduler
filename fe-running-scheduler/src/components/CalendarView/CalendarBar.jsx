@@ -8,7 +8,7 @@ import {
     ButtonHiddenInput,
 } from "@/components/generic";
 import { ButtonCalendarNavigate } from "@/components/CalendarView";
-
+import { navBarGradient } from "@/components/misc/tailwind-classes";
 const CalendarBar = ({
     title,
     runs,
@@ -48,7 +48,12 @@ const CalendarBar = ({
     };
 
     return (
-        <div className="flex justify-around flex-wrap gap-y-4 items-center text-xs md:text-sm sticky top-0 z-10 bg-base-100 mb-2">
+        <div
+            className={
+                "flex justify-around flex-wrap gap-y-4 items-center text-xs md:text-sm sticky top-0 pt-1 z-10 pb-2 " +
+                navBarGradient
+            }
+        >
             <div className="flex items-center">
                 <div className="flex">
                     <ButtonCalendarNavigate

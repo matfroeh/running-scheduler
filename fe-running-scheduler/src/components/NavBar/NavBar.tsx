@@ -9,15 +9,14 @@ import {
     NavBarLogoButton,
 } from "@/components/NavBar";
 import { Image } from "@/types";
+import { navBarGradient } from "@/components/misc/tailwind-classes";
 
 const NavBar = () => {
     const { user, logOut } = useAuth();
     const navigate = useNavigate();
     const { image } = useFetchUserProfile(user) as {
-        image: Image | null | undefined;
+        image: Image | undefined;
     };
-
-    console.log(user);
 
     const handleLogOut = () => {
         logOut();
@@ -39,7 +38,7 @@ const NavBar = () => {
         : "/shoe-colorful-placeholder.png";
 
     return (
-        <div className="navbar z-50 mb-1">
+        <div className={`navbar z-50 pb-1 ` + navBarGradient}>
             <div className="md:hidden navbar-start">
                 <NavBarMobileDropDown />
             </div>

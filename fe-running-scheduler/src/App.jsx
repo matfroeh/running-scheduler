@@ -27,7 +27,6 @@ import {
 import { action as getFormData } from "@/actions";
 import { calendarIndexLoader, overviewLoader } from "@/loader";
 import { AuthContextProvider } from "@/context";
-
 // For handling data fetching
 const queryClient = new QueryClient();
 
