@@ -1,8 +1,6 @@
 import { Link, Outlet, Navigate } from "react-router";
 import { StartupDelay, CarouselComponent } from "@/components/Welcome";
-import { Footer } from "@/components/Footer";
 import { useAuth } from "@/context";
-import { ToastContainer } from "react-toastify";
 
 const WelcomePage = () => {
     const { auth } = useAuth();
@@ -13,15 +11,13 @@ const WelcomePage = () => {
         <div className="container mx-auto">
             <div className="flex flex-col items-center justify-center min-h-screen bg-base-200 text-center">
                 {/* Startup Delay Info */}
-                <StartupDelay />
                 <div className="hero flex flex-col divide-y-4 gap-4 bg-base-100 shadow-lg p-10 rounded-lg">
-                    <h1 className="text-4xl font-bold">
-                        Welcome to Running Journal
-                    </h1>
+                    <h1 className="text-4xl font-bold">Running Journal</h1>
                     <p className="text-lg">
                         Plan, track, and achieve your running goals.
                     </p>
                 </div>
+                <StartupDelay />
                 <div className="mt-8 space-x-4">
                     <Link to="../login" className="btn btn-primary">
                         Log In
@@ -70,12 +66,6 @@ const WelcomePage = () => {
                 {/* Footer */}
                 <Outlet />
             </div>
-            <Footer />
-            <ToastContainer
-                position="bottom-right"
-                autoClose={2500}
-                theme="colored"
-            />
         </div>
     );
 };

@@ -12,6 +12,7 @@ import {
     CookieNote,
     RootLayout,
     AuthLayout,
+    StartPageLayout,
     Profile,
     Overview,
     CalendarView,
@@ -33,16 +34,22 @@ const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Welcome />,
+        element: <StartPageLayout />,
         errorElement: <ErrorPage />,
         children: [
             {
-                path: "login",
-                element: <Login />,
-            },
-            {
-                path: "signup",
-                element: <SignUp />,
+                path: "/",
+                element: <Welcome />,
+                children: [
+                    {
+                        path: "login",
+                        element: <Login />,
+                    },
+                    {
+                        path: "signup",
+                        element: <SignUp />,
+                    },
+                ],
             },
         ],
     },
