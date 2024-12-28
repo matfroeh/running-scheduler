@@ -2,17 +2,10 @@ import { createBrowserRouter, Navigate } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
-    Welcome,
-    Login,
-    SignUp,
-    NotFound,
     ErrorPage,
-    Datenschutz,
-    Impressum,
     CookieNote,
     RootLayout,
     AuthLayout,
-    StartPageLayout,
     Profile,
     Overview,
     CalendarView,
@@ -27,35 +20,17 @@ import {
 import { action as getFormData } from "@/actions";
 import { calendarIndexLoader, overviewLoader } from "@/loader";
 import { AuthContextProvider } from "@/context";
+import { startPageRoutes, auxPagesRoutes } from "./routes/routes";
 // For handling data fetching
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <StartPageLayout />,
-        errorElement: <ErrorPage />,
-        children: [
-            {
-                path: "/",
-                element: <Welcome />,
-                children: [
-                    {
-                        path: "login",
-                        element: <Login />,
-                    },
-                    {
-                        path: "signup",
-                        element: <SignUp />,
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        path: "*",
-        element: <NotFound />,
-    },
+    // Welcome, Login, SignUp
+    ...startPageRoutes,
+    // NotFound, Datenschutz, Impressum
+    ...auxPagesRoutes,
+
+    // All main routes
     {
         path: "/auth",
         element: <AuthLayout />,
@@ -65,7 +40,7 @@ const router = createBrowserRouter([
                 path: "/auth",
                 element: <RootLayout />,
                 loader: calendarIndexLoader,
-                // This is momentarily necessary, because the way of providing a loading feedback upon loading CalendarView and Overview will cause constant reloading of the data.
+                // This is momentarily necessary, because of the way to navigate to the calendar view upon loading the calendarIndexList at the RootLayout. Else, the data would be reloaded constantly.
                 shouldRevalidate: () => {
                     return false;
                 },
@@ -128,16 +103,6 @@ const router = createBrowserRouter([
                 ],
             },
         ],
-    },
-    {
-        path: "datenschutz",
-        element: <Datenschutz />,
-        errorElement: <ErrorPage />,
-    },
-    {
-        path: "impressum",
-        element: <Impressum />,
-        errorElement: <ErrorPage />,
     },
 ]);
 
@@ -245,3 +210,39 @@ export default App;
 //         </>
 //     )
 // );
+
+// {
+//     path: "/",
+//     element: <StartPageLayout />,
+//     errorElement: <ErrorPage />,
+//     children: [
+//         {
+//             path: "/",
+//             element: <Welcome />,
+//             children: [
+//                 {
+//                     path: "login",
+//                     element: <Login />,
+//                 },
+//                 {
+//                     path: "signup",
+//                     element: <SignUp />,
+//                 },
+//             ],
+//         },
+//     ],
+// },
+// {
+//     path: "*",
+//     element: <NotFound />,
+// },
+// {
+//     path: "datenschutz",
+//     element: <Datenschutz />,
+//     errorElement: <ErrorPage />,
+// },
+// {
+//     path: "impressum",
+//     element: <Impressum />,
+//     errorElement: <ErrorPage />,
+// },
