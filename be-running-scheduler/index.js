@@ -45,6 +45,9 @@ app.use(
 // Limit body size (note that multiple .gpx files can be uploaded)
 app.use(express.json({ limit: "50mb" }));
 
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
 app.use("/schedules", scheduleRouter);
 app.use("/runs", runsRouter);
 app.use("/auth", authRouter);
