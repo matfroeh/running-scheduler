@@ -17,7 +17,7 @@ export const signUp = asyncHandler(async (req, res, next) => {
 
     const secret = process.env.JWT_SECRET;
     const payload = { userId: newUser.id, userRole: newUser.role };
-    const tokenOptions = { expiresIn: "6d" };
+    const tokenOptions = { expiresIn: "28d" };
     const token = jwt.sign(payload, secret, tokenOptions);
     // const checkCookieValue = true;
 
@@ -26,6 +26,7 @@ export const signUp = asyncHandler(async (req, res, next) => {
       httpOnly: true,
       sameSite: isProduction ? "None" : "Lax",
       secure: isProduction,
+      expires: new Date(Date.now() + 28 * 24 * 60 * 60 * 1000), // 28 days
       // overwrite: true,
     };
     // const checkCookieOptions = {
@@ -60,17 +61,18 @@ export const login = asyncHandler(async (req, res, next) => {
       { userId: user.id, userRole: user.role },
       process.env.JWT_SECRET,
       {
-        expiresIn: "6d",
+        expiresIn: "28d",
       }
     );
     // const checkCookieValue = true;
 
     const isProduction = process.env.NODE_ENV === "production";
+
     const tokenCookieOptions = {
       httpOnly: true,
       sameSite: isProduction ? "None" : "Lax",
       secure: isProduction,
-      expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // 1 day
+      expires: new Date(Date.now() + 28 * 24 * 60 * 60 * 1000), // 28 days
       // path: "/", // Same path as used when setting
       // domain: "running-scheduler-backend.onrender.com",
     };
@@ -148,11 +150,11 @@ export const changePassword = asyncHandler(async (req, res, next) => {
 
   const user = await User.findById(userId).select("+password");
   if (!user) throw new ErrorResponse("Invalid credentials", 401);
-// console.log('user', user);
+  // console.log('user', user);
 
   const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
   // console.log('isPasswordValid', isPasswordValid);
-  
+
   if (!isPasswordValid) throw new ErrorResponse("Invalid credentials", 401);
 
   const hashedPassword = await bcrypt.hash(newPassword, 10);
