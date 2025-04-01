@@ -1,0 +1,25 @@
+# Exported from Render on 2025-04-01T08:57:53Z
+services:
+- type: web
+  name: running-scheduler-backend
+  runtime: node
+  repo: https://github.com/matfroeh/running-scheduler
+  plan: free
+  envVars:
+  - key: FRONTEND_URL
+    sync: false
+  - key: PORT
+    sync: false
+  - key: JWT_SECRET
+    sync: false
+  - key: NODE_ENV
+    sync: false
+  - key: MONGO_URI
+    sync: false
+  region: oregon
+  buildCommand: npm i
+  startCommand: npm run start
+  domains:
+  - api.runningjournal.online
+  rootDir: be-running-scheduler
+version: "1"
