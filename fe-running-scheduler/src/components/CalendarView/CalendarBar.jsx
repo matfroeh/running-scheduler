@@ -23,6 +23,7 @@ const CalendarBar = ({
     },
     toggleNotes,
     toggleSchedule,
+    isHideScheduleChecked,
 }) => {
     const navigate = useNavigate();
     const gpxInputRef = useRef(null);
@@ -92,19 +93,6 @@ const CalendarBar = ({
                     )}
                 </div>
             </div>
-            {/* <details className="dropdown bg-base-200 rounded-box">
-        <summary className="btn btn-xs btn-outline">Calendars</summary>
-        <ul
-          tabIndex={0}
-          className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
-        >
-          {calendarTitleList.map((title, index) => (
-            <li key={index}>
-              <a>{title}</a>
-            </li>
-          ))}
-        </ul>
-      </details> */}
             <div className="">
                 <div className="">
                     <div className="flex items-center">
@@ -147,10 +135,11 @@ const CalendarBar = ({
             </div>
             <div className="">
                 <span className="flex">
-                    <ButtonToggle text={"Show Notes"} onClick={toggleNotes} />
+                    <ButtonToggle text={"Show Notes"} onChange={toggleNotes} />
                     <ButtonToggle
                         text={"Hide Schedule"}
-                        onClick={toggleSchedule}
+                        onChange={toggleSchedule}
+                        isChecked={isHideScheduleChecked}
                     />
                 </span>
             </div>
