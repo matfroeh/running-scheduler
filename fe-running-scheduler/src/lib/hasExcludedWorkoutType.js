@@ -4,7 +4,7 @@ const excludedWorkoutTypes = [
     "Strength Training",
 ];
 
-export const checkForExcludedWorkoutType = (data) => {
+export const hasExcludedWorkoutType = (data) => {
     if (excludedWorkoutTypes.includes(data.type)) {
         return true;
     }

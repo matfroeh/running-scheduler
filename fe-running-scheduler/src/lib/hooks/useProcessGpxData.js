@@ -51,6 +51,11 @@ export const useProcessGpxData = (runningData, setRunningData) => {
                         const updatedRunningData = { ...runningData };
                         updatedRunningData.weeks[week].days[day] =
                             newRunningData;
+                        console.log(
+                            "Updated Running Data:",
+                            updatedRunningData
+                        );
+
                         const response = await updateRunCalendar(
                             updatedRunningData,
                             runningData._id,
