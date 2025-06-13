@@ -1,9 +1,9 @@
-import { checkForExcludedWorkoutType } from "@/lib";
+import { hasExcludedWorkoutType } from "@/lib";
 
 export const calculateSummariesForOverview = (runningWeek) => {
     const totalDistanceRun = Object.keys(runningWeek.days).reduce(
         (acc, day) => {
-            if (checkForExcludedWorkoutType(runningWeek.days[day])) {
+            if (hasExcludedWorkoutType(runningWeek.days[day])) {
                 return acc;
             }
             if (runningWeek.days[day].distance) {
@@ -15,7 +15,7 @@ export const calculateSummariesForOverview = (runningWeek) => {
     );
 
     const totalTime = Object.keys(runningWeek.days).reduce((acc, day) => {
-        if (checkForExcludedWorkoutType(runningWeek.days[day])) {
+        if (hasExcludedWorkoutType(runningWeek.days[day])) {
             return acc;
         }
         if (runningWeek.days[day].duration > 0) {
@@ -28,7 +28,7 @@ export const calculateSummariesForOverview = (runningWeek) => {
     const getAvgHr = () => {
         let avg_hr = Object.keys(runningWeek.days).reduce(
             (acc, day) => {
-                if (checkForExcludedWorkoutType(runningWeek.days[day])) {
+                if (hasExcludedWorkoutType(runningWeek.days[day])) {
                     return acc;
                 }
                 if (parseInt(runningWeek.days[day].avg_hr)) {
@@ -52,7 +52,7 @@ export const calculateSummariesForOverview = (runningWeek) => {
     const getEffort = () => {
         let totalEffort = Object.keys(runningWeek.days).reduce(
             (acc, day) => {
-                if (checkForExcludedWorkoutType(runningWeek.days[day])) {
+                if (hasExcludedWorkoutType(runningWeek.days[day])) {
                     return acc;
                 }
                 if (runningWeek.days[day].effort) {

@@ -7,4 +7,4 @@ export * from "./processFormDataFromScheduler";
 export * from "./processGpxData";
 export * from "./runDataCollector";
 export * from "./getSummaryFromRunDataArray";
-export * from "./excludedWorkoutTypesForSummary";
+export * from "./hasExcludedWorkoutType";

@@ -1,5 +1,6 @@
 import { useFindDayObjectByDate } from "@/lib/utils";
 import { RunningCalendar, RunDay } from "@/types";
+import { hasExcludedWorkoutType } from "@/lib";
 
 // returns an array of run data objects between the start and end date
 export const runDataCollector = (
@@ -22,8 +23,8 @@ export const runDataCollector = (
                 const [week, day] = result as [string, string];
                 const run = runDetails(week, day, runningCalendarList[i]);
 
-                // filter out data without distance
-                if (hasDistance(run)) {
+                // filter out data without distance AND are not of type excluded workout types (e.g. rest, cross-training)
+                if (hasDistance(run) && !hasExcludedWorkoutType(run)) {
                     runData.push({
                         ...run,
                     });

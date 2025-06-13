@@ -5,7 +5,7 @@ const daySchema = Joi.object({
   date: Joi.date().required(),
   name: Joi.string().optional(),
   type: Joi.string().optional(),
-  distance: Joi.number().allow("").optional(),
+  distance: Joi.number().allow("").allow(null).optional(),
   duration: Joi.number().optional(), // renamed to activityTime if needed
   totalTime: Joi.number().optional(),
   tempo: Joi.number().optional(),

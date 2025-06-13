@@ -1,11 +1,11 @@
 import { getSecondsAsHoursMinutesSecondsString } from "@/lib/utils";
-import { checkForExcludedWorkoutType } from "@/lib";
+import { hasExcludedWorkoutType } from "@/lib";
 
 export const calculateWeeklySummary = (scheduleWeek, runningWeek) => {
     const totalDistancePlanned = Object.keys(scheduleWeek.days).reduce(
         (acc, day) => {
             if (
-                checkForExcludedWorkoutType(
+                hasExcludedWorkoutType(
                     scheduleWeek.days[day] || !scheduleWeek.days[day].distance
                 )
             ) {
@@ -19,7 +19,7 @@ export const calculateWeeklySummary = (scheduleWeek, runningWeek) => {
     const totalDistanceRun = Object.keys(runningWeek.days).reduce(
         (acc, day) => {
             if (
-                checkForExcludedWorkoutType(runningWeek.days[day]) ||
+                hasExcludedWorkoutType(runningWeek.days[day]) ||
                 !runningWeek.days[day].distance
             ) {
                 return acc; //
@@ -30,7 +30,7 @@ export const calculateWeeklySummary = (scheduleWeek, runningWeek) => {
     );
 
     const totalTime = Object.keys(runningWeek.days).reduce((acc, day) => {
-        if (checkForExcludedWorkoutType(runningWeek.days[day])) {
+        if (hasExcludedWorkoutType(runningWeek.days[day])) {
             return acc;
         }
 
@@ -44,7 +44,7 @@ export const calculateWeeklySummary = (scheduleWeek, runningWeek) => {
     const getAvgHr = () => {
         let avg_hr = Object.keys(runningWeek.days).reduce(
             (acc, day) => {
-                if (checkForExcludedWorkoutType(runningWeek.days[day])) {
+                if (hasExcludedWorkoutType(runningWeek.days[day])) {
                     return acc;
                 }
                 if (parseInt(runningWeek.days[day].avg_hr)) {
@@ -67,7 +67,7 @@ export const calculateWeeklySummary = (scheduleWeek, runningWeek) => {
     const getEffort = () => {
         let totalEffort = Object.keys(runningWeek.days).reduce(
             (acc, day) => {
-                if (checkForExcludedWorkoutType(runningWeek.days[day])) {
+                if (hasExcludedWorkoutType(runningWeek.days[day])) {
                     return acc;
                 }
                 if (runningWeek.days[day].effort) {
