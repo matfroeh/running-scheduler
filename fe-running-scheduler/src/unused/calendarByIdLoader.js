@@ -6,7 +6,7 @@ export const calendarByIdLoader = async (calendarId) => {
     return { scheduleById: null, runsById: null };
   }
   try {
-    console.log(calendarId);
+    // console.log(calendarId);
     const scheduleById = await getTrainingScheduleById(calendarId);
     const runsById = await getRunsById(calendarId);
     return { scheduleById, runsById };

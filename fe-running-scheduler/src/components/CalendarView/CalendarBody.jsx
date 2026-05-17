@@ -12,7 +12,7 @@ const CalendarBody = ({ schedule, runs, notes, hideSchedule }) => {
   const weekObjectContainingToday = weekNumberOfToday(schedule);
 
   return (
-    <div className="grid grid-cols-4 md:grid-cols-8 gap-y-2 gap-x-0.5 md:gap-2">
+    <div className="relative grid grid-cols-4 md:grid-cols-8 gap-y-2 gap-x-0.5 md:gap-2">
       {/* <WeekDaysBar /> */}
       {/* <div className="text-center">Summary</div> */}
       <div className="col-span-4 md:col-span-8 border-y border-base-300"></div>
@@ -38,10 +38,10 @@ const CalendarBody = ({ schedule, runs, notes, hideSchedule }) => {
         <ButtonScrollToRef
           forwardRef={weekRef}
           blockOption="end"
-          className="top-40 z-50 right-6"
+          className="top-40 z-50 right-32"
         />
       )}
-      <ButtonScrollTop className="right-6" yScrollValue={1200} />
+      <ButtonScrollTop className="right-32" yScrollValue={1200} />
     </div>
   );
 };

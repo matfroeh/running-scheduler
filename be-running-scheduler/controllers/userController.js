@@ -140,7 +140,7 @@ export const deleteEquipmentFromUserList = asyncHandler(
 
 export const deleteUser = asyncHandler(async (req, res, next) => {
   const { userId } = req.params;
-  console.log("request received to delete user with id: ", userId);
+  // console.log("request received to delete user with id: ", userId);
 
   const user = await User.findOne({ _id: userId });
   if (!user)

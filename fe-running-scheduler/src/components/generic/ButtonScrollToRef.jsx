@@ -31,10 +31,7 @@ const ButtonScrollToRef = ({
         visible && (
             <button
                 onClick={scrollToRef}
-                className={cn(
-                    "fixed p-3 bg-primary text-white rounded-full shadow-lg hover:bg-accent transition-colors z-10",
-                    className
-                )}
+                className="absolute right-2 top-4 -translate-y-1/2 p-3 bg-primary text-white rounded-full shadow-lg hover:bg-accent transition-colors z-50"
                 aria-label="Scroll down to reference"
             >
                 <FaArrowDown size={20} />

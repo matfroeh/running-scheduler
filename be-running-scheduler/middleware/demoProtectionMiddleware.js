@@ -4,7 +4,7 @@ const demoProtectionMiddleware = (req, res, next) => {
 
   // Check if the user logged in is in demo mode
   if (req.userRole === "demo") {
-    console.log("User is in demo mode");
+    // console.log("User is in demo mode");
 
     // List of restricted methods
     const restrictedMethods = ["POST", "PUT", "PATCH", "DELETE"];

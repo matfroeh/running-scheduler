@@ -14,7 +14,7 @@ export const convertToNewModel = (runsObject, scheduleObject) => {
 
   let newWeeks = [];
 
-  console.log(runsObject.weeks);
+  // console.log(runsObject.weeks);
 
   Object.entries(runsObject.weeks).map(([weekNumber, weekData], i) => {
     let newWeek = {

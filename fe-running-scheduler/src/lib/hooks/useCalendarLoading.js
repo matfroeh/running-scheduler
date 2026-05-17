@@ -44,7 +44,7 @@ export const useCalendarLoading = () => {
     queryKey: ["runs", calendarId],
     queryFn: () => getRunsById(calendarId),
     onSuccess: () => {
-      console.log('useQuery "Runs" was called successfully');
+      // console.log('useQuery "Runs" was called successfully');
     },
     enabled: !!calendarId,
   });

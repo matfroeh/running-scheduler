@@ -10,7 +10,7 @@ export const handleGpxUpload = (file) => {
   const getAverageHeartRate = (file) => {
     let convert = xml2js;
     const parsedGpx = convert.xml2js(file, { compact: true, spaces: 4 });
-    console.log("parsedGpx: ", parsedGpx);
+    // console.log("parsedGpx: ", parsedGpx);
     
     // const track = parsedGpx.gpx.trk[0];
 
@@ -18,7 +18,7 @@ export const handleGpxUpload = (file) => {
     //   const trackSegment = track.trkseg[i];
 
     const trackPointsArray = parsedGpx.gpx.trk.trkseg[0].trkpt;
-    console.log("trackPointsArray: ", trackPointsArray);
+    // console.log("trackPointsArray: ", trackPointsArray);
     
     let accHeartRate = 0;
     let numberOfTrackPointsWithHrData = trackPointsArray.length;
